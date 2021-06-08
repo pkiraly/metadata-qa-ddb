@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.gwdg.metadataqa</groupId>
   <artifactId>metadata-qa-ddb</artifactId>
+  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
 
   <name>metadata-qa-ddb</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <description>
+    A metadata quality assessment framework for Deutsche Digitale Bibliothek (DDB) data.
+    It checks some metrics of metadata records, such as completeness,
+    uniqueness, problem catalog.
+  </description>
+  <url>http://pkiraly.github.io</url>
+
+  <developers>
+    <developer>
+      <id>pkiraly</id>
+      <name>Király Péter</name>
+      <email>pkiraly@gwdg.de</email>
+      <url>https://github.com/pkiraly</url>
+      <organization>GWDG</organization>
+      <organizationUrl>http://gwdg.de</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License, Version 3.0</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:pkiraly/metadata-qa-ddb.git</connection>
+    <developerConnection>scm:git:git@github.com:pkiraly/metadata-qa-ddb.git</developerConnection>
+    <url>http://github.com/pkiraly/metadata-qa-ddb</url>
+  </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+
+    <project.timezone>UTC</project.timezone>
+    <project.language>en</project.language>
+    <project.region>US</project.region>
+    <argLine>-Duser.timezone=${project.timezone} -Dfile.encoding=${project.build.sourceEncoding} -Duser.language=${project.language} -Duser.region=${project.region}</argLine>
+    <skipUnitTests>false</skipUnitTests>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>de.gwdg.metadataqa</groupId>
+      <artifactId>metadata-qa-api</artifactId>
+      <version>0.8-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
