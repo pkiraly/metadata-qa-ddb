@@ -3,8 +3,20 @@ fields:
   - name: recordId
     path: //oai:metadata/oai:record/dc:identifier[@type='providerItemId']
     extractable: true
+    rules:
+      - minCount: 1
+        failureScore: -9
+      - maxCount: 1
+        failureScore: -9
+      - pattern: ^[\p{Alpha}\d\.]+$
+        successScore: 2
   - name: providerid
     path: //oai:metadata/oai:record/dc:identifier[@type='providerid']
+    rules:
+      - minCount: 1
+        failureScore: -4
+      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13})$
+        successScore: -4
   - name: thumbnail
     path: //oai:metadata/oai:record/dc:identifier[@type='binary']
   - name: url
@@ -17,11 +29,11 @@ fields:
 #    path: //oai:metadata/oai:record/dc:date
   - name: dc:title
     path: //oai:metadata/oai:record/dc:title
-    extractable: true
+#    extractable: true
     rules:
       - pattern: ^.+$
         failureScore: -2
-      - minCount: 2
+      - minCount: 1
         failureScore: -2
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
