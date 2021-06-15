@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns:europeana="http://www.europeana.eu/schemas/ese/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:doc="http://www.lyncode.com/xoai" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<record>
+<dc:identifier type="ID">H.p.f.540-5,94</dc:identifier>
+<dc:identifier type="providerItemId">H.p.f.540-5,94</dc:identifier>
+<dc:identifier type="URN">urn:nbn:de:bvb:20-hpf540594-3</dc:identifier>
+<dc:type type="document" resource="http://d-nb.info/gnd/4021845-4">Grafik</dc:type>
+<dc:type type="document" resource="http://d-nb.info/gnd/300555148">Porträt</dc:type>
+<dcterms:location resource="http://d-nb.info/gnd/4067037-5">Würzburg</dcterms:location>
+<dc:title>Rudolf von Bennigsen</dc:title>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/hpf540594/folio-std/DE-20__H_p_f_540-5_94__0001__0001.jpg</dc:identifier>
+<dc:rights type="binary">http://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/hpf540594/folio-std/DE-20__H_p_f_540-5_94__0001__0001.jpg</dc:identifier>
+<dc:identifier type="URL">http://vb.uni-wuerzburg.de/ub/permalink/hpf540594</dc:identifier>
+<dc:contributor resource="http://d-nb.info/gnd/2025026-5">Universitätsbibliothek Würzburg</dc:contributor>
+<dc:relation xml:lang="de">H.p.f.540 - Das neunzehnte Jahrhundert in Bildnissen</dc:relation>
+<dc:subject type="subject" resource="http://d-nb.info/gnd/118509136">Bennigsen, Rudolf von </dc:subject>
+<dc:subject type="subject">Pictothek</dc:subject>
+</record>
+<record>
+<dc:identifier type="ID">36/Z 1.2-1</dc:identifier>
+<dc:identifier type="providerItemId">36/Z 1.2-1</dc:identifier>
+<dc:identifier type="URN">urn:nbn:de:bvb:20-36z121term57156489-6</dc:identifier>
+<dc:type type="document" resource="http://d-nb.info/gnd/4021845-4">Grafik</dc:type>
+<dc:type type="document" resource="http://d-nb.info/gnd/4185576-0">Titelblatt</dc:type>
+<dc:date>1701</dc:date>
+<dc:date>1701</dc:date>
+<dcterms:location resource="http://d-nb.info/gnd/4067037-5">Würzburg</dcterms:location>
+<dc:title>Topographia Bavariae</dc:title>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z121_57156489/folio-std/DE-20__36_Z_1_2__0001__2_0001.jpg</dc:identifier>
+<dc:rights type="binary">http://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z121_57156489/folio-std/DE-20__36_Z_1_2__0001__2_0001.jpg</dc:identifier>
+<dc:identifier type="URL">http://vb.uni-wuerzburg.de/ub/permalink/36z121_57156489</dc:identifier>
+<dc:contributor resource="http://d-nb.info/gnd/2025026-5">Universitätsbibliothek Würzburg</dc:contributor>
+<dc:relation xml:lang="de">Walter von Zur Westen</dc:relation>
+<dcterms:extent>305 mm x 360 mm</dcterms:extent>
+<dc:subject type="subject">Pictothek</dc:subject>
+<dc:creator>Wening, Michael</dc:creator>
+<dc:publisher>Straub, Johann Lucas</dc:publisher>
+</record>
+<record>
+<dc:identifier type="ID">36/Z 1.197</dc:identifier>
+<dc:identifier type="providerItemId">36/Z 1.197</dc:identifier>
+<dc:identifier type="URN">urn:nbn:de:bvb:20-36z1197term57156733-2</dc:identifier>
+<dc:type type="document" resource="http://d-nb.info/gnd/4021845-4">Grafik</dc:type>
+<dc:type type="document" resource="http://d-nb.info/gnd/4185576-0">Titelblatt</dc:type>
+<dc:date>1899</dc:date>
+<dc:date>1899</dc:date>
+<dcterms:location resource="http://d-nb.info/gnd/4067037-5">Würzburg</dcterms:location>
+<dc:title>Neue Lyrik</dc:title>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z1197_57156733/folio-std/DE-20__36_Z_1_246__0001__197_0001.jpg</dc:identifier>
+<dc:rights type="binary">http://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z1197_57156733/folio-std/DE-20__36_Z_1_246__0001__197_0001.jpg</dc:identifier>
+<dc:identifier type="URL">http://vb.uni-wuerzburg.de/ub/permalink/36z1197_57156733</dc:identifier>
+<dc:contributor resource="http://d-nb.info/gnd/2025026-5">Universitätsbibliothek Würzburg</dc:contributor>
+<dc:relation xml:lang="de">Walter von Zur Westen</dc:relation>
+<dcterms:extent>370 mm x 280 mm</dcterms:extent>
+<dc:subject type="subject">Pictothek</dc:subject>
+<dc:creator>Jordan, W.</dc:creator>
+<dc:publisher>Sassenbach, Johann</dc:publisher>
+</record>
+<record>
+<dc:identifier type="ID">36/Z 1.228</dc:identifier>
+<dc:identifier type="providerItemId">36/Z 1.228</dc:identifier>
+<dc:identifier type="URN">urn:nbn:de:bvb:20-36z1228term57156773-7</dc:identifier>
+<dc:type type="document" resource="http://d-nb.info/gnd/4021845-4">Grafik</dc:type>
+<dc:type type="document" resource="http://d-nb.info/gnd/4185576-0">Titelblatt</dc:type>
+<dc:date>1897</dc:date>
+<dc:date>1897</dc:date>
+<dcterms:location resource="http://d-nb.info/gnd/4067037-5">Würzburg</dcterms:location>
+<dc:title>Simplicissimus-Album. H. 7</dc:title>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z1228_57156773/folio-std/DE-20__36_Z_1_286__0001__228_0001.jpg</dc:identifier>
+<dc:rights type="binary">http://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z1228_57156773/folio-std/DE-20__36_Z_1_286__0001__228_0001.jpg</dc:identifier>
+<dc:identifier type="URL">http://vb.uni-wuerzburg.de/ub/permalink/36z1228_57156773</dc:identifier>
+<dc:contributor resource="http://d-nb.info/gnd/2025026-5">Universitätsbibliothek Würzburg</dc:contributor>
+<dc:relation xml:lang="de">Walter von Zur Westen</dc:relation>
+<dcterms:extent>395 mm x 300 mm</dcterms:extent>
+<dc:subject type="subject">Pictothek</dc:subject>
+<dc:creator>Simhart</dc:creator>
+<dc:publisher>Langen, Albert</dc:publisher>
+</record>
+<record>
+<dc:identifier type="ID">36/Z 2.4-7</dc:identifier>
+<dc:identifier type="providerItemId">36/Z 2.4-7</dc:identifier>
+<dc:identifier type="URN">urn:nbn:de:bvb:20-36z247term57156784-4</dc:identifier>
+<dc:type type="document" resource="http://d-nb.info/gnd/4021845-4">Grafik</dc:type>
+<dc:type type="document" resource="http://d-nb.info/gnd/4150724-1">Druckermarke</dc:type>
+<dc:date>1580</dc:date>
+<dc:date>1580</dc:date>
+<dcterms:location resource="http://d-nb.info/gnd/4067037-5">Würzburg</dcterms:location>
+<dc:title>Druckermarke Poupy, Jean</dc:title>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z247_57156784/folio-std/DE-20__36_Z_2_10__0001__4_0007.jpg</dc:identifier>
+<dc:rights type="binary">http://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+<dc:identifier type="binary">http://vb.uni-wuerzburg.de/ub/books/36z247_57156784/folio-std/DE-20__36_Z_2_10__0001__4_0007.jpg</dc:identifier>
+<dc:identifier type="URL">http://vb.uni-wuerzburg.de/ub/permalink/36z247_57156784</dc:identifier>
+<dc:contributor resource="http://d-nb.info/gnd/2025026-5">Universitätsbibliothek Würzburg</dc:contributor>
+<dc:relation xml:lang="de">Walter von Zur Westen</dc:relation>
+<dcterms:extent>75 mm x 75 mm</dcterms:extent>
+<dc:description type="object" xml:lang="de">Motto: Scriptura si scrutamini</dc:description>
+<dc:subject type="subject">Pictothek</dc:subject>
+</record>
+</metadata>

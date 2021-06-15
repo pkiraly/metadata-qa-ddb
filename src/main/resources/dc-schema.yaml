@@ -1,7 +1,7 @@
 format: xml
 fields:
   - name: recordId
-    path: //oai:metadata/oai:record/dc:identifier[@type='providerItemId']
+    path: oai:record/dc:identifier[@type='providerItemId']
     extractable: true
     rules:
       - minCount: 1
@@ -11,14 +11,14 @@ fields:
       - pattern: ^[\p{Alpha}\d\.]+$
         successScore: 2
   - name: providerid
-    path: //oai:metadata/oai:record/dc:identifier[@type='providerid']
+    path: oai:record/dc:identifier[@type='providerid']
     rules:
       - minCount: 1
         failureScore: -4
       - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13})$
         successScore: -4
   - name: thumbnail
-    path: //oai:metadata/oai:record/dc:identifier[@type='binary']
+    path: oai:record/dc:identifier[@type='binary']
   - name: url
     path: //oai:metadata/oai:record/dc:identifier[@type='URL']
 #  - name: dc:identifier
@@ -28,7 +28,7 @@ fields:
 #  - name: dc:date
 #    path: //oai:metadata/oai:record/dc:date
   - name: dc:title
-    path: //oai:metadata/oai:record/dc:title
+    path: oai:record/dc:title
 #    extractable: true
     rules:
       - pattern: ^.+$
@@ -38,27 +38,30 @@ fields:
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
   - name: rights
-    path: //oai:metadata/oai:record/dc:rights[@type='binary']
+    path: oai:record/dc:rights[@type='binary']
   - name: dc:rights
-    path: //oai:metadata/oai:record/dc:rights
+    path: oai:record/dc:rights
   - name: dc:identifier
-    path: //oai:metadata/oai:record/dc:identifier
+    path: oai:record/dc:identifier
   - name: dc:contributor
-    path: //oai:metadata/oai:record/dc:contributor
+    path: oai:record/dc:contributor
   - name: dc:creator
-    path: //oai:metadata/oai:record/dc:creator
+    path: oai:record/dc:creator
   - name: dc:relation
-    path: //oai:metadata/oai:record/dc:relation
+    path: oai:record/dc:relation
   - name: dc:language
-    path: //oai:metadata/oai:record/dc:language
+    path: oai:record/dc:language
   - name: dcterms:created
-    path: //oai:metadata/oai:record/dcterms:created
+    path: oai:record/dcterms:created
   - name: dcterms:location
-    path: //oai:metadata/oai:record/dcterms:location
+    path: oai:record/dcterms:location
   - name: dcterms:extent
-    path: //oai:metadata/oai:record/dcterms:extent
+    path: oai:record/dcterms:extent
   - name: dcterms:medium
-    path: //oai:metadata/oai:record/dcterms:medium
+    path: oai:record/dcterms:medium
 namespaces:
   doc: http://www.lyncode.com/xoai
   foaf: http://xmlns.com/foaf/0.1/
+  europeana: http://www.europeana.eu/schemas/ese/
+  dcterms: http://purl.org/dc/terms/
+  dc: http://purl.org/dc/elements/1.1/

@@ -3,24 +3,42 @@ package de.gwdg.metadataqa.ddb;
 import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
-import de.gwdg.metadataqa.api.configuration.schema.Rule;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.util.FileUtils;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Map;
 
 /**
- * Hello world!
- *
  */
 public class App {
     public static void main(String[] args) throws IOException, URISyntaxException {
-        String path = App.class.getClassLoader().getResource("dc-schema.yaml").getPath();
-        Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+        String inputFile = args[0];
+        String schemaFile = args[1];
+        CalculatorFacade calculator = initializeCalculator(schemaFile);
 
-        Rule rule = schema.getPathByLabel("dc:title").getRules().get(0);
+        try {
+            XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), "//record");
+            String csv = null;
+            while (iterator.hasNext()) {
+                csv = calculator.measureAsJson(iterator.next());
+                System.err.println(csv);
+            }
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static CalculatorFacade initializeCalculator(String schemaFile) throws FileNotFoundException {
+        Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
 
         MeasurementConfiguration configuration = new MeasurementConfiguration()
           .disableCompletenessMeasurement()
@@ -32,11 +50,6 @@ public class App {
         CalculatorFacade calculator = new CalculatorFacade(configuration)
           .setSchema(schema);
         calculator.configure();
-
-        String inputFile = "/home/kiru/git/metadata-qa-ddb/src/test/resources/dc/oai-dc-sample1.xml";
-        String content = FileUtils.readFromUrl("file://" + inputFile);
-
-        Map<String, Object> csv = calculator.measureAsMap(content);
-        System.err.println(csv);
+        return calculator;
     }
 }
