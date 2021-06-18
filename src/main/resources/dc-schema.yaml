@@ -4,19 +4,37 @@ fields:
     path: oai:record/dc:identifier[@type='providerItemId']
     extractable: true
     rules:
-      - minCount: 1
+      - and:
+        - minCount: 1
+        - minLengh: 1
         failureScore: -9
-      - maxCount: 1
-        failureScore: -9
+        # id: 1.1
+      # - isUnique
+      #   failureScore: -9
+      #   id: 1.2
       - pattern: ^[\p{Alpha}\d\.]+$
-        successScore: 2
+        successScore: 3
+        # id: 1.5
   - name: providerid
     path: oai:record/dc:identifier[@type='providerid']
     rules:
-      - minCount: 1
-        failureScore: -4
-      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13})$
-        successScore: -4
+      - and:
+          - minCount: 1
+          - minLengh: 1
+        failureScore: -6
+        # id: 2.1
+      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        failureScore: -3
+        # id: 2.2
+      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
+        successScore: 6
+        # id: 2.4
+      - pattern: ^http://id.zdb-services.de\w+$
+        successScore: 3
+        # id: 2.5
+      - pattern: ^http://d-nb.info/gnd/\w+$
+        successScore: 3
+        # id: 2.6
   - name: thumbnail
     path: oai:record/dc:identifier[@type='binary']
   - name: url
