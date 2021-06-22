@@ -4,6 +4,12 @@ import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.schema.Schema;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,23 +17,41 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  */
 public class App {
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        String inputFile = args[0];
-        String schemaFile = args[1];
+    private static final Logger logger = Logger.getLogger(App.class.getCanonicalName());
+
+    public static void main(String[] args) throws IOException, ParseException {
+        Options options = new Options();
+        options.addOption(new Option("c", "config", true, "Measurement configuration file"));
+        options.addOption(new Option("s", "schema", true, "schema configuration file"));
+        options.addOption(new Option("i", "input", true, "input file"));
+        options.addOption(new Option("o", "output", true, "output file"));
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse( options, args);
+        String inputFile = cmd.getOptionValue("input");
+        String schemaFile = cmd.getOptionValue("schema");
+        String outputFile = cmd.getOptionValue("output");
         CalculatorFacade calculator = initializeCalculator(schemaFile);
 
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), "//record");
             String csv = null;
-            while (iterator.hasNext()) {
-                csv = calculator.measureAsJson(iterator.next());
-                System.err.println(csv);
+            try (var writer = Files.newBufferedWriter(Paths.get(outputFile))) {
+                while (iterator.hasNext()) {
+                    csv = calculator.measure(iterator.next());
+                    writer.write(csv + "\n");
+                }
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Some I/O issue happened", e);
             }
+
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -45,7 +69,7 @@ public class App {
           .disableFieldExistenceMeasurement()
           .disableFieldCardinalityMeasurement()
           .enableRuleCatalogMeasurement()
-          .enableFieldExtractor();
+          .disableFieldExtractor();
 
         CalculatorFacade calculator = new CalculatorFacade(configuration)
           .setSchema(schema);
