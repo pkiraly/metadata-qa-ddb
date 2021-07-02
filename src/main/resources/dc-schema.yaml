@@ -37,6 +37,11 @@ fields:
         id: 2.6
   - name: thumbnail
     path: oai:record/dc:identifier[@type='binary']
+    rules:
+      - or:
+        - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+        - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+        id: 3.1
   - name: url
     path: //oai:metadata/oai:record/dc:identifier[@type='URL']
 #  - name: dc:identifier

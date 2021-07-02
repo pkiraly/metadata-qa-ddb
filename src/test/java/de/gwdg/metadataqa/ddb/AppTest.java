@@ -52,4 +52,14 @@ public class AppTest {
         assertTrue(pattern.matcher("Göttingen").matches());
         assertFalse(pattern.matcher("Göt tingen").matches());
     }
+
+    @Test
+    public void imagePattern() {
+        assertTrue( true );
+
+        Pattern pattern = Pattern.compile("^.*\\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$");
+        assertTrue(pattern.matcher("http://vb.uni-wuerzburg.de/ub/books/hpf540594/folio-std/DE-20__H_p_f_540-5_94__0001__0001.jpg").matches());
+        // assertTrue(pattern.matcher("Göttingen").matches());
+        // assertFalse(pattern.matcher("Göt tingen").matches());
+    }
 }

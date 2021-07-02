@@ -45,7 +45,7 @@ public class App {
             String csv = null;
             try (var writer = Files.newBufferedWriter(Paths.get(outputFile))) {
                 while (iterator.hasNext()) {
-                    csv = calculator.measure(iterator.next());
+                    csv = calculator.measureAsJson(iterator.next());
                     writer.write(csv + "\n");
                 }
             } catch (IOException e) {
