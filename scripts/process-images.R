@@ -1,0 +1,40 @@
+library(tidyverse)
+
+input_file <- 'results/images.csv'
+df <- read_csv(input_file)
+df <- df %>% 
+  rename(score = `ruleCatalog:score`)
+#view(df)
+
+names <- names(df)
+
+df_freq <- as.data.frame(table(df[[3]], useNA="ifany")) %>% 
+  rename(value = Var1) %>% mutate(field = names[3])
+for (i in seq_along(df)) {
+  if (!i %in% c(1, 2, 3)) {
+    t <- as.data.frame(table(df[[i]], useNA="ifany"))
+    print(t)
+    print(t)
+    if (nrow(t) > 0) {
+      t <- t %>% rename(value = Var1) %>% mutate(field = names[i])
+      df_freq <- df_freq %>% union(t)
+    } else {
+      print(i)
+    }
+  }
+}
+
+df_freq <- df_freq %>% 
+  rename(frequency = Freq) %>% 
+  select(field, value, frequency) %>% 
+  arrange(field)
+df_freq
+
+write_csv(df_freq, 'results/images-freqency.csv')
+
+df_freq %>% 
+  group_by(field) %>% 
+  count() %>% 
+  rename(number_of_values = n) %>% 
+  write_csv('results/images-variablility.csv')
+
