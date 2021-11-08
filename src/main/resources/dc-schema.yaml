@@ -41,47 +41,109 @@ fields:
       - or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+        failureScore: -9
         id: 3.1
+      - minCount: 2
+        failureScore: -2
+        id: 3.2
+      - not:
+        - pattern: ^[a-zA-Z_0-9:\-]+$
+        failureScore: -9
+        id: 3.3
+#      - pixels: 1024,468
+#        failureScore: -8
+#        id: 3.4
+      - pattern: ^https?://
+        successScore: 3
+        id: 3.5
+#     content type
+#     -
+#       successScore: 4
+#       id: 3.6
   - name: url
     path: //oai:metadata/oai:record/dc:identifier[@type='URL']
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
-#  - name: dc:type
-#    path: //oai:metadata/oai:record/dc:type
 #  - name: dc:date
 #    path: //oai:metadata/oai:record/dc:date
+
+#   Objekttitel
   - name: dc:title
     path: oai:record/dc:title
 #    extractable: true
     rules:
-      - pattern: ^.+$
-        failureScore: -2
-      - minCount: 1
-        failureScore: -2
+      - and:
+        - minCount: 1
+        - pattern: ^.+$
+        failureScore: -9
+        id: 6.1
+      - unique: true
+        failureScore: -6
+        id: 6.2
+      - minLength: 3
+        failureScore: -3
+        id: 6.3
+      - not:
+        - equals: dc:type
+        failureScore: -3
+        id: 6.5
+
+  - name: dc:type
+    path: oai:record/dc:type
+    rules:
+      - and:
+        - minCount: 1
+        - pattern: ^.+$
+        failureScore: -9
+        id: 7.1
+
+  - name: dc_type_source
+    path: oai:record/dc:type/@resource
+    extractable: true
+    rules:
+      - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
+        failureScore: -6
+        id: 7.3
+      - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+        successScore: 6
+        id: 7.5
+      - pattern: ^http://vocab.getty.edu/aat/Q.*$
+        successScore: 6
+        id: 7.8
+
+  - name: dc_type_text
+    path: oai:record/dc:type
+    extractable: false
+    rules:
+      - maxWords: 2
+        failureScore: -3
+        id: 7.4
+
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
-  - name: rights
-    path: oai:record/dc:rights[@type='binary']
-  - name: dc:rights
-    path: oai:record/dc:rights
-  - name: dc:identifier
-    path: oai:record/dc:identifier
-  - name: dc:contributor
-    path: oai:record/dc:contributor
-  - name: dc:creator
-    path: oai:record/dc:creator
-  - name: dc:relation
-    path: oai:record/dc:relation
-  - name: dc:language
-    path: oai:record/dc:language
-  - name: dcterms:created
-    path: oai:record/dcterms:created
-  - name: dcterms:location
-    path: oai:record/dcterms:location
-  - name: dcterms:extent
-    path: oai:record/dcterms:extent
-  - name: dcterms:medium
-    path: oai:record/dcterms:medium
+#  - name: rights
+#    path: oai:record/dc:rights[@type='binary']
+#  - name: dc:rights
+#    path: oai:record/dc:rights
+#  - name: dc:identifier
+#    path: oai:record/dc:identifier
+#  - name: dc:contributor
+#    path: oai:record/dc:contributor
+#  - name: dc:creator
+#    path: oai:record/dc:creator
+#  - name: dc:relation
+#    path: oai:record/dc:relation
+#  - name: dc:language
+#    path: oai:record/dc:language
+#  - name: dcterms:created
+#    path: oai:record/dcterms:created
+#  - name: dcterms:location
+#    path: oai:record/dcterms:location
+#  - name: dcterms:extent
+#    path: oai:record/dcterms:extent
+#  - name: dcterms:medium
+#    path: oai:record/dcterms:medium
+
 namespaces:
   doc: http://www.lyncode.com/xoai
   foaf: http://xmlns.com/foaf/0.1/
