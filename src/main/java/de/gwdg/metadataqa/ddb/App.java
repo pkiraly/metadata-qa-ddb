@@ -48,12 +48,13 @@ public class App {
         logger.info("cmd: " + cmd.toString());
 
         String inputFile = cmd.getOptionValue("input");
+        String fileNameInAnnotation = inputFile.substring(inputFile.lastIndexOf("/"));
         String schemaFile = cmd.getOptionValue("schema");
         String outputFile = cmd.getOptionValue("output");
         boolean indexing = cmd.hasOption("indexing");
         String solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
         FORMAT format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
-        CalculatorFacade calculator = initializeCalculator(schemaFile, indexing, solrPath);
+        CalculatorFacade calculator = initializeCalculator(schemaFile, indexing, solrPath, fileNameInAnnotation);
 
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), "//record");
@@ -88,7 +89,7 @@ public class App {
         }
     }
 
-    private static CalculatorFacade initializeCalculator(String schemaFile, boolean indexing, String solrPath) throws FileNotFoundException {
+    private static CalculatorFacade initializeCalculator(String schemaFile, boolean indexing, String solrPath, String fileNameInAnnotation) throws FileNotFoundException {
         logger.info("indexing: " + indexing);
         logger.info("solrPath: " + solrPath);
         Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
@@ -115,6 +116,7 @@ public class App {
               .enableFieldExtractor()
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.STATUS)
+              .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
             ;
         }
 
