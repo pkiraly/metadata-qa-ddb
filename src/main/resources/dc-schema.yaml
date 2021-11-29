@@ -3,6 +3,7 @@ fields:
   - name: recordId
     path: oai:record/dc:identifier[@type='providerItemId']
     extractable: true
+    identifierField: true
     rules:
       - and:
         - minCount: 1
