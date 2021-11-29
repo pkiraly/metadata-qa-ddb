@@ -2,8 +2,8 @@ library(tidyverse)
 
 input_file <- 'results/texts.csv'
 df <- read_csv(input_file)
-df <- df %>% 
-  rename(score = `ruleCatalog:score`)
+# df <- df %>% 
+#  rename(score = `ruleCatalog:score`)
 #view(df)
 
 names <- names(df)
