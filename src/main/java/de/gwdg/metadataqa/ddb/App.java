@@ -48,7 +48,7 @@ public class App {
         logger.info("cmd: " + cmd.toString());
 
         String inputFile = cmd.getOptionValue("input");
-        String fileNameInAnnotation = inputFile.substring(inputFile.lastIndexOf("/"));
+        String fileNameInAnnotation = inputFile.substring(inputFile.lastIndexOf("/") + 1);
         String schemaFile = cmd.getOptionValue("schema");
         String outputFile = cmd.getOptionValue("output");
         boolean indexing = cmd.hasOption("indexing");
