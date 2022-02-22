@@ -63,7 +63,7 @@ public class App {
                 if (format.equals(FORMAT.CSV)) {
                     List<String> headers = new ArrayList<>();
                     for (String h : calculator.getHeader()) {
-                        System.err.println(h);
+                        // System.err.println(h);
                     }
                     line = StringUtils.join(calculator.getHeader(), ",");
                     writer.write(line + "\n");
@@ -89,11 +89,15 @@ public class App {
         }
     }
 
-    private static CalculatorFacade initializeCalculator(String schemaFile, boolean indexing, String solrPath, String fileNameInAnnotation) throws FileNotFoundException {
-        logger.info("indexing: " + indexing);
-        logger.info("solrPath: " + solrPath);
+    private static CalculatorFacade initializeCalculator(String schemaFile,
+                                                         boolean indexing,
+                                                         String solrPath,
+                                                         String fileNameInAnnotation
+                                                        ) throws FileNotFoundException {
+        // logger.info("indexing: " + indexing);
+        // logger.info("solrPath: " + solrPath);
         Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
-        logger.info("RecordId: " + schema.getRecordId());
+        // logger.info("RecordId: " + schema.getRecordId());
 
         MeasurementConfiguration configuration = null;
         if (indexing) {
@@ -116,7 +120,7 @@ public class App {
               .enableFieldExtractor()
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.STATUS)
-              .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
+              // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
             ;
         }
 

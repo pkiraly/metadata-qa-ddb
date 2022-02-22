@@ -100,7 +100,7 @@ fields:
 
   - name: dc_type_source
     path: oai:record/dc:type/@resource
-    extractable: true
+    # extractable: true
     rules:
       - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
         failureScore: -6
@@ -114,7 +114,7 @@ fields:
 
   - name: dc_type_text
     path: oai:record/dc:type
-    extractable: false
+    # extractable: false
     rules:
       - maxWords: 2
         failureScore: -3
