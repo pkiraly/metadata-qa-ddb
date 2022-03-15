@@ -1,0 +1,109 @@
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2020-10-05T08:20:46Z</responseDate>
+  <request verb="GetRecord" metadataPrefix="mets" identifier="urn:nbn:de:0111-bbf-spo-12974070">https://scripta.bbf.dipf.de/viewer/oai</request>
+  <GetRecord>
+    <record>
+      <header>
+        <identifier>urn:nbn:de:0111-bbf-spo-12974070</identifier>
+        <datestamp>2020-07-20T10:38:47Z</datestamp>
+        <setSpec>paedagogischezeitschriften</setSpec>
+      </header>
+      <metadata>
+        <mets:mets xmlns:dv="http://dfg-viewer.de/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-7.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd" OBJID="3520">
+                    <mets:metsHdr LASTMODDATE="2021-01-18T10:45:57">
+                        <mets:agent ROLE="EDITOR" TYPE="OTHER" OTHERTYPE="AGGREGATOR">
+                            <mets:name>00000463</mets:name>
+                        </mets:agent>
+                        <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION" ID="DDBProvider_99900635">
+                            <mets:name>DE-B478</mets:name>
+                        </mets:agent>
+                        <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+              <mets:name>Goobi - ugh-3.0-847ece1 - 08−February−2018</mets:name>
+              <mets:note>Goobi</mets:note>
+            </mets:agent>
+                    </mets:metsHdr>
+          
+          <mets:dmdSec ID="DMDLOG_0000">
+            <mets:mdWrap MDTYPE="MODS">
+              <mets:xmlData>
+                <mods:mods>
+                  <mods:originInfo>
+                    <mods:place>
+                      <mods:placeTerm type="text">Reichenberg</mods:placeTerm>
+                    </mods:place>
+                    <mods:dateOther>9.1928; mehr nicht digitalisiert</mods:dateOther>
+                  </mods:originInfo>
+                  <mods:titleInfo>
+                    <mods:title>Standesausweis der Lehrerschaft an den deutschen Volks- und Bürgerschulen Böhmens</mods:title>
+                  </mods:titleInfo>
+                  <mods:recordInfo>
+                    <mods:recordIdentifier source="spo-id">981761666</mods:recordIdentifier>
+                  <mods:recordContentSource valueURI="http://ld.zdb-services.de/resource/organisations/DE-B478">DE-B478</mods:recordContentSource>
+                                        <mods:recordChangeDate encoding="iso8601">2021-01-18T10:45:57</mods:recordChangeDate>
+                                        <mods:recordIdentifier source="zvdd">http://www.zvdd.de/record/DE-B478/981761666</mods:recordIdentifier>
+                                        <mods:recordInfoNote type="license">http://creativecommons.org/publicdomain/zero/1.0/</mods:recordInfoNote>
+                                    </mods:recordInfo>
+                  <mods:identifier type="zdb">2256877-3</mods:identifier>
+                  <mods:classification authority="ivdcc">paedagogischezeitschriften</mods:classification>
+                  <mods:language>
+                                        <mods:languageTerm type="code" valueURI="http://id.loc.gov/vocabulary/iso639-2/ger">ger</mods:languageTerm>
+                                    </mods:language>
+                <mods:relatedItem otherType="setSpec">
+                                        <mods:identifier>http://www.zvdd.de/reproductionSeries/DE-B478/paedagogischezeitschriften</mods:identifier>
+                                    </mods:relatedItem>
+                                    <mods:genre valueURI="http://ddb.vocnet.org/hierarchietyp/ht023" displayLabel="document type">periodical</mods:genre>
+                                    <mods:typeOfResource valueURI="http://ddb.vocnet.org/medientyp/mt003">text</mods:typeOfResource>
+                                    <mods:originInfo eventType="digitization">
+                                        <mods:edition>[Electronic ed.]</mods:edition>
+                                        <mods:place>
+                                            <mods:placeTerm type="text">Berlin</mods:placeTerm>
+                                        </mods:place>
+                                        <mods:publisher>Berlin BBF/DIPF</mods:publisher>
+                                    </mods:originInfo>
+                                    <mods:identifier type="zvdd">http://www.zvdd.de/object/DE-B478/981761666</mods:identifier>
+                                    <mods:location>
+                                        <mods:url access="object in context" note="ddb">https://scripta.bbf.dipf.de/viewer/ppnresolver?id=981761666</mods:url>
+                                    </mods:location>
+                                </mods:mods>
+              </mets:xmlData>
+            </mets:mdWrap>
+          </mets:dmdSec>
+          <mets:amdSec ID="AMD">
+            <mets:rightsMD ID="RIGHTS">
+              <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+                <mets:xmlData>
+                  <dv:rights>
+                    <dv:owner>BBF - Bibliothek fuer Bildungsgeschichtliche Forschung</dv:owner>
+                    <dv:ownerLogo>http://www.bbf.dipf.de/images/bbf-logo.gif</dv:ownerLogo>
+                    <dv:ownerSiteURL>http://www.bbf.dipf.de</dv:ownerSiteURL>
+                    <dv:ownerContact>mailto:goobi@bbf.dipf.de</dv:ownerContact>
+                    <dv:sponsor>Deutsche Forschungsgemeinschaft</dv:sponsor>
+                    <dv:sponsorSiteURL>http://www.dfg.de</dv:sponsorSiteURL>
+                  <dv:license>http://creativecommons.org/publicdomain/mark/1.0/</dv:license>
+                                    </dv:rights>
+                </mets:xmlData>
+              </mets:mdWrap>
+            </mets:rightsMD>
+            <mets:digiprovMD ID="DIGIPROV">
+              <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+                <mets:xmlData>
+                  <dv:links>
+                    <dv:reference>https://bbf.bsz-bw.de/cgi-bin/koha/opac-search.pl?q=ident:981761666</dv:reference>
+                    <dv:presentation>https://scripta.bbf.dipf.de/viewer/ppnresolver?id=981761666</dv:presentation>
+                  </dv:links>
+                </mets:xmlData>
+              </mets:mdWrap>
+            </mets:digiprovMD>
+          </mets:amdSec>
+          <mets:structMap TYPE="LOGICAL">
+            <mets:div DMDID="DMDLOG_0000" ADMID="AMD" CONTENTIDS="urn:nbn:de:0111-bbf-spo-12974070" ID="LOG_0000" TYPE="periodical" LABEL="Standesausweis der Lehrerschaft an den deutschen Volks- und Bürgerschulen Böhmens">
+              <mets:div CONTENTIDS="urn:nbn:de:0111-bbf-spo-12974083" ID="LOG_0001" ORDER="9" TYPE="volume">
+                <mets:mptr LOCTYPE="URL" xlink:href="https://scripta.bbf.dipf.de/viewer/metsresolver?id=981761666_0009"/>
+              </mets:div>
+            </mets:div>
+          </mets:structMap>
+        </mets:mets>
+      </metadata>
+    </record>
+  </GetRecord>
+</OAI-PMH>
