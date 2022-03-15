@@ -1,0 +1,78 @@
+<mx:record xmlns:mx="info:lc/xmlns/marcxchange-v1" xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <mx:leader>00000nam a2200301 c 4500</mx:leader>
+    <mx:controlfield tag="001">BDR-BV012591623-59024</mx:controlfield>
+    <mx:controlfield tag="003">DE-12</mx:controlfield>
+    <mx:controlfield tag="005">00000000000000.0</mx:controlfield>
+    <mx:controlfield tag="007">t</mx:controlfield>
+    <mx:controlfield tag="008">990604s1614             |||| 00||| lat d</mx:controlfield>
+    <mx:datafield ind1=" " ind2=" " tag="035">
+        <mx:subfield code="a">(OCoLC)634202702</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="035">
+        <mx:subfield code="a">(DE-599)BVBBV012591623</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="040">
+        <mx:subfield code="a">DE-604</mx:subfield>
+        <mx:subfield code="b">ger</mx:subfield>
+        <mx:subfield code="e">rakddb</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1="0" ind2=" " tag="041">
+        <mx:subfield code="a">lat</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1="1" ind2=" " tag="100">
+        <mx:subfield code="a">Lungwitz, Matthaeus</mx:subfield>
+        <mx:subfield code="d">1582-1655</mx:subfield>
+        <mx:subfield code="e">Verfasser</mx:subfield>
+        <mx:subfield code="0">(DE-588)124663958</mx:subfield>
+        <mx:subfield code="4">aut</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1="1" ind2="0" tag="245">
+        <mx:subfield code="a">Lutherus orthodoxus h. e. evidens demonstratio ... Lutheri doctrinam per omnia cum verbo Dei ... congruere ...</mx:subfield>
+        <mx:subfield code="c">Matthaeus Lungwitius*</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2="1" tag="264">
+        <mx:subfield code="a">Lipsiae</mx:subfield>
+        <mx:subfield code="b">Cober</mx:subfield>
+        <mx:subfield code="c">1614</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="300">
+        <mx:subfield code="a">42 S.</mx:subfield>
+        <mx:subfield code="c">4 ̊</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="336">
+        <mx:subfield code="b">txt</mx:subfield>
+        <mx:subfield code="2">rdacontent</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="337">
+        <mx:subfield code="b">n</mx:subfield>
+        <mx:subfield code="2">rdamedia</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="338">
+        <mx:subfield code="b">nc</mx:subfield>
+        <mx:subfield code="2">rdacarrier</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="533">
+        <mx:subfield code="a">Reproduction.</mx:subfield>
+        <mx:subfield code="b">s.l.</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="751">
+        <mx:subfield code="a">Leipzig</mx:subfield>
+        <mx:subfield code="4">pup</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1="0" ind2="8" tag="776">
+        <mx:subfield code="i">Elektronische Reproduktion</mx:subfield>
+        <mx:subfield code="d">München : Bayerische Staatsbibliothek, 2016</mx:subfield>
+        <mx:subfield code="o">urn:nbn:de:bvb:12-bsb11230914-8</mx:subfield>
+    </mx:datafield>
+    <mx:datafield ind1=" " ind2=" " tag="845">
+        <mx:subfield code="a">CC0</mx:subfield>
+        <mx:subfield code="b">Bayerische Staatsbibliothek</mx:subfield>
+        <mx:subfield code="u">http://creativecommons.org/publicdomain/zero/1.0/</mx:subfield>
+        <mx:subfield code="3">Record</mx:subfield>
+        ^C
+    </mx:datafield>
+    <mx:datafield ind1="1" ind2=" " tag="982">
+        <mx:subfield code="d">2017-11-16 02:04:35</mx:subfield>
+        <mx:subfield code="t">http://www.bsb-muenchen-digital.de/web1082/bsb10824363/images/bsb10824363_00007.jpg</mx:subfield>
+    </mx:datafield>
+</mx:record>

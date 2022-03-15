@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.ddb;
 
+import de.gwdg.metadataqa.api.xml.XpathEngineFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,27 +20,33 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.Map;
 
 public class XPathBasedIterator implements Iterator<String> {
   private NodeList nodeList;
   private NamedNodeMap rootAttributes;
   private int current = 0;
 
-  public XPathBasedIterator(File input, String expression) throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+  public XPathBasedIterator(File input,
+                            String expression,
+                            Map<String, String> namespaces)
+        throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
     FileInputStream fileIS = new FileInputStream(input);
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+    builderFactory.setNamespaceAware(true);
     DocumentBuilder builder = builderFactory.newDocumentBuilder();
     Document xmlDocument = builder.parse(fileIS);
     rootAttributes = xmlDocument.getDocumentElement().getAttributes();
-    XPath xPath = XPathFactory.newInstance().newXPath();
-    nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+    XPath xPath = XpathEngineFactory.initializeEngine(namespaces);
+    XPathExpression expr = xPath.compile(expression);
+    nodeList = (NodeList) expr.evaluate(xmlDocument, XPathConstants.NODESET);
   }
 
   public String nodeToString(Node node) {
@@ -65,6 +72,10 @@ public class XPathBasedIterator implements Iterator<String> {
     }
   }
 
+  public int getLength() {
+    return nodeList.getLength();
+  }
+
   @Override
   public boolean hasNext() {
     return current < nodeList.getLength();
@@ -73,5 +84,9 @@ public class XPathBasedIterator implements Iterator<String> {
   @Override
   public String next() {
     return nodeToString(nodeList.item(current++));
+  }
+
+  public Node nextNode() {
+    return nodeList.item(current++);
   }
 }

@@ -1,7 +1,7 @@
 format: xml
 fields:
   - name: recordId
-    path: oai:record/dc:identifier[@type='providerItemId']
+    path: marc:record/marc:controlfield[@tag="001"]
     extractable: true
     identifierField: true
     indexField: providerItemId
@@ -10,33 +10,35 @@ fields:
         - minCount: 1
         - minLength: 1
         failureScore: -9
-        id: 1.1
+        id: Q-1.1
       - unique: true
         failureScore: -9
-        id: 1.2
+        id: Q-1.2
       - pattern: ^[\p{Alpha}\d\.]+$
         successScore: 3
-        id: 1.5
+        id: Q-1.5
   - name: providerid
-    path: oai:record/dc:identifier[@type='providerid']
+    path: marc:record/marc:controlfield[@tag="003"]
+    extractable: true
+    indexField: providerId
     rules:
       - and:
           - minCount: 1
           - minLength: 1
         failureScore: -6
-        id: 2.1
+        id: Q-2.1
       - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
         failureScore: -3
-        id: 2.2
+        id: Q-2.2
       - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
         successScore: 6
-        id: 2.4
+        id: Q-2.4
       - pattern: ^http://id.zdb-services.de\w+$
         successScore: 3
-        id: 2.5
+        id: Q-2.5
       - pattern: ^http://d-nb.info/gnd/\w+$
         successScore: 3
-        id: 2.6
+        id: Q-2.6
   - name: thumbnail
     path: oai:record/dc:identifier[@type='binary']
     rules:
@@ -44,24 +46,24 @@ fields:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
         failureScore: -9
-        id: 3.1
+        id: Q-3.1
       - minCount: 2
         failureScore: -2
-        id: 3.2
+        id: Q-3.2
       - not:
         - pattern: ^[a-zA-Z_0-9:\-]+$
         failureScore: -9
-        id: 3.3
+        id: Q-3.3
 #      - pixels: 1024,468
 #        failureScore: -8
-#        id: 3.4
+#        id: Q-3.4
       - pattern: ^https?://
         successScore: 3
-        id: 3.5
+        id: Q-3.5
 #     content type
 #     -
 #       successScore: 4
-#       id: 3.6
+#       id: Q-3.6
   - name: url
     path: //oai:metadata/oai:record/dc:identifier[@type='URL']
 #  - name: dc:identifier
@@ -79,17 +81,17 @@ fields:
         - minCount: 1
         - pattern: ^.+$
         failureScore: -9
-        id: 6.1
+        id: Q-6.1
       - unique: true
         failureScore: -6
-        id: 6.2
+        id: Q-6.2
       - minLength: 3
         failureScore: -3
-        id: 6.3
+        id: Q-6.3
       - not:
         - equals: dc:type
         failureScore: -3
-        id: 6.5
+        id: Q-6.5
 
   - name: dc:type
     path: oai:record/dc:type
@@ -98,7 +100,7 @@ fields:
         - minCount: 1
         - pattern: ^.+$
         failureScore: -9
-        id: 7.1
+        id: Q-7.1
 
   - name: dc_type_source
     path: oai:record/dc:type/@resource
@@ -106,13 +108,13 @@ fields:
     rules:
       - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
         failureScore: -6
-        id: 7.3
+        id: Q-7.3
       - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
         successScore: 6
-        id: 7.5
+        id: Q-7.5
       - pattern: ^http://vocab.getty.edu/aat/Q.*$
         successScore: 6
-        id: 7.8
+        id: Q-7.8
 
   - name: dc_type_text
     path: oai:record/dc:type
@@ -120,7 +122,7 @@ fields:
     rules:
       - maxWords: 2
         failureScore: -3
-        id: 7.4
+        id: Q-7.4
 
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
@@ -154,3 +156,5 @@ namespaces:
   dcterms: http://purl.org/dc/terms/
   dc: http://purl.org/dc/elements/1.1/
   oai: http://www.openarchives.org/OAI/2.0/
+  marc: info:lc/xmlns/marcxchange-v1
+  mx: info:lc/xmlns/marcxchange-v1

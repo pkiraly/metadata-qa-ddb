@@ -1,4 +1,6 @@
-<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
   <responseDate>2020-10-05T08:20:46Z</responseDate>
   <request verb="GetRecord" metadataPrefix="mets" identifier="urn:nbn:de:0111-bbf-spo-12974070">https://scripta.bbf.dipf.de/viewer/oai</request>
   <GetRecord>
@@ -9,7 +11,13 @@
         <setSpec>paedagogischezeitschriften</setSpec>
       </header>
       <metadata>
-        <mets:mets xmlns:dv="http://dfg-viewer.de/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-7.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd" OBJID="3520">
+        <mets:mets xmlns:dv="http://dfg-viewer.de/"
+                   xmlns:mods="http://www.loc.gov/mods/v3"
+                   xmlns:mets="http://www.loc.gov/METS/"
+                   xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-7.xsd
+                                       http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd"
+                   OBJID="3520">
                     <mets:metsHdr LASTMODDATE="2021-01-18T10:45:57">
                         <mets:agent ROLE="EDITOR" TYPE="OTHER" OTHERTYPE="AGGREGATOR">
                             <mets:name>00000463</mets:name>
