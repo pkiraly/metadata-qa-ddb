@@ -1,0 +1,194 @@
+format: xml
+fields:
+  - name: recordId
+    # mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:recordInfo/mods:recordIdentifier
+    path: //mods:mods/mods:recordInfo/mods:recordIdentifier
+    extractable: true
+    identifierField: true
+    indexField: providerItemId
+    rules:
+      - and:
+        - minCount: 1
+        - minLength: 1
+        failureScore: -9
+        id: Q-1.1
+        description: There must be an ID for the data record in the data record supplied.
+      - unique: true
+        failureScore: -9
+        id: Q-1.2
+        description: The ID for the data record must be unique.
+      # -
+        # id: Q-1.3
+        # description: In data records that represent several hierarchical levels, the description units of the individual parts of an object must have a unique identifier within the data record.
+      # -
+      #   id: Q-1.4
+        # description: The identifier for the data record must be unchangeable and must not change, especially when updated data sets are sent to the DDB.
+      - pattern: ^[\p{Alpha}\d\.]+$
+        successScore: 3
+        id: Q-1.5
+        description: The ID for the data record is easy to process by machine
+  # mets:dmdSec/@ID, mets:dmdSec/@ID, mets:file/@ID, mets:div/@ID, mets:amdSec/@ID, mets:rightsMD/@ID, mets:digiprovMD/@ID
+  #
+  - name: providerid
+    path: //mods:mods/mods:recordInfo/mods:recordContentSource/@valueURI
+    extractable: true
+    indexField: providerId
+    rules:
+      - and:
+          - minCount: 1
+          - minLength: 1
+        failureScore: -6
+        id: Q-2.1
+        description: There must be an ID for the data supplier in the data record supplied.
+      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        failureScore: -3
+        id: Q-2.2
+        description: The ID for the data provider must be unique worldwide.
+      # -
+      #   id: Q-2.3
+      #   description: The data provider should be identified by an International Standard Identifier for Libraries and Related Organizations (ISIL).
+      - pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
+        successScore: 6
+        id: Q-2.4
+        description: The data provider should be identified by an http-URI from the ISIL registration.
+      - pattern: ^http://id.zdb-services.de\w+$
+        successScore: 3
+        id: Q-2.5
+        description: The data provider should be identified by an http-URI from the ISIL registration.
+      - pattern: ^http://d-nb.info/gnd/\w+$
+        successScore: 3
+        id: Q-2.6
+        description: The data supplier can be identified by an http-URI from the GND.
+  - name: thumbnail
+    path: //mets:fileSec/mets:fileGrp[@USE="DEFAULT"]/mets:file[@ID]/mets:Flocat[@xlink:href]
+    rules:
+      - or:
+        - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+        - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+        failureScore: -9
+        id: Q-3.1
+        description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
+      - minCount: 2
+        failureScore: -2
+        id: Q-3.2
+        description: The preview image must be explicitly marked if more than one image file is referenced in the data record.
+      - not:
+        - pattern: ^[a-zA-Z_0-9:\-]+$
+        failureScore: -9
+        id: Q-3.3
+        description: The reference to the image file must be valid.
+#      - pixels: 1024,468
+#        failureScore: -8
+#        id: Q-3.4
+#        description: The image must be at least 800 pixels wide and at least 600 pixels high.
+      - pattern: ^https?://
+        successScore: 3
+        id: Q-3.5
+        description: The preview image should be referenced by a hyperlink.
+#      - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+#        successScore: 4
+#        id: Q-3.6
+#        description: The image file should be delivered in a preferred format.
+  - name: url
+    path: //oai:metadata/oai:record/dc:identifier[@type='URL']
+#  - name: dc:identifier
+#    path: //oai:metadata/oai:record/dc:identifier
+#  - name: dc:date
+#    path: //oai:metadata/oai:record/dc:date
+
+#   Objekttitel
+  - name: dc:title
+    path: oai:record/dc:title
+#    extractable: true
+    indexField: dc_title
+    rules:
+      - and:
+        - minCount: 1
+        - pattern: ^.+$
+        failureScore: -9
+        id: Q-6.1
+        description: There must be an object title in the data record.
+      - unique: true
+        failureScore: -6
+        id: Q-6.2
+        description: The title must be unique.
+      - minLength: 3
+        failureScore: -3
+        id: Q-6.3
+        description: The title must be meaningful.
+      - not:
+        - equals: dc:type
+        failureScore: -3
+        id: Q-6.5
+        description: The title must be unique.
+
+  - name: dc:type
+    path: oai:record/dc:type
+    rules:
+      - and:
+        - minCount: 1
+        - pattern: ^.+$
+        failureScore: -9
+        id: Q-7.1
+        description: There must be at least one preferred designation for the object type in the data record.
+
+  - name: dc_type_source
+    path: oai:record/dc:type/@resource
+    # extractable: true
+    rules:
+      - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
+        failureScore: -6
+        id: Q-7.3
+        description: The object type must come from a controlled vocabulary.
+      - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+        successScore: 6
+        id: Q-7.5
+        description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
+      - pattern: ^http://vocab.getty.edu/aat/Q.*$
+        successScore: 6
+        id: Q-7.8
+        description: The http-URI refers to a term in Wikidata.
+
+  - name: dc_type_text
+    path: oai:record/dc:type
+    # extractable: false
+    rules:
+      - maxWords: 2
+        failureScore: -3
+        id: Q-7.4
+
+#  - name: dc:identifier
+#    path: //oai:metadata/oai:record/dc:identifier
+#  - name: rights
+#    path: oai:record/dc:rights[@type='binary']
+#  - name: dc:rights
+#    path: oai:record/dc:rights
+#  - name: dc:identifier
+#    path: oai:record/dc:identifier
+#  - name: dc:contributor
+#    path: oai:record/dc:contributor
+#  - name: dc:creator
+#    path: oai:record/dc:creator
+#  - name: dc:relation
+#    path: oai:record/dc:relation
+#  - name: dc:language
+#    path: oai:record/dc:language
+#  - name: dcterms:created
+#    path: oai:record/dcterms:created
+#  - name: dcterms:location
+#    path: oai:record/dcterms:location
+#  - name: dcterms:extent
+#    path: oai:record/dcterms:extent
+#  - name: dcterms:medium
+#    path: oai:record/dcterms:medium
+
+namespaces:
+  doc: http://www.lyncode.com/xoai
+  foaf: http://xmlns.com/foaf/0.1/
+  europeana: http://www.europeana.eu/schemas/ese/
+  dcterms: http://purl.org/dc/terms/
+  dc: http://purl.org/dc/elements/1.1/
+  oai: http://www.openarchives.org/OAI/2.0/
+  mets: http://www.loc.gov/METS/
+  mods: http://www.loc.gov/mods/v3
+  dv: http://dfg-viewer.de/

@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -60,6 +59,7 @@ public class App {
     private String recordAddress = "//oai:record";
     private Map<String, String> namespaces;
     private boolean recursive = false;
+    private String rootDirectory;
 
     static {
         options.addOption(new Option("c", "config", true, "Measurement configuration file"));
@@ -74,6 +74,7 @@ public class App {
         options.addOption(new Option("m", "mask", true, "input file mask"));
         options.addOption(new Option("l", "record-address", true, "XPath expression to fetch the records out of XML"));
         options.addOption(new Option("r", "recursive", false, "recursive iteration of directories"));
+        options.addOption(new Option("r", "rootDirectory", true, "root direactory, make file path relative to this directory"));
     }
 
     public App(String[] args) throws ParseException, IOException {
@@ -85,15 +86,13 @@ public class App {
 
         try {
             writer = Files.newBufferedWriter(Paths.get(outputFile));
-            if (format.equals(FORMAT.CSV)) {
+            if (format.equals(FORMAT.CSV))
                 writer.write(StringUtils.join(calculator.getHeader(), ",") + "\n");
-            }
 
             if (dataSource.equals(DATA_SOURCE.FILE))
                 processFile(inputFile);
-            else {
+            else
                 processDirectory(directory);
-            }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Some I/O issue happened", e);
         } finally {
@@ -136,6 +135,13 @@ public class App {
         indexing = cmd.hasOption("indexing");
         format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
         recursive = cmd.hasOption("recursive");
+        logger.info(String.format("recursive: %s", recursive));
+        if (cmd.hasOption("rootDirectory")) {
+            rootDirectory = cmd.getOptionValue("rootDirectory");
+            if (!rootDirectory.endsWith("/"))
+                rootDirectory = rootDirectory + "/";
+        }
+        logger.info(rootDirectory);
 
         schemaFile = cmd.getOptionValue("schema");
         solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
@@ -166,8 +172,9 @@ public class App {
     }
 
     private void processFile(String inputFile) throws IOException {
-        logger.info("processFile: " + inputFile);
-        logger.info("recordAddress: " + recordAddress);
+        String relativePath = getRelativePath(inputFile);
+        // logger.info("processFile: " + inputFile);
+
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
             String line = null;
@@ -178,14 +185,15 @@ public class App {
                     List<EdmFieldInstance> idList = oaiPmhXPath.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
                         String id = idList.get(0).getValue();
-                        sqliteManager.insert(id, xml);
+                        System.err.println(id);
+                        sqliteManager.insert(relativePath, id, xml);
                     }
                 }
                 if (format.equals(FORMAT.CSV))
                     line = calculator.measure(xml);
                 else
                     line = calculator.measureAsJson(xml);
-                logger.info(line);
+                // logger.info(line);
                 writer.write(line + "\n");
             }
 
@@ -196,6 +204,10 @@ public class App {
         } catch (XPathExpressionException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getRelativePath(String inputFile) {
+        return (rootDirectory != null)  ? inputFile.replaceAll(rootDirectory, "") : inputFile;
     }
 
     private CalculatorFacade initializeCalculator() throws FileNotFoundException {
@@ -245,5 +257,4 @@ public class App {
         cmd = parser.parse(options, args);
         logger.info("cmd: " + formatOptions(cmd.getOptions()));
     }
-
 }

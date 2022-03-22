@@ -73,7 +73,7 @@
     <dependency>
       <groupId>de.gwdg.metadataqa</groupId>
       <artifactId>metadata-qa-api</artifactId>
-      <version>0.8-SNAPSHOT</version>
+      <version>0.8.1</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
