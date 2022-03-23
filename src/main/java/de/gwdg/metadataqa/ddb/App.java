@@ -185,7 +185,6 @@ public class App {
                     List<EdmFieldInstance> idList = oaiPmhXPath.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
                         String id = idList.get(0).getValue();
-                        System.err.println(id);
                         sqliteManager.insert(relativePath, id, xml);
                     }
                 }

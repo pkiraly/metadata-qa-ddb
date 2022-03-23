@@ -192,3 +192,4 @@ namespaces:
   mets: http://www.loc.gov/METS/
   mods: http://www.loc.gov/mods/v3
   dv: http://dfg-viewer.de/
+  xlink: http://www.w3.org/1999/xlink
