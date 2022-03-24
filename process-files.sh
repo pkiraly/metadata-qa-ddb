@@ -39,7 +39,7 @@ java -cp $JAR de.gwdg.metadataqa.ddb.App \
   --output $OUTPUT_DIR/dc.csv \
   --record-address '//oai:record'
 
-java -cp $JAR de.gwdg.metadataqa.ddb.App \
+java -Xmx2g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --path solr/qa_ddb \
   --recursive \
