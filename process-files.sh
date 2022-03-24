@@ -109,11 +109,12 @@ CREATE TABLE "issue"(
   "ruleCatalog:score" INTEGER
 );
 .mode csv
-.import --skip 1 ${OUTPUT_DIR}/edm-ddb.csv issue
-.import --skip 1 ${OUTPUT_DIR}/marc.csv issue
-.import --skip 1 ${OUTPUT_DIR}/dc.csv issue
-.import --skip 1 ${OUTPUT_DIR}/lido.csv issue
-.import --skip 1 ${OUTPUT_DIR}/mets-mods.csv issue
+.import ${OUTPUT_DIR}/edm-ddb.csv issue
+.import ${OUTPUT_DIR}/marc.csv issue
+.import ${OUTPUT_DIR}/dc.csv issue
+.import ${OUTPUT_DIR}/lido.csv issue
+.import ${OUTPUT_DIR}/mets-mods.csv issue
+DELETE FROM issue WHERE recordId = 'recordId';
 
 CREATE INDEX "file1_idx" ON "files" ("file");
 CREATE INDEX "schema_idx" ON "files" ("schema");
@@ -134,7 +135,7 @@ sqlite3 ${OUTPUT_DIR}/ddb.sqlite  << EOF
 SELECT f.schema, f.set_id, f.provider_id, f.file, i.*
   FROM issue AS i
   LEFT JOIN file_record AS r ON (r.recordId = i.recordId)
-  LEFT JOIN files AS f USING(file)
+  LEFT JOIN files AS f USING(file);
 EOF
 
 Rscript scripts/R/process-all.R ${OUTPUT_DIR}
