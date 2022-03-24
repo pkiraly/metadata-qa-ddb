@@ -50,6 +50,7 @@ function getRespone($set = '', $resumptionToken = '') {
   } else {
     $URL = sprintf("https://oai.deutsche-digitale-bibliothek.de/?verb=ListRecords&resumptionToken=%s", $resumptionToken);
   }
+  echo $URL, LN;
 
   $trial = 0;
 
@@ -59,7 +60,7 @@ function getRespone($set = '', $resumptionToken = '') {
     if ($response->status == 200) {
       $response->xml = simplexml_load_string($response->content) or die("Error: Cannot create object");
     } else {
-      printf("%d) trial, i=%d\n", $trial, $i);
+      printf("%d) trial, i=%d, status=%s\n", $trial, $i, $response->status);
       echo 'status: ', $response->status, LN;
       echo 'error message: ', $response->error, LN;
       sleep(3);
