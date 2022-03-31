@@ -13,6 +13,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,14 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  */
 public class App {
-    private static final Logger logger = Logger.getLogger(App.class.getCanonicalName());
+    private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
+
+    // private static final Logger logger = Logger.getLogger(App.class.getCanonicalName());
     private Writer writer;
 
     public enum FORMAT {CSV, JSON};
@@ -94,7 +96,7 @@ public class App {
             else
                 processDirectory(directory);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Some I/O issue happened", e);
+            logger.error("Some I/O issue happened", e);
         } finally {
             if (writer != null) {
                 writer.flush();
@@ -106,7 +108,7 @@ public class App {
     }
 
     private void processDirectory(String directory) throws IOException {
-        logger.info("processDirectory: " + directory);
+        logger.info("processDirectory: {}", directory);
         File dir = new File(directory);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -135,13 +137,13 @@ public class App {
         indexing = cmd.hasOption("indexing");
         format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
         recursive = cmd.hasOption("recursive");
-        logger.info(String.format("recursive: %s", recursive));
+        logger.info("recursive: {}", recursive);
         if (cmd.hasOption("rootDirectory")) {
             rootDirectory = cmd.getOptionValue("rootDirectory");
             if (!rootDirectory.endsWith("/"))
                 rootDirectory = rootDirectory + "/";
         }
-        logger.info(rootDirectory);
+        logger.info("rootDirectory: {}", rootDirectory);
 
         schemaFile = cmd.getOptionValue("schema");
         solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
@@ -173,7 +175,7 @@ public class App {
 
     private void processFile(String inputFile) throws IOException {
         String relativePath = getRelativePath(inputFile);
-        // logger.info("processFile: " + inputFile);
+        // logger.info("processFile: {}", inputFile);
 
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
@@ -254,6 +256,6 @@ public class App {
     private void parseArguments(String[] args) throws ParseException {
         CommandLineParser parser = new DefaultParser();
         cmd = parser.parse(options, args);
-        logger.info("cmd: " + formatOptions(cmd.getOptions()));
+        logger.info("cmd: {}", formatOptions(cmd.getOptions()));
     }
 }

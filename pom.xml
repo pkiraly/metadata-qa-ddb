@@ -69,6 +69,27 @@
     <skipUnitTests>false</skipUnitTests>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>mvnrepository</id>
+      <name>MvnRepository</name>
+      <url>https://mvnrepository.com/artifact</url>
+    </repository>
+    <repository>
+      <id>ossrh</id>
+      <name>Sonatype Releases</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <!-- enable downloading snapshots from Sonatype -->
+    <repository>
+      <id>snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>de.gwdg.metadataqa</groupId>
@@ -96,6 +117,23 @@
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.36.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.36</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
