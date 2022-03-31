@@ -11,6 +11,7 @@ $resumptionToken = '';
 $doNext = TRUE;
 
 $output_dir = $baseOutputDir . '/' . $set;
+echo $output_dir, LN;
 if (!file_exists($output_dir))
   mkdir($output_dir, 0777, true);
 
@@ -23,10 +24,12 @@ while ($doNext) {
   $ids = [];
   foreach ($response->xml->ListRecords->record as $record) {
     $rawId = (string) $record->header->identifier;
-    $ids[] = str_replace('KBR', '', $rawId);
+    $ids[] = $rawId; // str_replace('KBR', '', $rawId);
   }
   $count += count($ids);
-  file_put_contents(sprintf("%s/%06d.xml", $output_dir, ++$i), $response->content);
+  $output_file = sprintf("%s/%06d.xml", $output_dir, ++$i);
+  echo "save to $output_file\n";
+  file_put_contents($output_file, $response->content);
 
   $resumptionToken = $response->xml->ListRecords->resumptionToken;
   $completeListSize = $resumptionToken['completeListSize'];
@@ -53,10 +56,11 @@ function getRespone($set = '', $resumptionToken = '') {
   echo $URL, LN;
 
   $trial = 0;
-
   $response = null;
   do {
+    echo "trial: $trial\n";
     $response = getHttpRespone($URL);
+    echo "got response", LN;
     if ($response->status == 200) {
       $response->xml = simplexml_load_string($response->content) or die("Error: Cannot create object");
     } else {
