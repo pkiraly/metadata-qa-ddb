@@ -46,6 +46,7 @@ public class App {
     private String inputFile;
     private String outputFile;
     private boolean indexing;
+    private boolean storing;
     private FORMAT format;
     private SqliteManager sqliteManager;
     private boolean doSqlite = false;
@@ -70,6 +71,7 @@ public class App {
         options.addOption(new Option("o", "output", true, "output file"));
         options.addOption(new Option("f", "format", true, "output format"));
         options.addOption(new Option("x", "indexing", false, "do indexing"));
+        options.addOption(new Option("t", "storing", false, "store XML into database"));
         options.addOption(new Option("p", "path", true, "Solr path"));
         options.addOption(new Option("q", "sqlitePath", true, "SQLite database file path"));
         options.addOption(new Option("d", "directory", true, "input direcotry"));
@@ -135,6 +137,7 @@ public class App {
         }
         outputFile = cmd.getOptionValue("output");
         indexing = cmd.hasOption("indexing");
+        storing = cmd.hasOption("storing");
         format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
         recursive = cmd.hasOption("recursive");
         logger.info("recursive: {}", recursive);
@@ -170,6 +173,8 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException, ParseException {
+        System.err.println(System.getProperty("logDir"));
+        System.err.println(App.logger.getName());
         App app = new App(args);
     }
 
@@ -182,7 +187,7 @@ public class App {
             String line = null;
             while (iterator.hasNext()) {
                 String xml = iterator.next();
-                if (!indexing && doSqlite) {
+                if (!indexing && doSqlite && storing) {
                     OaiPmhXPath oaiPmhXPath = new OaiPmhXPath(xml, namespaces);
                     List<EdmFieldInstance> idList = oaiPmhXPath.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
@@ -248,7 +253,10 @@ public class App {
     private static String formatOptions(Option[] options) {
         List<String> items = new ArrayList<>();
         for (Option option : options) {
-            items.add(String.format("%s: %s", option.getLongOpt(), option.getValue()));
+            if (option.hasArg())
+                items.add(String.format("%s: %s", option.getLongOpt(), option.getValue()));
+            else
+                items.add(String.format("%s", option.getLongOpt()));
         }
         return StringUtils.join(items, ", ");
     }

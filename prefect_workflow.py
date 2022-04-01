@@ -20,43 +20,43 @@ harvest_edm_task = ShellTask(
 
 # measurement tasks
 measure_ddb_edm_task = ShellTask(
-    name='measure_ddb_edm',
+    name='measure DDB-EDM',
     command='scripts/process/01_process_ddb-edm.sh', return_all=True, log_stderr=True)
 measure_marc_task = ShellTask(
-    name='measure_marc',
+    name='measure MARC',
     command='scripts/process/02_process_marc.sh', return_all=True, log_stderr=True)
 measure_ddb_dc_task = ShellTask(
-    name='measure_dc',
-    command='scripts/process/03_process_ddb_dc.sh', return_all=True, log_stderr=True)
+    name='measure DDB-DC',
+    command='scripts/process/03_process_ddb-dc.sh', return_all=True, log_stderr=True)
 measure_lido_task = ShellTask(
-    name='measure_lido',
+    name='measure LIDO',
     command='scripts/process/04_process_lido.sh', return_all=True, log_stderr=True)
 measure_mets_mods_task = ShellTask(
-    name='measure_mets_mods',
+    name='measure METS-MODS',
     command='scripts/process/05_process_mets-mods.sh', return_all=True, log_stderr=True)
 
 # importing tasks
 create_issue_table_task = ShellTask(
-    name='create_issue_table',
+    name='create issue table',
     command='scripts/process/11_create_issue_table.sqlite.sh', return_all=True, log_stderr=True)
 import_ddb_edm_task = ShellTask(
-    name='import_ddb_edm',
+    name='import DDB-EDM',
     command='scripts/process/11_import_ddb-edm.sqlite.sh', return_all=True, log_stderr=True)
 import_marc_task = ShellTask(
-    name='import_marc',
+    name='import MARC',
     command='scripts/process/11_import_marc.sqlite.sh', return_all=True, log_stderr=True)
 import_dc_task = ShellTask(
-    name='import_dc',
+    name='import DDB-DC',
     command='scripts/process/11_import_dc.sqlite.sh', return_all=True, log_stderr=True)
 import_lido_task = ShellTask(
-    name='import_lido',
+    name='import LIDO',
     command='scripts/process/11_import_lido.sqlite.sh', return_all=True, log_stderr=True)
 import_mets_mods_task = ShellTask(
-    name='import_mets_mods',
+    name='import METS-MODS',
     command='scripts/process/11_import_mets-mods.sqlite.sh', return_all=True, log_stderr=True)
 
 calculate_aggregations_task = ShellTask(
-    name='calculate_aggregations',
+    name='calculate aggregations',
     command='scripts/process/12_calculate_aggregations_sqlite.sh', return_all=True, log_stderr=True)
 
 @task
@@ -78,19 +78,19 @@ with Flow("DDB quality assessment flow") as f:
     # import_basic_info = import_basic_info_task()
     # harvest_edm = harvest_edm_task()
 
-    # process_ddb_edm = measure_ddb_edm_task()
-    # process_marc = measure_marc_task(upstream_dependencies=[process_ddb_edm])
-    # process_ddb_dc = measure_ddb_dc_task()
-    # process_lido = measure_lido_task()
-    # process_mets_mods = process_mets_mods_task()
+    # measure_ddb_edm = measure_ddb_edm_task()
+    # measure_marc = measure_marc_task()
+    measure_ddb_dc = measure_ddb_dc_task()
+    # measure_lido = measure_lido_task()
+    # measure_mets_mods = measure_mets_mods_task()
 
     # create_issue_table = create_issue_table_task()
-    # import_ddb_edm = import_ddb_edm_task()
-    # import_marc = import_marc_task()
-    # import_dc = import_dc_task()
-    # import_lido = import_lido_task()
-    import_mets_mods = import_mets_mods_task()
-    calculate_aggregations = calculate_aggregations_task(upstream_tasks=[import_mets_mods])
+    # import_ddb_edm = import_ddb_edm_task(upstream_tasks=[create_issue_table]) # upstream_tasks=[measure_ddb_edm])
+    # import_marc = import_marc_task(upstream_tasks=[import_ddb_edm]) # upstream_tasks=[measure_marc])
+    import_dc = import_dc_task(upstream_tasks=[measure_ddb_dc]) # upstream_tasks=[measure_ddb_dc])
+    # import_lido = import_lido_task(upstream_tasks=[import_dc]) # upstream_tasks=[measure_lido])
+    # import_mets_mods = import_mets_mods_task(upstream_tasks=[import_lido]) # upstream_tasks=[measure_mets_mods])
+    calculate_aggregations = calculate_aggregations_task(upstream_tasks=[import_dc])
 
     # notify(harvest_edm)
 

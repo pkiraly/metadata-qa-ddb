@@ -3,7 +3,7 @@
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 
-java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
+java -Xmx4g -DlogDir="$ROOT/logs" -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --path solr/qa_ddb \
   --recursive \
