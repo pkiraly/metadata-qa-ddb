@@ -75,18 +75,20 @@ fields:
         not:
         - pattern: ^[a-zA-Z_0-9:\-]+$
         failureScore: -9
-#      - pixels: 1024,468
-#        failureScore: -8
-#        id: Q-3.4
-#        description: The image must be at least 800 pixels wide and at least 600 pixels high.
+      - id: Q-3.4
+        description: The image must be at least 800 pixels wide and at least 600 pixels high.
+        failureScore: -8
+        dimension:
+          minShortside: 600
+          minLongside: 800
       - id: Q-3.5
         description: The preview image should be referenced by a hyperlink.
         pattern: ^https?://
         successScore: 3
-#      - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
-#        successScore: 4
-#        id: Q-3.6
+#      - id: Q-3.6
 #        description: The image file should be delivered in a preferred format.
+#        contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+#        successScore: 4
 
   # Q-4	Link zum Digitalen Objekt
   - name: url
@@ -97,16 +99,15 @@ fields:
         and:
         - minCount: 1
         - minLength: 1
-        - pattern: ^https?://
+        - pattern: ^https?://.*$
         failureScore: -9
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
         and:
         - minCount: 1
         - minLength: 1
-        - pattern: ^https?://
+        - pattern: ^https?://.*$
         - contentType:
-          in:
           - image/jpeg
           - image/png
           - image/tiff
@@ -131,7 +132,7 @@ fields:
         failureScore: -3
       - id: Q-4.3
         description: The link to the digital object must be valid.
-        pattern: ^[a-zA-Z_0-9:/\-]+$
+        pattern: ^[a-zA-Z_0-9:/\.\-]+$
         failureScore: -9
 #      - id: Q-4.4
 #        description: Both a media file and a link to an object are referenced in context.

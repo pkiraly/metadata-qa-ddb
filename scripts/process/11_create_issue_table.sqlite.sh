@@ -40,6 +40,8 @@ CREATE TABLE "issue"(
   "Q-3.4:score" INTEGER,
   "Q-3.5:status" TEXT,
   "Q-3.5:score" INTEGER,
+  "Q-3.6:status" TEXT,
+  "Q-3.6:score" INTEGER,
   "Q-4.1:status" TEXT,
   "Q-4.1:score" INTEGER,
   "Q-4.2:status" TEXT,
@@ -127,6 +129,8 @@ CREATE INDEX "Q-3.4:status" ON "issue" ("Q-3.4:status");
 CREATE INDEX "Q-3.4:score" ON "issue" ("Q-3.4:score");
 CREATE INDEX "Q-3.5:status" ON "issue" ("Q-3.5:status");
 CREATE INDEX "Q-3.5:score" ON "issue" ("Q-3.5:score");
+CREATE INDEX "Q-3.6:status" ON "issue" ("Q-3.6:status");
+CREATE INDEX "Q-3.6:score" ON "issue" ("Q-3.6:score");
 CREATE INDEX "Q-4.1:status" ON "issue" ("Q-4.1:status");
 CREATE INDEX "Q-4.1:score" ON "issue" ("Q-4.1:score");
 CREATE INDEX "Q-4.2:status" ON "issue" ("Q-4.2:status");

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
+import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.OaiPmhXPath;
@@ -87,6 +88,13 @@ public class App {
         calculator = initializeCalculator();
         idPath = calculator.getSchema().getRecordId().getJsonPath();
         namespaces = calculator.getSchema().getNamespaces();
+        System.err.println(namespaces);
+        OaiPmhXPath.setXpathEngine(namespaces);
+
+        for (RuleChecker rc : calculator.getSchema().getRuleCheckers()) {
+            System.err.println(rc.getId());
+            System.err.println(rc);
+        }
 
         try {
             writer = Files.newBufferedWriter(Paths.get(outputFile));

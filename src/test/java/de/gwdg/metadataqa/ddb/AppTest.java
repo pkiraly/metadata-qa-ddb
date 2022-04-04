@@ -1,10 +1,16 @@
 package de.gwdg.metadataqa.ddb;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 /**
@@ -61,5 +67,40 @@ public class AppTest {
         assertTrue(pattern.matcher("http://vb.uni-wuerzburg.de/ub/books/hpf540594/folio-std/DE-20__H_p_f_540-5_94__0001__0001.jpg").matches());
         // assertTrue(pattern.matcher("Göttingen").matches());
         // assertFalse(pattern.matcher("Göt tingen").matches());
+    }
+
+    @Test
+    public void nonSpacePattern() {
+        Pattern pattern = Pattern.compile("^[a-zA-Z_0-9:/\\.\\-]+$");
+        assertTrue(pattern.matcher("http://vb.uni-wuerzburg.de/ub/permalink/itf32").matches());
+    }
+
+    @Test
+    public void contentType() {
+        try {
+            assertEquals("text/html", getContentType("http://vb.uni-wuerzburg.de/ub/permalink/itf32"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getContentType(String url) throws IOException {
+        String contentType = null;
+        URL urlObj = new URL(url);
+        HttpURLConnection urlConnection = (HttpURLConnection) urlObj.openConnection();
+
+        int timeout = 1000;
+        urlConnection.setConnectTimeout(timeout);
+        urlConnection.setReadTimeout(timeout);
+        urlConnection.connect();
+        int responseCode = urlConnection.getResponseCode();
+        if (responseCode == 200) {
+            String rawContentType = urlConnection.getHeaderField("Content-Type");
+            if (rawContentType != null && StringUtils.isNotBlank(rawContentType))
+                contentType = rawContentType.replaceAll("; ?charset.*$", "");
+        } else {
+            System.err.printf("Status code: %d.%n", responseCode);
+        }
+        return contentType;
     }
 }

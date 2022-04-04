@@ -6,14 +6,14 @@ fields:
     identifierField: true
     indexField: providerItemId
     rules:
-      - and:
+      - id: Q-1.1
+        failureScore: -9
+        and:
         - minCount: 1
         - minLength: 1
+      - id: Q-1.2
         failureScore: -9
-        id: Q-1.1
-      - unique: true
-        failureScore: -9
-        id: Q-1.2
+        unique: true
       - pattern: ^[\p{Alpha}\d\.]+$
         successScore: 3
         id: Q-1.5
