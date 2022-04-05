@@ -8,24 +8,25 @@ fields:
     rules:
       - id: Q-1.1
         description: There must be an ID for the data record in the data record supplied.
+        failureScore: -9
         and:
         - minCount: 1
         - minLength: 1
-        failureScore: -9
       - id: Q-1.2
         description: The ID for the data record must be unique.
-        unique: true
         failureScore: -9
-      # -
-        # id: Q-1.3
-        # description: In data records that represent several hierarchical levels, the description units of the individual parts of an object must have a unique identifier within the data record.
-      # -
-      #   id: Q-1.4
-        # description: The identifier for the data record must be unchangeable and must not change, especially when updated data sets are sent to the DDB.
+        unique: true
+      # - id: Q-1.3
+      #   description: In data records that represent several hierarchical levels, the description units of the individual
+      #     parts of an object must have a unique identifier within the data record.
+      # - id: Q-1.4
+      #   description: The identifier for the data record must be unchangeable and must not change, especially when updated
+      #     data sets are sent to the DDB.
       - id: Q-1.5
         description: The ID for the data record is easy to process by machine
-        pattern: ^[\p{Alpha}\d\.]+$
         successScore: 3
+        pattern: ^[\p{Alpha}\d\.]+$
+
   - name: providerid
     path: oai:record/dc:identifier[@type='providerid']
     extractable: true
@@ -33,35 +34,41 @@ fields:
     rules:
       - id: Q-2.1
         description: There must be an ID for the data supplier in the data record supplied.
+        failureScore: -6
         and:
           - minCount: 1
           - minLength: 1
-        failureScore: -6
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
         failureScore: -3
-      # -
-      #   id: Q-2.3
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+      # - id: Q-2.3
       #   description: The data provider should be identified by an International Standard Identifier for Libraries and Related Organizations (ISIL).
       - id: Q-2.4
         description: The data provider should be identified by an http-URI from the ISIL registration.
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
         successScore: 6
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
-        pattern: ^http://id.zdb-services.de\w+$
         successScore: 3
+        pattern: ^http://id.zdb-services.de\w+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
-        pattern: ^http://d-nb.info/gnd/\w+$
         successScore: 3
+        pattern: ^http://d-nb.info/gnd/\w+$
+
   # Q-3	Vorschaubild
   - name: thumbnail
     path: oai:record/dc:identifier[@type='binary']
     rules:
+      - id: Q-3.0
+        hidden: true
+        and:
+          - minCount: 1
+          - minLength: 1
       - id: Q-3.1
         description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
+        skip: true
         or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
@@ -78,6 +85,7 @@ fields:
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -8
+        skip: true
         dimension:
           minShortside: 600
           minLongside: 800
@@ -91,9 +99,16 @@ fields:
 #        successScore: 4
 
   # Q-4	Link zum Digitalen Objekt
+  # Objekt im Medienviewer
+  # Objekt im Kontext
   - name: url
     path: oai:record/dc:identifier[@type='URL']
     rules:
+      - id: Q-4.0
+        hidden: true
+        and:
+          - minCount: 1
+          - minLength: 1
       - id: Q-4.1
         description: There must be at least one link to a digital object in the data record.
         and:
@@ -103,6 +118,7 @@ fields:
         failureScore: -9
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
+        skip: true
         and:
         - minCount: 1
         - minLength: 1
@@ -134,12 +150,14 @@ fields:
         description: The link to the digital object must be valid.
         pattern: ^[a-zA-Z_0-9:/\.\-]+$
         failureScore: -9
-#      - id: Q-4.4
-#        description: Both a media file and a link to an object are referenced in context.
-#        successScore: 3
-#      - id: Q-4.5
-#        description: There is a link to both a media file and an object in the media viewer.
-#        successScore: 6
+      - id: Q-4.4
+        description: Both a media file and a link to an object are referenced in context.
+        successScore: 3
+        dependencies: [Q-3.0, Q-4.0]
+      - id: Q-4.5
+        description: There is a link to both a media file and an object in the media viewer.
+        successScore: 6
+        dependencies: [Q-3.0, Q-4.0]
 
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
@@ -230,39 +248,38 @@ fields:
 #   Objekttitel
   - name: dc:title
     path: oai:record/dc:title
-#    extractable: true
     indexField: dc_title
     rules:
       - id: Q-6.1
         description: There must be an object title in the data record.
-        and:
-        - minCount: 1
-        - pattern: ^.+$
         failureScore: -9
+        and:
+          - minCount: 1
+          - pattern: ^.+$
       - id: Q-6.2
         description: The title must be unique.
-        unique: true
         failureScore: -6
+        unique: true
       - id: Q-6.3
         description: The title must be meaningful.
-        minLength: 3
         failureScore: -3
+        minLength: 3
       # Q-6.4	"Der Titel muss aussagekräftig sein. [ENG] The title must be meaningful."
       - id: Q-6.5
         description: The title must be unique.
-        not:
-        - equals: dc:type
         failureScore: -3
+        not:
+          - equals: dc:type
 
   - name: dc:type
     path: oai:record/dc:type
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
+        failureScore: -9
         and:
         - minCount: 1
         - pattern: ^.+$
-        failureScore: -9
 
   - name: dc_type_source
     path: oai:record/dc:type/@resource
@@ -270,10 +287,11 @@ fields:
     rules:
       - id: Q-7.3
         description: The object type must come from a controlled vocabulary.
-        pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
         failureScore: -6
+        pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
       - id: Q-7.5
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
+        successScore: 6
         or:
         - and:
           - pattern: ^http.*$
@@ -282,16 +300,15 @@ fields:
           - not:
             - pattern: ^http.*$
           - in: [AAT, gnd, GND, gnd-music, gnd-content]
-        successScore: 6
       # Q-7.6	The object type is referenced by an http URI from a LOD vocabulary.
       - id: Q-7.7
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
-        pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
         successScore: 6
+        pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
       - id: Q-7.8
         description: The http-URI refers to a term in Wikidata.
-        pattern: ^http://vocab.getty.edu/aat/Q.*$
         successScore: 6
+        pattern: ^http://vocab.getty.edu/aat/Q.*$
 
   - name: dc_type_text
     path: oai:record/dc:type
@@ -299,8 +316,8 @@ fields:
     rules:
       - id: Q-7.4
         description: It is a specific object type designation and not an object description or object classification.
-        maxWords: 2
         failureScore: -3
+        maxWords: 2
 
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier

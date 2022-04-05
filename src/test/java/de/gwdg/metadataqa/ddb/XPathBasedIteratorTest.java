@@ -57,7 +57,8 @@ public class XPathBasedIteratorTest {
       .disableFieldExistenceMeasurement()
       .disableFieldCardinalityMeasurement()
       .enableRuleCatalogMeasurement()
-      .enableFieldExtractor();
+      .enableFieldExtractor()
+      .withSolrConfiguration("localhost", "8983", "dummy");
 
     CalculatorFacade calculator = new CalculatorFacade(configuration)
       .setSchema(schema);

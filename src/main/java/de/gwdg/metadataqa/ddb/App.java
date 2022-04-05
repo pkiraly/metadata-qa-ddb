@@ -181,9 +181,8 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException, ParseException {
-        System.err.println(System.getProperty("logDir"));
-        System.err.println(App.logger.getName());
         App app = new App(args);
+        logger.info("DONE");
     }
 
     private void processFile(String inputFile) throws IOException {
@@ -246,8 +245,10 @@ public class App {
               .disableFieldCardinalityMeasurement()
               .enableRuleCatalogMeasurement()
               .enableFieldExtractor()
+              // .enableUniquenessMeasurement()
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)
+              .withSolrConfiguration("localhost", "8983", solrPath)
               // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
             ;
         }
