@@ -1,5 +1,6 @@
 format: xml
 fields:
+  # Identifikator für den Datensatz
   - name: recordId
     path: marc:record/marc:controlfield[@tag="001"]
     extractable: true
@@ -27,6 +28,7 @@ fields:
         successScore: 3
         pattern: ^[\p{Alpha}\d\.]+$
 
+  # Identifikator für den Datengeber
   - name: providerid
     path: marc:record/marc:controlfield[@tag="003"]
     extractable: true
@@ -104,7 +106,7 @@ fields:
         failureScore: -9
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
-        skip: true
+        skip: false
         and:
           - minCount: 1
           - minLength: 1

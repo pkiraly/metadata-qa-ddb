@@ -1,5 +1,6 @@
 format: xml
 fields:
+  # Identifikator für den Datensatz
   - name: recordId
     path: oai:record/dc:identifier[@type='providerItemId']
     extractable: true
@@ -10,8 +11,8 @@ fields:
         description: There must be an ID for the data record in the data record supplied.
         failureScore: -9
         and:
-        - minCount: 1
-        - minLength: 1
+          - minCount: 1
+          - minLength: 1
       - id: Q-1.2
         description: The ID for the data record must be unique.
         failureScore: -9
@@ -27,6 +28,7 @@ fields:
         successScore: 3
         pattern: ^[\p{Alpha}\d\.]+$
 
+  # Identifikator für den Datengeber
   - name: providerid
     path: oai:record/dc:identifier[@type='providerid']
     extractable: true
@@ -68,35 +70,35 @@ fields:
           - minLength: 1
       - id: Q-3.1
         description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
-        skip: true
+        failureScore: -9
+        skip: false
         or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
-        failureScore: -9
       - id: Q-3.2
         description: The preview image must be explicitly marked if more than one image file is referenced in the data record.
-        minCount: 2
         failureScore: -2
+        minCount: 2
       - id: Q-3.3
         description: The reference to the image file must be valid.
+        failureScore: -9
         not:
         - pattern: ^[a-zA-Z_0-9:\-]+$
-        failureScore: -9
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -8
-        skip: true
+        skip: false
         dimension:
           minShortside: 600
           minLongside: 800
       - id: Q-3.5
         description: The preview image should be referenced by a hyperlink.
-        pattern: ^https?://
         successScore: 3
-#      - id: Q-3.6
-#        description: The image file should be delivered in a preferred format.
-#        contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
-#        successScore: 4
+        pattern: ^https?://
+      - id: Q-3.6
+        description: The image file should be delivered in a preferred format.
+        successScore: 4
+        contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Q-4	Link zum Digitalen Objekt
   # Objekt im Medienviewer
@@ -118,7 +120,7 @@ fields:
         failureScore: -9
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
-        skip: true
+        skip: false
         and:
         - minCount: 1
         - minLength: 1
@@ -158,11 +160,6 @@ fields:
         description: There is a link to both a media file and an object in the media viewer.
         successScore: 6
         dependencies: [Q-3.0, Q-4.0]
-
-#  - name: dc:identifier
-#    path: //oai:metadata/oai:record/dc:identifier
-#  - name: dc:date
-#    path: //oai:metadata/oai:record/dc:date
 
 # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
@@ -271,6 +268,7 @@ fields:
         not:
           - equals: dc:type
 
+  # Objekttyp
   - name: dc:type
     path: oai:record/dc:type
     rules:
@@ -278,9 +276,14 @@ fields:
         description: There must be at least one preferred designation for the object type in the data record.
         failureScore: -9
         and:
-        - minCount: 1
-        - pattern: ^.+$
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-7.4
+        description: It is a specific object type designation and not an object description or object classification.
+        failureScore: -3
+        maxWords: 2
 
+  # Objekttyp (URI)
   - name: dc_type_source
     path: oai:record/dc:type/@resource
     # extractable: true
@@ -293,13 +296,13 @@ fields:
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 6
         or:
-        - and:
-          - pattern: ^http.*$
-          - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
-        - and:
-          - not:
+          - and:
             - pattern: ^http.*$
-          - in: [AAT, gnd, GND, gnd-music, gnd-content]
+            - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+          - and:
+            - not:
+              - pattern: ^http.*$
+            - in: [AAT, gnd, GND, gnd-music, gnd-content]
       # Q-7.6	The object type is referenced by an http URI from a LOD vocabulary.
       - id: Q-7.7
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
@@ -309,40 +312,6 @@ fields:
         description: The http-URI refers to a term in Wikidata.
         successScore: 6
         pattern: ^http://vocab.getty.edu/aat/Q.*$
-
-  - name: dc_type_text
-    path: oai:record/dc:type
-    # extractable: false
-    rules:
-      - id: Q-7.4
-        description: It is a specific object type designation and not an object description or object classification.
-        failureScore: -3
-        maxWords: 2
-
-#  - name: dc:identifier
-#    path: //oai:metadata/oai:record/dc:identifier
-#  - name: rights
-#    path: oai:record/dc:rights[@type='binary']
-#  - name: dc:rights
-#    path: oai:record/dc:rights
-#  - name: dc:identifier
-#    path: oai:record/dc:identifier
-#  - name: dc:contributor
-#    path: oai:record/dc:contributor
-#  - name: dc:creator
-#    path: oai:record/dc:creator
-#  - name: dc:relation
-#    path: oai:record/dc:relation
-#  - name: dc:language
-#    path: oai:record/dc:language
-#  - name: dcterms:created
-#    path: oai:record/dcterms:created
-#  - name: dcterms:location
-#    path: oai:record/dcterms:location
-#  - name: dcterms:extent
-#    path: oai:record/dcterms:extent
-#  - name: dcterms:medium
-#    path: oai:record/dcterms:medium
 
 namespaces:
   doc: http://www.lyncode.com/xoai
