@@ -101,19 +101,19 @@ with Flow("DDB quality assessment flow") as f:
     # index_lido = measure_lido_task()
     # index_mets_mods = measure_mets_mods_task()
 
-    # measure_ddb_edm = measure_ddb_edm_task()
-    # measure_marc = measure_marc_task() # upstream_tasks=[index_marc])
-    measure_ddb_dc = measure_ddb_dc_task() #upstream_tasks=[measure_ddb_dc])
+    measure_ddb_edm = measure_ddb_edm_task() # upstream_tasks=[index_ddb_edm])
+    measure_marc = measure_marc_task(upstream_tasks=[measure_ddb_edm]) # upstream_tasks=[index_marc])
+    measure_ddb_dc = measure_ddb_dc_task(upstream_tasks=[measure_marc]) # upstream_tasks=[measure_ddb_dc])
     # measure_lido = measure_lido_task()
     # measure_mets_mods = measure_mets_mods_task()
 
-    # create_issue_table = create_issue_table_task()
-    # import_ddb_edm = import_ddb_edm_task(upstream_tasks=[create_issue_table]) # upstream_tasks=[measure_ddb_edm])
-    # import_marc = import_marc_task(upstream_tasks=[measure_marc]) # import_ddb_edm measure_marc
-    import_dc = import_dc_task(upstream_tasks=[measure_ddb_dc]) # upstream_tasks=[measure_ddb_dc])
+    create_issue_table = create_issue_table_task(upstream_tasks=[measure_ddb_dc])
+    import_ddb_edm = import_ddb_edm_task(upstream_tasks=[create_issue_table]) # upstream_tasks=[measure_ddb_edm])
+    import_marc = import_marc_task(upstream_tasks=[import_ddb_edm]) # import_ddb_edm measure_marc
+    import_dc = import_dc_task(upstream_tasks=[import_marc]) # upstream_tasks=[measure_ddb_dc])
     # import_lido = import_lido_task(upstream_tasks=[import_dc]) # upstream_tasks=[measure_lido])
     # import_mets_mods = import_mets_mods_task(upstream_tasks=[import_lido]) # upstream_tasks=[measure_mets_mods])
-    calculate_aggregations = calculate_aggregations_task(upstream_tasks=[measure_ddb_dc])
+    calculate_aggregations = calculate_aggregations_task(upstream_tasks=[import_dc])
 
     # notify(harvest_edm)
 

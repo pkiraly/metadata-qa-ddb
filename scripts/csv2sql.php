@@ -47,6 +47,8 @@ function str_putcsv2(array $input, $delimiter = ',', $enclosure = '"') {
   foreach ($input as $item) {
     if (preg_match('/^\d+(\.\d+)?$/', $item)) 
       $a2[] = $item;
+    else if ($item == 'NULL') 
+      $a2[] = $item;
     else
       $a2[] = $enclosure . $item . $enclosure;
   }

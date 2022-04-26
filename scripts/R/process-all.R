@@ -47,14 +47,15 @@ df <- read_csv(paste0(dir, '/all-issues.csv'))
 n <- df %>% count() %>% unlist(use.names = FALSE)
 cat(n, file=paste0(dir, '/count'))
 
+view(df)
 config <- list()
-fields <- c('schema', 'set_id', 'provider_id') #, 'file')
+fields <- c('metadata_schema', 'set_id', 'provider_id') #, 'file')
 for (field in fields) {
   values <- c(NA, df %>% select(field) %>% distinct() %>% unlist(use.names = FALSE))
   config[[field]] <- values
 }
 
-df_perm <- expand.grid(config[['schema']], config[['set_id']], config[['provider_id']])
+df_perm <- expand.grid(config[['metadata_schema']], config[['set_id']], config[['provider_id']])
 names(df_perm) <- fields
 
 df_perm <- df_perm %>% mutate(count = 0)
@@ -100,7 +101,7 @@ for (i in 1:nrow(df_perm)) {
       print(df_perm[i, ])
       # print(.count)
       df_filtered <- df_filtered %>% 
-        select(-c("schema", "set_id", "provider_id", "file", "recordId", "providerid"))
+        select(-c("metadata_schema", "set_id", "provider_id", "file", "recordId", "providerid"))
       df_freq <- calculateFrequency(df_filtered)
       
       df_var <- df_freq %>% 

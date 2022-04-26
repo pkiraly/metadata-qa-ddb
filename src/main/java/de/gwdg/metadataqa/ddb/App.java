@@ -37,7 +37,6 @@ import org.apache.commons.lang3.StringUtils;
 public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
 
-    // private static final Logger logger = Logger.getLogger(App.class.getCanonicalName());
     private Writer writer;
 
     public enum FORMAT {CSV, JSON};
@@ -50,7 +49,9 @@ public class App {
     private boolean storing;
     private FORMAT format;
     private SqliteManager sqliteManager;
+    private MySqlManager mySqlManager;
     private boolean doSqlite = false;
+    private boolean doMysql = false;
     private String idPath;
     private CalculatorFacade calculator;
     private String directory;
@@ -80,6 +81,9 @@ public class App {
         options.addOption(new Option("l", "record-address", true, "XPath expression to fetch the records out of XML"));
         options.addOption(new Option("r", "recursive", false, "recursive iteration of directories"));
         options.addOption(new Option("r", "rootDirectory", true, "root direactory, make file path relative to this directory"));
+        options.addOption(new Option("D", "mysqlDatabase", true, "MySQL database"));
+        options.addOption(new Option("U", "mysqlUser", true, "MySQL user name"));
+        options.addOption(new Option("P", "mysqlPassword", true, "MySQL password"));
     }
 
     public App(String[] args) throws ParseException, IOException {
@@ -88,13 +92,7 @@ public class App {
         calculator = initializeCalculator();
         idPath = calculator.getSchema().getRecordId().getJsonPath();
         namespaces = calculator.getSchema().getNamespaces();
-        System.err.println(namespaces);
         OaiPmhXPath.setXpathEngine(namespaces);
-
-        for (RuleChecker rc : calculator.getSchema().getRuleCheckers()) {
-            System.err.println(rc.getId());
-            System.err.println(rc);
-        }
 
         try {
             writer = Files.newBufferedWriter(Paths.get(outputFile));
@@ -178,11 +176,18 @@ public class App {
             sqliteManager = new SqliteManager(sqlitePath);
             doSqlite = true;
         }
-    }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        App app = new App(args);
-        logger.info("DONE");
+        if (cmd.hasOption("mysqlDatabase")) {
+            String mysqlDatabase = cmd.getOptionValue("mysqlDatabase");
+            String mysqlUser = cmd.hasOption("mysqlUser") ? cmd.getOptionValue("mysqlUser") : null;
+            String mysqlPassword = cmd.hasOption("mysqlPassword") ? cmd.getOptionValue("mysqlPassword") : null;
+            if (StringUtils.isNotBlank(mysqlDatabase) && StringUtils.isNotBlank(mysqlUser) && StringUtils.isNotBlank(mysqlPassword)) {
+                mySqlManager = new MySqlManager(mysqlDatabase, mysqlUser, mysqlPassword);
+                doMysql = true;
+
+            }
+        }
+
     }
 
     private void processFile(String inputFile) throws IOException {
@@ -194,12 +199,15 @@ public class App {
             String line = null;
             while (iterator.hasNext()) {
                 String xml = iterator.next();
-                if (!indexing && doSqlite && storing) {
+                if (storing && (doSqlite || doMysql)) {
                     OaiPmhXPath oaiPmhXPath = new OaiPmhXPath(xml, namespaces);
                     List<EdmFieldInstance> idList = oaiPmhXPath.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
                         String id = idList.get(0).getValue();
-                        sqliteManager.insert(relativePath, id, xml);
+                        if (doSqlite)
+                            sqliteManager.insert(relativePath, id, xml);
+                        if (doMysql)
+                            mySqlManager.insertFileRecord(relativePath, id);
                     }
                 }
                 if (format.equals(FORMAT.CSV))
@@ -275,4 +283,11 @@ public class App {
         cmd = parser.parse(options, args);
         logger.info("cmd: {}", formatOptions(cmd.getOptions()));
     }
+
+    public static void main(String[] args) throws IOException, ParseException {
+        logger.info("logDir: " + System.getProperty("logDir"));
+        App app = new App(args);
+        logger.info("DONE");
+    }
+
 }

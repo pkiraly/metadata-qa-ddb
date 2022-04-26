@@ -11,7 +11,7 @@
 
   <name>metadata-qa-ddb</name>
   <description>
-    A metadata quality assessment framework for Deutsche Digitale Bibliothek (DDB) data.
+    A metadata quality assessment for Deutsche Digitale Bibliothek (DDB) data.
     It checks some metrics of metadata records, such as completeness,
     uniqueness, problem catalog.
   </description>
@@ -119,27 +119,37 @@
       <version>3.36.0.2</version>
     </dependency>
 
-    <!--
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.28</version>
+    </dependency>
+
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <version>1.2.11</version>
+    <!--
       <scope>compile</scope>
+    -->
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.2.11</version>
+    <!--
       <scope>compile</scope>
+    -->
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.36</version>
-      <scope>compile</scope>
+      <!--
+        <scope>compile</scope>
+      -->
     </dependency>
-    -->
   </dependencies>
 
   <build>

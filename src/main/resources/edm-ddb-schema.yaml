@@ -28,7 +28,7 @@ fields:
         successScore: 3
         pattern: ^[\p{Alpha}\d\.]+$
 
-  # Identifikator für den Datengeber
+  # Q-2 Identifikator für den Datengeber
   - name: providerid
     path: rdf:RDF/ore:Aggregation/edm:dataProvider/@rdf:resource
     extractable: true
@@ -94,7 +94,7 @@ fields:
       - id: Q-3.5
         description: The preview image should be referenced by a hyperlink.
         successScore: 3
-        pattern: ^https?://
+        pattern: ^https?://.*$
       - id: Q-3.6
         description: The image file should be delivered in a preferred format.
         successScore: 4
@@ -167,10 +167,10 @@ fields:
     rules:
       - id: Q-5.1
         description: The legal status for the digital object must be specified in the data record.
+        failureScore: -9
         and:
           - minCount: 1
           - minLength: 1
-        failureScore: -9
       - id: Q-5.2
         description: The legal status must be identified by an http-URI, which is named in the license basket of the German Digital Library.
         in:
@@ -234,15 +234,15 @@ fields:
           - http://rightsstatements.org/vocab/InC-EDU/1.0/
       - id: Q-5.7
         description: A standardized notice of rights is used. The usage rights must be inquired about.
+        failureScore: -3
         in:
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
           - http://rightsstatements.org/vocab/InC/1.0/
           - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-        failureScore: -3
 
-#   Objekttitel
+  # Q-6 Objekttitel
   - name: dc:title
     path: rdf:RDF/edm:ProvidedCHO/dc:title
     indexField: dc_title
@@ -268,7 +268,7 @@ fields:
         not:
           - equals: dc:type
 
-  # Objekttyp
+  # Q-7 Objekttyp
   - name: dc:type
     path: rdf:RDF/edm:ProvidedCHO/dc:type
     rules:
@@ -283,7 +283,7 @@ fields:
         failureScore: -3
         maxWords: 2
 
-  # Objekttyp (URI)
+  # Q-7 Objekttyp (URI)
   - name: dc_type_source
     path: rdf:RDF/edm:ProvidedCHO/dc:type/@rdf:resource
     rules:

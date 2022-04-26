@@ -12,14 +12,20 @@ CLASSPATH="$CLASSPATH:/$MVN_REPO/ch/qos/logback/logback-classic/1.2.11/logback-c
 SOLR_CORE=qa_ddb_lido
 initialize $SOLR_CORE
 
+mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_record WHERE file IN 
+(SELECT file FROM file WHERE schema = 'LIDO');"
+
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --path solr/${SOLR_CORE} \
   --recursive \
   --indexing \
-  --sqlitePath $OUTPUT_DIR/ddb.sqlite \
+  --storing \
+  --mysqlDatabase $MY_DB --mysqlUser $MY_USER --mysqlPassword $MY_PASSWORD \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/LIDO \
   --schema $ROOT/src/main/resources/lido-schema.yaml \
   --output $OUTPUT_DIR/lido.csv \
   --record-address '//lido:lido'
+
+#   --sqlitePath $OUTPUT_DIR/ddb.sqlite \

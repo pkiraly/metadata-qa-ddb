@@ -17,9 +17,12 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --path solr/${SOLR_CORE} \
   --recursive \
   --indexing \
-  --sqlitePath $OUTPUT_DIR/ddb.sqlite \
+  --storing \
+  --mysqlDatabase $MY_DB --mysqlUser $MY_USER --mysqlPassword $MY_PASSWORD \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-EDM \
   --schema $ROOT/src/main/resources/edm-ddb-schema.yaml \
   --output $OUTPUT_DIR/edm-ddb.csv \
   --record-address '//rdf:RDF'
+
+#  --sqlitePath $OUTPUT_DIR/ddb.sqlite \
