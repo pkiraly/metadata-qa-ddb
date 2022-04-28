@@ -13,7 +13,7 @@ SOLR_CORE=qa_ddb_marc
 initialize $SOLR_CORE
 
 mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_record WHERE file IN 
-(SELECT file FROM file WHERE schema = 'MARC');"
+(SELECT file FROM file WHERE metadata_schema = 'MARC');"
 
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \

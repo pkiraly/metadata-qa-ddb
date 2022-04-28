@@ -12,6 +12,9 @@ CLASSPATH="$CLASSPATH:/$MVN_REPO/ch/qos/logback/logback-classic/1.2.11/logback-c
 SOLR_CORE=qa_ddb_ddb_edm
 initialize $SOLR_CORE
 
+mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_record WHERE file IN 
+(SELECT file FROM file WHERE metadata_schema = 'DDB-EDM');"
+
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --path solr/${SOLR_CORE} \

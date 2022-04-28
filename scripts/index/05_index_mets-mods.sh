@@ -14,7 +14,7 @@ SOLR_CORE=qa_ddb_mets_mods
 initialize $SOLR_CORE
 
 mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_record WHERE file IN 
-(SELECT file FROM file WHERE schema = 'METS-MODS');"
+(SELECT file FROM file WHERE metadata_schema = 'METS-MODS');"
 
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
