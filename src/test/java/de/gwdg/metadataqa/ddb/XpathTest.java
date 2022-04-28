@@ -41,7 +41,7 @@ public class XpathTest {
     assertEquals("BDR-BV012591623-59024", idList.get(0).getValue());
   }
 
-  @Test
+  // @Test
   public void lido() throws FileNotFoundException {
     String path = "//lido:lido";
     Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/lido-schema.yaml").asSchema();
