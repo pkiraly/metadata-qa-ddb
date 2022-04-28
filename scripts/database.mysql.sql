@@ -22,7 +22,7 @@ CREATE TABLE file_record (
 CREATE INDEX fr_file_idx ON file_record (file(500));
 CREATE INDEX fr_recordId_idx ON file_record (recordId);
 
-DROP TABLE issue;
+DROP TABLE IF EXISTS issue;
 CREATE TABLE issue (
   `recordId` VARCHAR(200),
   `providerid` VARCHAR(100),
