@@ -189,7 +189,7 @@ fields:
   - name: rights
     # Rights Type
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:conceptID
-    extractable: true
+    extractable: false
     rules:
       - id: Q-5.1
         description: The legal status for the digital object must be specified in the data record.
