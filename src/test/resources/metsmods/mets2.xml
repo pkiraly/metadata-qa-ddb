@@ -1,0 +1,224 @@
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2021-04-13T06:14:06Z</responseDate>
+  <request verb="GetRecord" metadataPrefix="mets" identifier="oai:digital.staatsbibliothek-berlin.de:PPN1001301307">http://oai.sbb.berlin</request>
+  <GetRecord>
+    <record>
+      <header>
+        <identifier>oai:digital.staatsbibliothek-berlin.de:PPN1001301307</identifier>
+        <datestamp>2021-02-02T11:05:56Z</datestamp>
+        <setSpec>historische.drucke</setSpec>
+        <setSpec>einblattdrucke</setSpec>
+        <setSpec>portraets</setSpec>
+      </header>
+      <metadata>
+        <mets:mets xmlns:mets="http://www.loc.gov/METS/" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-0.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-7.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd http://www.loc.gov/mix/v10 http://www.loc.gov/standards/mix/mix10/mix10.xsd">
+          <mets:metsHdr LASTMODDATE="2021-04-13T11:17:43">
+            <mets:agent ROLE="EDITOR" TYPE="OTHER" OTHERTYPE="AGGREGATOR">
+              <mets:name>00000463</mets:name>
+            </mets:agent>
+            <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION" ID="DDBProvider_00008125">
+              <mets:name>DE-1</mets:name>
+            </mets:agent>
+            <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+              <mets:name>Kitodo - kitodo-ugh-2.1.3-kitodo-ugh-2.1.1-11-g4b06eaa - 30−July−2019</mets:name>
+              <mets:note>Kitodo</mets:note>
+            </mets:agent>
+          </mets:metsHdr>
+          
+          <mets:dmdSec ID="DMDLOG_0000">
+            <mets:mdWrap MDTYPE="MODS">
+              <mets:xmlData>
+                <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+                  <mods:location>
+                    <mods:physicalLocation valueURI="http://ld.zdb-services.de/resource/organisations/DE-1">Staatsbibliothek zu Berlin - Preußischer Kulturbesitz, Berlin, Germany</mods:physicalLocation>
+                    <mods:shelfLocator>Portr. Slg / Handel kl / Schwarzlose, Max, Nr. 1</mods:shelfLocator>
+                  </mods:location>
+                  <mods:originInfo eventType="publication">
+                    <mods:place>
+                      <mods:placeTerm type="text">Berlin</mods:placeTerm>
+                    </mods:place>
+                    <mods:dateIssued encoding="iso8601" keyDate="yes">1926</mods:dateIssued>
+                    <mods:publisher>Atlantic-Photo-Gesellschaft</mods:publisher>
+                  </mods:originInfo>
+                  <mods:originInfo eventType="digitization">
+                    <mods:place>
+                      <mods:placeTerm type="text">Berlin</mods:placeTerm>
+                    </mods:place>
+                    <mods:dateCaptured encoding="iso8601">2017</mods:dateCaptured>
+                    <mods:publisher>Staatsbibliothek zu Berlin - Preußischer Kulturbesitz, Germany</mods:publisher>
+                    <mods:edition>[Electronic ed.]</mods:edition>
+                  </mods:originInfo>
+                  <mods:classification authority="ZVDD">Einblattdrucke</mods:classification>
+                  <mods:classification authority="ZVDD">Historische Drucke</mods:classification>
+                  <mods:classification authority="ZVDD">Porträts, Bildmaterialien</mods:classification>
+                  <mods:recordInfo>
+                    <mods:recordIdentifier source="gbv-ppn">PPN1001301307</mods:recordIdentifier>
+                    <mods:recordContentSource valueURI="http://ld.zdb-services.de/resource/organisations/DE-1">DE-1</mods:recordContentSource>
+                    <mods:recordChangeDate encoding="iso8601">2021-04-13T11:17:43</mods:recordChangeDate>
+                    <mods:recordIdentifier source="zvdd">http://www.zvdd.de/record/DE-1/PPN1001301307/DMDLOG_0000</mods:recordIdentifier>
+                    <mods:recordInfoNote type="license">http://creativecommons.org/publicdomain/zero/1.0/</mods:recordInfoNote>
+                  </mods:recordInfo>
+                  <mods:identifier type="purl">http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000000</mods:identifier>
+                  <mods:relatedItem type="original">
+                    <mods:recordInfo>
+                      <mods:recordIdentifier source="gbv-ppn">PPN748364765</mods:recordIdentifier>
+                    </mods:recordInfo>
+                  </mods:relatedItem>
+                  <mods:titleInfo>
+                    <mods:title>Jubiläum der Firma Max Schwarzlose: Hellmuth Max Schwarzlose, der Gründer der Firma und Kurt Schwarzlose, der derzeitige Seniorchef des Hauses</mods:title>
+                  </mods:titleInfo>
+                  <mods:note type="source characteristics">P_Drucke_Allg</mods:note>
+                  <mods:subject authority="gnd">
+                    <mods:topic>Online-Publikation</mods:topic>
+                    <mods:topic>Bildliche Darstellung</mods:topic>
+                    <mods:topic>Bildnis</mods:topic>
+                    <mods:topic>Fotografie</mods:topic>
+                    <mods:topic>Einblattdruck</mods:topic>
+                  </mods:subject>
+                  <mods:relatedItem type="series">
+                    <mods:titleInfo>
+                      <mods:title>Porträts digital</mods:title>
+                    </mods:titleInfo>
+                  </mods:relatedItem>
+                  <mods:name type="personal">
+                    <mods:role>
+                      <mods:roleTerm authority="marcrelator" type="code" valueURI="http://id.loc.gov/vocabulary/relators/oth">oth</mods:roleTerm>
+                    </mods:role>
+                    <mods:namePart type="family">Schwarzlose</mods:namePart>
+                    <mods:namePart type="given">Max</mods:namePart>
+                    <mods:displayForm>Schwarzlose, Max</mods:displayForm>
+                  </mods:name>
+                  <mods:name type="personal">
+                    <mods:role>
+                      <mods:roleTerm authority="marcrelator" type="code" valueURI="http://id.loc.gov/vocabulary/relators/oth">oth</mods:roleTerm>
+                    </mods:role>
+                    <mods:namePart type="family">Schwarzlose</mods:namePart>
+                    <mods:namePart type="given">Kurt</mods:namePart>
+                    <mods:displayForm>Schwarzlose, Kurt</mods:displayForm>
+                  </mods:name>
+                  <mods:physicalDescription>
+                    <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+                    <mods:extent>2 Porträts auf 1 Blatt</mods:extent>
+                    <mods:extent>12,8 x 18,2 cm</mods:extent>
+                    <mods:extent>Fotografie</mods:extent>
+                  </mods:physicalDescription>
+                  
+                  <mods:accessCondition xmlns:xlink="http://www.w3.org/1999/xlink" type="use and reproduction" xlink:href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 International</mods:accessCondition>
+                  <mods:typeOfResource>image</mods:typeOfResource>
+                  <mods:relatedItem otherType="setSpec">
+                    <mods:identifier>http://www.zvdd.de/reproductionSeries/DE-1/historische.drucke</mods:identifier>
+                  </mods:relatedItem>
+                  <mods:relatedItem otherType="setSpec">
+                    <mods:identifier>http://www.zvdd.de/reproductionSeries/DE-1/einblattdrucke</mods:identifier>
+                  </mods:relatedItem>
+                  <mods:relatedItem otherType="setSpec">
+                    <mods:identifier>http://www.zvdd.de/reproductionSeries/DE-1/portraets</mods:identifier>
+                  </mods:relatedItem>
+                  <mods:genre valueURI="http://ddb.vocnet.org/hierarchietyp/ht021" displayLabel="document type">monograph</mods:genre>
+                  <mods:typeOfResource valueURI="http://ddb.vocnet.org/medientyp/mt003">text</mods:typeOfResource>
+                  <mods:identifier type="zvdd">http://www.zvdd.de/object/DE-1/PPN1001301307/LOG_0000</mods:identifier>
+                  <mods:location>
+                    <mods:url access="object in context" note="ddb">http://digital.staatsbibliothek-berlin.de/dms/werkansicht/?PPN=PPN1001301307</mods:url>
+                  </mods:location>
+                  <mods:location>
+                    <mods:url access="preview" note="ddb">http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/800/0/00000001.jpg</mods:url>
+                  </mods:location>
+                </mods:mods>
+              </mets:xmlData>
+            </mets:mdWrap>
+          </mets:dmdSec>
+          <mets:amdSec ID="AMD">
+            <mets:rightsMD ID="RIGHTS">
+              <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+                <mets:xmlData>
+                  <dv:rights xmlns:dv="http://dfg-viewer.de/">
+                    <dv:owner>Staatsbibliothek zu Berlin - Preußischer Kulturbesitz</dv:owner>
+                    <dv:ownerLogo>http://resolver.staatsbibliothek-berlin.de/SBB0000000100000000</dv:ownerLogo>
+                    <dv:ownerSiteURL>http://www.staatsbibliothek-berlin.de</dv:ownerSiteURL>
+                    <dv:ownerContact>mailto:info@sbb.spk-berlin.de</dv:ownerContact>
+                    <dv:license>https://creativecommons.org/licenses/by-nc-sa/4.0/</dv:license>
+                  </dv:rights>
+                </mets:xmlData>
+              </mets:mdWrap>
+            </mets:rightsMD>
+            <mets:digiprovMD ID="DIGIPROV">
+              <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+                <mets:xmlData>
+                  <dv:links xmlns:dv="http://dfg-viewer.de/">
+                    <dv:reference>http://www.stabikat.de/DB=1/PPN?PPN=1001301307 </dv:reference>
+                    <dv:presentation>http://digital.staatsbibliothek-berlin.de/dms/werkansicht/?PPN=PPN1001301307</dv:presentation>
+                  </dv:links>
+                </mets:xmlData>
+              </mets:mdWrap>
+            </mets:digiprovMD>
+          </mets:amdSec>
+          <mets:fileSec>
+            <mets:fileGrp USE="THUMBS">
+              <mets:file ID="FILE_0001_THUMBS" MIMETYPE="image/png">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/150/0/00000001.png"/>
+              </mets:file>
+              <mets:file ID="FILE_0002_THUMBS" MIMETYPE="image/png">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/150/0/00000002.png"/>
+              </mets:file>
+              <mets:file ID="FILE_0003_THUMBS" MIMETYPE="image/png">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/150/0/00000003.png"/>
+              </mets:file>
+            </mets:fileGrp>
+            <mets:fileGrp USE="PRESENTATION">
+              <mets:file ID="FILE_0001_PRESENTATION" MIMETYPE="image/tiff">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:///goobi/tiff001/sbb/PPN1001301307/00000001.tif"/>
+              </mets:file>
+              <mets:file ID="FILE_0002_PRESENTATION" MIMETYPE="image/tiff">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:///goobi/tiff001/sbb/PPN1001301307/00000002.tif"/>
+              </mets:file>
+              <mets:file ID="FILE_0003_PRESENTATION" MIMETYPE="image/tiff">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:///goobi/tiff001/sbb/PPN1001301307/00000003.tif"/>
+              </mets:file>
+            </mets:fileGrp>
+            <mets:fileGrp USE="DEFAULT">
+              <mets:file ID="FILE_0001_DEFAULT" MIMETYPE="image/jpg">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/800/0/00000001.jpg"/>
+              </mets:file>
+              <mets:file ID="FILE_0002_DEFAULT" MIMETYPE="image/jpg">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/800/0/00000002.jpg"/>
+              </mets:file>
+              <mets:file ID="FILE_0003_DEFAULT" MIMETYPE="image/jpg">
+                <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="http://content.staatsbibliothek-berlin.de/dms/PPN1001301307/800/0/00000003.jpg"/>
+              </mets:file>
+            </mets:fileGrp>
+          </mets:fileSec>
+          <mets:structMap TYPE="LOGICAL">
+            <mets:div DMDID="DMDLOG_0000" ADMID="AMD" CONTENTIDS="http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000000" ID="LOG_0000" ORDERLABEL="Jubiläum der Firma Max Schwarzlose: Hellmuth Max Schwarzlose, der Gründer der Firma und Kurt Schwarzlose, der derzeitige Seniorchef des Hauses" TYPE="monograph" LABEL="Jubiläum der Firma Max Schwarzlose: Hellmuth Max Schwarzlose, der Gründer der Firma und Kurt Schwarzlose, der derzeitige Seniorchef des Hauses">
+              <mets:div ID="LOG_0001" TYPE="section"/>
+            </mets:div>
+          </mets:structMap>
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div CONTENTIDS="http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000000" ID="PHYS_0000" TYPE="physSequence">
+              <mets:div CONTENTIDS="http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000001" ID="PHYS_0001" ORDER="1" ORDERLABEL=" - " TYPE="page">
+                <mets:fptr FILEID="FILE_0001_THUMBS"/>
+                <mets:fptr FILEID="FILE_0001_PRESENTATION"/>
+                <mets:fptr FILEID="FILE_0001_DEFAULT"/>
+              </mets:div>
+              <mets:div CONTENTIDS="http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000002" ID="PHYS_0002" ORDER="2" ORDERLABEL=" - " TYPE="page">
+                <mets:fptr FILEID="FILE_0002_THUMBS"/>
+                <mets:fptr FILEID="FILE_0002_PRESENTATION"/>
+                <mets:fptr FILEID="FILE_0002_DEFAULT"/>
+              </mets:div>
+              <mets:div CONTENTIDS="http://resolver.staatsbibliothek-berlin.de/SBB00020E1C00000003" ID="PHYS_0003" ORDER="3" ORDERLABEL=" - " TYPE="page">
+                <mets:fptr FILEID="FILE_0003_THUMBS"/>
+                <mets:fptr FILEID="FILE_0003_PRESENTATION"/>
+                <mets:fptr FILEID="FILE_0003_DEFAULT"/>
+              </mets:div>
+            </mets:div>
+          </mets:structMap>
+          <mets:structLink>
+            <mets:smLink xmlns:xlink="http://www.w3.org/1999/xlink" xlink:to="PHYS_0001" xlink:from="LOG_0000"/>
+            <mets:smLink xmlns:xlink="http://www.w3.org/1999/xlink" xlink:to="PHYS_0002" xlink:from="LOG_0000"/>
+            <mets:smLink xmlns:xlink="http://www.w3.org/1999/xlink" xlink:to="PHYS_0003" xlink:from="LOG_0000"/>
+            <mets:smLink xmlns:xlink="http://www.w3.org/1999/xlink" xlink:to="PHYS_0003" xlink:from="LOG_0001"/>
+          </mets:structLink>
+        </mets:mets>
+      </metadata>
+    </record>
+  </GetRecord>
+</OAI-PMH>

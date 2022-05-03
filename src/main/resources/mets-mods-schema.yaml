@@ -59,8 +59,9 @@ fields:
         successScore: 3
         id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
+
   - name: thumbnail
-    path: //mets:fileSec/mets:fileGrp[@USE="DEFAULT"]/mets:file[@ID]/mets:Flocat[@xlink:href]
+    path: //mets:fileSec/mets:fileGrp[@USE="DEFAULT"]/mets:file[@ID]/mets:FLocat/@xlink:href
     rules:
       - or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
@@ -89,8 +90,9 @@ fields:
 #        successScore: 4
 #        id: Q-3.6
 #        description: The image file should be delivered in a preferred format.
+
   - name: url
-    path: //oai:metadata/oai:record/dc:identifier[@type='URL']
+    path: //mods:location/mods:url
 #  - name: dc:identifier
 #    path: //oai:metadata/oai:record/dc:identifier
 #  - name: dc:date
@@ -98,7 +100,7 @@ fields:
 
 #   Objekttitel
   - name: dc:title
-    path: oai:record/dc:title
+    path: //mods:titleInfo/mods:title
 #    extractable: true
     indexField: dc_title
     rules:
@@ -123,7 +125,7 @@ fields:
         description: The title must be unique.
 
   - name: dc:type
-    path: oai:record/dc:type
+    path: //mods:mods/mods:genre
     rules:
       - and:
         - minCount: 1

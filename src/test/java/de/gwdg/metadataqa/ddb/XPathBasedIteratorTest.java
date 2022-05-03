@@ -14,7 +14,6 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
