@@ -102,24 +102,21 @@ fields:
         contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Mediendatei - Link Resource
-  - name: mediendatei-link_resource
-    # path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
-    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
-    extractable: true
-    skip: true
+#  - name: mediendatei-link_resource
+#    # path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
+#    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
+#    extractable: true
 
   # Mediendatei - Resource Representation Type
-  - name: mediendatei-resource_representation_type
-    # path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:ResourceRepresentation/@type
-    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/@lido:type
-    extractable: true
-    skip: true
+#  - name: mediendatei-resource_representation_type
+#    # path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:ResourceRepresentation/@type
+#    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/@lido:type
+#    extractable: true
 
   # Objekt im Kontext - Record Info Link
-  - name: objekt_im_kontext-record_info_link
-    path: lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink
-    extractable: true
-    skip: true
+#  - name: objekt_im_kontext-record_info_link
+#    path: lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink
+#    extractable: true
 
   # Q-4	Link zum Digitalen Objekt
   # Objekt im Medienviewer
@@ -184,10 +181,9 @@ fields:
         dependencies: [Q-3.0, Q-4.0]
 
   # Rechtsstatus - Concept ID
-  - name: rechtsstatus-concept_id
-    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:term
-    extractable: true
-    skip: true
+#  - name: rechtsstatus-concept_id
+#    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:term
+#    extractable: true
 
   # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
@@ -311,36 +307,36 @@ fields:
 #    extractable: true
 
   # Objekttyp (Bezeichnung) - Term/Label
-  - name: objekttyp-term_Label
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
-    extractable: true
-    skip: true
+#  - name: objekttyp-term_Label
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
+#    extractable: true
+#    skip: true
 
   # Objekttyp (Bezeichnung) - preferred
-  - name: objekttyp-preferred
-    # path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@pref
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@lido:pref
-    extractable: true
-    skip: true
+#  - name: objekttyp-preferred
+#    # path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@pref
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@lido:pref
+#    extractable: true
+#    skip: true
 
   # Objekttyp (Sprache der Bezeichnung)
-  - name: objekttyp-sprache
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@xml:lang
-    extractable: true
-    skip: true
+#  - name: objekttyp-sprache
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term/@xml:lang
+#    extractable: true
+#    skip: true
 
   # Objekttyp (URI) - Concept Identifier
-  - name: objekttyp-sprache
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID
-    extractable: true
-    skip: true
+#  - name: objekttyp-sprache
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID
+#    extractable: true
+#    skip: true
 
   # Objekttyp (Quellenangabe)
-  - name: objekttyp-quellenangabe
-    # path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/lido:source
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source
-    extractable: true
-    skip: true
+#  - name: objekttyp-quellenangabe
+#    # path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/lido:source
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source
+#    extractable: true
+#    skip: true
 
   # Q-7 Objekttyp
   - name: dc:type
