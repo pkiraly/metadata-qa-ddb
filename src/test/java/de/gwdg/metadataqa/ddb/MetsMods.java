@@ -107,6 +107,33 @@ public class MetsMods {
     assertEquals("monograph", itemList.get(0).getValue());
   }
 
+  @Test
+  public void dc_type_source() {
+    setUpWith("mets2.xml");
+    JsonBranch p = schema.getPathByLabel("dc_type_source");
+    assertEquals("//mods:mods/mods:genre/@valueURI", p.getJsonPath());
+
+    String xpath = p.getJsonPath();
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    assertEquals(1, itemList.size());
+    assertEquals("http://ddb.vocnet.org/hierarchietyp/ht021", itemList.get(0).getValue());
+  }
+
+
+  @Test
+  public void rights() {
+    setUpWith("mets2.xml");
+    JsonBranch p = schema.getPathByLabel("rights");
+    assertEquals("//mods:accessCondition[@type=\"use and reproduction\"]/@xlink:href", p.getJsonPath());
+
+    String xpath = p.getJsonPath();
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    assertEquals(1, itemList.size());
+    assertEquals("https://creativecommons.org/licenses/by-nc-sa/4.0/", itemList.get(0).getValue());
+  }
+
   private void setUpWith(String fileName) {
     URL url = this.getClass().getResource("/metsmods/" + fileName);
     File file = new File(url.getFile());
