@@ -255,7 +255,7 @@ fields:
           - equals: dc:type
 
   - name: dc:type
-    path: marc:record/marc:datafield[@tag="655"]
+    path: marc:record/marc:datafield[@tag="655"]/marc:subfield[@code="a"]
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
