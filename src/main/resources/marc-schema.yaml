@@ -263,26 +263,30 @@ fields:
         and:
         - minCount: 1
         - pattern: ^.+$
-      - id: Q-7.3
-        description: The object type must come from a controlled vocabulary.
-        failureScore: -6
-        pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
       - id: Q-7.4
         description: It is a specific object type designation and not an object description or object classification.
         failureScore: -3
         maxWords: 2
+      # Q-7.6	The object type is referenced by an http URI from a LOD vocabulary.
+
+  - name: dc:type
+    path: marc:record/marc:datafield[@tag="655"]/marc:subfield[@code="2"]
+    rules:
+      - id: Q-7.3
+        description: The object type must come from a controlled vocabulary.
+        failureScore: -6
+        pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
       - id: Q-7.5
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 6
         or:
           - and:
-              - pattern: ^http.*$
-              - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+            - pattern: ^http.*$
+            - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
           - and:
-              - not:
-                  - pattern: ^http.*$
-              - in: [AAT, gnd, GND, gnd-music, gnd-content]
-      # Q-7.6	The object type is referenced by an http URI from a LOD vocabulary.
+            - not:
+              - pattern: ^http.*$
+            - in: [AAT, gnd, GND, gnd-music, gnd-content]
       - id: Q-7.7
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 6
