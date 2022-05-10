@@ -26,7 +26,7 @@ fields:
       - id: Q-1.5
         description: The ID for the data record is easy to process by machine
         successScore: 3
-        pattern: ^[\p{Alpha}\d\.]+$
+        pattern: ^[\p{Alpha}\d\.\-&=:]+$
 
   # Identifikator für den Datengeber
   - name: providerid
