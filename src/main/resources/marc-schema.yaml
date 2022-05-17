@@ -76,7 +76,7 @@ fields:
 #        failureScore: -9
 #        id: Q-3.3
 #      - pixels: 1024,468
-#        failureScore: -8
+#        failureScore: -9
 #        id: Q-3.4
 #      - pattern: ^https?://
 #        successScore: 3

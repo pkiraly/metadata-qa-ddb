@@ -30,7 +30,7 @@ fields:
 
   # Identifikator für den Datengeber
   - name: providerid
-    path: oai:record/dc:identifier[@type='providerid']
+    path: oai:record/dc:identifier[@type='providerId']
     extractable: true
     indexField: providerId
     rules:
@@ -86,7 +86,7 @@ fields:
         - pattern: ^[a-zA-Z_0-9:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
-        failureScore: -8
+        failureScore: -9
         skip: false
         dimension:
           minShortside: 600
