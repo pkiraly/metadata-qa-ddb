@@ -1,0 +1,50 @@
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:ore="http://www.openarchives.org/ore/terms/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#">
+  <ore:Aggregation rdf:about="P4P5V43H5LP3PSQH6FADSLSSB46L6FNY">
+    <edm:aggregatedCHO rdf:resource="http://www.deutsche-digitale-bibliothek.de/item/6CBBVXI47RCZPIL732MDEO3JRLAX4J6N"/>
+    <edm:dataProvider>Leibniz-Institut für Länderkunde e. V.</edm:dataProvider>
+    <edm:isShownAt rdf:resource="https://ifl.wissensbank.com/fastlink.html?search=306611000"/>
+    <edm:isShownBy rdf:resource="https://ifl.wissensbank.com/cgi-bin/starfetch.exe?oE2xeFhEKiGwNb49wg1XPM1zxNT1KJSTVbg62h3aZgW8EE.ebStLZdGJEkpChNnKMX5ZnDIDgSRgksRnB
+CAhKRf5PkMri23ksCLll12Ejwiu87d0etXwKhq2PmukPhQXCtMfhTeILAE/Eu277%2d0053.jpg"/>
+    <edm:object rdf:resource="https://ifl.wissensbank.com/cgi-bin/starfetch.exe?oE2xeFhEKiGwNb49wg1XPM1zxNT1KJSTVbg62h3aZgW8EE.ebStLZdGJEkpChNnKMX5ZnDIDgSRgksRnBCAh
+KRf5PkMri23ksCLll12Ejwiu87d0etXwKhq2PmukPhQXCtMfhTeILAE/Eu277%2d0053.jpg"/>
+    <edm:provider>Deutsche Digitale Bibliothek</edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+  </ore:Aggregation>
+  <edm:WebResource rdf:about="https://ifl.wissensbank.com/cgi-bin/starfetch.exe?oE2xeFhEKiGwNb49wg1XPM1zxNT1KJSTVbg62h3aZgW8EE.ebStLZdGJEkpChNnKMX5ZnDIDgSRgksRnBCAhK
+Rf5PkMri23ksCLll12Ejwiu87d0etXwKhq2PmukPhQXCtMfhTeILAE/Eu277%2d0053.jpg">
+    <dc:format>image/jpeg</dc:format>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+  </edm:WebResource>
+  <edm:ProvidedCHO rdf:about="http://www.deutsche-digitale-bibliothek.de/item/6CBBVXI47RCZPIL732MDEO3JRLAX4J6N">
+    <dc:creator rdf:resource="https://d-nb.info/gnd/118624067"/>
+    <dc:description xml:lang="ger">Einzelbild</dc:description>
+    <dc:description xml:lang="ger">Karton, Fotoecken</dc:description>
+    <dc:description xml:lang="ger">Bezeichnung Albumblatt: 277c Căciulaţi, Caldarusani / Präsentation auf Albumblatt: 6 Bilder auf dem "Albumbogen" / Beschriftung:
+      Klosterkirche in Caldarusani bei Bukarest / Art der Beschriftung: handschriftlich mit Tinte / Stempel : Rückseite: mit Tintenstempel / Stempelschrift: Smlg. Troll, Ru
+      mänien ; Deutsches Museum für Länderkunde, Leipzig</dc:description>
+    <dc:format rdf:resource="https://d-nb.info/gnd/4044522-7"/>
+    <dc:format xml:lang="ger">monochrom (Technik)</dc:format>
+    <dc:identifier>Eu277-0053 (Signatur)</dc:identifier>
+    <dc:rights>Leibniz-Institut für Länderkunde e.V.</dc:rights>
+    <dc:subject xml:lang="ger">Rumänien</dc:subject>
+    <dc:subject xml:lang="ger">Dobrudscha</dc:subject>
+    <dc:subject xml:lang="ger">Căldăruşani</dc:subject>
+    <dc:subject xml:lang="ger">Kloster</dc:subject>
+    <dc:subject xml:lang="ger">Kirche (Bauwerk)</dc:subject>
+    <dc:title xml:lang="ger">Klosterkirche in Caldarusani bei Bukarest</dc:title>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300046300"/>
+    <dcterms:created xml:lang="zxx">circa 1938 (Herstellung)</dcterms:created>
+    <dcterms:spatial rdf:resource="http://vocab.getty.edu/tgn/7012329"/>
+    <edm:currentLocation rdf:resource="http://vocab.getty.edu/tgn/7012329"/>
+    <edm:type>IMAGE</edm:type>
+  </edm:ProvidedCHO>
+  <edm:Place rdf:about="http://vocab.getty.edu/tgn/7012329">
+    <skos:prefLabel xml:lang="ger">Leipzig</skos:prefLabel>
+  </edm:Place>
+</rdf:RDF>

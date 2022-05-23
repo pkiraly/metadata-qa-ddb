@@ -5,14 +5,12 @@ import de.gwdg.metadataqa.api.json.JsonBranch;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.OaiPmhXPath;
-import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -120,7 +118,6 @@ public class MetsMods {
     assertEquals("http://ddb.vocnet.org/hierarchietyp/ht021", itemList.get(0).getValue());
   }
 
-
   @Test
   public void rights() {
     setUpWith("mets2.xml");
@@ -148,5 +145,4 @@ public class MetsMods {
       throw new RuntimeException(e);
     }
   }
-
 }
