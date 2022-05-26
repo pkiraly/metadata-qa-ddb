@@ -40,8 +40,8 @@ fields:
         description: There must be an ID for the data supplier in the data record supplied.
         failureScore: -6
         and:
-          - minCount: 1
-          - minLength: 1
+        - minCount: 1
+        - minLength: 1
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
@@ -98,45 +98,45 @@ fields:
       - id: Q-4.0
         hidden: true
         and:
-          - minCount: 1
-          - minLength: 1
+        - minCount: 1
+        - minLength: 1
       - id: Q-4.1
         description: There must be at least one link to a digital object in the data record.
         failureScore: -9
         and:
-          - minCount: 1
-          - minLength: 1
-          - pattern: ^https?://.*$
+        - minCount: 1
+        - minLength: 1
+        - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
         skip: false
         failureScore: -3
         and:
-          - minCount: 1
-          - minLength: 1
-          - pattern: ^https?://.*$
-          - contentType:
-            - image/jpeg
-            - image/png
-            - image/tiff
-            - image/tiff-fx
-            - image/gif
-            - image/svg+xml
-            - application/pdf
-            - audio/mpeg
-            - video/mp4
-            - video/webm
-            - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-            - text/plain
-            - text/richtext
-            - text/rtf
-            - video/x-msvideo
-            - video/x-flv
-            - video/quicktime
-            - video/x-ms-wmv
-            - video/mpeg
-            - audio/x-mpeg
-            - audio/mp4
+        - minCount: 1
+        - minLength: 1
+        - pattern: ^https?://.*$
+        - contentType:
+          - image/jpeg
+          - image/png
+          - image/tiff
+          - image/tiff-fx
+          - image/gif
+          - image/svg+xml
+          - application/pdf
+          - audio/mpeg
+          - video/mp4
+          - video/webm
+          - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          - text/plain
+          - text/richtext
+          - text/rtf
+          - video/x-msvideo
+          - video/x-flv
+          - video/quicktime
+          - video/x-ms-wmv
+          - video/mpeg
+          - audio/x-mpeg
+          - audio/mp4
       - id: Q-4.3
         description: The link to the digital object must be valid.
         failureScore: -9
@@ -160,37 +160,37 @@ fields:
         description: The legal status for the digital object must be specified in the data record.
         failureScore: -9
         and:
-          - minCount: 1
-          - minLength: 1
+        - minCount: 1
+        - minLength: 1
       - id: Q-5.2
         description: The legal status must be identified by an http-URI, which is named in the license basket of the German Digital Library.
         failureScore: -9
         in:
-          - http://creativecommons.org/licenses/by/3.0/de/
-          - http://creativecommons.org/licenses/by/4.0/
-          - http://creativecommons.org/licenses/by-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-sa/4.0/
-          - http://creativecommons.org/licenses/by-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nd/4.0/
-          - http://creativecommons.org/licenses/by-nc/3.0/de/
-          - http://creativecommons.org/licenses/by-nc/4.0/
-          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-sa/4.0/
-          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/
-          - http://creativecommons.org/publicdomain/mark/1.0/
-          - http://creativecommons.org/publicdomain/zero/1.0/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/InC/1.0/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+        - http://creativecommons.org/licenses/by/3.0/de/
+        - http://creativecommons.org/licenses/by/4.0/
+        - http://creativecommons.org/licenses/by-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-sa/4.0/
+        - http://creativecommons.org/licenses/by-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nd/4.0/
+        - http://creativecommons.org/licenses/by-nc/3.0/de/
+        - http://creativecommons.org/licenses/by-nc/4.0/
+        - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-sa/4.0/
+        - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-nd/4.0/
+        - http://creativecommons.org/publicdomain/mark/1.0/
+        - http://creativecommons.org/publicdomain/zero/1.0/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+        - http://rightsstatements.org/vocab/InC/1.0/
+        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+        - http://rightsstatements.org/vocab/CNE/1.0/
+        - http://rightsstatements.org/vocab/NoC-NC/1.0/
+        - http://rightsstatements.org/vocab/InC-EDU/1.0/
+        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
       # - id: Q-5.3
       #   description: The legal status must be specified for each media file referenced in the data set.
       #   failureScore: -3
@@ -260,7 +260,7 @@ fields:
         description: The title must be unique.
         failureScore: -3
         not:
-          - equals: dc:type
+        - equals: dc:type
 
   - name: dc:type
     path: marc:record/marc:datafield[@tag="655"]/marc:subfield[@code="a"]
@@ -290,13 +290,13 @@ fields:
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 6
         or:
-          - and:
+        - and:
+          - pattern: ^http.*$
+          - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+        - and:
+          - not:
             - pattern: ^http.*$
-            - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
-          - and:
-            - not:
-              - pattern: ^http.*$
-            - in: [AAT, gnd, GND, gnd-music, gnd-content]
+          - in: [AAT, gnd, GND, gnd-music, gnd-content]
       - id: Q-7.7
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 9
