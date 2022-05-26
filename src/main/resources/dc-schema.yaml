@@ -97,7 +97,7 @@ fields:
       - id: Q-3.5
         description: The preview image should be referenced by a hyperlink.
         successScore: 3
-        pattern: ^https?://
+        pattern: ^https?://.*$
       - id: Q-3.6
         description: The image file should be delivered in a preferred format.
         successScore: 3
@@ -118,39 +118,39 @@ fields:
         description: There must be at least one link to a digital object in the data record.
         failureScore: -9
         and:
-        - minCount: 1
-        - minLength: 1
-        - pattern: ^https?://.*$
+          - minCount: 1
+          - minLength: 1
+          - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
         skip: false
         failureScore: -3
         and:
-        - minCount: 1
-        - minLength: 1
-        - pattern: ^https?://.*$
-        - contentType:
-          - image/jpeg
-          - image/png
-          - image/tiff
-          - image/tiff-fx
-          - image/gif
-          - image/svg+xml
-          - application/pdf
-          - audio/mpeg
-          - video/mp4
-          - video/webm
-          - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-          - text/plain
-          - text/richtext
-          - text/rtf
-          - video/x-msvideo
-          - video/x-flv
-          - video/quicktime
-          - video/x-ms-wmv
-          - video/mpeg
-          - audio/x-mpeg
-          - audio/mp4
+          - minCount: 1
+          - minLength: 1
+          - pattern: ^https?://.*$
+          - contentType:
+            - image/jpeg
+            - image/png
+            - image/tiff
+            - image/tiff-fx
+            - image/gif
+            - image/svg+xml
+            - application/pdf
+            - audio/mpeg
+            - video/mp4
+            - video/webm
+            - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            - text/plain
+            - text/richtext
+            - text/rtf
+            - video/x-msvideo
+            - video/x-flv
+            - video/quicktime
+            - video/x-ms-wmv
+            - video/mpeg
+            - audio/x-mpeg
+            - audio/mp4
       - id: Q-4.3
         description: The link to the digital object must be valid.
         failureScore: -9
@@ -164,9 +164,9 @@ fields:
         successScore: 3
         dependencies: [Q-3.0, Q-4.0]
 
-# TODO 4.6
+  # TODO 4.6
 
-# Q-5	Rechtsstatus für das Digitale Objekt
+  # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
     path: oai:record/dc:rights[@type='binary']
     rules:
@@ -248,7 +248,7 @@ fields:
         - http://rightsstatements.org/vocab/InC/1.0/
         - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
 
-#   Objekttitel
+  # Q-6 Objekttitel
   - name: dc:title
     path: oai:record/dc:title
     indexField: dc_title
@@ -291,12 +291,11 @@ fields:
         failureScore: -3
         maxWords: 2
 
-# TODO: 7.2
+  # TODO: 7.2
 
   # Objekttyp (URI)
   - name: dc_type_source
     path: oai:record/dc:type/@resource
-    # extractable: true
     rules:
       - id: Q-7.3
         description: The object type must come from a controlled vocabulary.
