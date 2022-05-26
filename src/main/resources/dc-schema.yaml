@@ -11,8 +11,8 @@ fields:
         description: There must be an ID for the data record in the data record supplied.
         failureScore: -9
         and:
-          - minCount: 1
-          - minLength: 1
+        - minCount: 1
+        - minLength: 1
       - id: Q-1.2
         description: The ID for the data record must be unique.
         failureScore: -9
@@ -284,8 +284,8 @@ fields:
         description: There must be at least one preferred designation for the object type in the data record.
         failureScore: -9
         and:
-          - minCount: 1
-          - pattern: ^.+$
+        - minCount: 1
+        - pattern: ^.+$
       - id: Q-7.4
         description: It is a specific object type designation and not an object description or object classification.
         failureScore: -3
