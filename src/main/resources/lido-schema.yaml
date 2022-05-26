@@ -20,13 +20,15 @@ fields:
       # - id: Q-1.3
       #   description: In data records that represent several hierarchical levels, the description units of the individual
       #     parts of an object must have a unique identifier within the data record.
+      #   failureScore: -9
       # - id: Q-1.4
       #   description: The identifier for the data record must be unchangeable and must not change, especially when updated
       #     data sets are sent to the DDB.
+      #   failureScore: -6
       - id: Q-1.5
         description: The ID for the data record is easy to process by machine
         successScore: 3
-        pattern: ^[\p{Alpha}\d\.]+$
+        pattern: ^[\p{Alpha}\d\.\-&=:]+$
 
   # Q-2	Identifikator für den Datengeber
   - name: providerid
@@ -46,13 +48,14 @@ fields:
         pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
       # - id: Q-2.3
       #   description: The data provider should be identified by an International Standard Identifier for Libraries and Related Organizations (ISIL).
+      #   failureScore: -6
       - id: Q-2.4
         description: The data provider should be identified by an http-URI from the ISIL registration.
-        successScore: 6
+        successScore: 3
         pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
-        successScore: 3
+        successScore: 6
         pattern: ^http://id.zdb-services.de\w+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
@@ -78,16 +81,16 @@ fields:
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
       - id: Q-3.2
         description: The preview image must be explicitly marked if more than one image file is referenced in the data record.
-        failureScore: -2
+        failureScore: -3
         minCount: 2
       - id: Q-3.3
         description: The reference to the image file must be valid.
-        failureScore: -9
+        failureScore: -3
         not:
         - pattern: ^[a-zA-Z_0-9:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
-        failureScore: -9
+        failureScore: -3
         skip: false
         dimension:
           minShortside: 600
@@ -95,10 +98,10 @@ fields:
       - id: Q-3.5
         description: The preview image should be referenced by a hyperlink.
         successScore: 3
-        pattern: ^https?://
+        pattern: ^https?://.*$
       - id: Q-3.6
         description: The image file should be delivered in a preferred format.
-        successScore: 4
+        successScore: 3
         contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Mediendatei - Link Resource
@@ -132,53 +135,55 @@ fields:
           - minLength: 1
       - id: Q-4.1
         description: There must be at least one link to a digital object in the data record.
+        failureScore: -9
         and:
           - minCount: 1
           - minLength: 1
           - pattern: ^https?://.*$
-        failureScore: -9
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
         skip: false
+        failureScore: -3
         and:
           - minCount: 1
           - minLength: 1
           - pattern: ^https?://.*$
           - contentType:
-              - image/jpeg
-              - image/png
-              - image/tiff
-              - image/tiff-fx
-              - image/gif
-              - image/svg+xml
-              - application/pdf
-              - audio/mpeg
-              - video/mp4
-              - video/webm
-              - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-              - text/plain
-              - text/richtext
-              - text/rtf
-              - video/x-msvideo
-              - video/x-flv
-              - video/quicktime
-              - video/x-ms-wmv
-              - video/mpeg
-              - audio/x-mpeg
-              - audio/mp4
-        failureScore: -3
+            - image/jpeg
+            - image/png
+            - image/tiff
+            - image/tiff-fx
+            - image/gif
+            - image/svg+xml
+            - application/pdf
+            - audio/mpeg
+            - video/mp4
+            - video/webm
+            - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            - text/plain
+            - text/richtext
+            - text/rtf
+            - video/x-msvideo
+            - video/x-flv
+            - video/quicktime
+            - video/x-ms-wmv
+            - video/mpeg
+            - audio/x-mpeg
+            - audio/mp4
       - id: Q-4.3
         description: The link to the digital object must be valid.
-        pattern: ^[a-zA-Z_0-9:/\.\-]+$
         failureScore: -9
+        pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.4
         description: Both a media file and a link to an object are referenced in context.
-        successScore: 3
+        successScore: 6
         dependencies: [Q-3.0, Q-4.0]
       - id: Q-4.5
         description: There is a link to both a media file and an object in the media viewer.
-        successScore: 6
+        successScore: 3
         dependencies: [Q-3.0, Q-4.0]
+
+  # TODO 4.6
 
   # Rechtsstatus - Concept ID
 #  - name: rechtsstatus-concept_id
@@ -187,80 +192,80 @@ fields:
 
   # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
-    # Rights Type
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:conceptID
     extractable: false
     rules:
       - id: Q-5.1
         description: The legal status for the digital object must be specified in the data record.
-        and:
-          - minCount: 1
-          - minLength: 1
         failureScore: -9
+        and:
+        - minCount: 1
+        - minLength: 1
       - id: Q-5.2
         description: The legal status must be identified by an http-URI, which is named in the license basket of the German Digital Library.
-        in:
-          - http://creativecommons.org/licenses/by/3.0/de/
-          - http://creativecommons.org/licenses/by/4.0/
-          - http://creativecommons.org/licenses/by-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-sa/4.0/
-          - http://creativecommons.org/licenses/by-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nd/4.0/
-          - http://creativecommons.org/licenses/by-nc/3.0/de/
-          - http://creativecommons.org/licenses/by-nc/4.0/
-          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-sa/4.0/
-          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/
-          - http://creativecommons.org/publicdomain/mark/1.0/
-          - http://creativecommons.org/publicdomain/zero/1.0/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/InC/1.0/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
         failureScore: -9
-      # Q-5.3	The legal status must be specified for each media file referenced in the data set.
+        in:
+        - http://creativecommons.org/licenses/by/3.0/de/
+        - http://creativecommons.org/licenses/by/4.0/
+        - http://creativecommons.org/licenses/by-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-sa/4.0/
+        - http://creativecommons.org/licenses/by-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nd/4.0/
+        - http://creativecommons.org/licenses/by-nc/3.0/de/
+        - http://creativecommons.org/licenses/by-nc/4.0/
+        - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-sa/4.0/
+        - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-nd/4.0/
+        - http://creativecommons.org/publicdomain/mark/1.0/
+        - http://creativecommons.org/publicdomain/zero/1.0/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+        - http://rightsstatements.org/vocab/InC/1.0/
+        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+        - http://rightsstatements.org/vocab/CNE/1.0/
+        - http://rightsstatements.org/vocab/NoC-NC/1.0/
+        - http://rightsstatements.org/vocab/InC-EDU/1.0/
+        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+      # - id: Q-5.3
+      #   description: The legal status must be specified for each media file referenced in the data set.
+      #   failureScore: -3
       - id: Q-5.4
         description: An open license is used for legal status.
-        in:
-          - http://creativecommons.org/publicdomain/mark/1.0/
-          - http://creativecommons.org/publicdomain/zero/1.0/
         successScore: 6
+        in:
+        - http://creativecommons.org/publicdomain/mark/1.0/
+        - http://creativecommons.org/publicdomain/zero/1.0/
       - id: Q-5.5
         description: An open license with attribution is used.
-        in:
-          - http://creativecommons.org/licenses/by/3.0/de/
-          - http://creativecommons.org/licenses/by/4.0/
-          - http://creativecommons.org/licenses/by-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-sa/4.0/
-          - http://creativecommons.org/licenses/by-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nd/4.0/
-          - http://creativecommons.org/licenses/by-nc/3.0/de/
-          - http://creativecommons.org/licenses/by-nc/4.0/
-          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-sa/4.0/
-          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/
         successScore: 3
+        in:
+        - http://creativecommons.org/licenses/by/3.0/de/
+        - http://creativecommons.org/licenses/by/4.0/
+        - http://creativecommons.org/licenses/by-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-sa/4.0/
+        - http://creativecommons.org/licenses/by-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nd/4.0/
+        - http://creativecommons.org/licenses/by-nc/3.0/de/
+        - http://creativecommons.org/licenses/by-nc/4.0/
+        - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-sa/4.0/
+        - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+        - http://creativecommons.org/licenses/by-nc-nd/4.0/
       - id: Q-5.6
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
         in:
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+        - http://rightsstatements.org/vocab/CNE/1.0/
+        - http://rightsstatements.org/vocab/NoC-NC/1.0/
+        - http://rightsstatements.org/vocab/InC-EDU/1.0/
       - id: Q-5.7
         description: A standardized notice of rights is used. The usage rights must be inquired about.
-        failureScore: -3
         in:
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
@@ -294,7 +299,9 @@ fields:
         description: The title must be meaningful.
         failureScore: -3
         minLength: 3
-      # Q-6.4	"Der Titel muss aussagekräftig sein. [ENG] The title must be meaningful."
+      # id: Q-6.4
+      #   description: Der Titel muss aussagekräftig sein. [ENG] The title must be meaningful.
+      #   failureScore: -3
       - id: Q-6.5
         description: The title must be unique.
         failureScore: -3
@@ -353,6 +360,8 @@ fields:
         failureScore: -3
         maxWords: 2
 
+  # TODO: 7.2
+
   # Q-7 Objekttyp (URI)
   - name: dc_type_source
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
@@ -366,16 +375,18 @@ fields:
         successScore: 6
         or:
           - and:
-              - pattern: ^http.*$
-              - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+            - pattern: ^http.*$
+            - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
           - and:
-              - not:
-                  - pattern: ^http.*$
-              - in: [AAT, gnd, GND, gnd-music, gnd-content]
-      # Q-7.6	The object type is referenced by an http URI from a LOD vocabulary.
+            - not:
+              - pattern: ^http.*$
+            - in: [AAT, gnd, GND, gnd-music, gnd-content]
+      # - id: Q-7.6
+      #   description: The object type is referenced by an http URI from a LOD vocabulary.
+      #   successScore: 6
       - id: Q-7.7
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
-        successScore: 6
+        successScore: 9
         pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
       - id: Q-7.8
         description: The http-URI refers to a term in Wikidata.
