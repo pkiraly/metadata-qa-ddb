@@ -16,7 +16,9 @@ fields:
       - id: Q-1.2
         description: The ID for the data record must be unique.
         failureScore: -9
-        maxCount: 1
+        and:
+        - maxCount: 1
+        - unique: true
       # - id: Q-1.3
       #   description: In data records that represent several hierarchical levels, the description units of the individual
       #     parts of an object must have a unique identifier within the data record.

@@ -16,8 +16,9 @@ fields:
       - id: Q-1.2
         description: The ID for the data record must be unique.
         failureScore: -9
-        maxCount: 1
-        # TODO: chancge from this: unique: true
+        and:
+        - maxCount: 1
+        - unique: true
       # - id: Q-1.3
       #   description: In data records that represent several hierarchical levels, the description units of the individual
       #     parts of an object must have a unique identifier within the data record.
@@ -192,8 +193,6 @@ fields:
         successScore: 3
         dependencies: [Q-4.0]
 
-  # TODO 4.6
-
   # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
     path: oai:record/dc:rights[@type='binary']
@@ -335,7 +334,7 @@ fields:
       #   failureScore: -3
       #   maxWords: 2
 
-  # Objekttyp (URI)
+  # Q-7 Objekttyp (URI)
   - name: dc_type_source
     path: oai:record/dc:type/@resource
     rules:
