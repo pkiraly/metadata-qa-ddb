@@ -24,7 +24,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --mysqlDatabase $MY_DB --mysqlUser $MY_USER --mysqlPassword $MY_PASSWORD \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-EDM \
-  --schema $ROOT/src/main/resources/edm-ddb-schema.yaml \
+  --schema $ROOT/src/main/resources/ddb-edm-schema.yaml \
   --output $OUTPUT_DIR/edm-ddb.csv \
   --record-address '//rdf:RDF'
 

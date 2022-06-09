@@ -13,7 +13,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-EDM \
-  --schema src/main/resources/edm-ddb-schema.yaml \
+  --schema src/main/resources/ddb-edm-schema.yaml \
   --output $OUTPUT_DIR/edm-ddb.csv \
   --record-address '//rdf:RDF'
 
