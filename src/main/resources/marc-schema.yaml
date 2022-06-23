@@ -110,8 +110,7 @@ fields:
         - and:
           - minCount: 1
           - minLength: 1
-          - not:
-            - pattern: ^[a-zA-Z_0-9:/\.\-]+$
+          - pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.1
         description: Check whether the data record contains either an element for the media file, the object in the media viewer or the object in the context (see table "Mapping the DDB elements"). If yes => check whether the corresponding element contains a value. If it is an object in the media viewer or an object in the context => check whether the value begins with http:// or https://.
         failureScore: -9
