@@ -265,6 +265,12 @@ fields:
 #        - http://rightsstatements.org/vocab/InC/1.0/
 #        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
 
+  - name: type_of_record
+    path: substring(marc:record/marc:leader, 7, 1)
+    rules:
+      - id: type_of_record
+        in: [b]
+
   # Q-6 Objekttitel
   - name: dc:title
     path: marc:record/marc:datafield[@tag="245"]/marc:subfield[@code="a"]
@@ -279,7 +285,9 @@ fields:
       - id: Q-6.2
         description: Check whether the same object title occurs more than once in a data set or in several data sets
         failureScore: -6
-        unique: true
+        or:
+          - dependencies: [type_of_record]
+          - unique: true
       - id: Q-6.3
         description: Check whether there are fewer than three characters in the object title.
         failureScore: -3
