@@ -370,7 +370,7 @@ fields:
         successScore: 6
         pattern: ^http://vocab.getty.edu/aat/Q.*$
 
- # Objekttyp (Quellenangabe) -- it is not existing in DC
+ # Objekttyp (Quellenangabe) -- it is not existing in DDB EDM
  #- name: dc_type_source
  #  path: oai:record/dc:type/@resource
  #  rules:

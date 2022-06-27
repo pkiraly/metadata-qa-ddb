@@ -300,7 +300,20 @@ fields:
       - id: Q-7.3
         description: The object type must come from a controlled vocabulary.
         failureScore: -6
-        pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
+        or:
+          - in:
+            - gnd
+            - GND
+            - gnd-music
+            - gnd-content
+            - gatbeg
+            - aad
+            - VD17
+            - marcgt
+            - http://partage.vocnet.org/PPObjectType
+            - http://partage.vocnet.org/PPRefiningObjectType
+            - AAT
+          - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
       - id: Q-7.5
         description: The object type comes from the Common Authority File (GND) or the Art & Architecture Thesaurus (AAT).
         successScore: 6
