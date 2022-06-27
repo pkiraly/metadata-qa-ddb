@@ -269,6 +269,7 @@ fields:
     path: substring(marc:record/marc:leader, 7, 1)
     rules:
       - id: type_of_record
+        hidden: true
         in: [b]
 
   # Q-6 Objekttitel
