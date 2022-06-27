@@ -270,7 +270,7 @@ fields:
     rules:
       - id: bibliographic_level
         hidden: true
-        in: [b]
+        in: [b, s]
 
   # Q-6 Objekttitel
   - name: dc:title
