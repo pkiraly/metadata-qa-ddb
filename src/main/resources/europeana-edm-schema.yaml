@@ -173,7 +173,9 @@ fields:
           - minLength: 1
       - id: Q-5.2
         description: The legal status must be identified by an http-URI, which is named in the license basket of the German Digital Library.
-        in:
+        and:
+        - minCount: 1
+        - in:
           - http://creativecommons.org/licenses/by/3.0/de/
           - http://creativecommons.org/licenses/by/4.0/
           - http://creativecommons.org/licenses/by-sa/3.0/de/
@@ -203,13 +205,17 @@ fields:
       # Q-5.3	The legal status must be specified for each media file referenced in the data set.
       - id: Q-5.4
         description: An open license is used for legal status.
-        in:
+        and:
+        - minCount: 1
+        - in:
           - http://creativecommons.org/publicdomain/mark/1.0/
           - http://creativecommons.org/publicdomain/zero/1.0/
         successScore: 6
       - id: Q-5.5
         description: An open license with attribution is used.
-        in:
+        and:
+        - minCount: 1
+        - in:
           - http://creativecommons.org/licenses/by/3.0/de/
           - http://creativecommons.org/licenses/by/4.0/
           - http://creativecommons.org/licenses/by-sa/3.0/de/
@@ -225,7 +231,9 @@ fields:
         successScore: 3
       - id: Q-5.6
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
-        in:
+        and:
+        - minCount: 1
+        - in:
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
           - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
@@ -235,7 +243,9 @@ fields:
       - id: Q-5.7
         description: A standardized notice of rights is used. The usage rights must be inquired about.
         failureScore: -3
-        in:
+        and:
+        - minCount: 1
+        - in:
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
           - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/

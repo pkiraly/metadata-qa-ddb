@@ -225,72 +225,77 @@ fields:
         failureScore: -9
         and:
         - minCount: 1
-        - minLength: 1
       - id: Q-5.2
         description: Check whether an http-URI for a license or a rights notice from the DDB license basket is referenced in the element for the legal status (see table "DDB license basket")
         failureScore: -9
-        in:
-        - http://creativecommons.org/licenses/by/3.0/de/
-        - http://creativecommons.org/licenses/by/4.0/
-        - http://creativecommons.org/licenses/by-sa/3.0/de/
-        - http://creativecommons.org/licenses/by-sa/4.0/
-        - http://creativecommons.org/licenses/by-nd/3.0/de/
-        - http://creativecommons.org/licenses/by-nd/4.0/
-        - http://creativecommons.org/licenses/by-nc/3.0/de/
-        - http://creativecommons.org/licenses/by-nc/4.0/
-        - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-        - http://creativecommons.org/licenses/by-nc-sa/4.0/
-        - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-        - http://creativecommons.org/licenses/by-nc-nd/4.0/
-        - http://creativecommons.org/publicdomain/mark/1.0/
-        - http://creativecommons.org/publicdomain/zero/1.0/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-        - http://rightsstatements.org/vocab/InC/1.0/
-        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-        - http://rightsstatements.org/vocab/CNE/1.0/
-        - http://rightsstatements.org/vocab/NoC-NC/1.0/
-        - http://rightsstatements.org/vocab/InC-EDU/1.0/
-        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+        and:
+        - minCount: 1
+        - in:
+          - http://creativecommons.org/licenses/by/3.0/de/
+          - http://creativecommons.org/licenses/by/4.0/
+          - http://creativecommons.org/licenses/by-sa/3.0/de/
+          - http://creativecommons.org/licenses/by-sa/4.0/
+          - http://creativecommons.org/licenses/by-nd/3.0/de/
+          - http://creativecommons.org/licenses/by-nd/4.0/
+          - http://creativecommons.org/licenses/by-nc/3.0/de/
+          - http://creativecommons.org/licenses/by-nc/4.0/
+          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+          - http://creativecommons.org/licenses/by-nc-sa/4.0/
+          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+          - http://creativecommons.org/licenses/by-nc-nd/4.0/
+          - http://creativecommons.org/publicdomain/mark/1.0/
+          - http://creativecommons.org/publicdomain/zero/1.0/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+          - http://rightsstatements.org/vocab/InC/1.0/
+          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+          - http://rightsstatements.org/vocab/CNE/1.0/
+          - http://rightsstatements.org/vocab/NoC-NC/1.0/
+          - http://rightsstatements.org/vocab/InC-EDU/1.0/
+          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
       # - id: Q-5.3
       #   description: The legal status must be specified for each media file referenced in the data set.
       #   failureScore: -3
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
-        in:
-        - http://creativecommons.org/publicdomain/mark/1.0/
-        - http://creativecommons.org/publicdomain/zero/1.0/
-        - http://creativecommons.org/licenses/by/3.0/de/
-        - http://creativecommons.org/licenses/by/4.0/
-        - http://creativecommons.org/licenses/by-sa/3.0/de/
-        - http://creativecommons.org/licenses/by-sa/4.0/
-        - http://creativecommons.org/licenses/by-nd/3.0/de/
-        - http://creativecommons.org/licenses/by-nd/4.0/
-        - http://creativecommons.org/licenses/by-nc/3.0/de/
-        - http://creativecommons.org/licenses/by-nc/4.0/
-        - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-        - http://creativecommons.org/licenses/by-nc-sa/4.0/
-        - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-        - http://creativecommons.org/licenses/by-nc-nd/4.0/"
+        and:
+        - minCount: 1
+        - in:
+          - http://creativecommons.org/publicdomain/mark/1.0/
+          - http://creativecommons.org/publicdomain/zero/1.0/
+          - http://creativecommons.org/licenses/by/3.0/de/
+          - http://creativecommons.org/licenses/by/4.0/
+          - http://creativecommons.org/licenses/by-sa/3.0/de/
+          - http://creativecommons.org/licenses/by-sa/4.0/
+          - http://creativecommons.org/licenses/by-nd/3.0/de/
+          - http://creativecommons.org/licenses/by-nd/4.0/
+          - http://creativecommons.org/licenses/by-nc/3.0/de/
+          - http://creativecommons.org/licenses/by-nc/4.0/
+          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+          - http://creativecommons.org/licenses/by-nc-sa/4.0/
+          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+          - http://creativecommons.org/licenses/by-nc-nd/4.0/"
       - id: Q-5.5
         description: Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket"). Check whether an http-URI is specified for a rights notice with the possibility of use on request (see table "DDB license basket")
         successScore: 3
-        in:
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-        - http://rightsstatements.org/vocab/CNE/1.0/
-        - http://rightsstatements.org/vocab/NoC-NC/1.0/
-        - http://rightsstatements.org/vocab/InC-EDU/1.0/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-        - http://rightsstatements.org/vocab/InC/1.0/
-        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+        and:
+          - minCount: 1
+          - in:
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+          - http://rightsstatements.org/vocab/CNE/1.0/
+          - http://rightsstatements.org/vocab/NoC-NC/1.0/
+          - http://rightsstatements.org/vocab/InC-EDU/1.0/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+          - http://rightsstatements.org/vocab/InC/1.0/
+          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
 #      - id: Q-5.6
 #        description: A standardized notice of rights is used. The digital object may be used with restrictions.
 #        in:
