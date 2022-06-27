@@ -265,10 +265,10 @@ fields:
 #        - http://rightsstatements.org/vocab/InC/1.0/
 #        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
 
-  - name: type_of_record
-    path: substring(marc:record/marc:leader, 7, 1)
+  - name: bibliographic_level
+    path: substring(marc:record/marc:leader, 8, 1)
     rules:
-      - id: type_of_record
+      - id: bibliographic_level
         hidden: true
         in: [b]
 
@@ -287,7 +287,7 @@ fields:
         description: Check whether the same object title occurs more than once in a data set or in several data sets
         failureScore: -6
         or:
-          - dependencies: [type_of_record]
+          - dependencies: [bibliographic_level]
           - unique: true
       - id: Q-6.3
         description: Check whether there are fewer than three characters in the object title.
