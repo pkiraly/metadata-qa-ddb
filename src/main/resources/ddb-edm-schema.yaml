@@ -30,8 +30,7 @@ fields:
       - id: Q-1.5
         description: The ID for the data record is easy to process by machine
         successScore: 3
-        not:
-        - pattern: ^[\p{Alpha}\d\.\-&=:]+$
+        pattern: ^[\p{Alpha}\d\.\-&=:/]+$
 
   # Q-2 Identifikator für den Datengeber
   - name: providerid
@@ -48,7 +47,7 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description: The data provider should be identified by an International Standard Identifier for Libraries and Related Organizations (ISIL).
       #   failureScore: -6
@@ -63,7 +62,7 @@ fields:
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 3
-        pattern: ^http://d-nb.info/gnd/\w+$
+        pattern: ^http://d-nb.info/gnd/[\w-]+$
 
   # Q-3	Vorschaubild
   - name: thumbnail
@@ -98,8 +97,8 @@ fields:
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
-        not:
-        - pattern: ^[a-zA-Z_0-9:\-]+$
+        debug: true
+        pattern: ^[a-zA-Z_0-9:/&\.\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -3
@@ -135,7 +134,7 @@ fields:
         - and:
           - minCount: 1
           - minLength: 1
-          - pattern: ^[a-zA-Z_0-9:\-]+$
+          - pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.1
         description: Check whether the data record contains either an element for the media file, the object in the media viewer or the object in the context (see table "Mapping the DDB elements"). If yes => check whether the corresponding element contains a value. If it is an object in the media viewer or an object in the context => check whether the value begins with http:// or https://.
         failureScore: -9
