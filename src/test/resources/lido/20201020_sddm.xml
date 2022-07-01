@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lido:lidoWrap xmlns:lido="http://www.lido-schema.org" xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:edp="http://www.stegmannsystems.com/2009/edp" xmlns:edpm="http://www.stegmannsystems.com/edp-meta/2009">
+	<lido:lido>
+		<lido:lidoRecID lido:source="Deutsche Fotothek" lido:type="http://terminology.lido-schema.org/lido00100">DE-288571818281_sddm_hf_0003049_004</lido:lidoRecID>
+		<lido:objectPublishedID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="Deutsche Fotothek">http://www.deutschefotothek.de/documents/obj/71818281</lido:objectPublishedID>
+		<lido:category>
+			<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="CIDOC-CRM">http://www.cidoc-crm.org/crm-concepts/E22</lido:conceptID>
+			<lido:term>Man-Made Object</lido:term>
+		</lido:category>
+		<lido:descriptiveMetadata xml:lang="de">
+			<lido:objectClassificationWrap>
+				<lido:objectWorkTypeWrap>
+					<lido:objectWorkType lido:type="Sachbegriff">
+						<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://d-nb.info/gnd/4242325-1</lido:conceptID>
+						<lido:term lido:addedSearchTerm="no">Vintage Print</lido:term>
+					</lido:objectWorkType>
+				</lido:objectWorkTypeWrap>
+				<lido:classificationWrap>
+					<lido:classification lido:type="Gattung">
+						<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://d-nb.info/gnd/4045895-7</lido:conceptID>
+						<lido:term lido:addedSearchTerm="no">Fotografie</lido:term>
+					</lido:classification>
+				</lido:classificationWrap>
+			</lido:objectClassificationWrap>
+			<lido:objectIdentificationWrap>
+				<lido:titleWrap>
+					<lido:titleSet lido:type="Titel">
+						<lido:appellationValue>Diverse Bestecke, Flaschenöffner mit Dosenöffner, Bratenbesteck, Obstmesser, Bratenspieß mit Loch, Martinistirrer, Fonduegabeln, Käsemesser französische Form</lido:appellationValue>
+					</lido:titleSet>
+					<lido:titleSet lido:type="Serientitel">
+						<lido:appellationValue lido:label="Serientitel" lido:pref="alternate">Historisches Fotoarchiv Rat für Formgebung</lido:appellationValue>
+					</lido:titleSet>
+				</lido:titleWrap>
+				<lido:repositoryWrap>
+					<lido:repositorySet lido:type="current">
+						<lido:repositoryName>
+							<lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="ISIL (ISO 15511)">ld.zdb-services.de/resource/organisations/DE-2885</lido:legalBodyID>
+							<lido:legalBodyName>
+								<lido:appellationValue>Stiftung Deutsches Design Museum c/o Rat für Formgebung</lido:appellationValue>
+							</lido:legalBodyName>
+							<lido:legalBodyWeblink>https://www.deutschesdesignmuseum.de/</lido:legalBodyWeblink>
+						</lido:repositoryName>
+						<lido:workID lido:type="Inventarnummer">SDDM_HF_0.003.049.004</lido:workID>
+						<lido:workID lido:type="Alte Inventarnummer">004102</lido:workID>
+						<lido:repositoryLocation>
+							<lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="&#x9;http://d-nb.info/gnd/">http://d-nb.info/gnd/4018118-2</lido:placeID>
+							<lido:namePlaceSet>
+								<lido:appellationValue>Frankfurt (Main)</lido:appellationValue>
+							</lido:namePlaceSet>
+						</lido:repositoryLocation>
+					</lido:repositorySet>
+				</lido:repositoryWrap>
+				<lido:displayStateEditionWrap>
+					<lido:displayState>Fingerabdruck, Bestoßung, Druckstelle, Knick, Kratzer, Fehlstelle</lido:displayState>
+				</lido:displayStateEditionWrap>
+				<lido:objectDescriptionWrap>
+					<lido:objectDescriptionSet>
+						<lido:descriptiveNoteValue>xxx</lido:descriptiveNoteValue>
+					</lido:objectDescriptionSet>
+					<lido:objectDescriptionSet>
+						<lido:descriptiveNoteValue>Essbesteck aus Chromnickelstahl 18/8</lido:descriptiveNoteValue>
+					</lido:objectDescriptionSet>
+				</lido:objectDescriptionWrap>
+				<lido:objectMeasurementsWrap>
+					<lido:objectMeasurementsSet>
+						<lido:displayObjectMeasurements>18 x 24 cm</lido:displayObjectMeasurements>
+					</lido:objectMeasurementsSet>
+				</lido:objectMeasurementsWrap>
+			</lido:objectIdentificationWrap>
+			<lido:eventWrap>
+				<lido:eventSet>
+					<lido:displayEvent>Fotografische Aufnahme</lido:displayEvent>
+					<lido:event>
+						<lido:eventType>
+							<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+							<lido:term lido:addedSearchTerm="no">Herstellung</lido:term>
+						</lido:eventType>
+						<lido:eventActor>
+							<lido:actorInRole>
+								<lido:actor lido:type="Person">
+									<lido:nameActorSet>
+										<lido:appellationValue>Unbekannter Fotograf</lido:appellationValue>
+									</lido:nameActorSet>
+								</lido:actor>
+							</lido:actorInRole>
+						</lido:eventActor>
+						<lido:eventMaterialsTech>
+							<lido:displayMaterialsTech>Vintage Print, Gelatinesilberpapier, Agfa</lido:displayMaterialsTech>
+						</lido:eventMaterialsTech>
+					</lido:event>
+				</lido:eventSet>
+				<lido:eventSet>
+					<lido:event>
+						<lido:eventType>
+							<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00226</lido:conceptID>
+							<lido:term lido:addedSearchTerm="no">Auftrag</lido:term>
+						</lido:eventType>
+						<lido:eventActor>
+							<lido:displayActorInRole>C. Hugo Pott, Solingen</lido:displayActorInRole>
+							<lido:actorInRole>
+								<lido:actor lido:type="Körperschaft">
+									<lido:nameActorSet>
+										<lido:appellationValue>C. Hugo Pott, Solingen</lido:appellationValue>
+									</lido:nameActorSet>
+								</lido:actor>
+							</lido:actorInRole>
+						</lido:eventActor>
+					</lido:event>
+				</lido:eventSet>
+				<lido:eventSet>
+					<lido:event>
+						<lido:eventType>
+							<lido:term lido:addedSearchTerm="no">Digitalisierung</lido:term>
+						</lido:eventType>
+						<lido:eventDescriptionSet>
+							<lido:descriptiveNoteValue lido:label="Digitalisierungsprojekt">Projekt: DIE GUTE FORM - Fotografien zum Produktdesign 1950-1990</lido:descriptiveNoteValue>
+						</lido:eventDescriptionSet>
+					</lido:event>
+				</lido:eventSet>
+			</lido:eventWrap>
+			<lido:objectRelationWrap>
+				<lido:subjectWrap>
+					<lido:subjectSet>
+						<lido:displaySubject>Tranchierbesteck</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Barlöffel</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Hummerbesteck</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Gurkengabel</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Wurstgabel</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Spezialbesteck</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>xxx</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Sachfotografie</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Produktfotografie</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Objektfotografie</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Studiofotografie</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Werbefotografie</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Pressefoto</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Silberbild</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:displaySubject>Belichtung</lido:displaySubject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:subject>
+							<lido:subjectEvent>
+								<lido:displayEvent>Herstellung (Abgebildetes Objekt)</lido:displayEvent>
+								<lido:event>
+									<lido:eventType>
+										<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+										<lido:term lido:addedSearchTerm="no">Herstellung</lido:term>
+									</lido:eventType>
+									<lido:eventActor>
+										<lido:actorInRole>
+											<lido:actor lido:type="Person">
+												<lido:actorID lido:type="http://terminology.lido-schema.org/lido00099">http://d-nb.info/gnd/120353407</lido:actorID>
+												<lido:nameActorSet>
+													<lido:appellationValue>Pott, Carl</lido:appellationValue>
+												</lido:nameActorSet>
+											</lido:actor>
+											<lido:roleActor>
+												<lido:term lido:addedSearchTerm="no">Entwurf</lido:term>
+											</lido:roleActor>
+										</lido:actorInRole>
+									</lido:eventActor>
+									<lido:eventDate>
+										<lido:displayDate>1959 (Entwurfsjahr)</lido:displayDate>
+										<lido:date>
+											<lido:earliestDate>1959</lido:earliestDate>
+											<lido:latestDate>1959</lido:latestDate>
+										</lido:date>
+									</lido:eventDate>
+									<lido:eventMaterialsTech>
+										<lido:displayMaterialsTech>Chromnickelstahl 18/8</lido:displayMaterialsTech>
+									</lido:eventMaterialsTech>
+								</lido:event>
+							</lido:subjectEvent>
+						</lido:subject>
+					</lido:subjectSet>
+					<lido:subjectSet>
+						<lido:subject>
+							<lido:subjectEvent>
+								<lido:event>
+									<lido:eventType>
+										<lido:term lido:addedSearchTerm="no">Eingangsjahr Rat für Formgebung</lido:term>
+									</lido:eventType>
+									<lido:eventDate>
+										<lido:displayDate>28.06.1962</lido:displayDate>
+									</lido:eventDate>
+								</lido:event>
+							</lido:subjectEvent>
+						</lido:subject>
+					</lido:subjectSet>
+				</lido:subjectWrap>
+				<lido:relatedWorksWrap>
+					<lido:relatedWorkSet>
+						<lido:relatedWork>
+							<lido:displayObject>Registermappe SDDM_HF_0.003.049.001</lido:displayObject>
+						</lido:relatedWork>
+						<lido:relatedWorkRelType>
+							<lido:term>Enthalten in</lido:term>
+						</lido:relatedWorkRelType>
+					</lido:relatedWorkSet>
+				</lido:relatedWorksWrap>
+			</lido:objectRelationWrap>
+		</lido:descriptiveMetadata>
+		<lido:administrativeMetadata xml:lang="de">
+			<lido:rightsWorkWrap>
+				<lido:rightsWorkSet>
+					<lido:rightsHolder>
+						<lido:legalBodyName>
+							<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+						</lido:legalBodyName>
+					</lido:rightsHolder>
+					<lido:rightsHolder>
+						<lido:legalBodyName>
+							<lido:appellationValue>Stiftung Deutsches Design Museum</lido:appellationValue>
+						</lido:legalBodyName>
+					</lido:rightsHolder>
+				</lido:rightsWorkSet>
+			</lido:rightsWorkWrap>
+			<lido:recordWrap>
+				<lido:recordID lido:type="local">71818281</lido:recordID>
+				<lido:recordType>
+					<lido:term lido:addedSearchTerm="no">Einzelobjekt</lido:term>
+				</lido:recordType>
+				<lido:recordSource lido:type="Datenverwalter">
+					<lido:legalBodyName>
+						<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+					</lido:legalBodyName>
+				</lido:recordSource>
+				<lido:recordRights>
+					<lido:rightsType>
+						<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+						<lido:term lido:addedSearchTerm="no">CC0 1.0 Public Domain Dedication</lido:term>
+					</lido:rightsType>
+					<lido:rightsHolder>
+						<lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="ISIL (ISO 15511)">ld.zdb-services.de/resource/organisations/DE-2396</lido:legalBodyID>
+						<lido:legalBodyName>
+							<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+						</lido:legalBodyName>
+						<lido:legalBodyWeblink>http://www.deutschefotothek.de/</lido:legalBodyWeblink>
+					</lido:rightsHolder>
+					<lido:rightsHolder>
+						<lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="ISIL (ISO 15511)">ld.zdb-services.de/resource/organisations/DE-2885</lido:legalBodyID>
+						<lido:legalBodyName>
+							<lido:appellationValue>Stiftung Deutsches Design Museum</lido:appellationValue>
+						</lido:legalBodyName>
+						<lido:legalBodyWeblink>https://www.deutschesdesignmuseum.de/</lido:legalBodyWeblink>
+					</lido:rightsHolder>
+				</lido:recordRights>
+				<lido:recordInfoSet>
+					<lido:recordInfoLink>http://www.deutschefotothek.de/documents/obj/71818281</lido:recordInfoLink>
+				</lido:recordInfoSet>
+			</lido:recordWrap>
+			<lido:resourceWrap>
+				<lido:resourceSet>
+					<lido:resourceID lido:type="local">sddm_hf_0003049_004</lido:resourceID>
+					<lido:resourceRepresentation lido:type="Provided image">
+						<lido:linkResource lido:formatResource="jpg">http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004.jpg</lido:linkResource>
+					</lido:resourceRepresentation>
+					<lido:resourceType>
+						<lido:term lido:addedSearchTerm="no">digital image</lido:term>
+					</lido:resourceType>
+					<lido:rightsResource>
+						<lido:rightsType>
+							<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+							<lido:term lido:addedSearchTerm="no">Freier Zugang - Rechte vorbehalten</lido:term>
+						</lido:rightsType>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>Stiftung Deutsches Design Museum</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+					</lido:rightsResource>
+				</lido:resourceSet>
+				<lido:resourceSet>
+					<lido:resourceID lido:type="local">sddm_hf_0003049_004_back</lido:resourceID>
+					<lido:resourceRepresentation lido:type="Provided image">
+						<lido:linkResource lido:formatResource="jpg">http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004_back.jpg</lido:linkResource>
+					</lido:resourceRepresentation>
+					<lido:resourceType>
+						<lido:term lido:addedSearchTerm="no">digital image</lido:term>
+					</lido:resourceType>
+					<lido:rightsResource>
+						<lido:rightsType>
+							<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+							<lido:term lido:addedSearchTerm="no">Freier Zugang - Rechte vorbehalten</lido:term>
+						</lido:rightsType>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>Stiftung Deutsches Design Museum</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+					</lido:rightsResource>
+				</lido:resourceSet>
+				<lido:resourceSet>
+					<lido:resourceID lido:type="local">sddm_hf_0003049_001</lido:resourceID>
+					<lido:resourceRepresentation lido:type="Provided image">
+						<lido:linkResource lido:formatResource="jpg">http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_001.jpg</lido:linkResource>
+					</lido:resourceRepresentation>
+					<lido:resourceType>
+						<lido:term lido:addedSearchTerm="no">digital image</lido:term>
+					</lido:resourceType>
+					<lido:rightsResource>
+						<lido:rightsType>
+							<lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+							<lido:term lido:addedSearchTerm="no">Freier Zugang - Rechte vorbehalten</lido:term>
+						</lido:rightsType>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>Stiftung Deutsches Design Museum</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+						<lido:rightsHolder>
+							<lido:legalBodyName>
+								<lido:appellationValue>SLUB / Deutsche Fotothek</lido:appellationValue>
+							</lido:legalBodyName>
+						</lido:rightsHolder>
+					</lido:rightsResource>
+				</lido:resourceSet>
+			</lido:resourceWrap>
+		</lido:administrativeMetadata>
+	</lido:lido>
+</lido:lidoWrap>
