@@ -48,22 +48,22 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description: Determination of the IDs for the data supplier in the old and newly delivered data sets. Compare if the IDs are the same as those in the new dataset.
       #   failureScore: -6
       - id: Q-2.4
         description: Check whether the data supplier ID is an ISIL-ID or ISIL-URI using the rules in the table "Data supplier ID"
         successScore: 3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
         successScore: 6
-        pattern: ^http://id.zdb-services.de\w+$
+        pattern: ^http://ld.zdb-services.de/[\w+/-]+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 3
-        pattern: ^http://d-nb.info/gnd/\w+$
+        pattern: ^http://d-nb.info/gnd/[\w-]+$
 
   # Q-3	Vorschaubild
 #  - name: thumbnail

@@ -48,7 +48,7 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description:
       #     Determination of the IDs for the data supplier in the old and newly delivered data sets. Compare if the IDs
@@ -57,15 +57,15 @@ fields:
       - id: Q-2.4
         description: Check whether the data supplier ID is an ISIL-ID or ISIL-URI using the rules in the table "Data supplier ID"
         successScore: 3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
         successScore: 6
-        pattern: ^http://id.zdb-services.de\w+$
+        pattern: ^http://ld.zdb-services.de/[\w+/-]+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 3
-        pattern: ^http://d-nb.info/gnd/\w+$
+        pattern: ^http://d-nb.info/gnd/[\w-]+$
 
   - name: thumbnail_order
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/@lido:sortorder
@@ -114,8 +114,7 @@ fields:
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
-        debug: true
-        pattern: ^[a-zA-Z_0-9%\?\./:\-]+$
+        pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -3
@@ -148,17 +147,12 @@ fields:
 #    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/@lido:type
 #    extractable: true
 
-  # Objekt im Kontext - Record Info Link
-#  - name: objekt_im_kontext-record_info_link
-#    path: lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink
-#    extractable: true
-
   # Q-4	Link zum Digitalen Objekt
   # Objekt im Medienviewer
   # Objekt im Kontext
-  - name: url
+  - name: Mediendatei_Link_Resource
     # Mediendatei - Link Resource
-    path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
+    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
     rules:
       - id: Q-4.0
         hidden: true
@@ -227,16 +221,25 @@ fields:
           If so => check whether these elements contain a value.
         successScore: 6
         dependencies: [Q-3.0, Q-4.0]
+      # - id: Q-4.6
+      #   description: The data record contains a link to an object in the media viewer.
+      #   successScore: 3
+      #   dependencies: [Q-4.0]
+
+  # Objekt im Kontext - Record Info Link
+  - name: objekt_im_kontext-record_info_link
+    path: lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink
+    rules:
+  #    extractable: true
       - id: Q-4.5
         description:
           Check whether the data record contains an object in context (see table "Mapping the DDB elements").
           If so => check whether this element contain a value.
         successScore: 3
-        dependencies: [Q-3.0, Q-4.0]
-      - id: Q-4.6
-        description: The data record contains a link to an object in the media viewer.
-        successScore: 3
-        dependencies: [Q-4.0]
+        and:
+        - minCount: 1
+        - minLength: 1
+
 
   # Rechtsstatus - Concept ID
 #  - name: rechtsstatus-concept_id
@@ -430,8 +433,8 @@ fields:
 #    skip: true
 
   # Q-7 Objekttyp
-  - name: dc:type
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType
+  - name: Objekttyp
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
@@ -447,8 +450,8 @@ fields:
   # TODO: 7.2
 
   # Q-7 Objekttyp (URI)
-  - name: dc_type_url
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
+  - name: Objekttyp_URI
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID
     rules:
       - id: Q-7.5
         description:
@@ -481,7 +484,7 @@ fields:
         pattern: ^http://vocab.getty.edu/aat/Q.*$
 
   # Objekttyp (Quellenangabe)
-  - name: dc_type_source
+  - name: Objekttyp_Quellenangabe
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source
     rules:
       - id: Q-7.3

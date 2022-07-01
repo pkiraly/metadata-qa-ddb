@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class LidoTest {
 
@@ -61,12 +62,91 @@ public class LidoTest {
   }
 
   @Test
+  public void Mediendatei_Link_Resource() {
+    JsonBranch p = schema.getPathByLabel("Mediendatei_Link_Resource");
+    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getJsonPath());
+
+    String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
+    assertEquals(xpath1, p.getJsonPath());
+    String xpath = p.getJsonPath();
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    assertEquals(3, itemList.size());
+    assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004.jpg", itemList.get(0).getValue());
+    assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004_back.jpg", itemList.get(1).getValue());
+    assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_001.jpg", itemList.get(2).getValue());
+  }
+
+  @Test
+  public void objekt_im_kontext() {
+    JsonBranch p = schema.getPathByLabel("objekt_im_kontext-record_info_link");
+    assertEquals("lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink", p.getJsonPath());
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    assertEquals(1, itemList.size());
+    assertEquals("http://www.deutschefotothek.de/documents/obj/71818281", itemList.get(0).getValue());
+  }
+
+  @Test
   public void Q3_3() {
     String url = "https://ifl.wissensbank.com/cgi-bin/starfetch.exe?kmfOSP3jgaM.yIPUxRzI29Nvv8atZ90ZFILV0RgojGXLVSIgdaug04kgDo52UyOuCMEEIt7q1J7FkBjO.3TUCsxy3Y14X7OBqeNKXMvORo92bNHdXDKaVgTJtOpQRzKQEgmtdE4sA7w/SAm090%2d0130.jpg";
     Pattern p = Pattern.compile("[^a-zA-Z_0-9%\\?\\./:\\-]");
     Matcher m = p.matcher(url);
-    if (m.find()) {
-      System.err.println(m.group());
+    assertFalse(m.find());
+  }
+
+  @Test
+  public void Q2_2() {
+    List<String> urls = List.of("http://d-nb.info/gnd/4242325-1", "http://ld.zdb-services.de/resource/organisations/DE-185");
+    Pattern p = Pattern.compile("^(DE-\\d+|DE-MUS-\\d+|http://ld.zdb-services.de/[\\w/-]+|\\d{8}|oai\\d{13}|http://d-nb.info/gnd/[\\w-]+)$");
+    for (String url : urls) {
+      Matcher m = p.matcher(url);
+      assertTrue(url + " should fit", m.matches());
     }
   }
+
+  @Test
+  public void Q2_2b() {
+    Pattern p = Pattern.compile("^http://ld.zdb-services.de/[\\w/-]+$");
+    String url = "http://ld.zdb-services.de/resource/organisations/DE-185";
+    Matcher m = p.matcher(url);
+    assertTrue(url + " should fit", m.matches());
+  }
+
+  @Test
+  public void Objekttyp() {
+    JsonBranch p = schema.getPathByLabel("Objekttyp");
+    assertEquals(
+      "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term",
+      p.getJsonPath());
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    assertEquals(1, itemList.size());
+    assertEquals("Vintage Print", itemList.get(0).getValue());
+  }
+
+  @Test
+  public void Objekttyp_Quellenangabe() {
+    JsonBranch p = schema.getPathByLabel("Objekttyp_Quellenangabe");
+    assertEquals(
+      "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source",
+      p.getJsonPath());
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    assertEquals(1, itemList.size());
+    assertEquals("Vintage Print", itemList.get(0).getValue());
+  }
+
+  @Test
+  public void Objekttyp_URI() {
+    JsonBranch p = schema.getPathByLabel("Objekttyp_URI");
+    assertEquals(
+      "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID",
+      p.getJsonPath());
+
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    assertEquals(1, itemList.size());
+    assertEquals("http://d-nb.info/gnd/4242325-1", itemList.get(0).getValue());
+  }
+
 }

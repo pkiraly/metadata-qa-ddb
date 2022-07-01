@@ -43,7 +43,7 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/\w+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description: The data provider should be identified by an International Standard Identifier for Libraries and Related Organizations (ISIL).
       - id: Q-2.4
@@ -57,7 +57,7 @@ fields:
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 3
-        pattern: ^http://d-nb.info/gnd/\w+$
+        pattern: ^http://d-nb.info/gnd/[\w-]+$
 
   # Q-3	Vorschaubild
   - name: thumbnail
