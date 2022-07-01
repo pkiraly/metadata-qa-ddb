@@ -90,16 +90,16 @@ fields:
       #  or:
       #  - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
       #  - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
-      - id: Q-3.2
-        # TODO: which is that attribute?
-        description: Check whether there is more than one element for the media file in the data record (see table "Mapping the DDB elements"). If yes => check in how many elements there is a reference to an image file.  If more than one image file is referenced in the elements => check whether, for example, an attribute indicates which of the image files should be used as a preview image (see table "Mapping of DDB elements")
-        failureScore: -3
-        minCount: 2
+      # This is not applicable for DC
+      # - id: Q-3.2
+      #   description: Check whether there is more than one element for the media file in the data record (see table "Mapping the DDB elements"). If yes => check in how many elements there is a reference to an image file.  If more than one image file is referenced in the elements => check whether, for example, an attribute indicates which of the image files should be used as a preview image (see table "Mapping of DDB elements")
+      #   failureScore: -3
+      #   minCount: 2
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
-        not:
-        - pattern: ^[a-zA-Z_0-9:\-]+$
+        debug: true
+        pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -3

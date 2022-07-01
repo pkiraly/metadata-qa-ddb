@@ -98,8 +98,7 @@ fields:
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
-        not:
-        - pattern: ^[a-zA-Z_0-9:\-]+$
+        pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -3
@@ -369,7 +368,7 @@ fields:
       #   maxWords: 2
 
   # Q-7 Objekttyp (URI)
-  - name: dc_type_source
+  - name: Objekttyp_URI
     path: //mods:mods/mods:genre/@valueURI
     # extractable: true
     rules:
@@ -398,7 +397,7 @@ fields:
         pattern: ^http://vocab.getty.edu/aat/Q.*$
 
   # Objekttyp (Quellenangabe)
-  - name: dc_type_source
+  - name: Objekttyp_Quellenangabe
     path: //mods:mods/mods:genre/@authority
     rules:
       - id: Q-7.3

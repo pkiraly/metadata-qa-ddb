@@ -77,7 +77,7 @@ public class AppTest {
     @Test
     public void contentType() {
         try {
-            assertEquals("text/html", getContentType("http://vb.uni-wuerzburg.de/ub/permalink/itf32"));
+            assertEquals("text/html", getContentType("https://www.deutsche-digitale-bibliothek.de/"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class AppTest {
         URL urlObj = new URL(url);
         HttpURLConnection urlConnection = (HttpURLConnection) urlObj.openConnection();
 
-        int timeout = 1000;
+        int timeout = 2000;
         urlConnection.setConnectTimeout(timeout);
         urlConnection.setReadTimeout(timeout);
         urlConnection.connect();

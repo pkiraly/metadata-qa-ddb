@@ -108,7 +108,7 @@ public class MetsMods {
   @Test
   public void dc_type_source() {
     setUpWith("mets2.xml");
-    JsonBranch p = schema.getPathByLabel("dc_type_source");
+    JsonBranch p = schema.getPathByLabel("Objekttyp_URI");
     assertEquals("//mods:mods/mods:genre/@valueURI", p.getJsonPath());
 
     String xpath = p.getJsonPath();
