@@ -17,7 +17,7 @@ mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB < ${OUTPUT_DIR}/variab
 
 echo frequency
 mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM frequency;"
-php $ROOT/scripts/csv2sql.php ${OUTPUT_DIR}/frequency.csv frequency
+php $ROOT/scripts/csv2sql.php ${OUTPUT_DIR}/frequency.csv frequency value
 mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB < ${OUTPUT_DIR}/frequency.sql
 
 echo count

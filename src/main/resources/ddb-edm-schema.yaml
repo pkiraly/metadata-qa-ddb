@@ -97,7 +97,6 @@ fields:
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
-        debug: true
         pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.4
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
