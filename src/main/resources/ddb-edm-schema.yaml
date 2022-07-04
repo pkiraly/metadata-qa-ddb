@@ -34,7 +34,8 @@ fields:
 
   # Q-2 Identifikator für den Datengeber
   - name: providerid
-    path: rdf:RDF/ore:Aggregation/edm:dataProvider/@rdf:resource
+    # path: rdf:RDF/ore:Aggregation/edm:dataProvider/@rdf:resource
+    path: rdf:RDF/edm:Agent[@rdf:about = string(../ore:Aggregation[1]/edm:dataProvider/@rdf:resource)]/owl:sameAs/@rdf:resource
     extractable: true
     indexField: providerId
     rules:

@@ -71,5 +71,27 @@ public class DDBEdmTest {
     // assertEquals("http://nbn-resolving.org/urn:nbn:de:bvb:12-sbb00000028-8", itemList.get(1).getValue());
   }
 
+  @Test
+  public void dataProvider() {
+    // JsonBranch p = schema.getPathByLabel("thumbnail");
+    // assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getJsonPath());
 
+    /*
+    String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
+    assertEquals(xpath1, p.getJsonPath());
+    String xpath = p.getJsonPath();
+
+     */
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList("rdf:RDF/ore:Aggregation[1]/edm:dataProvider/@rdf:resource");
+    assertEquals(1, itemList.size());
+    assertEquals("http://d-nb.info/gnd/2022477-1", itemList.get(0).getValue());
+
+    Document document = oaiPmhXPath.getDocument();
+    XPath xpathEngine = oaiPmhXPath.getXpathEngine();
+    String xpath = "//rdf:RDF/edm:Agent[@rdf:about = string(../ore:Aggregation[1]/edm:dataProvider/@rdf:resource)]/owl:sameAs/@rdf:resource"; //  | //rdf:RDF/ore:Aggregation[1]/edm:isShownAt/@rdf:resource
+
+    itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    assertEquals(1, itemList.size());
+    assertEquals("http://ld.zdb-services.de/data/organisations/DE-22", itemList.get(0).getValue());
+  }
 }
