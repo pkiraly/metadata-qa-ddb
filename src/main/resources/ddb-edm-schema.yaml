@@ -383,7 +383,7 @@ fields:
           Check whether the language of the designation is identified by an attribute.
           If yes => test, the ISO code "de", "deu" or "ger" is specified in the language attribute.
         and:
-          - mintCount: 1
+          - minCount: 1
           - in: [de, deu, ger]
 
 # Objekttyp (Quellenangabe) -- it is not existing in DDB EDM
