@@ -93,7 +93,8 @@ fields:
       - id: Q-3.2
         description: The preview image must be explicitly marked if more than one image file is referenced in the data record.
         failureScore: -3
-        minCount: 2
+        minCount: 1
+        # or one ends with "preview"
       - id: Q-3.3
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         failureScore: -3
