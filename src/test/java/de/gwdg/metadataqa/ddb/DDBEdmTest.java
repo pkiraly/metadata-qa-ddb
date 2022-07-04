@@ -97,7 +97,11 @@ public class DDBEdmTest {
 
   @Test
   public void hasType() {
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList("rdf:RDF/edm:ProvidedCHO[1]/edm:hasType/@rdf:resource");
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList("rdf:RDF/edm:ProvidedCHO[1]/edm:hasType"); // @rdf:resource
+    assertEquals(1, itemList.size());
+    assertEquals("", itemList.get(0).getValue());
+
+    itemList = oaiPmhXPath.extractFieldInstanceList("rdf:RDF/edm:ProvidedCHO[1]/edm:hasType/@rdf:resource"); //
     assertEquals(1, itemList.size());
     assertEquals("http://d-nb.info/gnd/4023287-6", itemList.get(0).getValue());
 
