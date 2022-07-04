@@ -120,7 +120,7 @@ fields:
   # Objekt im Medienviewer
   # Objekt im Kontext
   - name: url
-    path: rdf:RDF/ore:Aggregation/edm:isShownAt[@rdf:resource]
+    path: rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource
     rules:
       - id: Q-4.0
         hidden: true
