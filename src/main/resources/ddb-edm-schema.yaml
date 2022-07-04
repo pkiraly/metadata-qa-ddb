@@ -326,8 +326,8 @@ fields:
         - equals: dc:type
 
   # Q-7 Objekttyp
-  - name: dc:type
-    path: rdf:RDF/edm:ProvidedCHO/dc:type
+  - name: Objekttyp
+    path: rdf:RDF/edm:ProvidedCHO/edm:hasType
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
@@ -343,8 +343,8 @@ fields:
   # TODO: 7.2
 
   # Q-7 Objekttyp (URI)
-  - name: dc_type_source
-    path: rdf:RDF/edm:ProvidedCHO/dc:type/@rdf:resource
+  - name: Objekttyp_URI
+    path: rdf:RDF/edm:ProvidedCHO/edm:hasType/@rdf:resource
     rules:
       - id: Q-7.5
         description: If there is an http-URI for the object type => check whether the URI begins with the namespace "http://d-nb.info/gnd/" or "http://vocab.getty.edu/aat/". If there is no http-URI for the object type => check whether the attribute for the source of the object type term contains the value "AAT", "gnd", "GND", "gnd-music" or "gnd-content".
@@ -370,7 +370,16 @@ fields:
         successScore: 6
         pattern: ^http://vocab.getty.edu/aat/Q.*$
 
- # Objekttyp (Quellenangabe) -- it is not existing in DDB EDM
+  # Objekttyp (Bezeichnung)
+  - name: Objekttyp_Bezeichnung
+    path: rdf:RDF/skos:Concept[@rdf:about = string(../edm:ProvidedCHO/edm:hasType/@rdf:resource)]/skos:prefLabel
+
+  # Objekttyp (Sprache der Bezeichnung)
+  - name: Objekttyp_Sprache
+    path: rdf:RDF/skos:Concept[@rdf:about = string(../edm:ProvidedCHO/edm:hasType/@rdf:resource)]/skos:prefLabel/@xml:lang
+
+
+# Objekttyp (Quellenangabe) -- it is not existing in DDB EDM
  #- name: dc_type_source
  #  path: oai:record/dc:type/@resource
  #  rules:

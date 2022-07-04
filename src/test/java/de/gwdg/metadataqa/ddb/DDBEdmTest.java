@@ -94,4 +94,20 @@ public class DDBEdmTest {
     assertEquals(1, itemList.size());
     assertEquals("http://ld.zdb-services.de/data/organisations/DE-22", itemList.get(0).getValue());
   }
+
+  @Test
+  public void hasType() {
+    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList("rdf:RDF/edm:ProvidedCHO[1]/edm:hasType/@rdf:resource");
+    assertEquals(1, itemList.size());
+    assertEquals("http://d-nb.info/gnd/4023287-6", itemList.get(0).getValue());
+
+    Document document = oaiPmhXPath.getDocument();
+    XPath xpathEngine = oaiPmhXPath.getXpathEngine();
+    String xpath = "rdf:RDF/skos:Concept[@rdf:about = string(../edm:ProvidedCHO[1]/edm:hasType/@rdf:resource)]/skos:prefLabel";
+
+    itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    assertEquals(1, itemList.size());
+    assertEquals("Handschrift", itemList.get(0).getValue());
+  }
+
 }
