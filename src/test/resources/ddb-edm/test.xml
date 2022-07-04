@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:RDF="http://www.w3.org/1999/02/22FrdfFsyntaxFns#" xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ddb="http://www.deutsche-digitale-bibliothek.de/edm/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://RDVocab.info/ElementsGr2/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/  http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <ore:Aggregation rdf:about="bav-SBB-KHB-00000SBB00000028">
+    <edm:aggregatedCHO rdf:resource="bav-SBB-KHB-00000SBB00000028-cho"/>
+    <edm:Provider>Bayerische Staatsbibliothek</edm:Provider>
+    <edm:dataProvider>Staatsbibliothek Bamberg</edm:dataProvider>
+    <edm:dataProvider rdf:resource="http://d-nb.info/gnd/2022477-1"/>
+    <ddb:aggregator rdf:resource="https://www.bavarikon.de/"/>
+    <dcterms:rights rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/"/>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+    <edm:object rdf:resource="https://oai.bavarikon.de/pub/oai/objects/bav-SBB-KHB-00000SBB00000028/preview/"/>
+    <edm:isShownAt rdf:resource="http://nbn-resolving.org/urn:nbn:de:bvb:12-sbb00000028-8"/>
+  </ore:Aggregation>
+  <edm:WebResource rdf:about="http://nbn-resolving.org/urn:nbn:de:bvb:12-sbb00000028-8">
+    <dcterms:rights rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+    <dc:type rdf:resource="http://ddb.vocnet.org/medientyp/mt003"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://oai.bavarikon.de/pub/oai/objects/bav-SBB-KHB-00000SBB00000028/preview/">
+    <dcterms:rights rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+    <dc:type rdf:resource="http://ddb.vocnet.org/medientyp/mt002"/>
+  </edm:WebResource>
+  <edm:ProvidedCHO rdf:about="bav-SBB-KHB-00000SBB00000028-cho">
+    <dc:identifier>Staatsbibliothek Bamberg – Signatur: Msc.Bibl.14</dc:identifier>
+    <dc:identifier>URN: urn:nbn:de:bvb:12-sbb00000028-8</dc:identifier>
+    <dc:identifier>B3Kat-ID: BV035368702</dc:identifier>
+    <dc:title>Theologische Sammelhandschrift - Staatsbibliothek Bamberg Msc.Bibl.14</dc:title>
+    <dcterms:alternative>Cantica</dcterms:alternative>
+    <dcterms:alternative>Cantica canticorum</dcterms:alternative>
+    <dcterms:alternative>Canticum canticorum</dcterms:alternative>
+    <dcterms:alternative>Sentenzen</dcterms:alternative>
+    <dcterms:alternative>Sententiae patrum</dcterms:alternative>
+    <dcterms:alternative>Sententiae patrum de vita clericorum</dcterms:alternative>
+    <dcterms:alternative>Amalarii presb. Met. regula canonicorum</dcterms:alternative>
+    <dcterms:alternative>Amalarii presb. Metensis regula canonicorum</dcterms:alternative>
+    <dcterms:alternative>Fragment eines Martyrologiums</dcterms:alternative>
+    <dcterms:alternative>Martyrolog. fragm.</dcterms:alternative>
+    <dcterms:alternative>Martyrologii fragmentum</dcterms:alternative>
+    <dcterms:alternative>Petrus Damianus, Liber gratissimus</dcterms:alternative>
+    <dcterms:alternative>Petri Damiani liber qui dicitur gratissimus</dcterms:alternative>
+    <dcterms:alternative>Kommentare zu Briefen des Jacobus, Petrus, Judas, Johannes</dcterms:alternative>
+    <dcterms:alternative>In ep. Jacobi, Petri, Judae, Joannis commentaria</dcterms:alternative>
+    <dcterms:alternative>Commentaria in epistolas Jacobi, Petri, Judae, Joannis</dcterms:alternative>
+    <dc:language>lat</dc:language>
+    <dcterms:language rdf:resource="http://id.loc.gov/vocabulary/iso639-2/lat"/>
+    <marcrel:rps rdf:resource="http://d-nb.info/gnd/2022477-1"/>
+    <edm:hasMet rdf:resource="SJUA22YV4XJG5ZRLWOUDHDX3GSIXLPVO"/>
+    <dcterms:subject rdf:resource="http://d-nb.info/gnd/4023287-6"/>
+    <edm:hasType rdf:resource="http://d-nb.info/gnd/4023287-6"/>
+    <dcterms:medium>Pergament</dcterms:medium>
+    <dcterms:extent>77 Blätter : Illustrationen, 20 x 14 cm</dcterms:extent>
+    <edm:type>TEXT</edm:type>
+    <edm:isRelatedTo>Kaiser-Heinrich-Bibliothek Bamberg</edm:isRelatedTo>
+  </edm:ProvidedCHO>
+  <edm:Agent rdf:about="http://d-nb.info/gnd/118502379">
+    <skos:prefLabel>Amalarius Metensis</skos:prefLabel>
+    <rdaGr2:dateOfBirth>775</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>850</rdaGr2:dateOfDeath>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://d-nb.info/gnd/118593331">
+    <skos:prefLabel>Petrus Damiani</skos:prefLabel>
+    <rdaGr2:dateOfBirth>1007</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1072</rdaGr2:dateOfDeath>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://d-nb.info/gnd/2022477-1">
+    <skos:prefLabel>Staatsbibliothek Bamberg</skos:prefLabel>
+    <owl:sameAs rdf:resource="http://ld.zdb-services.de/data/organisations/DE-22"/>
+    <rdf:type rdf:resource="http://ddb.vocnet.org/sparte/sparte002"/>
+  </edm:Agent>
+  <edm:Agent rdf:about="https://www.bavarikon.de/">
+    <skos:prefLabel>bavarikon</skos:prefLabel>
+  </edm:Agent>
+  <edm:Place rdf:about="UUXVMIG5JYIBVDOIRQLRLSMHMAJYUKGE">
+    <skos:prefLabel>Reichenau ; vermutlich Bamberg</skos:prefLabel>
+  </edm:Place>
+  <skos:Concept rdf:about="http://d-nb.info/gnd/4023287-6">
+    <skos:prefLabel>Handschrift</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://ddb.vocnet.org/sparte/sparte002">
+    <skos:notation>sec_02</skos:notation>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://ddb.vocnet.org/medientyp/mt003">
+    <skos:notation>mediatype_003</skos:notation>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://ddb.vocnet.org/medientyp/mt002">
+    <skos:notation>mediatype_002</skos:notation>
+  </skos:Concept>
+  <dcterms:LinguisticSystem rdf:about="http://id.loc.gov/vocabulary/iso639-2/lat">
+    <rdf:value>lat</rdf:value>
+  </dcterms:LinguisticSystem>
+  <edm:Event rdf:about="SJUA22YV4XJG5ZRLWOUDHDX3GSIXLPVO">
+    <edm:hasType rdf:resource="http://terminology.lido-schema.org/lido00007"/>
+    <crm:P11_had_participant rdf:resource="http://d-nb.info/gnd/118502379"/>
+    <crm:P11_had_participant rdf:resource="http://d-nb.info/gnd/118593331"/>
+    <edm:happendAt rdf:resource="UUXVMIG5JYIBVDOIRQLRLSMHMAJYUKGE"/>
+    <edm:occurredAt rdf:resource="UNIVONMBI5BINRYICV6RKGNSCNCIYXYB"/>
+  </edm:Event>
+  <edm:TimeSpan rdf:about="UNIVONMBI5BINRYICV6RKGNSCNCIYXYB">
+    <edm:begin>circa 1000 ; Ende 12. Jahrhundert</edm:begin>
+    <edm:end>circa 1000 ; Ende 12. Jahrhundert</edm:end>
+  </edm:TimeSpan>
+</rdf:RDF>
