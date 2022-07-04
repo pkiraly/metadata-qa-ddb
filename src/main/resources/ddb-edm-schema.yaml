@@ -332,9 +332,8 @@ fields:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
         failureScore: -9
-        and:
-        - minCount: 1
-        - pattern: ^.+$
+        minCount: 1
+
       # - id: Q-7.4
       #   description: It is a specific object type designation and not an object description or object classification.
       #   failureScore: -3
