@@ -195,7 +195,7 @@ fields:
 
   # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
-    path: rdf:RDF/edm:WebResource/edm:rights[@rdf:resource]
+    path: rdf:RDF/edm:WebResource/edm:rights/@rdf:resource
     rules:
       - id: Q-5.1
         description: Check whether an element for the legal status is available in the data record (see table "Mapping the DDB elements"). If yes => check whether the element contains a value
