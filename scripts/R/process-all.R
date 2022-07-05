@@ -126,10 +126,6 @@ for (i in 1:nrow(df_perm)) {
         df_freq <- df_freq %>% mutate(!!field := myvalue)
         df_var  <- df_var  %>% mutate(!!field := myvalue)
       }
-      if (isEdm) {
-        print(criteria)
-        print(df_freq %>% filter(field == 'Q-7.3:status') %>% select(field, value, frequency))
-      }
       df_freq_all <- join_df(df_freq_all, df_freq)
       df_var_all <- join_df(df_var_all, df_var)
     }

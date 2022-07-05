@@ -377,14 +377,14 @@ fields:
   # Objekttyp (Sprache der Bezeichnung)
   - name: Objekttyp_Sprache
     path: rdf:RDF/skos:Concept[@rdf:about = string(../edm:ProvidedCHO/edm:hasType/@rdf:resource)]/skos:prefLabel/@xml:lang
-    rules:
-      - id: Q-7.2
-        description:
-          Check whether the language of the designation is identified by an attribute.
-          If yes => test, the ISO code "de", "deu" or "ger" is specified in the language attribute.
-        and:
-          - minCount: 1
-          - in: [de, deu, ger]
+    # rules:
+    #   - id: Q-7.2
+    #     description:
+    #       Check whether the language of the designation is identified by an attribute.
+    #       If yes => test, the ISO code "de", "deu" or "ger" is specified in the language attribute.
+    #     and:
+    #       - minCount: 1
+    #       - in: [de, deu, ger]
 
 # Objekttyp (Quellenangabe) -- it is not existing in DDB EDM
  #- name: dc_type_source
