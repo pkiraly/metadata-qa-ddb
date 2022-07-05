@@ -43,6 +43,7 @@ join_df <- function(A, B) {
 }
 
 df <- read_csv(paste0(dir, '/all-issues.csv'))
+print(str(df))
 
 n <- df %>% count() %>% unlist(use.names = FALSE)
 cat(n, file=paste0(dir, '/count'))
@@ -78,21 +79,26 @@ for (i in 1:nrow(df_perm)) {
   }
 
   if (length(keys) == 0) {
+    criteria <- "all"
     df_filtered <- df
   } else if (length(keys) == 1) {
     key1 <- rlang::sym(keys[1])
+    criteria <- sprintf("%s == %s", keys[1], values[1])
     df_filtered <- df %>% filter(!!key1 == values[1])
   } else if (length(keys) == 2) {
     key1 <- rlang::sym(keys[1])
     key2 <- rlang::sym(keys[2])
+    criteria <- sprintf("%s == %s, %s == %s", keys[1], values[1], keys[2], values[2])
     df_filtered <- df %>% filter(!!key1 == values[1] & !!key2 == values[2])
   } else if (length(keys) == 3) {
     key1 <- rlang::sym(keys[1])
     key2 <- rlang::sym(keys[2])
     key3 <- rlang::sym(keys[3])
+    criteria <- sprintf("%s == %s, %s == %s, %s == %s", keys[1], values[1], keys[2], values[2], keys[3], values[3])
     df_filtered <- df %>% filter(!!key1 == values[1] & !!key2 == values[2] & !!key3 == values[3])
   } else {
     df_filtered <- NULL
+    criteria <- "NULL"
   }
 
   if (!is.null(df_filtered)) {
@@ -121,6 +127,7 @@ for (i in 1:nrow(df_perm)) {
         df_var  <- df_var  %>% mutate(!!field := myvalue)
       }
       if (isEdm) {
+        print(criteria)
         print(df_freq %>% filter(field == 'Q-7.3:status') %>% select(field, value, frequency))
       }
       df_freq_all <- join_df(df_freq_all, df_freq)
