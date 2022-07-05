@@ -76,11 +76,12 @@ for (i in 1:nrow(df_perm)) {
       values <- c(values, as.character(value))
     }
   }
+
   if (length(keys) == 0) {
     df_filtered <- df
   } else if (length(keys) == 1) {
-    key <- rlang::sym(keys[1])
-    df_filtered <- df %>% filter(!!key == values[1])
+    key1 <- rlang::sym(keys[1])
+    df_filtered <- df %>% filter(!!key1 == values[1])
   } else if (length(keys) == 2) {
     key1 <- rlang::sym(keys[1])
     key2 <- rlang::sym(keys[2])
@@ -93,12 +94,15 @@ for (i in 1:nrow(df_perm)) {
   } else {
     df_filtered <- NULL
   }
+
   if (!is.null(df_filtered)) {
     .count <- nrow(df_filtered)
     if (.count > 0) {
+      current_schema <- df_filtered[1, 1]  %>% unlist(use.names = FALSE)
+      isEdm <- ifelse(current_schema == 'DDB-EDM', TRUE, FALSE)
       df_perm <- df_perm %>% mutate(count = ifelse(row_number() == i, .count, count))
       
-      print(df_perm[i, ])
+      # print(df_perm[i, ])
       # print(.count)
       df_filtered <- df_filtered %>% 
         select(-c("metadata_schema", "set_id", "provider_id", "file", "recordId", "providerid"))
@@ -115,6 +119,9 @@ for (i in 1:nrow(df_perm)) {
         # print(sprintf('%s %s', fields[j], myvalue))
         df_freq <- df_freq %>% mutate(!!field := myvalue)
         df_var  <- df_var  %>% mutate(!!field := myvalue)
+      }
+      if (isEdm) {
+        print(df_freq %>% filter(field == 'Q-7.3:status') %>% select(field, value, frequency))
       }
       df_freq_all <- join_df(df_freq_all, df_freq)
       df_var_all <- join_df(df_var_all, df_var)
