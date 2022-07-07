@@ -393,7 +393,7 @@ fields:
         description: Check whether the same string is contained in the element for the object title and the object type
         failureScore: -3
         not:
-        - equals: dc:type
+        - equals: Objekttyp
 
   # Objekttyp - Object/Work Type
 #  - name: objekttyp-object_work_type

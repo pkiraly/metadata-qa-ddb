@@ -118,7 +118,8 @@ fields:
         contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Q-4	Link zum Digitalen Objekt
-  # Objekt im Medienviewer
+  # Mediendatei: none
+  # Objekt im Medienviewer: none
   # Objekt im Kontext
   - name: url
     path: //rdf:RDF/edm:WebResource[@rdf:about = string(../ore:Aggregation[1]/edm:isShownAt/@rdf:resource)]/dcterms:rights/@rdf:resource
