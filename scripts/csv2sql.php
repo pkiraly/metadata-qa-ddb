@@ -48,7 +48,7 @@ function str_putcsv2(array $input, $delimiter = ',', $enclosure = '"', $columns)
 
   $a2 = [];
   foreach ($input as $i => $item) {
-    if (!in_array($columns[$i], $string_fields) && preg_match('/^\d+(\.\d+)?$/', $item)) 
+    if ($columns[$i] != 'recordId' && !in_array($columns[$i], $string_fields) && preg_match('/^\d+(\.\d+)?$/', $item))
       $a2[] = $item;
     else if ($item == 'NULL') 
       $a2[] = $item;
