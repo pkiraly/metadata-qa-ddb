@@ -287,24 +287,26 @@ fields:
           - http://creativecommons.org/licenses/by-nc-sa/4.0/
           - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
           - http://creativecommons.org/licenses/by-nc-nd/4.0/"
-      - id: Q-5.5
-        description: Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket"). Check whether an http-URI is specified for a rights notice with the possibility of use on request (see table "DDB license basket")
-        successScore: 3
-        and:
-        - minCount: 1
-        - in:
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-          - http://rightsstatements.org/vocab/InC/1.0/
-          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-
+#      - id: Q-5.5
+#        description:
+#          Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
+#          Check whether an http-URI is specified for a rights notice with the possibility of use on request
+#          (see table "DDB license basket")
+#        successScore: 3
+#        and:
+#        - minCount: 1
+#        - in:
+#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+#          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+#          - http://rightsstatements.org/vocab/CNE/1.0/
+#          - http://rightsstatements.org/vocab/NoC-NC/1.0/
+#          - http://rightsstatements.org/vocab/InC-EDU/1.0/
+#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+#          - http://rightsstatements.org/vocab/InC/1.0/
+#          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
 #      - id: Q-5.6
 #        description: A standardized notice of rights is used. The digital object may be used with restrictions.
 #        in:
