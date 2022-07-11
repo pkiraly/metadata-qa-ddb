@@ -73,24 +73,24 @@ fields:
 #        - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
 #        - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 #        failureScore: -9
-#        id: Q-3.1
+#        id: Q-3.1-old
 #      - minCount: 2
 #        failureScore: -9
-#        id: Q-3.2
+#        id: Q-3.1
 #      - not:
 #        - pattern: ^[a-zA-Z_0-9:\-]+$
 #        failureScore: -9
-#        id: Q-3.3
+#        id: Q-3.2
 #      - pixels: 1024,468
 #        failureScore: -9
-#        id: Q-3.4
+#        id: Q-3.3
 #      - pattern: ^https?://
 #        successScore: 3
-#        id: Q-3.5
+#        id: Q-3.4
 #     content type
 #     -
 #       successScore: 4
-#       id: Q-3.6
+#       id: Q-3.5
 
   # Q-4	Link zum Digitalen Objekt
   # Objekt im Medienviewer
