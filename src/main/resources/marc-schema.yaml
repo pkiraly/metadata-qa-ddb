@@ -120,7 +120,6 @@ fields:
         - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
-        skip: true
         failureScore: -3
         and:
         - minCount: 1

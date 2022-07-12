@@ -106,7 +106,6 @@ fields:
       - id: Q-3.3
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         failureScore: -3
-        skip: true
         dimension:
           minShortside: 600
           minLongside: 800
@@ -120,7 +119,6 @@ fields:
           header of the URL (see table "File types"). If the element contains a file name => check whether the file
           extension refers to an image file format preferred by the DDB.
         successScore: 3
-        skip: true
         or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
@@ -171,7 +169,6 @@ fields:
         - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
-        skip: true
         failureScore: -3
         and:
         - minCount: 1
