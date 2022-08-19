@@ -189,10 +189,11 @@ fields:
         description: Check whether the data record contains an object in context (see table "Mapping the DDB elements"). If so => check whether this element contain a value.
         successScore: 3
         dependencies: [Q-3.0, Q-4.0]
-      - id: Q-4.6
-        description: The data record contains a link to an object in the media viewer.
-        successScore: 3
-        dependencies: [Q-4.0]
+      # there is no "object in the media viewer" defined for EDM
+      # - id: Q-4.6
+      #   description: The data record contains a link to an object in the media viewer.
+      #   successScore: 3
+      #   dependencies: [Q-4.0]
 
   # TODO 4.6
 
