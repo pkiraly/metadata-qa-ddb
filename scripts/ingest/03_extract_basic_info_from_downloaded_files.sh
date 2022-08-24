@@ -5,7 +5,7 @@ source $ROOT/configuration.cnf
 
 # create database
 echo "file,metadata_schema,provider_id,provider_name,set_id,set_name,datum,size" > $OUTPUT_DIR/files.csv
-find $INPUT_DIR \
+find $INPUT_DIR/ \
   | while read filename; do 
       if [[ -f $filename ]]; then
         datum=$(stat $filename | grep Modify | sed -r 's,^.+: (.*)\..*$,\1,')

@@ -13,7 +13,7 @@ extract_basic_info_task = ShellTask(
     command='scripts/ingest/03_extract_basic_info_from_downloaded_files.sh', return_all=True, log_stderr=True)
 import_basic_info_task = ShellTask(
     name='import_basic_info',
-    command='scripts/ingest/04_import_basic_info_to_db.sh', return_all=True, log_stderr=True)
+    command='scripts/ingest/04_import_basic_info.mysql.sh', return_all=True, log_stderr=True)
 harvest_edm_task = ShellTask(
     name='harvest_edm',
     command='scripts/ingest/05_harvest_edm.sh', return_all=True, log_stderr=True)
