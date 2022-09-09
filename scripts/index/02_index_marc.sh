@@ -26,6 +26,6 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --directory $INPUT_DIR/MARC \
   --schema $ROOT/src/main/resources/marc-schema.yaml \
   --output $OUTPUT_DIR/marc.csv \
+  --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --record-address '//marc:record'
 
-#   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
