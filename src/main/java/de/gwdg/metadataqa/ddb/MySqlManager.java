@@ -21,7 +21,7 @@ public class MySqlManager {
   public MySqlManager(String path, String user, String password) {
     // load the sqlite-JDBC driver using the current class loader
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      Class.forName("com.mysql.cj.jdbc.Driver"); // com.mysql.jdbc.Driver
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }

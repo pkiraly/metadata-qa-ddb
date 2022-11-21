@@ -49,7 +49,7 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         failureScore: -3
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de\w+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
+        pattern: ^(DE-\d+|DE-MUS-\d+|http://id.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description: Determination of the IDs for the data supplier in the old and newly delivered data sets. Compare if the IDs are the same as those in the new dataset.
       #   failureScore: -6
