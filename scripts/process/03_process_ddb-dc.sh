@@ -19,4 +19,3 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --schema $ROOT/src/main/resources/dc-schema.yaml \
   --output $OUTPUT_DIR/dc.csv \
   --record-address '//oai:record'
-

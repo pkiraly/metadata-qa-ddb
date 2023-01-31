@@ -6,8 +6,8 @@ Log in tinto MySQL, create a database and a dedicated user:
 ```
 CREATE DATABASE ddb;
 
-CREATE USER 'ddbadmin'@'localhost' IDENTIFIED BY '<password>';
-GRANT ALL PRIVILEGES ON ddb.* TO 'ddbadmin'@'localhost' WITH GRANT OPTION;
+CREATE USER '<user name>'@'localhost' IDENTIFIED BY '<password>';
+GRANT ALL PRIVILEGES ON ddb.* TO '<user name>'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
@@ -35,29 +35,34 @@ MY_PASSWORD=<MySQL password>
 
 ## Download files and import file information into the database
 
+create the database tables
+```
+scripts/database.mysql.sql
+```
+
 download files from FTP server
 ```
 scripts/ingest/01_download_from_ftp.sh
 ```
 
-unzip them
+unzip the downloaded zip files
 ```
 scripts/ingest/02_extract_downloaded_files.sh
 ```
 
-extract file info (path, size etc.) from the directory
+extract file info (path, size etc.) from the directory. The file paths contain semantic information about the data providers. The following data elements are extracted: file path, metadata schema, provider identifier, provider name, data set identifier, data set name, last modification date, file size. These data are saved into $OUTPUT_DIR/files.csv file.
 ```
 scripts/ingest/03_extract_basic_info_from_downloaded_files.sh
 ```
 
-import file info into MySQL
+import file info into MySQL (it first transforms CSV to SQL)
 ```
 scripts/ingest/04_import_basic_info.mysql.sh
 ```
 
-harvest EDM records
+harvest EDM records for each data sets
 ```
-scripts/ingest/05_harvest_edm.sh
+scripts/ingest/05_harvest_edm.mysql.sh
 ```
 
 ## Index and store raw information
@@ -115,38 +120,33 @@ scripts/process/05_process_mets-mods.sh
 
 ## Importing measurement results to database
 
-create issue table
-```
-scripts/process/11_create_issue_table.sqlite.sh
-```
 
 import DDB-EDM
 ```
-scripts/process/11_import_ddb-edm.sqlite.sh
+scripts/process/11_import_ddb-edm.mysql.sh
 ```
 
 import MARC
 ```
-scripts/process/11_import_marc.sqlite.sh
+scripts/process/11_import_marc.mysql.sh
 ```
 
 import DDB-DC
 ```
-scripts/process/11_import_dc.sqlite.sh
+scripts/process/11_import_dc.mysql.sh
 ```
 
 import LIDO
 ```
-scripts/process/11_import_lido.sqlite.sh
+scripts/process/11_import_lido.mysql.sh
 ```
 
 import METS-MODS
 ```
-scripts/process/11_import_mets-mods.sqlite.sh
+scripts/process/11_import_mets-mods.mysql.sh
 ```
 
 calculate aggregated results
 ```
-scripts/process/12_calculate_aggregations_sqlite.sh
+scripts/process/12_calculate_aggregations.mysql.sh
 ```
-
