@@ -3,6 +3,10 @@
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 
+if [[ ! -d $OUTPUT_DIR ]]; then
+  mkdir $OUTPUT_DIR
+fi
+
 # create database
 echo "file,metadata_schema,provider_id,provider_name,set_id,set_name,datum,size" > $OUTPUT_DIR/files.csv
 find $INPUT_DIR/ \

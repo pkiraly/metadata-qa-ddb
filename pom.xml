@@ -203,9 +203,12 @@
             </descriptorRefs>
             <archive>
               <manifest>
-                <mainClass></mainClass>
+                <mainClass />
               </manifest>
             </archive>
+            <descriptors>
+              <descriptor>src/main/assembly/release.xml</descriptor>
+            </descriptors>
           </configuration>
           <executions>
             <execution>

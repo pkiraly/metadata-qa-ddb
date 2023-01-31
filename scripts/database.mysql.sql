@@ -70,6 +70,8 @@ CREATE TABLE issue (
   `Q-4.4:score` INTEGER,
   `Q-4.5:status` VARCHAR(10),
   `Q-4.5:score` INTEGER,
+  `Q-4.6:status` VARCHAR(10),
+  `Q-4.6:score` INTEGER,
   `Q-5.1:status` VARCHAR(10),
   `Q-5.1:score` INTEGER,
   `Q-5.2:status` VARCHAR(10),
@@ -159,6 +161,8 @@ CREATE INDEX `Q-4.3:score` ON issue (`Q-4.3:score`);
 CREATE INDEX `Q-4.4:score` ON issue (`Q-4.4:score`);
 -- CREATE INDEX `Q-4.5:status` ON issue (`Q-4.5:status`);
 CREATE INDEX `Q-4.5:score` ON issue (`Q-4.5:score`);
+-- CREATE INDEX `Q-4.6:status` ON issue (`Q-4.6:status`);
+CREATE INDEX `Q-4.6:score` ON issue (`Q-4.6:score`);
 -- CREATE INDEX `Q-5.1:status` ON issue (`Q-5.1:status`);
 CREATE INDEX `Q-5.1:score` ON issue (`Q-5.1:score`);
 -- CREATE INDEX `Q-5.2:status` ON issue (`Q-5.2:status`);

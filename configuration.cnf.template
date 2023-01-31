@@ -1,7 +1,23 @@
+#####################################
+# configurations for metadata-qa-ddb
+#####################################
+
+# the location of the Java application
+JAR=target/metadata-qa-ddb-1.0.0-jar-with-dependencies.jar
+
+#####################################
+# Set the following variables!
+#####################################
+# input directory, where the files will be downloaded
 INPUT_DIR=<path to input directory>
+# output directory for the temporary results
 OUTPUT_DIR=<path to output directory>
+
+# FTP user name and password for the DDB FTP server
 FTP_USER=<FTP user name>
 FTP_PW=<FTP password>
+
+# MySQL database settings
 MY_DB=<MySQL database name>
 MY_USER=<MySQL user name>
 MY_PASSWORD=<MySQL password>

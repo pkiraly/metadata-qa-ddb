@@ -59,6 +59,17 @@ run Apache Solr
 /opt/solr/bin/solr start -m 2g
 ```
 
+# Installing the software
+
+```
+wget https://github.com/pkiraly/metadata-qa-ddb/archive/refs/tags/v1.0.0.zip
+unzip v1.0.0.zip 
+cd metadata-qa-ddb-1.0.0/
+mkdir target
+cd target/
+wget https://github.com/pkiraly/metadata-qa-ddb/releases/download/v1.0.0/metadata-qa-ddb-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+ 
 # Configuration
 
 Set the configuration file.
@@ -95,17 +106,17 @@ FLUSH PRIVILEGES;
 
 create the database tables
 ```
-scripts/database.mysql.sql
+./scripts/create_database.mysql.sh
 ```
 
 download files from FTP server
 ```
-scripts/ingest/01_download_from_ftp.sh
+./scripts/ingest/01_download_from_ftp.sh
 ```
 
 unzip the downloaded zip files
 ```
-scripts/ingest/02_extract_downloaded_files.sh
+./scripts/ingest/02_extract_downloaded_files.sh
 ```
 
 extract file info (path, size etc.) from the directory. The file paths contain semantic information about the data providers. The following data elements are extracted: file path, metadata schema, provider identifier, provider name, data set identifier, data set name, last modification date, file size. These data are saved into $OUTPUT_DIR/files.csv file.
@@ -123,7 +134,10 @@ harvest EDM records for each data sets
 scripts/ingest/05_harvest_edm.mysql.sh
 ```
 
-## Index and store raw information
+## Index and store XML into SQLite3
+
+These commands will index the following fields into Apache Solr: identifier, provider identifier and title. The 'what to index?' question is answered by the schema's yaml definition file at the main/resources directory. The record's full XML presentation is stored in a SQLite3 database. It is needed only for the display of records in the web user interface.
+
 index DDB-EDM records
 ```
 scripts/index/01_index_ddb-edm.sh
