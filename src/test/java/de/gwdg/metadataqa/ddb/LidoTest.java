@@ -1,10 +1,10 @@
 package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
-import de.gwdg.metadataqa.api.json.JsonBranch;
+import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.xml.OaiPmhXPath;
+import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -26,7 +26,7 @@ public class LidoTest {
 
   private Schema schema;
   private String recordAddress = "//lido:lido";
-  private OaiPmhXPath oaiPmhXPath;
+  private XPathWrapper xPathWrapper;
 
   @Before
   public void setUp() throws Exception {
@@ -38,7 +38,7 @@ public class LidoTest {
       schema = ConfigurationReader.readSchemaYaml("src/main/resources/lido-schema.yaml").asSchema();
       XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
       String xml = iterator.next();
-      oaiPmhXPath = new OaiPmhXPath(xml, schema.getNamespaces());
+      xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());
     } catch (XPathExpressionException | IOException | ParserConfigurationException | SAXException e) {
       throw new RuntimeException(e);
     }
@@ -47,14 +47,16 @@ public class LidoTest {
 
   @Test
   public void thumbnail() {
-    JsonBranch p = schema.getPathByLabel("thumbnail");
-    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getJsonPath());
+    DataElement p = schema.getPathByLabel("thumbnail");
+    assertEquals(
+      "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource",
+      p.getPath());
 
     String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
-    assertEquals(xpath1, p.getJsonPath());
-    String xpath = p.getJsonPath();
+    assertEquals(xpath1, p.getPath());
+    String xpath = p.getPath();
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(xpath);
     assertEquals(3, itemList.size());
     assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004.jpg", itemList.get(0).getValue());
     assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004_back.jpg", itemList.get(1).getValue());
@@ -63,14 +65,14 @@ public class LidoTest {
 
   @Test
   public void Mediendatei_Link_Resource() {
-    JsonBranch p = schema.getPathByLabel("Mediendatei_Link_Resource");
-    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getJsonPath());
+    DataElement p = schema.getPathByLabel("Mediendatei_Link_Resource");
+    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getPath());
 
     String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
-    assertEquals(xpath1, p.getJsonPath());
-    String xpath = p.getJsonPath();
+    assertEquals(xpath1, p.getPath());
+    String xpath = p.getPath();
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(xpath);
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(xpath);
     assertEquals(3, itemList.size());
     assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004.jpg", itemList.get(0).getValue());
     assertEquals("http://fotothek.slub-dresden.de/fotos/sddm_hf_0003049_004_back.jpg", itemList.get(1).getValue());
@@ -79,10 +81,10 @@ public class LidoTest {
 
   @Test
   public void objekt_im_kontext() {
-    JsonBranch p = schema.getPathByLabel("objekt_im_kontext-record_info_link");
-    assertEquals("lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink", p.getJsonPath());
+    DataElement p = schema.getPathByLabel("objekt_im_kontext-record_info_link");
+    assertEquals("lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordInfoSet/lido:recordInfoLink", p.getPath());
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(1, itemList.size());
     assertEquals("http://www.deutschefotothek.de/documents/obj/71818281", itemList.get(0).getValue());
   }
@@ -115,38 +117,37 @@ public class LidoTest {
 
   @Test
   public void Objekttyp() {
-    JsonBranch p = schema.getPathByLabel("Objekttyp");
+    DataElement p = schema.getPathByLabel("Objekttyp");
     assertEquals(
       "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term",
-      p.getJsonPath());
+      p.getPath());
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(1, itemList.size());
     assertEquals("Vintage Print", itemList.get(0).getValue());
   }
 
   @Test
   public void Objekttyp_Quellenangabe() {
-    JsonBranch p = schema.getPathByLabel("Objekttyp_Quellenangabe");
+    DataElement p = schema.getPathByLabel("Objekttyp_Quellenangabe");
     assertEquals(
       "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source",
-      p.getJsonPath());
+      p.getPath());
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(0, itemList.size());
     // assertEquals("Vintage Print", itemList.get(0).getValue());
   }
 
   @Test
   public void Objekttyp_URI() {
-    JsonBranch p = schema.getPathByLabel("Objekttyp_URI");
+    DataElement p = schema.getPathByLabel("Objekttyp_URI");
     assertEquals(
       "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID",
-      p.getJsonPath());
+      p.getPath());
 
-    List<EdmFieldInstance> itemList = oaiPmhXPath.extractFieldInstanceList(p.getJsonPath());
+    List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(1, itemList.size());
     assertEquals("http://d-nb.info/gnd/4242325-1", itemList.get(0).getValue());
   }
-
 }

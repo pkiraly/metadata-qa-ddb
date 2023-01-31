@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.xml.OaiPmhXPath;
+import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -89,9 +89,9 @@ public class App {
         readParameters(args);
 
         calculator = initializeCalculator();
-        idPath = calculator.getSchema().getRecordId().getJsonPath();
+        idPath = calculator.getSchema().getRecordId().getPath();
         namespaces = calculator.getSchema().getNamespaces();
-        OaiPmhXPath.setXpathEngine(namespaces);
+        XPathWrapper.setXpathEngine(namespaces);
 
         try {
             writer = Files.newBufferedWriter(Paths.get(outputFile));
@@ -199,8 +199,8 @@ public class App {
             while (iterator.hasNext()) {
                 String xml = iterator.next();
                 if (storing && (doSqlite || doMysql)) {
-                    OaiPmhXPath oaiPmhXPath = new OaiPmhXPath(xml, namespaces);
-                    List<EdmFieldInstance> idList = oaiPmhXPath.extractFieldInstanceList(idPath);
+                    XPathWrapper xPathWrapper = new XPathWrapper(xml, namespaces);
+                    List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
                         String id = idList.get(0).getValue();
                         if (doSqlite)
@@ -288,5 +288,4 @@ public class App {
         App app = new App(args);
         logger.info("DONE");
     }
-
 }
