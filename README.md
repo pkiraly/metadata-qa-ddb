@@ -1,17 +1,64 @@
 # metadata-qa-ddb
 A metadata quality assessment tool customized for the requirements of the Deutsche Digitale Bibliothek
 
-Log in tinto MySQL, create a database and a dedicated user:
-
-```
-CREATE DATABASE ddb;
-
-CREATE USER '<user name>'@'localhost' IDENTIFIED BY '<password>';
-GRANT ALL PRIVILEGES ON ddb.* TO '<user name>'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-```
-
 # Installation
+
+The software depends on the following technologies:
+
+* MySQL
+* SQLite3
+* Java 11
+* R
+* Apache Solr
+
+The following descrip
+
+## MySQL
+
+```
+sudo apt install mysql-server
+sudo service mysql start
+```
+
+## SQLite 3
+
+```
+sudo apt install sqlite3
+```
+
+## Java
+
+```
+sudo apt install openjdk-11-jre-headless
+```
+
+## R
+
+```
+wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo gpg --dearmor -o /usr/share/keyrings/r-project.gpg
+echo "deb [signed-by=/usr/share/keyrings/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | sudo tee -a /etc/apt/sources.list.d/r-project.list
+sudo apt update
+sudo apt install --no-install-recommends r-base r-cran-tidyverse r-cran-stringr r-cran-gridextra
+```
+
+## Apache Solr
+
+```
+export SOLR_VERSION=9.1.1
+cd /opt
+curl -s -L https://archive.apache.org/dist/solr/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.tgz --output solr-${SOLR_VERSION}.tgz
+tar zxf solr-${SOLR_VERSION}.tgz
+rm solr-${SOLR_VERSION}.tgz
+ln -s solr-${SOLR_VERSION} solr
+```
+
+run Apache Solr
+
+```
+/opt/solr/bin/solr start -m 2g
+```
+
+# Configuration
 
 Set the configuration file.
 
@@ -29,6 +76,16 @@ FTP_PW=<FTP password>
 MY_DB=<MySQL database name>
 MY_USER=<MySQL user name>
 MY_PASSWORD=<MySQL password>
+```
+
+Log in to MySQL, create a database and a dedicated user:
+
+```
+CREATE DATABASE ddb;
+
+CREATE USER '<user name>'@'localhost' IDENTIFIED BY '<password>';
+GRANT ALL PRIVILEGES ON ddb.* TO '<user name>'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
 ```
 
 # Running the software
