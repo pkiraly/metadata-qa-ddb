@@ -1,4 +1,5 @@
 # metadata-qa-ddb
+
 A metadata quality assessment tool customized for the requirements of the Deutsche Digitale Bibliothek
 
 # Installation
@@ -11,7 +12,7 @@ The software depends on the following technologies:
 * R
 * Apache Solr
 
-The following descrip
+The following installation instructions work in Ubuntu. These contain simplified steps, for further details please consult the official documentation of these tools.
 
 ## MySQL
 
