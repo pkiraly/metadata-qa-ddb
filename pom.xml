@@ -7,7 +7,7 @@
   <groupId>de.gwdg.metadataqa</groupId>
   <artifactId>metadata-qa-ddb</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>metadata-qa-ddb</name>
   <description>
