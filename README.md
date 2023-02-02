@@ -106,17 +106,17 @@ FLUSH PRIVILEGES;
 
 create the database tables
 ```
-./scripts/create_database.mysql.sh
+scripts/create_database.mysql.sh
 ```
 
 download files from FTP server
 ```
-./scripts/ingest/01_download_from_ftp.sh
+scripts/ingest/01_download_from_ftp.sh
 ```
 
 unzip the downloaded zip files
 ```
-./scripts/ingest/02_extract_downloaded_files.sh
+scripts/ingest/02_extract_downloaded_files.sh
 ```
 
 extract file info (path, size etc.) from the directory. The file paths contain semantic information about the data providers. The following data elements are extracted: file path, metadata schema, provider identifier, provider name, data set identifier, data set name, last modification date, file size. These data are saved into $OUTPUT_DIR/files.csv file.
@@ -129,14 +129,14 @@ import file info into MySQL (it first transforms CSV to SQL)
 scripts/ingest/04_import_basic_info.mysql.sh
 ```
 
-harvest EDM records for each data sets
+(optional) harvest Europeana-EDM records for each data sets
 ```
 scripts/ingest/05_harvest_edm.mysql.sh
 ```
 
-## Index and store XML into SQLite3
+## Index and store basic data
 
-These commands will index the following fields into Apache Solr: identifier, provider identifier and title. The 'what to index?' question is answered by the schema's yaml definition file at the main/resources directory. The record's full XML presentation is stored in a SQLite3 database. It is needed only for the display of records in the web user interface.
+These commands will index the following fields into Apache Solr: identifier, provider identifier and title. The 'what to index?' question is answered by the schema's yaml definition file at the main/resources directory. The record ID and the container file is stored in MySQL. The record's full XML presentation is stored in a SQLite3 database. It is needed only for the display of records in the web user interface.
 
 index DDB-EDM records
 ```
@@ -163,29 +163,31 @@ index METS-MODS records
 scripts/index/05_index_mets-mods.sh
 ```
 
-## Measurement
+## Run quality assessment
 
-measure DDB-EDM
+The quality assessment reads from the `$INPUT_DIR` directory and writes the results to `$OUTPUT_DIR` directory as CSV files, such as `edm-ddb.csv`.
+
+quality assessment of DDB-EDM records
 ```
 scripts/process/01_process_ddb-edm.sh
 ```
 
-measure MARC
+quality assessment of MARC
 ```
 scripts/process/02_process_marc.sh
 ```
 
-measure DDB-DC
+quality assessment of DDB-DC
 ```
 scripts/process/03_process_ddb-dc.sh
 ```
 
-measure LIDO
+quality assessment of LIDO
 ```
 scripts/process/04_process_lido.sh
 ```
 
-measure METS-MODS
+quality assessment of METS-MODS
 ```
 scripts/process/05_process_mets-mods.sh
 ```

@@ -94,9 +94,11 @@ public class App {
         XPathWrapper.setXpathEngine(namespaces);
 
         try {
-            writer = Files.newBufferedWriter(Paths.get(outputFile));
-            if (format.equals(FORMAT.CSV))
-                writer.write(StringUtils.join(calculator.getHeader(), ",") + "\n");
+            if (!indexing) {
+                writer = Files.newBufferedWriter(Paths.get(outputFile));
+                if (format.equals(FORMAT.CSV))
+                    writer.write(StringUtils.join(calculator.getHeader(), ",") + "\n");
+            }
 
             if (dataSource.equals(DATA_SOURCE.FILE))
                 processFile(inputFile);
@@ -148,6 +150,8 @@ public class App {
         logger.info("recursive: {}", recursive);
         if (cmd.hasOption("rootDirectory")) {
             rootDirectory = cmd.getOptionValue("rootDirectory");
+            if (new File(rootDirectory).getAbsolutePath() != rootDirectory)
+                rootDirectory = new File(rootDirectory).getAbsolutePath();
             if (!rootDirectory.endsWith("/"))
                 rootDirectory = rootDirectory + "/";
         }
@@ -191,7 +195,7 @@ public class App {
 
     private void processFile(String inputFile) throws IOException {
         String relativePath = getRelativePath(inputFile);
-        // logger.info("processFile: {}", inputFile);
+        // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
@@ -214,7 +218,8 @@ public class App {
                 else
                     line = calculator.measureAsJson(xml);
                 // logger.info(line);
-                writer.write(line + "\n");
+                if (!indexing)
+                    writer.write(line + "\n");
             }
 
         } catch (ParserConfigurationException e) {
@@ -239,9 +244,9 @@ public class App {
               .disableCompletenessMeasurement()
               .disableFieldExistenceMeasurement()
               .disableFieldCardinalityMeasurement()
-              .disableRuleCatalogMeasurement()
-              .disableUniquenessMeasurement()
-              .disableFieldExtractor()
+              .disableRuleCatalogMeasurement() // off
+              .disableUniquenessMeasurement()  // off
+              .disableFieldExtractor()         // off
               .withSolrConfiguration("localhost", "8983", solrPath)
               .enableIndexing()
             ;
@@ -250,12 +255,12 @@ public class App {
               .disableCompletenessMeasurement()
               .disableFieldExistenceMeasurement()
               .disableFieldCardinalityMeasurement()
-              .enableRuleCatalogMeasurement()
-              .enableFieldExtractor()
+              .enableRuleCatalogMeasurement()  // on
+              .enableFieldExtractor()          // on
+              .withSolrConfiguration("localhost", "8983", solrPath)
               // .enableUniquenessMeasurement()
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)
-              .withSolrConfiguration("localhost", "8983", solrPath)
               // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
             ;
         }
