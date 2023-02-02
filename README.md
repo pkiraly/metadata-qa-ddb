@@ -62,12 +62,9 @@ run Apache Solr
 # Installing the software
 
 ```
-wget https://github.com/pkiraly/metadata-qa-ddb/archive/refs/tags/v1.0.0.zip
-unzip v1.0.0.zip 
-cd metadata-qa-ddb-1.0.0/
-mkdir target
-cd target/
-wget https://github.com/pkiraly/metadata-qa-ddb/releases/download/v1.0.0/metadata-qa-ddb-1.0-SNAPSHOT-jar-with-dependencies.jar
+wget https://github.com/pkiraly/metadata-qa-ddb/releases/download/v1.0.0/metadata-qa-ddb-1.0.0-release.zip
+unzip metadata-qa-ddb-1.0.0-release.zip
+cd metadata-qa-ddb-1.0.0-release
 ```
  
 # Configuration
