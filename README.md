@@ -1,6 +1,6 @@
-# metadata-qa-ddb
+# Metadata quality assessment of Deutsche Digitale Bibliothek metadata
 
-A metadata quality assessment tool customized for the requirements of the Deutsche Digitale Bibliothek. This is an extension of [Metadata Quality Assessment Framework](https://github.com/pkiraly/metadata-qa-api).
+A metadata quality assessment tool customized for Deutsche Digitale Bibliothek's requirements against the incomming metadata records. This is an extension of [Metadata Quality Assessment Framework](https://github.com/pkiraly/metadata-qa-api).
 
 # Installation
 
