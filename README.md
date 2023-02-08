@@ -59,6 +59,19 @@ run Apache Solr
 /opt/solr/bin/solr start -m 2g
 ```
 
+## PHP
+
+```
+sudo apt install php php-http-request2 php-mysql php-sqlite3
+```
+
+## Others
+
+```
+sudo apt install jq wget curl
+```
+
+
 # Installing the software
 
 
@@ -83,11 +96,21 @@ cp configuration.cnf.template configuration.cnf
 ```
 INPUT_DIR=<path to input directory>
 OUTPUT_DIR=<path to output directory>
+
+# FTP user name and password for the DDB FTP server
 FTP_USER=<FTP user name>
 FTP_PW=<FTP password>
+
+# MySQL database settings
+MY_HOST=localhost
+MY_PORT=3306
 MY_DB=<MySQL database name>
 MY_USER=<MySQL user name>
 MY_PASSWORD=<MySQL password>
+
+# Apache Solr settings
+SOLR_HOST=localhost
+SOLR_PORT=8983
 ```
 
 Log in to MySQL, create a database and a dedicated user:
