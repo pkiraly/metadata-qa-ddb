@@ -18,6 +18,12 @@ FTP_USER=<FTP user name>
 FTP_PW=<FTP password>
 
 # MySQL database settings
+MY_HOST=localhost
+MY_PORT=3306
 MY_DB=<MySQL database name>
 MY_USER=<MySQL user name>
 MY_PASSWORD=<MySQL password>
+
+# Apache Solr settings
+SOLR_HOST=localhost
+SOLR_PORT=8983

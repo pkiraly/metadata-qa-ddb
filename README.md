@@ -61,6 +61,9 @@ run Apache Solr
 
 # Installing the software
 
+
+Download and unzip the release package.
+
 ```
 wget https://github.com/pkiraly/metadata-qa-ddb/releases/download/v1.0.0/metadata-qa-ddb-1.0.0-release.zip
 unzip metadata-qa-ddb-1.0.0-release.zip

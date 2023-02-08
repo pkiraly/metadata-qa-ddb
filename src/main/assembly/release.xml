@@ -41,6 +41,7 @@
         <include>LICENSE</include>
         <include>README.md</include>
         <include>configuration.cnf.template</include>
+        <include>solr-functions.sh</include>
       </includes>
       <outputDirectory>.</outputDirectory>
     </fileSet>

@@ -18,11 +18,11 @@ mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_r
 
 java -Xmx4g -DlogDir="$ROOT/logs" -cp $CLASSPATH:$ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
-  --path solr/${SOLR_CORE} \
+  --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/${SOLR_CORE} \
   --recursive \
   --indexing \
   --storing \
-  --mysqlDatabase $MY_DB --mysqlUser $MY_USER --mysqlPassword $MY_PASSWORD \
+  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-DC \
   --schema $ROOT/src/main/resources/dc-schema.yaml \
