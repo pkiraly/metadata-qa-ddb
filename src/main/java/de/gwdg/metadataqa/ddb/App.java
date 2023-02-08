@@ -58,12 +58,17 @@ public class App {
     private DATA_SOURCE dataSource = DATA_SOURCE.FILE;
     private String fileNameInAnnotation;
     private String schemaFile;
-    private String solrPath;
     private String sqlitePath;
     private String recordAddress = "//oai:record";
     private Map<String, String> namespaces;
     private boolean recursive = false;
     private String rootDirectory;
+    private String mysqlHost = "localhost";
+    private String mysqlPort = "3306";
+    private String solrPath;
+    private String solrHost = "localhost";
+    private String solrPort = "8983";
+
 
     static {
         options.addOption(new Option("c", "config", true, "Measurement configuration file"));
@@ -83,6 +88,10 @@ public class App {
         options.addOption(new Option("D", "mysqlDatabase", true, "MySQL database"));
         options.addOption(new Option("U", "mysqlUser", true, "MySQL user name"));
         options.addOption(new Option("P", "mysqlPassword", true, "MySQL password"));
+        options.addOption(new Option("A", "mysqlHost", true, "MySQL host"));
+        options.addOption(new Option("B", "mysqlPort", true, "MySQL port"));
+        options.addOption(new Option("C", "solrHost", true, "Apache Solr host"));
+        options.addOption(new Option("D", "solrPort", true, "Apache Solr port"));
     }
 
     public App(String[] args) throws ParseException, IOException {
@@ -158,7 +167,6 @@ public class App {
         logger.info("rootDirectory: {}", rootDirectory);
 
         schemaFile = cmd.getOptionValue("schema");
-        solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
         sqlitePath = cmd.hasOption("sqlitePath") ? cmd.getOptionValue("sqlitePath") : null;
         if (cmd.hasOption("directory")) {
             directory = cmd.getOptionValue("directory");
@@ -184,13 +192,21 @@ public class App {
             String mysqlDatabase = cmd.getOptionValue("mysqlDatabase");
             String mysqlUser = cmd.hasOption("mysqlUser") ? cmd.getOptionValue("mysqlUser") : null;
             String mysqlPassword = cmd.hasOption("mysqlPassword") ? cmd.getOptionValue("mysqlPassword") : null;
+            if (cmd.hasOption("mysqlHost"))
+                mysqlHost = cmd.getOptionValue("mysqlHost");
+            if (cmd.hasOption("mysqlPort"))
+                mysqlPort = cmd.getOptionValue("mysqlPort");
             if (StringUtils.isNotBlank(mysqlDatabase) && StringUtils.isNotBlank(mysqlUser) && StringUtils.isNotBlank(mysqlPassword)) {
-                mySqlManager = new MySqlManager(mysqlDatabase, mysqlUser, mysqlPassword);
+                mySqlManager = new MySqlManager(mysqlHost, mysqlPort, mysqlDatabase, mysqlUser, mysqlPassword);
                 doMysql = true;
-
             }
         }
 
+        solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
+        if (cmd.hasOption("solrHost"))
+            solrHost = cmd.getOptionValue("solrHost");
+        if (cmd.hasOption("solrPort"))
+            solrPort = cmd.getOptionValue("solrPort");
     }
 
     private void processFile(String inputFile) throws IOException {
@@ -247,7 +263,7 @@ public class App {
               .disableRuleCatalogMeasurement() // off
               .disableUniquenessMeasurement()  // off
               .disableFieldExtractor()         // off
-              .withSolrConfiguration("localhost", "8983", solrPath)
+              .withSolrConfiguration(solrHost, solrPort, solrPath)
               .enableIndexing()
             ;
         } else {
@@ -257,7 +273,7 @@ public class App {
               .disableFieldCardinalityMeasurement()
               .enableRuleCatalogMeasurement()  // on
               .enableFieldExtractor()          // on
-              .withSolrConfiguration("localhost", "8983", solrPath)
+              .withSolrConfiguration(solrHost, solrPort, solrPath)
               // .enableUniquenessMeasurement()
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)

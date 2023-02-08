@@ -18,7 +18,7 @@ public class MySqlManager {
   PreparedStatement updateFileRecordStatement = null;
   PreparedStatement insertFileRecordStatement = null;
 
-  public MySqlManager(String path, String user, String password) {
+  public MySqlManager(String host, String port, String path, String user, String password) {
     // load the sqlite-JDBC driver using the current class loader
     try {
       Class.forName("com.mysql.cj.jdbc.Driver"); // com.mysql.jdbc.Driver
@@ -26,7 +26,7 @@ public class MySqlManager {
       e.printStackTrace();
     }
 
-    String url = "jdbc:mysql://localhost:3306/" + path;
+    String url = String.format("jdbc:mysql://%s:%s/%s", host, port, path);
     try {
       connection = DriverManager.getConnection(url, user, password);
       Statement statement = connection.createStatement();
