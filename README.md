@@ -1,6 +1,6 @@
 # metadata-qa-ddb
 
-A metadata quality assessment tool customized for the requirements of the Deutsche Digitale Bibliothek
+A metadata quality assessment tool customized for the requirements of the Deutsche Digitale Bibliothek. This is an extension of [Metadata Quality Assessment Framework](https://github.com/pkiraly/metadata-qa-api).
 
 # Installation
 
@@ -11,8 +11,15 @@ The software depends on the following technologies:
 * Java 11
 * R
 * Apache Solr
++ PHP
 
 The following installation instructions work in Ubuntu. These contain simplified steps, for further details please consult the official documentation of these tools.
+
+## Auxiliary tools
+
+```
+sudo apt install jq wget curl
+```
 
 ## MySQL
 
@@ -64,13 +71,6 @@ run Apache Solr
 ```
 sudo apt install php php-http-request2 php-mysql php-sqlite3
 ```
-
-## Others
-
-```
-sudo apt install jq wget curl
-```
-
 
 # Installing the software
 
