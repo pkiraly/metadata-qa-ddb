@@ -3,6 +3,7 @@
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 source $ROOT/solr-functions.sh
+source $ROOT/scripts/set-mysql-vars.sh
 
 MVN_REPO=~/.m2/repository
 CLASSPATH="$MVN_REPO/ch/qos/logback/logback-core/1.2.11/logback-core-1.2.11.jar"
@@ -12,7 +13,7 @@ CLASSPATH="$CLASSPATH:/$MVN_REPO/ch/qos/logback/logback-classic/1.2.11/logback-c
 SOLR_CORE=qa_ddb_marc
 initialize $SOLR_CORE
 
-mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB -e "DELETE FROM file_record WHERE file IN 
+mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "DELETE FROM file_record WHERE file IN
 (SELECT file FROM file WHERE metadata_schema = 'MARC');"
 
 java -Xmx4g -DlogDir="$ROOT/logs" -cp $CLASSPATH:$ROOT/$JAR de.gwdg.metadataqa.ddb.App \

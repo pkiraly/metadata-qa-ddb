@@ -107,6 +107,9 @@ MY_PORT=3306
 MY_DB=<MySQL database name>
 MY_USER=<MySQL user name>
 MY_PASSWORD=<MySQL password>
+# the type of configuration when call 'mysql' command. 
+# valid values: LOCAL_FILE, TEMP_FILE or ENVIRONMENT_VARIABLES
+MYSQL_CONFIG_TYPE=LOCAL_FILE
 
 # Apache Solr settings
 SOLR_HOST=localhost

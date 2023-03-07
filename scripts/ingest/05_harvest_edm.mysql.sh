@@ -2,8 +2,9 @@
 
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
+source $ROOT/scripts/set-mysql-vars.sh
 
-mysql --defaults-extra-file=$ROOT/mysql-config.cnf $MY_DB \
+mysql $MYSQL_EXTRA_PARAMETERS $MY_DB \
   -e 'SELECT set_id FROM file GROUP BY set_id ORDER BY COUNT(set_id) DESC;' \
  | sed 's/\t/,/g' \
   > $OUTPUT_DIR/datasets.csv
