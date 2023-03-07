@@ -10,7 +10,7 @@ source $ROOT/configuration.cnf
 
 java -Xmx4g -DlogDir="$ROOT/logs" -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
-  --path solr/qa_ddb_ddb_edm \
+  --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/qa_ddb_ddb_edm \
   --recursive \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \

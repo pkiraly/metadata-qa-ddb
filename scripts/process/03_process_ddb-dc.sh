@@ -11,7 +11,7 @@ CLASSPATH="$CLASSPATH:/$MVN_REPO/ch/qos/logback/logback-classic/1.2.11/logback-c
 
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
-  --path solr/qa_ddb_ddb_dc \
+  --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/qa_ddb_ddb_dc \
   --recursive \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
