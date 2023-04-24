@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.ddb;
 import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
+import de.gwdg.metadataqa.api.configuration.schema.Rule;
+import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.Schema;
@@ -13,8 +15,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,6 +24,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,12 +32,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
  */
 public class App {
-    private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
+    // private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
+    private static Logger logger = Logger.getLogger(App.class.getName());
+
+    static {
+        try {
+            InputStream stream = App.class.getClassLoader()
+                .getResourceAsStream("logging.properties");
+            LogManager.getLogManager().readConfiguration(stream);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private Writer writer;
 
@@ -68,7 +86,13 @@ public class App {
     private String solrPath;
     private String solrHost = "localhost";
     private String solrPort = "8983";
-
+    private boolean skipDimension = false;
+    private boolean skipContentType = false;
+    private String schemaName;
+    private int totalFiles = 0;
+    private int totalRecords = 0;
+    private int fileCount = 0;
+    private int recordCount = 0;
 
     static {
         options.addOption(new Option("c", "config", true, "Measurement configuration file"));
@@ -92,6 +116,8 @@ public class App {
         options.addOption(new Option("B", "mysqlPort", true, "MySQL port"));
         options.addOption(new Option("C", "solrHost", true, "Apache Solr host"));
         options.addOption(new Option("D", "solrPort", true, "Apache Solr port"));
+        options.addOption(new Option("E", "skipDimension", false, "skip Dimension check"));
+        options.addOption(new Option("F", "skipContentType", false, "skip Content Type check"));
     }
 
     public App(String[] args) throws ParseException, IOException {
@@ -101,6 +127,10 @@ public class App {
         idPath = calculator.getSchema().getRecordId().getPath();
         namespaces = calculator.getSchema().getNamespaces();
         XPathWrapper.setXpathEngine(namespaces);
+        schemaName = directory.substring(directory.lastIndexOf('/') + 1);
+        totalFiles = mySqlManager.getFileCountBySchema(schemaName);
+        totalRecords = mySqlManager.getRecordCountBySchema(schemaName);
+        logger.info(String.format("schemaName: %s, total number of files: %d, total number of records: %d", schemaName, totalFiles, totalRecords));
 
         try {
             if (!indexing) {
@@ -114,7 +144,7 @@ public class App {
             else
                 processDirectory(directory);
         } catch (IOException e) {
-            logger.error("Some I/O issue happened", e);
+            logger.log(Level.SEVERE, "Some I/O issue happened", e);
         } finally {
             if (writer != null) {
                 writer.flush();
@@ -122,11 +152,12 @@ public class App {
             }
         }
 
+        logger.info(String.format("number of processed files: %d, number of processed records: %d", fileCount, recordCount));
         calculator.shutDown();
     }
 
     private void processDirectory(String directory) throws IOException {
-        logger.info("processDirectory: {}", directory);
+        logger.info("processDirectory: " + directory);
         File dir = new File(directory);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -156,7 +187,7 @@ public class App {
         storing = cmd.hasOption("storing");
         format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
         recursive = cmd.hasOption("recursive");
-        logger.info("recursive: {}", recursive);
+        logger.info("recursive: " + recursive);
         if (cmd.hasOption("rootDirectory")) {
             rootDirectory = cmd.getOptionValue("rootDirectory");
             if (new File(rootDirectory).getAbsolutePath() != rootDirectory)
@@ -164,7 +195,7 @@ public class App {
             if (!rootDirectory.endsWith("/"))
                 rootDirectory = rootDirectory + "/";
         }
-        logger.info("rootDirectory: {}", rootDirectory);
+        logger.info("rootDirectory: " + rootDirectory);
 
         schemaFile = cmd.getOptionValue("schema");
         sqlitePath = cmd.hasOption("sqlitePath") ? cmd.getOptionValue("sqlitePath") : null;
@@ -207,10 +238,16 @@ public class App {
             solrHost = cmd.getOptionValue("solrHost");
         if (cmd.hasOption("solrPort"))
             solrPort = cmd.getOptionValue("solrPort");
+        if (cmd.hasOption("skipDimension"))
+            skipDimension = true;
+        if (cmd.hasOption("skipContentType"))
+            skipContentType = true;
     }
 
     private void processFile(String inputFile) throws IOException {
+        fileCount++;
         String relativePath = getRelativePath(inputFile);
+        logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
         // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
         try {
@@ -218,6 +255,12 @@ public class App {
             String line = null;
             while (iterator.hasNext()) {
                 String xml = iterator.next();
+                if (++recordCount % 100 == 0) {
+                    if (totalRecords == 0)
+                        logger.info("  record #" + recordCount);
+                    else
+                        logger.info(String.format("  record #%d/%d", recordCount, totalRecords));
+                }
                 if (storing && (doSqlite || doMysql)) {
                     XPathWrapper xPathWrapper = new XPathWrapper(xml, namespaces);
                     List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
@@ -253,6 +296,9 @@ public class App {
 
     private CalculatorFacade initializeCalculator() throws FileNotFoundException {
         Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
+        if (skipDimension || skipContentType) {
+            disableRules(schema);
+        }
 
         MeasurementConfiguration configuration = null;
         if (indexing) {
@@ -287,6 +333,40 @@ public class App {
         return calculator;
     }
 
+    private void disableRules(Schema schema) {
+        for (DataElement dataElement : schema.getPaths()) {
+            List<Rule> rules = dataElement.getRules();
+            if (rules == null)
+                continue;
+            for (Rule rule : rules) {
+                disableRule(dataElement, rule);
+            }
+        }
+    }
+
+    private void disableRule(DataElement dataElement, Rule rule) {
+        if (skipDimension && rule.getDimension() != null) {
+            rule.setSkip(true);
+            logger.info(String.format("skip %s [dimension check] for %s", rule.getId(), dataElement.getPath()));
+        }
+        if (skipContentType && rule.getContentType() != null) {
+            rule.setSkip(true);
+            logger.info(String.format("skip %s [content type] for %s", rule.getId(), dataElement.getPath()));
+        }
+        if (rule.getAnd() != null) {
+            for (Rule child : rule.getAnd())
+                disableRule(dataElement, child);
+        }
+        if (rule.getOr() != null) {
+            for (Rule child : rule.getOr())
+                disableRule(dataElement, child);
+        }
+        if (rule.getNot() != null) {
+            for (Rule child : rule.getNot())
+                disableRule(dataElement, child);
+        }
+    }
+
     private static String formatOptions(Option[] options) {
         List<String> items = new ArrayList<>();
         for (Option option : options) {
@@ -301,11 +381,10 @@ public class App {
     private void parseArguments(String[] args) throws ParseException {
         CommandLineParser parser = new DefaultParser();
         cmd = parser.parse(options, args);
-        logger.info("cmd: {}", formatOptions(cmd.getOptions()));
+        logger.info("cmd: " + formatOptions(cmd.getOptions()));
     }
 
     public static void main(String[] args) throws IOException, ParseException {
-        logger.info("logDir: " + System.getProperty("logDir"));
         App app = new App(args);
         logger.info("DONE");
     }

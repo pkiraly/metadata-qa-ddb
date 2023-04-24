@@ -28,6 +28,7 @@
         <include>create_database.mysql.sh</include>
         <include>csv2sql.php</include>
         <include>database.mysql.sql</include>
+        <include>set-mysql-vars.sh</include>
         <include>index/*</include>
         <include>ingest/*</include>
         <include>process/*</include>

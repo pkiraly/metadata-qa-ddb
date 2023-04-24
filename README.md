@@ -114,6 +114,17 @@ MYSQL_CONFIG_TYPE=LOCAL_FILE
 # Apache Solr settings
 SOLR_HOST=localhost
 SOLR_PORT=8983
+
+# validation related settings
+VALIDATION_PARAMS=
+```
+
+With the VALIDATION_PARAMS you can set individual parameters regarding to the
+running of the validation. For example to skip the image dimension check and
+content type check, you can add:
+
+```
+VALIDATION_PARAMS="--skipDimension --skipContentType"
 ```
 
 Log in to MySQL, create a database and a dedicated user:

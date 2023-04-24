@@ -13,6 +13,8 @@ public class MySqlManager {
   PreparedStatement insertRecordStatement = null;
   PreparedStatement updateRecordStatement = null;
   PreparedStatement selectRecordStatement = null;
+  PreparedStatement getFileCountBySchemaRecordStatement = null;
+  PreparedStatement getRecordCountBySchemaRecordStatement = null;
 
   PreparedStatement selectFileRecordStatement = null;
   PreparedStatement updateFileRecordStatement = null;
@@ -35,12 +37,19 @@ public class MySqlManager {
       selectRecordStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM record WHERE file = ? AND recordId = ?");
       updateRecordStatement = connection.prepareStatement("UPDATE record SET xml = ? WHERE file = ? AND recordId = ?");
       insertRecordStatement = connection.prepareStatement("INSERT INTO record (file, recordId, xml) VALUES(?, ?, ?)");
+      getFileCountBySchemaRecordStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM file WHERE metadata_schema = ?");
+      getRecordCountBySchemaRecordStatement = connection.prepareStatement(
+        "SELECT count(*) AS count " +
+          "FROM file " +
+          "JOIN file_record USING (file) " +
+          "WHERE metadata_schema = ?"
+      );
 
       selectFileRecordStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM file_record WHERE file = ? AND recordId = ?");
       //updateFileRecordStatement = connection.prepareStatement("UPDATE file_record SET xml = ? WHERE file = ? AND id = ?");
       insertFileRecordStatement = connection.prepareStatement("INSERT INTO file_record (file, recordId) VALUES(?, ?)");
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
   }
 
@@ -69,7 +78,7 @@ public class MySqlManager {
         insertRecordStatement.executeUpdate();
       }
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
   }
 
@@ -97,7 +106,35 @@ public class MySqlManager {
       }
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
+  }
+
+  public int getFileCountBySchema(String schemaName) {
+    int fileCount = 0;
+    try {
+      getFileCountBySchemaRecordStatement.setString(1, schemaName);
+      ResultSet rs = getFileCountBySchemaRecordStatement.executeQuery();
+      rs.next();
+      fileCount = rs.getInt("count");
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println(e.getMessage());
+    }
+    return fileCount;
+  }
+
+  public int getRecordCountBySchema(String schemaName) {
+    int recordCount = 0;
+    try {
+      getRecordCountBySchemaRecordStatement.setString(1, schemaName);
+      ResultSet rs = getRecordCountBySchemaRecordStatement.executeQuery();
+      rs.next();
+      recordCount = rs.getInt("count");
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println(e.getMessage());
+    }
+    return recordCount;
   }
 }
