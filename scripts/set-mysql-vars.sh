@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# - - - -
+# Imports the content of a config file to a mysql specific config file or to environment variables
+# input environmental variable:
+# - MYSQL_CONFIG_TYPE: 'LOCAL_FILE', 'TEMP_FILE', 'ENVIRONMENT_VARIABLES'
+# - - - -
 
 if [[ "$MYSQL_CONFIG_TYPE" == "" ]]; then
   MYSQL_CONFIG_TYPE=LOCAL_FILE

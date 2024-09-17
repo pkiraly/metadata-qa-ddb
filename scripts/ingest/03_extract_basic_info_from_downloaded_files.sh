@@ -12,9 +12,9 @@ echo "file,metadata_schema,provider_id,provider_name,set_id,set_name,datum,size"
 find $INPUT_DIR/ \
   | while read filename; do 
       if [[ -f $filename ]]; then
-        datum=$(stat $filename | grep Modify | sed -r 's,^.+: (.*)\..*$,\1,')
-        size=$(stat $filename | grep -oP 'Size: \K(\d+)')
-        path=$(echo $filename | sed "s,^$INPUT_DIR/,,")
+        datum=$(stat "${filename}" | grep Modify | sed -r 's,^.+: (.*)\..*$,\1,')
+        size=$(stat "${filename}" | grep -oP 'Size: \K(\d+)')
+        path=$(echo "${filename}" | sed "s,^$INPUT_DIR/,,")
         SCHEMA=$(echo $path | cut -d'/' -f1)
         # echo "$datum, $size, $path, $SCHEMA"
         LEVEL2=$(echo $path | cut -d'/' -f2)

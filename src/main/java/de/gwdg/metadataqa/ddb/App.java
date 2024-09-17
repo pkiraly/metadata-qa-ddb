@@ -282,10 +282,13 @@ public class App {
             }
 
         } catch (ParserConfigurationException e) {
+            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
             e.printStackTrace();
         } catch (SAXException e) {
+            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
             e.printStackTrace();
         } catch (XPathExpressionException e) {
+            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
             e.printStackTrace();
         }
     }
