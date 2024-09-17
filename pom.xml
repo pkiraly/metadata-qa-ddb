@@ -79,6 +79,9 @@
       <id>ossrh</id>
       <name>Sonatype Releases</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
     <!-- enable downloading snapshots from Sonatype -->
     <repository>
@@ -94,7 +97,7 @@
     <dependency>
       <groupId>de.gwdg.metadataqa</groupId>
       <artifactId>metadata-qa-api</artifactId>
-      <version>0.9.0</version>
+      <version>0.9.6-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
