@@ -5,7 +5,7 @@ source $ROOT/configuration.cnf
 source $ROOT/solr-functions.sh
 source $ROOT/scripts/set-mysql-vars.sh
 
-SOLR_CORE=qa_ddb_lido
+SOLR_CORE=${SOLR_CORE_PREFIX:-qa_ddb}_lido
 initialize $SOLR_CORE
 
 mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "DELETE FROM file_record WHERE file IN

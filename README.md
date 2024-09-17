@@ -114,6 +114,9 @@ MYSQL_CONFIG_TYPE=LOCAL_FILE
 # Apache Solr settings
 SOLR_HOST=localhost
 SOLR_PORT=8983
+# the prefix of the Solr core, default is 'qa_ddb'
+# the cores will be names as [SOLR_CORE_PREFIX]_[METADATA_SCHEMA], e.g. qa_ddb_lido, qa_ddb_marc etc.
+SOLR_CORE_PREFIX=qa_ddb
 
 # validation related settings
 VALIDATION_PARAMS=
