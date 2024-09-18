@@ -3,17 +3,29 @@ package de.gwdg.metadataqa.ddb;
 import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
+import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.api.model.selector.Selector;
+import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
 import de.gwdg.metadataqa.api.schema.Schema;
+import de.gwdg.metadataqa.api.xml.XpathEngineFactory;
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
@@ -120,4 +132,85 @@ public class XPathBasedIteratorTest {
     System.err.println(XPathBasedIterator.nodeToString(node));
     */
   }
+
+  @Test
+  public void testRdfDC() throws XPathExpressionException, IOException, ParserConfigurationException, SAXException {
+    String path = App.class.getClassLoader().getResource("rdf-dc-schema.yaml").getPath();
+    Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+
+    MeasurementConfiguration configuration = new MeasurementConfiguration()
+      .disableCompletenessMeasurement()
+      .disableFieldExistenceMeasurement()
+      .disableFieldCardinalityMeasurement()
+      .enableRuleCatalogMeasurement()
+      .enableFieldExtractor()
+      .withSolrConfiguration("localhost", "8983", "dummy");
+
+    CalculatorFacade calculator = new CalculatorFacade(configuration)
+      .setSchema(schema);
+    calculator.configure();
+
+    URL url = this.getClass().getResource("/dc/rdf-ddb-dc-sample-dcat.xml");
+    File file = new File(url.getFile());
+    assertTrue(file.exists());
+    XPathBasedIterator iterator = new XPathBasedIterator(file, "//rdf:Description",
+      schema.getNamespaces());
+    assertEquals(1, iterator.getLength());
+    while (iterator.hasNext()) {
+      String content = iterator.next();
+      Selector<? extends XmlFieldInstance> cache = SelectorFactory.getInstance(schema.getFormat(), content, schema.getNamespaces());
+      System.err.println(content);
+      List<? extends XmlFieldInstance> values = cache.get(schema.getPaths().get(0));
+      System.err.println(values);
+
+      // String json = calculator.measureAsJson(iterator.next());
+      // assertTrue(json.length() > 0);
+      // System.err.println(json);
+    }
+  }
+
+  @Test
+  public void testOr_dcat() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+    String xpath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
+    NodeList nodes = runXpath("rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-dcat.xml", xpath);
+    assertEquals(1, nodes.getLength());
+    List<String> identifiers = new ArrayList<>();
+    for (int i = 0; i < nodes.getLength(); ++i) {
+      identifiers.add(nodes.item(i).getTextContent());
+    }
+    assertEquals(1, identifiers.size());
+    assertEquals("oai:gesis.izsoz.de:document/13294", identifiers.get(0));
+  }
+
+  @Test
+  public void testOr_bf() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+    String xpath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
+    NodeList nodes = runXpath("rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-bf.xml", xpath);
+    assertEquals(1, nodes.getLength());
+    List<String> identifiers = new ArrayList<>();
+    for (int i = 0; i < nodes.getLength(); ++i) {
+      identifiers.add(nodes.item(i).getTextContent());
+    }
+    assertEquals(1, identifiers.size());
+    assertEquals("umbruch:bildarchiv_6", identifiers.get(0));
+  }
+
+  private NodeList runXpath(String schemaFile, String xmlFile, String xpath)
+      throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+    String path = App.class.getClassLoader().getResource(schemaFile).getPath();
+    Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+
+    XPath xpathEngine = XpathEngineFactory.initializeEngine(schema.getNamespaces());
+    URL url = this.getClass().getResource(xmlFile);
+    File file = new File(url.getFile());
+
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setNamespaceAware(true);
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document document = builder.parse(file.getPath());
+
+    XPathExpression expr = xpathEngine.compile(xpath);
+    return (NodeList)expr.evaluate(document, XPathConstants.NODESET);
+  }
+
 }

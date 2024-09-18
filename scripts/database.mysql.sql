@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS file;
 CREATE TABLE file (
   file TEXT,
   metadata_schema VARCHAR(20),
-  provider_id VARCHAR(50),
+  provider_id VARCHAR(150),
   provider_name VARCHAR(200),
   set_id VARCHAR(50),
   set_name VARCHAR(200),
@@ -211,7 +211,7 @@ CREATE TABLE variability (
   number_of_values INTEGER,
   metadata_schema VARCHAR(20),
   set_id VARCHAR(50),
-  provider_id VARCHAR(50)
+  provider_id VARCHAR(150)
 );
 
 DROP TABLE IF EXISTS frequency;
@@ -221,13 +221,13 @@ CREATE TABLE frequency (
   frequency INTEGER,
   metadata_schema VARCHAR(20),
   set_id VARCHAR(50),
-  provider_id VARCHAR(50)
+  provider_id VARCHAR(150)
 );
 
 DROP TABLE IF EXISTS count;
 CREATE TABLE count (
   metadata_schema VARCHAR(20),
   set_id VARCHAR(50),
-  provider_id VARCHAR(50),
+  provider_id VARCHAR(150),
   count INTEGER
 );

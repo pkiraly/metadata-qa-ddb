@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:europeana="http://www.europeana.eu/schemas/ese/"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:doc="http://www.lyncode.com/xoai"
+         xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3schools.com/RDF/rdf-schema.xml"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:ex="http://www.example.org/"
+         xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+         xmlns:bf="http://id.loc.gov/ontologies/bibframe/#">
+   <rdf:Description rdf:about="oai:gesis.izsoz.de:document/13294">
+      <dcterms:isReferencedBy>
+         <dcat:CatalogRecord>
+            <dc:identifier>oai:gesis.izsoz.de:document/13294</dc:identifier>
+            <dc:creator>00014350</dc:creator>
+            <dcterms:license rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+         </dcat:CatalogRecord>
+      </dcterms:isReferencedBy>
+      <dc:creator>
+         <dcterms:Agent>
+            <skos:prefLabel>Frenken, Koen</skos:prefLabel>
+         </dcterms:Agent>
+      </dc:creator>
+      <dc:creator>
+         <dcterms:Agent>
+            <skos:prefLabel>Oort, Frank van</skos:prefLabel>
+         </dcterms:Agent>
+      </dc:creator>
+      <dc:creator>
+         <dcterms:Agent>
+            <skos:prefLabel>Verburg, Thijs Nicolaas</skos:prefLabel>
+         </dcterms:Agent>
+      </dc:creator>
+      <dcterms:issued>2007</dcterms:issued>
+      <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+      <edm:isShownAt>
+         <edm:WebResource rdf:about="http://www.ssoar.info/ssoar/handle/document/13294">
+            <dc:format>text/html</dc:format>
+            <dcterms:license rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+         </edm:WebResource>
+      </edm:isShownAt>
+      <dc:identifier>
+         <bf:Urn>
+            <rdf:value>urn:nbn:de:0168-ssoar-132949</rdf:value>
+         </bf:Urn>
+      </dc:identifier>
+      <dc:identifier>
+         <bf:Doi>
+            <rdf:value>https://doi.org/10.1080/00343400601120296</rdf:value>
+         </bf:Doi>
+      </dc:identifier>
+      <dcterms:abstract xml:lang="en">In economic theory, one can distinguish between variety as a source of regional knowledge spillovers, called Jacobs externalities, and variety as a portfolio protecting a region from external shocks. We argue that Jacobs externalities are best measured by related variety (within sectors), while the portfolio argument is better captured by unrelated variety (between sectors). We introduce a methodology based on entropy measures to compute related variety and unrelated variety. Using data at the NUTS-3 level in the Netherlands for the period 1996-2002 we find that Jacobs externalities enhance employment growth, while unrelated variety dampens unemployment growth. Productivity growth can be explained by traditional determinants including investments and R&amp;D expenditures. Implications for regional policy follow</dcterms:abstract>
+      <dcterms:provenance>
+         <dcterms:ProvenanceStatement>
+            <rdf:value xml:lang="de">Status: Postprint; begutachtet (peer reviewed)</rdf:value>
+         </dcterms:ProvenanceStatement>
+      </dcterms:provenance>
+      <dc:language>en</dc:language>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Wirtschaft</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Städtebau, Raumplanung, Landschaftsgestaltung</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="en">Landscaping and area planning</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="en">Economics</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="en">Area Development Planning, Regional Research</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="en">Political Economy</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Volkswirtschaftslehre</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Raumplanung und Regionalforschung</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:title xml:lang="en">Er</dc:title>
+      <dc:source xml:lang="de">Regional Studies, 41(5)</dc:source>
+      <dcterms:extent xml:lang="de">Seite(n): 685-697</dcterms:extent>
+      <marcrel:pup>
+         <dcterms:Location>
+            <skos:prefLabel>Vereinigtes Königreich</skos:prefLabel>
+         </dcterms:Location>
+      </marcrel:pup>
+      <dc:type>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="en">journal article</skos:prefLabel>
+         </skos:Concept>
+      </dc:type>
+      <dc:type>
+         <skos:Concept rdf:about="https://d-nb.info/gnd/4125424-7">
+            <skos:prefLabel xml:lang="de">Zeitschriftenartikel</skos:prefLabel>
+         </skos:Concept>
+      </dc:type>
+      <edm:isShownBy>
+         <edm:WebResource rdf:about="http://www.ssoar.info/ssoar/bitstream/handle/document/13294/ssoar-2007-05-frenken_et_al-related_variety.pdf?sequence=1">
+            <dc:format>application/pdf</dc:format>
+            <dcterms:license rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+         </edm:WebResource>
+      </edm:isShownBy>
+      <dc:rights>GESIS - Leibniz-Institut für Sozialwissenschaften. Bibliothek Köln</dc:rights>
+   </rdf:Description>
+</rdf:RDF>

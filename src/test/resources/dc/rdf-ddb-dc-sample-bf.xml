@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:doc="http://www.lyncode.com/xoai" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:rdfs="http://www.w3schools.com/RDF/rdf-schema.xml" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:ex="http://www.example.org/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/" xmlns:bf="http://id.loc.gov/ontologies/bibframe/#" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:europeana="http://www.europeana.eu/schemas/ese/">
+   <rdf:Description rdf:about="umbruch_6">
+           <dc:identifier>
+         <bf:Identifier>
+            <rdf:value>umbruch:bildarchiv_6</rdf:value>
+         </bf:Identifier>
+      </dc:identifier>
+      <dc:title xml:lang="de">Ton, Steine, Scherben an der TU Berlin</dc:title>
+      <dc:type>
+         <skos:Concept rdf:about="https://d-nb.info/gnd/4045895-7">
+            <skos:prefLabel xml:lang="de">Fotografie</skos:prefLabel>
+         </skos:Concept>
+      </dc:type>
+      <dc:contributor>
+         <dcterms:Agent rdf:about="https://d-nb.info/gnd/1155952995">
+            <skos:prefLabel>Umbruch Bildarchiv e.V.</skos:prefLabel>
+         </dcterms:Agent>
+      </dc:contributor>
+      <dcterms:created>08.12.71</dcterms:created>
+      <dc:description xml:lang="de">Teach-in und Konzert mit Ton Steine Scherben anläßlich des Todes von Georg von Rauch am 8. Dezember 1971 in der Technischen Universität. Von hier aus folgte die Besetzung des Georg-von-Rauch-Hauses.</dc:description>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Ton, Steine, Scherben</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Besetzung</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Bethanien</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dcterms:spatial>
+         <dcterms:Location rdf:about="https://d-nb.info/gnd/4005728-8">
+            <skos:prefLabel xml:lang="de">Berlin</skos:prefLabel>
+         </dcterms:Location>
+      </dcterms:spatial>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">Westberlin</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:subject>
+         <skos:Concept>
+            <skos:prefLabel xml:lang="de">TU Berlin</skos:prefLabel>
+         </skos:Concept>
+      </dc:subject>
+      <dc:relation>Georg von Rauchhaus in Berlin – 1971-2007</dc:relation>
+      <edm:object>
+         <edm:WebResource rdf:about="http://www.umbruch-bildarchiv.de/bildarchiv/foto1/bildgalerie_rauchhaus/images/1301f.jpg">
+            <dc:creator>
+               <dcterms:Agent>
+                  <skos:prefLabel>Jutta Matthess</skos:prefLabel>
+               </dcterms:Agent>
+            </dc:creator>
+            <dc:format>image/jpeg</dc:format>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+         </edm:WebResource>
+      </edm:object>
+      <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+         </rdf:Description>
+</rdf:RDF>

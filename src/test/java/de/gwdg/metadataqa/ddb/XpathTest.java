@@ -74,4 +74,43 @@ public class XpathTest {
     }
 
   }
+
+  @Test
+  public void rdf_test_dcat() throws FileNotFoundException {
+    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
+    assertNotNull(schema);
+    assertNotNull(schema.getNamespaces());
+    assertEquals(9, schema.getNamespaces().size());
+
+    URL url = this.getClass().getResource("/dc/rdf-ddb-dc-sample-dcat.xml");
+    File file = new File(url.getFile());
+
+    XPathWrapper xPathWrapper = new XPathWrapper(file, schema.getNamespaces());
+    String idPath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
+    List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
+    assertNotNull(idList);
+    assertFalse(idList.isEmpty());
+    assertEquals(1, idList.size());
+    assertEquals("oai:gesis.izsoz.de:document/13294", idList.get(0).getValue());
+  }
+
+  @Test
+  public void rdf_test_bf() throws FileNotFoundException {
+    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
+    assertNotNull(schema);
+    assertNotNull(schema.getNamespaces());
+    assertEquals(9, schema.getNamespaces().size());
+
+    URL url = this.getClass().getResource("/dc/rdf-ddb-dc-sample-bf.xml");
+    File file = new File(url.getFile());
+
+    XPathWrapper xPathWrapper = new XPathWrapper(file, schema.getNamespaces());
+    String idPath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
+    List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
+    assertNotNull(idList);
+    assertFalse(idList.isEmpty());
+    assertEquals(1, idList.size());
+    assertEquals("umbruch:bildarchiv_6", idList.get(0).getValue());
+  }
+
 }

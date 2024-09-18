@@ -54,6 +54,7 @@ public class App {
         }
     }
 
+
     private Writer writer;
 
     public enum FORMAT {CSV, JSON};
@@ -71,11 +72,13 @@ public class App {
     private boolean doMysql = false;
     private String idPath;
     private CalculatorFacade calculator;
+    private CalculatorFacade oaiCalculator;
     private String directory;
     private String fileMask;
     private DATA_SOURCE dataSource = DATA_SOURCE.FILE;
     private String fileNameInAnnotation;
     private String schemaFile;
+    private String oaiSchemaFile;
     private String sqlitePath;
     private String recordAddress = "//oai:record";
     private Map<String, String> namespaces;
@@ -93,6 +96,8 @@ public class App {
     private int totalRecords = 0;
     private int fileCount = 0;
     private int recordCount = 0;
+    private String oaiPattern;
+    private boolean isOai = false;
 
     static {
         options.addOption(new Option("c", "config", true, "Measurement configuration file"));
@@ -108,7 +113,7 @@ public class App {
         options.addOption(new Option("m", "mask", true, "input file mask"));
         options.addOption(new Option("l", "record-address", true, "XPath expression to fetch the records out of XML"));
         options.addOption(new Option("r", "recursive", false, "recursive iteration of directories"));
-        options.addOption(new Option("r", "rootDirectory", true, "root direactory, make file path relative to this directory"));
+        options.addOption(new Option("b", "rootDirectory", true, "root direactory, make file path relative to this directory"));
         options.addOption(new Option("D", "mysqlDatabase", true, "MySQL database"));
         options.addOption(new Option("U", "mysqlUser", true, "MySQL user name"));
         options.addOption(new Option("P", "mysqlPassword", true, "MySQL password"));
@@ -118,12 +123,16 @@ public class App {
         options.addOption(new Option("D", "solrPort", true, "Apache Solr port"));
         options.addOption(new Option("E", "skipDimension", false, "skip Dimension check"));
         options.addOption(new Option("F", "skipContentType", false, "skip Content Type check"));
+        options.addOption(new Option("e", "OAIPatterm", true, "File path patter to detect OAI output"));
+        options.addOption(new Option("g", "oaiSchema", true, "File path patter to detect OAI output"));
     }
 
     public App(String[] args) throws ParseException, IOException {
         readParameters(args);
 
         calculator = initializeCalculator();
+        if (oaiSchemaFile != null)
+            oaiCalculator = initializeCalculator();
         idPath = calculator.getSchema().getRecordId().getPath();
         namespaces = calculator.getSchema().getNamespaces();
         XPathWrapper.setXpathEngine(namespaces);
@@ -135,8 +144,11 @@ public class App {
         try {
             if (!indexing) {
                 writer = Files.newBufferedWriter(Paths.get(outputFile));
-                if (format.equals(FORMAT.CSV))
-                    writer.write(StringUtils.join(calculator.getHeader(), ",") + "\n");
+                if (format.equals(FORMAT.CSV)) {
+                    List<String> header = calculator.getHeader();
+                    header.add(0, "filename");
+                    writer.write(StringUtils.join(header, ",") + "\n");
+                }
             }
 
             if (dataSource.equals(DATA_SOURCE.FILE))
@@ -242,10 +254,15 @@ public class App {
             skipDimension = true;
         if (cmd.hasOption("skipContentType"))
             skipContentType = true;
+        if (cmd.hasOption("OAIPatterm"))
+            oaiPattern = cmd.getOptionValue("OAIPatterm");
+        if (cmd.hasOption("oaiSchema"))
+            oaiSchemaFile = cmd.getOptionValue("oaiSchema");
     }
 
     private void processFile(String inputFile) throws IOException {
         fileCount++;
+        boolean isOai = oaiPattern == null ? false : inputFile.contains(oaiPattern);
         String relativePath = getRelativePath(inputFile);
         logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
         // logger.info("processFile: {} -> {}", inputFile, relativePath);
@@ -272,10 +289,11 @@ public class App {
                             mySqlManager.insertFileRecord(relativePath, id);
                     }
                 }
+                CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
                 if (format.equals(FORMAT.CSV))
-                    line = calculator.measure(xml);
+                    line = inputFile + "," + appliedCalculator.measure(xml);
                 else
-                    line = calculator.measureAsJson(xml);
+                    line = appliedCalculator.measureAsJson(xml);
                 // logger.info(line);
                 if (!indexing)
                     writer.write(line + "\n");
@@ -290,6 +308,9 @@ public class App {
         } catch (XPathExpressionException e) {
             logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -298,6 +319,10 @@ public class App {
     }
 
     private CalculatorFacade initializeCalculator() throws FileNotFoundException {
+        return initializeCalculator(schemaFile);
+    }
+
+    private CalculatorFacade initializeCalculator(String schemaFile) throws FileNotFoundException {
         Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
         if (skipDimension || skipContentType) {
             disableRules(schema);
@@ -390,5 +415,6 @@ public class App {
     public static void main(String[] args) throws IOException, ParseException {
         App app = new App(args);
         logger.info("DONE");
+        System.exit(0);
     }
 }
