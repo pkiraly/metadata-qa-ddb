@@ -28,7 +28,9 @@ import java.io.InputStream;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -291,7 +293,7 @@ public class App {
                 }
                 CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
                 if (format.equals(FORMAT.CSV))
-                    line = inputFile + "," + appliedCalculator.measure(xml);
+                    line = relativePath + "," + appliedCalculator.measure(xml);
                 else
                     line = appliedCalculator.measureAsJson(xml);
                 // logger.info(line);
@@ -413,8 +415,11 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException, ParseException {
+        long start = System.currentTimeMillis();
         App app = new App(args);
-        logger.info("DONE");
+        long durationMillis = System.currentTimeMillis() - start;
+        String duration = (new SimpleDateFormat("mm:ss.SSS")).format(new Date(durationMillis));
+        logger.info("DONE. It took " + duration);
         System.exit(0);
     }
 }

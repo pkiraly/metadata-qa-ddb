@@ -66,9 +66,11 @@ public class LidoTest {
   @Test
   public void Mediendatei_Link_Resource() {
     DataElement p = schema.getPathByLabel("Mediendatei_Link_Resource");
-    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getPath());
+    // assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource", p.getPath());
+    assertEquals("lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation[@lido:type='http://terminology.lido-schema.org/lido00468' or @lido:type='Provided 3D' or @lido:type='provided_3D' or @lido:type='http://terminology.lido-schema.org/lido00465' or @lido:type='Provided audio' or @lido:type='provided_audio' or @lido:type='http://terminology.lido-schema.org/lido00464' or @lido:type='provided_image' or @lido:type='Provided image' or @lido:type='image_master' or @lido:type='http://terminology.lido-schema.org/lido00482' or @lido:type='Provided text' or @lido:type='provided_text' or @lido:type='http://terminology.lido-schema.org/lido00466' or @lido:type='Provided video' or @lido:type='provided_video']/lido:linkResource", p.getPath());
 
-    String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
+    // String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource";
+    String xpath1 = "lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation[@lido:type='http://terminology.lido-schema.org/lido00468' or @lido:type='Provided 3D' or @lido:type='provided_3D' or @lido:type='http://terminology.lido-schema.org/lido00465' or @lido:type='Provided audio' or @lido:type='provided_audio' or @lido:type='http://terminology.lido-schema.org/lido00464' or @lido:type='provided_image' or @lido:type='Provided image' or @lido:type='image_master' or @lido:type='http://terminology.lido-schema.org/lido00482' or @lido:type='Provided text' or @lido:type='provided_text' or @lido:type='http://terminology.lido-schema.org/lido00466' or @lido:type='Provided video' or @lido:type='provided_video']/lido:linkResource";
     assertEquals(xpath1, p.getPath());
     String xpath = p.getPath();
 
@@ -143,7 +145,7 @@ public class LidoTest {
   public void Objekttyp_URI() {
     DataElement p = schema.getPathByLabel("Objekttyp_URI");
     assertEquals(
-      "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID",
+      "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri']",
       p.getPath());
 
     List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
