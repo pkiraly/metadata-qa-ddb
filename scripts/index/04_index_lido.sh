@@ -11,7 +11,7 @@ initialize $SOLR_CORE
 mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "DELETE FROM file_record WHERE file IN
 (SELECT file FROM file WHERE metadata_schema = 'LIDO');"
 
-java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
+java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/${SOLR_CORE} \
   --recursive \

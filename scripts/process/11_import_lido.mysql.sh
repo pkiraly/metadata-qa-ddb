@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 ROOT=$(realpath $(dirname $0)/../..)
+echo $ROOT
 source $ROOT/configuration.cnf
 source $ROOT/scripts/set-mysql-vars.sh
 

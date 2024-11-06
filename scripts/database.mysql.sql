@@ -24,6 +24,7 @@ CREATE INDEX fr_recordId_idx ON file_record (recordId);
 
 DROP TABLE IF EXISTS issue;
 CREATE TABLE issue (
+  `filename` VARCHAR(255),
   `recordId` VARCHAR(200),
   `providerid` VARCHAR(100),
   `Q-1.1:status` VARCHAR(10),
@@ -112,6 +113,34 @@ CREATE TABLE issue (
   `Q-7.7:score` INTEGER,
   `Q-7.8:status` VARCHAR(10),
   `Q-7.8:score` INTEGER,
+  `Q-8.1:status` VARCHAR(10),
+  `Q-8.1:score` INTEGER,
+  `Q-8.2:status` VARCHAR(10),
+  `Q-8.2:score` INTEGER,
+  `Q-8.3:status` VARCHAR(10),
+  `Q-8.3:score` INTEGER,
+  `Q-8.4:status` VARCHAR(10),
+  `Q-8.4:score` INTEGER,
+  `Q-9.1:status` VARCHAR(10),
+  `Q-9.1:score` INTEGER,
+  `Q-9.2:status` VARCHAR(10),
+  `Q-9.2:score` INTEGER,
+  `Q-9.3:status` VARCHAR(10),
+  `Q-9.3:score` INTEGER,
+  `Q-9.4:status` VARCHAR(10),
+  `Q-9.4:score` INTEGER,
+  `Q-9.5:status` VARCHAR(10),
+  `Q-9.5:score` INTEGER,
+  `Q-9.6:status` VARCHAR(10),
+  `Q-9.6:score` INTEGER,
+  `Q-9.7:status` VARCHAR(10),
+  `Q-9.7:score` INTEGER,
+  `Q-9.8:status` VARCHAR(10),
+  `Q-9.8:score` INTEGER,
+  `Q-9.9:status` VARCHAR(10),
+  `Q-9.9:score` INTEGER,
+  `Q-9.10:status` VARCHAR(10),
+  `Q-9.10:score` INTEGER,
   `ruleCatalog:score` INTEGER
 );
 
@@ -217,7 +246,7 @@ CREATE TABLE variability (
 DROP TABLE IF EXISTS frequency;
 CREATE TABLE frequency (
   field VARCHAR(20),
-  value VARCHAR(20),
+  value VARCHAR(255),
   frequency INTEGER,
   metadata_schema VARCHAR(20),
   set_id VARCHAR(50),

@@ -510,53 +510,116 @@ fields:
   # Objektkategorie (Strukturelement) | Objektkategorie (Bezeichnung) | Objektkategorie (URI)
   - name: Objektkategorie
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:conceptID
-    extractable: true
-    # Q-8.1
-    # Q-8.2
-    # Q-8.3
-    # Q-8.4
+    # extractable: true
+    rules:
+      - id: Q-8.1
+        description: There must be at least one preferred designation for the object category in the data record.
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-8.2
+        description: The object category is referenced by an http URI from a LOD vocabulary.
+        pattern: ^https?://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/|www.wikidata.org/entity/Q|sws.geonames.org/)
+      - id: Q-8.3
+        description: The http-URI refers to a term in the GND or the AAT.
+        pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/)
+      - id: Q-8.4
+        description: The http-URI refers to a term in Wikidata.
+        pattern: ^https?://https://www.wikidata.org/entity/Q
+
 
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten) | Sachkategorie (Bezeichnung) | Sachkategorie (URI)
   - name: Sachkategorie
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:conceptID
-    extractable: true
-    # Q-9.1
-    # Q-9.2
-    # Q-9.3
-    # Q-9.4
+#    extractable: true
+    rules:
+      - id: Q-9.1
+        description: There must be at least one preferred designation for the object type in the data record.
+        failureScore: -9
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.2
+        description: The subject category must come from a controlled vocabulary.
+        failureScore: -9
+        pattern: ^http.*$
+      - id: Q-9.3
+        description: The http-URI refers to a term GND-subject categories.
+        failureScore: -3
+        pattern: ^https://d-nb.info/standards/vocab/gnd/gnd-sc#
 
   # Schlagwort (Thema) | Schlagwort (Thema)
-  - name: Schlagwort
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID
-    extractable: true
+#  - name: Schlagwort
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID
+#    extractable: true
 
   # Akteur als Thema (Bevorzugte Bezeichnung für die Anzeige) | Akteur als Thema (URI) | Akteur als Thema (Standardisierte Bezeichnung)
-  - name: Akteur
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue
-    extractable: true
+#  - name: Akteur
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue
+#    extractable: true
 
   # Ort als Thema (Bevorzugte Bezeichnung für die Anzeige) | Ort als Thema (URI) | Ort als Thema (Standardisierte Bezeichnung)
-  - name: Ort
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue
-    extractable: true
+#  - name: Ort
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue
+#    extractable: true
 
   # Zeit als Thema (Bevorzugte Bezeichnung für die Anzeige) | Zeit als Thema
-  - name: Zeit
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate
-    extractable: true
+#  - name: Zeit
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate
+#    extractable: true
 
   # Werk als Thema (Bevorzugte Bezeichnung für die Anzeige) | Werk als Thema
-  - name: Werk
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
-    extractable: true
+#  - name: Werk
+#    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
+#    extractable: true
+
+  # Inhaltliche Beschreibung
+  - name: Inhaltliche Beschreibung
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
+    # extractable: true
+    rules:
+      - id: Q-9.4
+        description: There must be at least one preferred designation for a thematic relation in the data record.
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.5
+        description: The thematic relation must come from a controlled vocabulary.
+        failureScore: -9
+        pattern: ^http.*$
+      - id: Q-9.6
+        description: The http-URI refers to a term in the GND or the AAT.
+        failureScore: -9
+        pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/)
+      # Q-9.6 and Q-9.7 can not be true at the same time
+      - id: Q-9.7
+        description: The http-URI refers to a term in Wikidata.
+        failureScore: -9
+        pattern: ^https?://https://www.wikidata.org/entity/Q
 
   # Objektbeschreibung
   - name: Objektbeschreibung
     path: lido:lido/lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:objectDescriptionWrap/lido:objectDescriptionSet/lido:descriptiveNoteValue
-    extractable: true
-    # Q-9.8
-    # Q-9.9
-    # Q-9.10
+    # extractable: true
+    indexField: object_description
+    rules:
+      - id: Q-9.8
+        description: There must be at least one object description in the data record.
+        failureScore: -9
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.9
+        description: The object description must be meaningful.
+        # Does the object description consist of less than fifty characters?
+        # Check whether there are fewer than fifty characters in the object description. For more than one object description, the longest counts.
+        failureScore: -9
+        maxLength: 50
+      - id: Q-9.10
+        description: The object description must be unique.
+        # Is the value in the element for the object title identical to that for the object description?
+        # Check whether the same string is contained in the element for the object title and the object description.
+        unique: true
 
 namespaces:
   doc: http://www.lyncode.com/xoai
