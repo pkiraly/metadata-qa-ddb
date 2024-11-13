@@ -269,6 +269,8 @@ public class App {
         logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
         // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
+        int before = recordCount;
+        // logger.info("BEFORE " + recordCount);
         try {
             XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
             String line = null;
@@ -314,6 +316,8 @@ public class App {
             logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
             e.printStackTrace();
         }
+        if (recordCount == before)
+            logger.severe("NOTHING HAPPENED");
     }
 
     private String getRelativePath(String inputFile) {

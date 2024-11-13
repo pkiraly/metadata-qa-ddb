@@ -16,7 +16,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --oaiSchema $ROOT/src/main/resources/oai_dc-schema.yaml \
   --OAIPatterm "OAI_Harvest" \
   --output $OUTPUT_DIR/dc.csv \
-  --record-address '//rdf:Description' \
+  --record-address '//oai:record | //rdf:Description' \
   ${VALIDATION_PARAMS}
 
 

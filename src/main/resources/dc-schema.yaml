@@ -2,7 +2,7 @@ format: xml
 fields:
   # Identifikator für den Datensatz
   - name: recordId
-    path: oai:record/dc:identifier[@type='providerItemId']
+    path: oai:record/dc:identifier[@type='providerItemId'] | oai:record/oai:header/oai:identifier | rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | rdf:Description/dc:identifier/bf:Identifier/rdf:value | rdf:Description/@rdf:about
     extractable: true
     identifierField: true
     indexField: providerItemId
@@ -387,3 +387,6 @@ namespaces:
   dcterms: http://purl.org/dc/terms/
   dc: http://purl.org/dc/elements/1.1/
   oai: http://www.openarchives.org/OAI/2.0/
+  dcat: http://www.w3.org/ns/dcat#
+  bf: http://id.loc.gov/ontologies/bibframe/#
+  edm: http://www.europeana.eu/schemas/edm/

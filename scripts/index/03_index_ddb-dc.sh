@@ -21,7 +21,8 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-DC \
   --schema $ROOT/src/main/resources/dc-schema.yaml \
+  --oaiSchema $ROOT/src/main/resources/oai_dc-schema.yaml \
   --output $OUTPUT_DIR/dc.csv \
   --sqlitePath $OUTPUT_DIR/ddb-record.sqlite \
-  --record-address '//oai:record' \
+  --record-address '//oai:record | //rdf:Description' \
   ${VALIDATION_PARAMS}
