@@ -286,11 +286,14 @@ public class App {
                     XPathWrapper xPathWrapper = new XPathWrapper(xml, namespaces);
                     List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
                     if (idList != null && !idList.isEmpty()) {
-                        String id = idList.get(0).getValue();
+                        // String id = idList.get(0).getValue();
+                        String id = extractIds(idList);
                         if (doSqlite)
                             sqliteManager.insert(relativePath, id, xml);
                         if (doMysql)
                             mySqlManager.insertFileRecord(relativePath, id);
+                    } else {
+                        logger.severe("No Identifier. Skipping record in " + inputFile);
                     }
                 }
                 CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
@@ -318,6 +321,16 @@ public class App {
         }
         if (recordCount == before)
             logger.severe("NOTHING HAPPENED");
+    }
+
+    private static String extractIds(List<EdmFieldInstance> idList) {
+        List<String> ids = new ArrayList<>();
+        for (EdmFieldInstance item : idList) {
+            if (StringUtils.isNotBlank(item.getValue()) && !ids.contains(item.getValue()))
+                ids.add(item.getValue());
+        }
+        String id = StringUtils.join(ids, " --- ");
+        return id;
     }
 
     private String getRelativePath(String inputFile) {

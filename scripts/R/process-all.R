@@ -52,7 +52,7 @@ view(df)
 config <- list()
 fields <- c('metadata_schema', 'set_id', 'provider_id') #, 'file')
 for (field in fields) {
-  values <- c(NA, df %>% select(field) %>% distinct() %>% unlist(use.names = FALSE))
+  values <- c(NA, df %>% select(all_of(field)) %>% distinct() %>% unlist(use.names = FALSE))
   config[[field]] <- values
 }
 

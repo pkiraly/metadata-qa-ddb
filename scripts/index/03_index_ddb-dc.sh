@@ -17,10 +17,11 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --recursive \
   --indexing \
   --storing \
-  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
+  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} \
+  --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-DC \
-  --schema $ROOT/src/main/resources/dc-schema.yaml \
+  --schema $ROOT/src/main/resources/rdf-dc-schema.yaml \
   --oaiSchema $ROOT/src/main/resources/oai_dc-schema.yaml \
   --output $OUTPUT_DIR/dc.csv \
   --sqlitePath $OUTPUT_DIR/ddb-record.sqlite \

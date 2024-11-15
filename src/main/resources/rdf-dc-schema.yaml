@@ -2,7 +2,7 @@ format: xml
 fields:
   # Identifikator für den Datensatz
   - name: recordId
-    path: rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | rdf:Description/dc:identifier/bf:Identifier/rdf:value | rdf:Description/@rdf:about
+    path: oai:record/dc:identifier[@type='providerItemId'] | oai:record/oai:header/oai:identifier | rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | rdf:Description/dc:identifier/bf:Identifier/rdf:value | rdf:Description/@rdf:about
     extractable: true
     identifierField: true
     indexField: providerItemId
@@ -69,7 +69,7 @@ fields:
   - name: thumbnail
     # path: oai:record/dc:identifier[@type='binary']
     path: rdf:Description/edm:object/edm:WebResource/@rdf:about | rdf:Description/edm:object/@rdf:resource
-    extractable: true
+    # extractable: true
     rules:
       - id: Q-3.0
         hidden: true
@@ -129,7 +129,7 @@ fields:
   - name: media_url
     # path: oai:record/dc:identifier[@type='URL']
     path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource
-    extractable: true
+    # extractable: true
     rules:
       - id: Q-4.0
         hidden: true
@@ -202,7 +202,7 @@ fields:
   - name: rights
     # path: oai:record/dc:rights[@type='binary']
     path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/dcterms:license/@rdf:resource
-    extractable: true
+    # extractable: true
     rules:
       - id: Q-5.1
         description: Check whether an element for the legal status is available in the data record (see table "Mapping the DDB elements"). If yes => check whether the element contains a value
@@ -306,7 +306,7 @@ fields:
   - name: dc:title
     # path: oai:record/dc:title
     path: rdf:Description/dc:title
-    extractable: true
+    # extractable: true
     indexField: dc_title
     rules:
       - id: Q-6.1
@@ -341,7 +341,7 @@ fields:
   - name: dc:type
     # path: oai:record/dc:type
     path: rdf:Description/dc:type | rdf:Description/dc:type/skos:Concept | rdf:Description/dc:type/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:type/skos:Concept/@rdf:about
-    extractable: true
+    # extractable: true
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
@@ -393,33 +393,33 @@ fields:
 
   - name: dc:subject
     path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel
-    extractable: true
+    # extractable: true
 
   - name: Thematischer Bezug
     path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about
-    extractable: true
+    # extractable: true
 
   # Akteur als Thema (Srukturelement bzw. blinder typisierter Knoten)
   - name: dcterms:Agent
     path: rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dc:subject/dcterms:Agent[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/dcterms:Agent/@rdf:about
-    extractable: true
+    # extractable: true
 
   # Ort als Thema (einfache Modellierung)
   - name: location
     path: rdf:Description/dcterms:spatial | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:spatial/dcterms:Location[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about
-    extractable: true
+    # extractable: true
 
   # Zeit als Thema (einfache Modellierung)
   - name: dcterms:temporal
     path: rdf:Description/dcterms:temporal | rdf:Description/dcterms:temporal/skos:Concept | rdf:Description/dcterms:temporal/skos:Concept/skos:prefLabel | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
-    extractable: true
+    # extractable: true
 
   # Werk als Thema (Strukturelement)
 
   # Objektbeschreibung
   - name: dc:description
     path: rdf:Description/dc:description | rdf:Description/dcterms:abstract
-    extractable: true
+    # extractable: true
 
 namespaces:
   doc: http://www.lyncode.com/xoai

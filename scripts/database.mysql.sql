@@ -17,7 +17,7 @@ CREATE INDEX f_provider_id_idx ON file (provider_id);
 DROP TABLE IF EXISTS file_record;
 CREATE TABLE file_record (
   file TEXT, 
-  recordId VARCHAR(200)
+  recordId VARCHAR(300)
 );
 CREATE INDEX fr_file_idx ON file_record (file(500));
 CREATE INDEX fr_recordId_idx ON file_record (recordId);
@@ -25,7 +25,7 @@ CREATE INDEX fr_recordId_idx ON file_record (recordId);
 DROP TABLE IF EXISTS issue;
 CREATE TABLE issue (
   `filename` VARCHAR(255),
-  `recordId` VARCHAR(200),
+  `recordId` VARCHAR(300),
   `providerid` VARCHAR(100),
   `Q-1.1:status` VARCHAR(10),
   `Q-1.1:score` INTEGER,

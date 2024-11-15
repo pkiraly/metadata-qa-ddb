@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# Imports the issues to MySQL
+#
 
 ROOT=$(realpath $(dirname $0)/../..)
 echo $ROOT

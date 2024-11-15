@@ -17,7 +17,8 @@ java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb
   --recursive \
   --indexing \
   --storing \
-  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
+  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} \
+  --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/LIDO \
   --schema $ROOT/src/main/resources/lido-schema.yaml \

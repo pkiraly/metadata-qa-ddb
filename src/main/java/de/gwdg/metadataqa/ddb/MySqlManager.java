@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class MySqlManager {
+
+  private static Logger logger = Logger.getLogger(MySqlManager.class.getName());
 
   Connection connection = null;
   PreparedStatement insertRecordStatement = null;
@@ -89,6 +92,7 @@ public class MySqlManager {
    * @param recordId
    */
   public void insertFileRecord(String file, String recordId) {
+    // logger.info(String.format("Inserting file record recordId: %s", recordId));
     try {
       selectFileRecordStatement.setString(1, file);
       selectFileRecordStatement.setString(2, recordId);
