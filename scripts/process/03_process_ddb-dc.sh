@@ -5,6 +5,7 @@ source $ROOT/configuration.cnf
 
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
+  --schemaName DDB-DC \
   --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/qa_ddb_ddb_dc \
   --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} \
   --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \

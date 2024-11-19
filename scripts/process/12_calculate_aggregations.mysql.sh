@@ -4,7 +4,7 @@ ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 source $ROOT/scripts/set-mysql-vars.sh
 
-mysql $MYSQL_EXTRA_PARAMETERS $MY_DB  -e "SELECT f.metadata_schema, f.set_id, f.provider_id, f.file, i.*
+mysql $MYSQL_EXTRA_PARAMETERS $MY_DB  -e "SELECT f.set_id, f.provider_id, f.file, i.*
   FROM issue AS i
   LEFT JOIN file_record AS r ON (r.recordId = i.recordId AND i.filename = r.file)
   LEFT JOIN file AS f USING(file);" | sed 's/\t/,/g' > ${OUTPUT_DIR}/all-issues.csv

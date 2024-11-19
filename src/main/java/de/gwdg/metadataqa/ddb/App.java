@@ -1,13 +1,17 @@
 package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.calculator.CalculatorFacade;
+import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
+import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.configuration.schema.Rule;
+import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.Schema;
+import de.gwdg.metadataqa.api.util.IdentifierGenerator;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -100,6 +104,8 @@ public class App {
     private int recordCount = 0;
     private String oaiPattern;
     private boolean isOai = false;
+    private boolean isGeneratedIdentifierEnabled = true;
+    // private String schemaName;
 
     static {
         options.addOption(new Option("c", "config", true, "Measurement configuration file"));
@@ -127,6 +133,7 @@ public class App {
         options.addOption(new Option("F", "skipContentType", false, "skip Content Type check"));
         options.addOption(new Option("e", "OAIPatterm", true, "File path patter to detect OAI output"));
         options.addOption(new Option("g", "oaiSchema", true, "File path patter to detect OAI output"));
+        options.addOption(new Option("h", "schemaName", true, "Name of metadata schema"));
     }
 
     public App(String[] args) throws ParseException, IOException {
@@ -148,7 +155,8 @@ public class App {
                 writer = Files.newBufferedWriter(Paths.get(outputFile));
                 if (format.equals(FORMAT.CSV)) {
                     List<String> header = calculator.getHeader();
-                    header.add(0, "filename");
+                    header.add(0, "metadata_schema");
+                    header.add(1, "filename");
                     writer.write(StringUtils.join(header, ",") + "\n");
                 }
             }
@@ -282,25 +290,25 @@ public class App {
                     else
                         logger.info(String.format("  record #%d/%d", recordCount, totalRecords));
                 }
-                if (storing && (doSqlite || doMysql)) {
-                    XPathWrapper xPathWrapper = new XPathWrapper(xml, namespaces);
-                    List<EdmFieldInstance> idList = xPathWrapper.extractFieldInstanceList(idPath);
-                    if (idList != null && !idList.isEmpty()) {
-                        // String id = idList.get(0).getValue();
-                        String id = extractIds(idList);
-                        if (doSqlite)
-                            sqliteManager.insert(relativePath, id, xml);
-                        if (doMysql)
-                            mySqlManager.insertFileRecord(relativePath, id);
-                    } else {
-                        logger.severe("No Identifier. Skipping record in " + inputFile);
-                    }
-                }
+
                 CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
+                MetricCollector collector = appliedCalculator.measureWithoutFormat(xml);
+                Map<String, List<MetricResult>> results = (Map<String, List<MetricResult>>) collector.getResults();
+                List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
+                String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
+
+                if (storing && (doSqlite || doMysql)) {
+                    if (doSqlite)
+                      sqliteManager.insert(relativePath, recordId, xml);
+                    if (doMysql)
+                      mySqlManager.insertFileRecord(relativePath, recordId);
+                }
+
                 if (format.equals(FORMAT.CSV))
-                    line = relativePath + "," + appliedCalculator.measure(xml);
+                    line = schemaName + "," + relativePath + ","
+                         + collector.createOutput(OutputCollector.TYPE.STRING, appliedCalculator.getCompressionLevel());
                 else
-                    line = appliedCalculator.measureAsJson(xml);
+                    line = (String) collector.createOutput(OutputCollector.TYPE.JSON, appliedCalculator.getCompressionLevel());
                 // logger.info(line);
                 if (!indexing)
                     writer.write(line + "\n");
@@ -329,6 +337,8 @@ public class App {
             if (StringUtils.isNotBlank(item.getValue()) && !ids.contains(item.getValue()))
                 ids.add(item.getValue());
         }
+        if (ids.isEmpty() || StringUtils.isBlank(ids.get(0)))
+            ids.add(IdentifierGenerator.generate());
         String id = StringUtils.join(ids, " --- ");
         return id;
     }
@@ -355,9 +365,10 @@ public class App {
               .disableFieldCardinalityMeasurement()
               .disableRuleCatalogMeasurement() // off
               .disableUniquenessMeasurement()  // off
-              .disableFieldExtractor()         // off
+              .enableFieldExtractor()         // on
               .withSolrConfiguration(solrHost, solrPort, solrPath)
               .enableIndexing()
+              .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
             ;
         } else {
             configuration = new MeasurementConfiguration()
@@ -371,6 +382,7 @@ public class App {
               .withOnlyIdInHeader(true)
               .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)
               // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
+              .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
             ;
         }
 

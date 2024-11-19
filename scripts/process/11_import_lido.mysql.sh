@@ -13,7 +13,7 @@ php $ROOT/scripts/csv2sql.php ${OUTPUT_DIR}/lido.csv issue
 mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "SELECT COUNT(*) as 'before deleting LIDO' FROM issue"
 
 mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "DELETE FROM issue
-WHERE recordId IN 
+WHERE metadata_schema = 'LIDO' AND recordId IN
 (SELECT recordId 
   FROM file_record AS fr 
   JOIN file AS f USING(file) 

@@ -24,6 +24,7 @@ CREATE INDEX fr_recordId_idx ON file_record (recordId);
 
 DROP TABLE IF EXISTS issue;
 CREATE TABLE issue (
+  `metadata_schema` VARCHAR(20),
   `filename` VARCHAR(255),
   `recordId` VARCHAR(300),
   `providerid` VARCHAR(100),
