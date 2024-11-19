@@ -80,7 +80,7 @@ public class XpathTest {
     Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
     assertNotNull(schema);
     assertNotNull(schema.getNamespaces());
-    assertEquals(9, schema.getNamespaces().size());
+    assertEquals(10, schema.getNamespaces().size());
 
     URL url = this.getClass().getResource("/dc/rdf-ddb-dc-sample-dcat.xml");
     File file = new File(url.getFile());
@@ -99,7 +99,7 @@ public class XpathTest {
     Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
     assertNotNull(schema);
     assertNotNull(schema.getNamespaces());
-    assertEquals(9, schema.getNamespaces().size());
+    assertEquals(10, schema.getNamespaces().size());
 
     URL url = this.getClass().getResource("/dc/rdf-ddb-dc-sample-bf.xml");
     File file = new File(url.getFile());

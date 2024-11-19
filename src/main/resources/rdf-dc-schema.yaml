@@ -35,7 +35,7 @@ fields:
   # Q-2 Identifikator für den Datengeber
   - name: providerid
     # path: oai:record/dc:identifier[@type='providerId']
-    path: rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:creator
+    path: rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:creator | oai:record/dc:identifier[@type='providerId']
     extractable: true
     indexField: providerId
     rules:
@@ -68,7 +68,7 @@ fields:
   # Q-3	Vorschaubild
   - name: thumbnail
     # path: oai:record/dc:identifier[@type='binary']
-    path: rdf:Description/edm:object/edm:WebResource/@rdf:about | rdf:Description/edm:object/@rdf:resource
+    path: rdf:Description/edm:object/edm:WebResource/@rdf:about | rdf:Description/edm:object/@rdf:resource | oai:record/dc:identifier[@type='binary']
     # extractable: true
     rules:
       - id: Q-3.0
@@ -128,7 +128,7 @@ fields:
   # Objekt im Kontext [Object in context] -- dc:identifier/@type="URL"
   - name: media_url
     # path: oai:record/dc:identifier[@type='URL']
-    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource | oai:record/dc:identifier[@type='URL']
     # extractable: true
     rules:
       - id: Q-4.0
@@ -201,7 +201,7 @@ fields:
   # Q-5	Rechtsstatus für das Digitale Objekt
   - name: rights
     # path: oai:record/dc:rights[@type='binary']
-    path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/dcterms:license/@rdf:resource
+    path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/dcterms:license/@rdf:resource | oai:record/dc:rights[@type='binary']
     # extractable: true
     rules:
       - id: Q-5.1
@@ -305,7 +305,7 @@ fields:
   # Q-6 Objekttitel
   - name: dc:title
     # path: oai:record/dc:title
-    path: rdf:Description/dc:title
+    path: rdf:Description/dc:title | oai:record/dc:title
     # extractable: true
     indexField: dc_title
     rules:
@@ -340,7 +340,7 @@ fields:
   # Q-7 Objekttyp
   - name: dc:type
     # path: oai:record/dc:type
-    path: rdf:Description/dc:type | rdf:Description/dc:type/skos:Concept | rdf:Description/dc:type/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:type/skos:Concept/@rdf:about
+    path: rdf:Description/dc:type | rdf:Description/dc:type/skos:Concept | rdf:Description/dc:type/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:type/skos:Concept/@rdf:about | oai:record/dc:type
     # extractable: true
     rules:
       - id: Q-7.1
@@ -391,35 +391,92 @@ fields:
  #      failureScore: -6
  #      pattern: ^https?://(vocab.getty.edu/aat/|vocab.getty.edu/ulan/|vocab.getty.edu/tgn/|viaf.org/viaf/|sws.geonames.org/|iconclass.org/|d-nb.info/gnd|www.imj.org.il/imagine/thesaurus/objects/|id.loc.gov/authorities/subjects/|data.europeana.eu/concept/loc|data.europeana.eu/concept/soundgenres/|udcdata.info/rdf/|vocabularies.unesco.org/thesaurus/|finto.fi/yso/en/|www.wikidata.org/entity/|thesaurus.europeanafashion.eu/thesaurus/|www.mimo-db.eu/).*$
 
-  - name: dc:subject
-    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel
+  # Objektkategorie (Strukturelement) | Objektkategorie (Bezeichnung) | Objektkategorie (URI)
+  # these are missing from DC
+
+  # Sachkategorie (einfache Modellierung)
+  # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten)
+  # Sachkategorie (Bezeichnung)
+  - name: Sachkategorie
+    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel | oai:record/oai:metadata/oai_dc:dc/dc:subject
     # extractable: true
+    rules:
+      - id: Q-9.1
+        description: There must be at least one preferred designation for the object type in the data record.
+        failureScore: -9
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.2
+        description: The subject category must come from a controlled vocabulary.
+        failureScore: -9
+        pattern: ^http.*$
+      - id: Q-9.3
+        description: The http-URI refers to a term GND-subject categories.
+        failureScore: -3
+        pattern: ^https://d-nb.info/standards/vocab/gnd/gnd-sc#
 
   - name: Thematischer Bezug
     path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about
-    # extractable: true
 
   # Akteur als Thema (Srukturelement bzw. blinder typisierter Knoten)
   - name: dcterms:Agent
     path: rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dc:subject/dcterms:Agent[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/dcterms:Agent/@rdf:about
-    # extractable: true
 
   # Ort als Thema (einfache Modellierung)
   - name: location
     path: rdf:Description/dcterms:spatial | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:spatial/dcterms:Location[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about
-    # extractable: true
 
   # Zeit als Thema (einfache Modellierung)
   - name: dcterms:temporal
     path: rdf:Description/dcterms:temporal | rdf:Description/dcterms:temporal/skos:Concept | rdf:Description/dcterms:temporal/skos:Concept/skos:prefLabel | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
-    # extractable: true
 
   # Werk als Thema (Strukturelement)
 
+  - name: Thematischer Bezug
+    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dc:subject/dcterms:Agent[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:spatial/dcterms:Location[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal | rdf:Description/dcterms:temporal/skos:Concept | rdf:Description/dcterms:temporal/skos:Concept/skos:prefLabel | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+    rules:
+      - id: Q-9.4
+        description: There must be at least one preferred designation for a thematic relation in the data record.
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.5
+        description: The thematic relation must come from a controlled vocabulary.
+        failureScore: -9
+        pattern: ^http.*$
+      - id: Q-9.6
+        description: The http-URI refers to a term in the GND or the AAT.
+        failureScore: -9
+        pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/)
+      # Q-9.6 and Q-9.7 can not be true at the same time
+      - id: Q-9.7
+        description: The http-URI refers to a term in Wikidata.
+        failureScore: -9
+        pattern: ^https?://https://www.wikidata.org/entity/Q
+
   # Objektbeschreibung
-  - name: dc:description
-    path: rdf:Description/dc:description | rdf:Description/dcterms:abstract
-    # extractable: true
+  - name: Objektbeschreibung
+    path: rdf:Description/dc:description | rdf:Description/dcterms:abstract | oai:record/oai:metadata/oai_dc:dc/dc:description | oai:record/oai:metadata/oai_dc:dc/dcterms:abstract
+    indexField: object_description
+    rules:
+      - id: Q-9.8
+        description: There must be at least one object description in the data record.
+        failureScore: -9
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+      - id: Q-9.9
+        description: The object description must be meaningful.
+        # Does the object description consist of less than fifty characters?
+        # Check whether there are fewer than fifty characters in the object description. For more than one object description, the longest counts.
+        failureScore: -9
+        maxLength: 50
+      - id: Q-9.10
+        description: The object description must be unique.
+        # Is the value in the element for the object title identical to that for the object description?
+        # Check whether the same string is contained in the element for the object title and the object description.
+        unique: true
 
 namespaces:
   doc: http://www.lyncode.com/xoai
@@ -431,3 +488,4 @@ namespaces:
   dcat: http://www.w3.org/ns/dcat#
   bf: http://id.loc.gov/ontologies/bibframe/#
   edm: http://www.europeana.eu/schemas/edm/
+  oai_dc: http://www.openarchives.org/OAI/2.0/oai_dc/
