@@ -134,6 +134,14 @@ fields:
         or:
         - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
         - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+      - id: Q-3.6
+        description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
+          Check whether there is an element for the preview image in the data record (see table "Mapping the DDB elements").
+          If yes => check whether it contains a reference to an image file. To do this, either evaluate the MIME type in the Content-Type field in the HTTP response header and/or the file extension in the file name. PDF files also count as image files (see table "File types").
+          If yes => comparison with the table "File types" to see whether the image file format is supported by the DDB.
+        or:
+          - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+          - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Mediendatei - Link Resource
 #  - name: mediendatei-link_resource
@@ -304,6 +312,15 @@ fields:
         - in:
           - http://creativecommons.org/publicdomain/mark/1.0/
           - http://creativecommons.org/publicdomain/zero/1.0/
+      - id: Q-5.5
+        description:
+          Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
+          Check whether an http-URI is specified for a rights notice with the possibility of use on request
+          (see table "DDB license basket")
+        successScore: 3
+        and:
+        - minCount: 1
+        - in:
           - http://creativecommons.org/licenses/by/3.0/de/
           - http://creativecommons.org/licenses/by/4.0/
           - http://creativecommons.org/licenses/by-sa/3.0/de/
@@ -315,44 +332,24 @@ fields:
           - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
           - http://creativecommons.org/licenses/by-nc-sa/4.0/
           - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/"
-#      - id: Q-5.5
-#        description:
-#          Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
-#          Check whether an http-URI is specified for a rights notice with the possibility of use on request
-#          (see table "DDB license basket")
-#        successScore: 3
-#        and:
-#        - minCount: 1
-#        - in:
-#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-#          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-#          - http://rightsstatements.org/vocab/CNE/1.0/
-#          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-#          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-#          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-#          - http://rightsstatements.org/vocab/InC/1.0/
-#          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-#      - id: Q-5.6
-#        description: A standardized notice of rights is used. The digital object may be used with restrictions.
-#        in:
-#        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-#        - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-#        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-#        - http://rightsstatements.org/vocab/CNE/1.0/
-#        - http://rightsstatements.org/vocab/NoC-NC/1.0/
-#        - http://rightsstatements.org/vocab/InC-EDU/1.0/
-#      - id: Q-5.7
-#        description: A standardized notice of rights is used. The usage rights must be inquired about.
-#        in:
-#        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-#        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-#        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-#        - http://rightsstatements.org/vocab/InC/1.0/
-#        - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+          - http://creativecommons.org/licenses/by-nc-nd/4.0/
+          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+          - http://rightsstatements.org/vocab/NoC-NC/1.0/
+          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+
+      - id: Q-5.6
+        description: A standardized notice of rights is used. The digital object may be used with restrictions.
+        in:
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+        - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+        - http://rightsstatements.org/vocab/InC/1.0/
+        - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+        - http://rightsstatements.org/vocab/CNE/1.0/
+        - http://rightsstatements.org/vocab/InC-EDU/1.0/
+        - http://rightsstatements.org/vocab/NKC/1.0/
+        - http://rightsstatements.org/vocab/UND/1.0/
 
   # Objekttitel - Appellation Value
 #  - name: objekttitel-appellation_value
@@ -444,10 +441,10 @@ fields:
         and:
         - minCount: 1
         - pattern: ^.+$
-      # - id: Q-7.4
-      #   description: It is a specific object type designation and not an object description or object classification.
-      #   failureScore: -3
-      #   maxWords: 2
+      - id: Q-7.4
+        description: It is a specific object type designation and not an object description or object classification.
+        failureScore: -3
+        maxWords: 2
 
   # TODO: 7.2
 
@@ -595,7 +592,7 @@ fields:
       - id: Q-9.7
         description: The http-URI refers to a term in Wikidata.
         failureScore: -9
-        pattern: ^https?://https://www.wikidata.org/entity/Q
+        pattern: ^https?://www.wikidata.org/entity/Q
 
   # Objektbeschreibung
   - name: Objektbeschreibung
