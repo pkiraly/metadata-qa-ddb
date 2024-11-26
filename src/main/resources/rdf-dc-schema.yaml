@@ -2,13 +2,15 @@ format: xml
 fields:
   # Identifikator für den Datensatz
   - name: recordId
-    path: oai:record/dc:identifier[@type='providerItemId'] | oai:record/oai:header/oai:identifier | rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | rdf:Description/dc:identifier/bf:Identifier/rdf:value | rdf:Description/@rdf:about
+    path: rdf:Description/dc:identifier | rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | rdf:Description/dc:identifier/bf:Identifier/rdf:value | rdf:Description/@rdf:about
+    # oai:record/dc:identifier[@type='providerItemId'] | oai:record/oai:header/oai:identifier
     extractable: true
     identifierField: true
     indexField: providerItemId
     rules:
       - id: Q-1.1
         description: There must be an ID for the data record in the data record supplied.
+        debug: true
         and:
         - minCount: 1
         - minLength: 1
