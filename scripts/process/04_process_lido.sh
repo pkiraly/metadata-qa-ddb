@@ -4,7 +4,7 @@ ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 source $ROOT/solr-functions.sh
 
-SOLR_CORE=${MQAF_SOLR_CORE_PREFIX:-qa_ddb}_lido
+SOLR_CORE=${MQAF_SOLR_CORE_PREFIX:-ddb_qa}_lido
 initialize $SOLR_CORE
 
 java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
