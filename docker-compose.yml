@@ -1,0 +1,83 @@
+services:
+  database:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    # command: --init-file /data/application/init.sql
+    volumes:
+      - ./docker-configuration/mysql/init.sql:/data/application/init.sql
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: ddb
+      MYSQL_DATABASE: ddb
+      MYSQL_USER: ddb
+      MYSQL_PASSWORD: ddb
+    container_name: ${DB_CONTAINER:-ddb-db}
+    networks:
+      - ddb
+
+  solr:
+    image: solr:9.6.1
+    ports:
+      - "${SOLR_PORT:-8983}:8983"
+    volumes:
+      # Create directory up front with the right permissions, eg.:
+      # mkdir ./solr-data && sudo chown -R 8983:8983 ./solr-data && sudo chmod -R 777 ./solr-data
+      - ${SOLR_DATA:-./solr-data}:/var/solr/data
+      - ${SOLR_ENTRY:-./docker-configuration/solr}:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s http://localhost:8983",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    restart: on-failure
+    container_name: ${CONTAINER_SOLR:-ddb-solr}
+    networks:
+      - ddb
+
+  cli:
+    image: ${WS_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb:main} # the name of the image
+    volumes:
+      - ./${DDB_CONFIG:-test-aqinda/config}:/opt/metadata-qa-ddb/config
+      - ./${DDB_INPUT:-test-aqinda/input}:/opt/metadata-qa-ddb/input
+      - ./${DDB_OUTPUT:-test-aqinda/output}:/opt/metadata-qa-ddb/output
+    # ports:
+    #  - ${WS_WEBPORT:-8080}:8080             # Tomcat address
+    environment:
+      REPORT_WEBHOST: ${REPORT_WEBHOST:-localhost}
+      REPORT_WEBPORT: ${REPORT_WEBPORT:-90}
+      UPLOAD_FOLDER: /shared/uploads
+    container_name: ${WS_CONTAINER:-ddb-cli}
+    depends_on:
+      - database
+      - solr
+    networks:
+      - ddb
+
+  report:
+    image: ${REPORT_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0}
+    ports:
+      - ${REPORT_WEBPORT:-90}:80
+      # - ${SOLRPORT:-8983}:8983
+    volumes:
+      - ${DDB_CONFIG:-./test-ddb/config}:/var/www/html/config
+      - ${DDB_INPUT:-./test-ddb/input}:/opt/metadata-qa-ddb/input
+      - ${DDB_OUTPUT:-./test-ddb/output}:/opt/metadata-qa-ddb/output
+    container_name: ${REPORT_CONTAINER:-ddb-report}
+    depends_on:
+      - database
+      - solr
+    networks:
+      - ddb
+
+networks:
+  ddb:
+
+volumes:
+  ddb-data:
+    external: true
