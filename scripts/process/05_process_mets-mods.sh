@@ -2,6 +2,7 @@
 
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
+source $ROOT/solr-functions.sh
 
 SOLR_CORE=${SOLR_CORE_PREFIX:-qa_ddb}_mets_mods
 initialize $SOLR_CORE
