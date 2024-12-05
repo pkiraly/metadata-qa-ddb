@@ -36,7 +36,7 @@ services:
       timeout: 10s
       retries: 120
     restart: on-failure
-    container_name: ${CONTAINER_SOLR:-ddb-solr}
+    container_name: ${SOLR_CONTAINER:-ddb-solr}
     networks:
       - ddb
 
@@ -52,7 +52,27 @@ services:
       REPORT_WEBHOST: ${REPORT_WEBHOST:-localhost}
       REPORT_WEBPORT: ${REPORT_WEBPORT:-90}
       UPLOAD_FOLDER: /shared/uploads
-    container_name: ${WS_CONTAINER:-ddb-cli}
+      MQAF_DATA: ${MQAF_DATA:-}
+
+      # FTP settings
+      MQAF_FTP_USER: ${MQAF_FTP_USER:-}
+      MQAF_FTP_PW: ${MQAF_FTP_PW:-}
+
+      # MySQL setting
+      MQAF_DB_HOST: ${MQAF_DB_HOST:-localhost}
+      MQAF_DB_PORT: ${MQAF_DB_PORT:-90}
+      MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
+      MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
+      MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
+
+      # Solr settings
+      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-ddb-solr}
+      MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
+      MQAF_SOLR_CORE_PREFIX: ${MQAF_SOLR_CORE_PREFIX:-ddb-qa}
+
+      # extra validation paramteres
+      MQAF_VALIDATION_PARAMS: ${MQAF_VALIDATION_PARAMS:-}
+    container_name: ${CLI_CONTAINER:-ddb-cli}
     depends_on:
       - database
       - solr
@@ -68,6 +88,16 @@ services:
       - ${DDB_CONFIG:-./test-ddb/config}:/var/www/html/config
       - ${DDB_INPUT:-./test-ddb/input}:/opt/metadata-qa-ddb/input
       - ${DDB_OUTPUT:-./test-ddb/output}:/opt/metadata-qa-ddb/output
+    environment:
+      # MySQL settings
+      MQAF_DB_HOST: ${MQAF_DB_HOST:-ddb-db}
+      MQAF_DB_PORT: ${MQAF_DB_PORT:-3306}
+      MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
+      MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
+      MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
+      # Apache Solr settings
+      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-localhost}
+      MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
     container_name: ${REPORT_CONTAINER:-ddb-report}
     depends_on:
       - database

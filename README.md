@@ -98,36 +98,36 @@ INPUT_DIR=<path to input directory>
 OUTPUT_DIR=<path to output directory>
 
 # FTP user name and password for the DDB FTP server
-FTP_USER=<FTP user name>
-FTP_PW=<FTP password>
+MQAF_FTP_USER=<FTP user name>
+MQAF_FTP_PW=<FTP password>
 
 # MySQL database settings
-MY_HOST=localhost
-MY_PORT=3306
-MY_DB=<MySQL database name>
-MY_USER=<MySQL user name>
-MY_PASSWORD=<MySQL password>
+MQAF_DB_HOST=localhost
+MQAF_DB_PORT=3306
+MQAF_DB_DATABASE=<MySQL database name>
+MQAF_DB_USER=<MySQL user name>
+MQAF_DB_PASSWORD=<MySQL password>
 # the type of configuration when call 'mysql' command. 
 # valid values: LOCAL_FILE, TEMP_FILE or ENVIRONMENT_VARIABLES
 MYSQL_CONFIG_TYPE=LOCAL_FILE
 
 # Apache Solr settings
-SOLR_HOST=localhost
-SOLR_PORT=8983
+MQAF_SOLR_HOST=localhost
+MQAF_DBSOLR_PORT=8983
 # the prefix of the Solr core, default is 'qa_ddb'
 # the cores will be names as [SOLR_CORE_PREFIX]_[METADATA_SCHEMA], e.g. qa_ddb_lido, qa_ddb_marc etc.
-SOLR_CORE_PREFIX=qa_ddb
+MQAF_SOLR_CORE_PREFIX=qa_ddb
 
 # validation related settings
-VALIDATION_PARAMS=
+MQAF_VALIDATION_PARAMS=
 ```
 
-With the VALIDATION_PARAMS you can set individual parameters regarding to the
+With the MQAF_VALIDATION_PARAMS you can set individual parameters regarding to the
 running of the validation. For example to skip the image dimension check and
 content type check, you can add:
 
 ```
-VALIDATION_PARAMS="--skipDimension --skipContentType"
+MQAF_VALIDATION_PARAMS="--skipDimension --skipContentType"
 ```
 
 Log in to MySQL, create a database and a dedicated user:

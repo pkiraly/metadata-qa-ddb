@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source configuration.cnf
-SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
+SOLR_HOST=${MQAF_SOLR_HOST:-http://localhost:${MQAF_SOLR_PORT:-8983}}
 
 check_core() {
   LOCAL_CORE=$1

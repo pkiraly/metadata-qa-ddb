@@ -8,20 +8,21 @@ source $ROOT/scripts/set-mysql-vars.sh
 SOLR_CORE=${SOLR_CORE_PREFIX:-qa_ddb}_marc
 initialize $SOLR_CORE
 
-mysql $MYSQL_EXTRA_PARAMETERS $MY_DB -e "DELETE FROM file_record WHERE file IN
+mysql $MYSQL_EXTRA_PARAMETERS $MQAF_DB_DATABASE -e "DELETE FROM file_record WHERE file IN
 (SELECT file FROM file WHERE metadata_schema = 'MARC');"
 
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
-  --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/${SOLR_CORE} \
+  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/${MQAF_SOLR_CORE} \
   --recursive \
   --indexing \
   --storing \
-  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
+  --mysqlHost ${MQAF_DB_HOST} --mysqlPort ${MQAF_DB_PORT} --mysqlDatabase ${MQAF_DB_DATABASE} \
+  --mysqlUser ${MQAF_DB_USER} --mysqlPassword ${MQAF_DB_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/MARC \
   --schema $ROOT/src/main/resources/marc-schema.yaml \
   --output $OUTPUT_DIR/marc.csv \
   --sqlitePath $OUTPUT_DIR/ddb-record.sqlite \
   --record-address '//marc:record' \
-  ${VALIDATION_PARAMS}
+  ${MQAF_VALIDATION_PARAMS}

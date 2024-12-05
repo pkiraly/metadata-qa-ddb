@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source ./configuration.cnf
-SOLR_BASE_URL=http://${SOLR_HOST:-localhost}:${SOLR_PORT:-8983}
+SOLR_BASE_URL=http://${MQAF_SOLR_HOST:-localhost}:${MQAF_SOLR_PORT:-8983}
 
 check_core() {
   LOCAL_CORE=$1
@@ -13,7 +13,7 @@ check_core() {
 
 create_core() {
   LOCAL_CORE=$1
-  echo "creating Solr index: ${LOCAL_CORE} at $SOLR_HOST"
+  echo "creating Solr index: ${LOCAL_CORE} at $MQAF_SOLR_HOST"
   curl -s "$SOLR_BASE_URL/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
 }
 

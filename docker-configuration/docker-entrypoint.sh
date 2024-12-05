@@ -1,20 +1,20 @@
 #!/bin/bash
 echo "Environment variables";
 echo "---------------------";
-echo "\$MQA_DATA=$MQA_DATA";
-echo "\$MQA_FTP_USER=$MQA_FTP_USER";
-echo "\$MQA_FTP_PW=$MQA_FTP_PW";
-echo "\$MQA_MY_HOST=$MQA_MY_HOST";
-echo "\$MQA_MY_PORT=$MQA_MY_PORT";
-echo "\$MQA_MY_DB=$MQA_MY_DB";
-echo "\$MQA_MY_USER=$MQA_MY_USER";
-echo "\$MQA_MY_PASSWORD=$MQA_MY_PASSWORD";
-echo "\$MQA_SOLR_HOST=$MQA_SOLR_HOST";
-echo "\$MQA_SOLR_PORT=$MQA_SOLR_PORT";
-echo "\$MQA_VALIDATION_PARAMS=$MQA_VALIDATION_PARAMS";
+echo "\$MQAF_DATA=$MQAF_DATA";
+echo "\$MQAF_FTP_USER=$MQAF_FTP_USER";
+echo "\$MQAF_FTP_PW=$MQAF_FTP_PW";
+echo "\$MQAF_DB_HOST=$MQAF_DB_HOST";
+echo "\$MQAF_DB_PORT=$MQAF_DB_PORT";
+echo "\$MQAF_DB_DATABASE=$MQAF_DB_DATABASE";
+echo "\$MQAF_DB_USER=$MQAF_DB_USER";
+echo "\$MQAF_DB_PASSWORD=$MQAF_DB_PASSWORD";
+echo "\$MQAF_SOLR_HOST=$MQAF_SOLR_HOST";
+echo "\$MQAF_SOLR_PORT=$MQAF_SOLR_PORT";
+echo "\$MQAF_VALIDATION_PARAMS=$MQAF_VALIDATION_PARAMS";
 
-echo "Create folder ${MQA_DATA}/input and ${MQA_DATA}/output ...";
-mkdir -p ${MQA_DATA}/input ${MQA_DATA}/output
+echo "Create folder ${MQAF_DATA}/input and ${MQAF_DATA}/output ...";
+mkdir -p ${MQAF_DATA}/input ${MQAF_DATA}/output
 
 echo "Copy Metadata-qa-ddb to (writeable) temp directory ..."
 cp -R /opt/metadata-qa-ddb /tmp/metadata-qa-ddb

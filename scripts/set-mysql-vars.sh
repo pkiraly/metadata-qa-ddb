@@ -23,17 +23,17 @@ MYSQL_EXTRA_PARAMETERS=
 if [[ "$MYSQL_CONFIG_FILE" != "" ]]; then
   if [[ ! -f $MYSQL_CONFIG_FILE ]]; then
     echo "[client]"                     > $MYSQL_CONFIG_FILE
-    echo "user = \"$MY_USER\""         >> $MYSQL_CONFIG_FILE
-    echo "password = \"$MY_PASSWORD\"" >> $MYSQL_CONFIG_FILE
-    echo "host = \"$MY_HOST\""         >> $MYSQL_CONFIG_FILE
-    echo "port = \"$MY_PORT\""         >> $MYSQL_CONFIG_FILE
+    echo "user = \"$MQAF_DB_USER\""         >> $MYSQL_CONFIG_FILE
+    echo "password = \"$MQAF_DB_PASSWORD\"" >> $MYSQL_CONFIG_FILE
+    echo "host = \"$MQAF_DB_HOST\""         >> $MYSQL_CONFIG_FILE
+    echo "port = \"$MQAF_DB_PORT\""         >> $MYSQL_CONFIG_FILE
   fi
   MYSQL_EXTRA_PARAMETERS="--defaults-extra-file=$MYSQL_CONFIG_FILE"
 elif [[ "$MYSQL_CONFIG_TYPE" == "ENVIRONMENT_VARIABLES" ]]; then
-  export MYSQL_PWD=$MY_PASSWORD
-  export MYSQL_HOST=$MY_HOST
-  export MYSQL_TCP_PORT=$MY_PORT
-  MYSQL_EXTRA_PARAMETERS="-u $MY_USER"
+  export MYSQL_PWD=$MQAF_DB_PASSWORD
+  export MYSQL_HOST=$MQAF_DB_HOST
+  export MYSQL_TCP_PORT=$MQAF_DB_PORT
+  MYSQL_EXTRA_PARAMETERS="-u $MQAF_DB_USER"
 else
   echo "Set MYSQL_CONFIG_TYPE in the configuration!"
   exit

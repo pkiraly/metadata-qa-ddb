@@ -6,9 +6,9 @@ source $ROOT/configuration.cnf
 java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --schemaName DDB-DC \
-  --solrHost ${SOLR_HOST} --solrPort ${SOLR_PORT} --path solr/qa_ddb_ddb_dc \
-  --mysqlHost ${MY_HOST} --mysqlPort ${MY_PORT} --mysqlDatabase ${MY_DB} \
-  --mysqlUser ${MY_USER} --mysqlPassword ${MY_PASSWORD} \
+  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/qa_ddb_ddb_dc \
+  --mysqlHost ${MQAF_DB_HOST} --mysqlPort ${MQAF_DB_PORT} --mysqlDatabase ${MQAF_DB_DATABASE} \
+  --mysqlUser ${MQAF_DB_USER} --mysqlPassword ${MQAF_DB_PASSWORD} \
   --recursive \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
@@ -18,7 +18,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --OAIPatterm "OAI_Harvest" \
   --output $OUTPUT_DIR/dc.csv \
   --record-address '//oai:record | //rdf:Description' \
-  ${VALIDATION_PARAMS}
+  ${MQAF_VALIDATION_PARAMS}
 
 
 #  --record-address '//oai:record' \

@@ -14,20 +14,20 @@ INPUT_DIR=<path to input directory>
 OUTPUT_DIR=<path to output directory>
 
 # FTP user name and password for the DDB FTP server
-FTP_USER=<FTP user name>
-FTP_PW=<FTP password>
+MQAF_FTP_USER=<FTP user name>
+MQAF_FTP_PW=<FTP password>
 
 # MySQL database settings
-MY_HOST=localhost
-MY_PORT=3306
-MY_DB=<MySQL database name>
-MY_USER=<MySQL user name>
-MY_PASSWORD=<MySQL password>
+MQAF_DB_HOST=localhost
+MQAF_DB_PORT=3306
+MQAF_DB_DATABASE=<MySQL database name>
+MQAF_DB_USER=<MySQL user name>
+MQAF_DB_PASSWORD=<MySQL password>
 # the type of configuration when call 'mysql' command. 
 # acceptable values: LOCAL_FILE, TEMP_FILE or ENVIRONMENT_VARIABLES
 MYSQL_CONFIG_TYPE=LOCAL_FILE
 
 
 # Apache Solr settings
-SOLR_HOST=localhost
-SOLR_PORT=8983
+MQAF_SOLR_HOST=localhost
+MQAF_SOLR_PORT=8983

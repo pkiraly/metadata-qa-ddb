@@ -1,13 +1,22 @@
 JAR=target/metadata-qa-ddb.jar
-INPUT_DIR=$(echo ${MQA_DATA}/input)
-OUTPUT_DIR=$(echo ${MQA_DATA}/output)
-FTP_USER=$(echo $MQA_FTP_USER)
-FTP_PW=$(echo $MQA_FTP_PW)
-MY_HOST=$(echo $MQA_MY_HOST)
-MY_PORT=$(echo $MQA_MY_PORT)
-MY_DB=$(echo $MQA_MY_DB)
-MY_USER=$(echo $MQA_MY_USER)
-MY_PASSWORD=$(echo $MQA_MY_PASSWORD)
-SOLR_HOST=$(echo $MQA_SOLR_HOST)
-SOLR_PORT=$(echo $MQA_SOLR_PORT)
-VALIDATION_PARAMS=$(echo $MQA_VALIDATION_PARAMS)
+
+INPUT_DIR=$(echo ${MQAF_DATA}/input)
+OUTPUT_DIR=$(echo ${MQAF_DATA}/output)
+
+# FTP settings
+MQAF_FTP_USER=$(echo $MQAF_FTP_USER)
+MQAF_FTP_PW=$(echo $MQAF_FTP_PW)
+
+# MySQL settings
+MQAF_DB_HOST=$(echo $MQAF_DB_HOST)
+MQAF_DB_PORT=$(echo $MQAF_DB_PORT)
+MQAF_DB_DATABASE=$(echo $MQAF_DB_DATABASE)
+MQAF_DB_USER=$(echo $MQAF_DB_USER)
+MQAF_DB_PASSWORD=$(echo $MQAF_DB_PASSWORD)
+
+# Solr settings
+MQAF_SOLR_HOST=$(echo $MQAF_SOLR_HOST)
+MQAF_SOLR_PORT=$(echo $MQAF_SOLR_PORT)
+
+# validation settings
+MQAF_VALIDATION_PARAMS=$(echo $MQAF_VALIDATION_PARAMS)
