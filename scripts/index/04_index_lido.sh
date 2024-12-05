@@ -14,7 +14,7 @@ mysql $MYSQL_EXTRA_PARAMETERS $MQAF_DB_DATABASE -e "DELETE FROM file_record WHER
 java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --schemaName LIDO \
-  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/${MQAF_SOLR_CORE} \
+  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/${SOLR_CORE} \
   --recursive \
   --indexing \
   --storing \

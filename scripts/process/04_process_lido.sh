@@ -3,10 +3,13 @@
 ROOT=$(realpath $(dirname $0)/../..)
 source $ROOT/configuration.cnf
 
+SOLR_CORE=${MQAF_SOLR_CORE_PREFIX:-qa_ddb}_lido
+initialize $SOLR_CORE
+
 java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --format csv \
   --schemaName LIDO \
-  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/qa_ddb_lido \
+  --solrHost ${MQAF_SOLR_HOST} --solrPort ${MQAF_SOLR_PORT} --path solr/${SOLR_CORE} \
   --mysqlHost ${MQAF_DB_HOST} --mysqlPort ${MQAF_DB_PORT} --mysqlDatabase ${MQAF_DB_DATABASE} \
   --mysqlUser ${MQAF_DB_USER} --mysqlPassword ${MQAF_DB_PASSWORD} \
   --recursive \
