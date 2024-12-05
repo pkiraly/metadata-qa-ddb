@@ -43,9 +43,9 @@ services:
   cli:
     image: ${WS_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb:main} # the name of the image
     volumes:
-      - ./${DDB_CONFIG:-test-aqinda/config}:/opt/metadata-qa-ddb/config
-      - ./${DDB_INPUT:-test-aqinda/input}:/opt/metadata-qa-ddb/input
-      - ./${DDB_OUTPUT:-test-aqinda/output}:/opt/metadata-qa-ddb/output
+      - ./${DDB_CONFIG:-test-ddb/config}:/opt/metadata-qa-ddb/config
+      - ./${DDB_INPUT:-test-ddb/input}:/opt/metadata-qa-ddb/input
+      - ./${DDB_OUTPUT:-test-ddb/output}:/opt/metadata-qa-ddb/output
     # ports:
     #  - ${WS_WEBPORT:-8080}:8080             # Tomcat address
     environment:

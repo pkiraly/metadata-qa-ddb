@@ -46,8 +46,15 @@ RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
 # RUN --chown=${RUN_USER}:${RUN_GROUP} cp -r scripts /opt/metadata-qa-ddb \
 
 WORKDIR /opt/metadata-qa-ddb
-COPY --chown=${RUN_USER}:${RUN_GROUP} scripts scripts
+# copy JAR file
 COPY --chown=${RUN_USER}:${RUN_GROUP} target/metadata-qa-ddb-${MQA_VERSION}-jar-with-dependencies.jar target/metadata-qa-ddb.jar
+
+# scripts needed to run the
+COPY --chown=${RUN_USER}:${RUN_GROUP} scripts scripts
+COPY --chown=${RUN_USER}:${RUN_GROUP} run-all.sh .
+COPY --chown=${RUN_USER}:${RUN_GROUP} solr-functions.sh .
+
+# docker configurations
 COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/docker-entrypoint.sh .
 COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/supervisord.conf .
 COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/configuration.cnf.docker configuration.cnf
