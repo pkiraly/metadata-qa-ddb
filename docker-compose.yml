@@ -59,8 +59,8 @@ services:
       MQAF_FTP_PW: ${MQAF_FTP_PW:-}
 
       # MySQL setting
-      MQAF_DB_HOST: ${MQAF_DB_HOST:-localhost}
-      MQAF_DB_PORT: ${MQAF_DB_PORT:-90}
+      MQAF_DB_HOST: ${MQAF_DB_HOST:-ddb-db}
+      MQAF_DB_PORT: ${MQAF_DB_PORT:-3306}
       MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
       MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
