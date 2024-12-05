@@ -12,7 +12,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/MARC \
-  --schema $ROOT/src/main/resources/marc-schema.yaml \
+  --schema $ROOT/schemas/marc-schema.yaml \
   --output $OUTPUT_DIR/marc.csv \
   --record-address '//marc:record' \
   ${MQAF_VALIDATION_PARAMS}

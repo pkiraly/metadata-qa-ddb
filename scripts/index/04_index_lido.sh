@@ -22,7 +22,7 @@ java -Xmx4g -Djdk.xml.xpathExprOpLimit=200 -cp $ROOT/$JAR de.gwdg.metadataqa.ddb
   --mysqlUser ${MQAF_DB_USER} --mysqlPassword ${MQAF_DB_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/LIDO \
-  --schema $ROOT/src/main/resources/lido-schema.yaml \
+  --schema $ROOT/schemas/lido-schema.yaml \
   --output $OUTPUT_DIR/lido.csv \
   --sqlitePath $OUTPUT_DIR/ddb-record.sqlite \
   --record-address '//lido:lido' \

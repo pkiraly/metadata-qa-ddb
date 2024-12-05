@@ -15,12 +15,12 @@
       <outputDirectory>target</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>src/main/resources</directory>
+      <directory>schemas</directory>
       <includes>
         <include>*.yaml</include>
         <include>*.xml</include>
       </includes>
-      <outputDirectory>src/main/resources</outputDirectory>
+      <outputDirectory>schemas</outputDirectory>
     </fileSet>
     <fileSet>
       <directory>scripts</directory>

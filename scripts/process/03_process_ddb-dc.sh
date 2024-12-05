@@ -13,8 +13,8 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-DC \
-  --schema $ROOT/src/main/resources/rdf-dc-schema.yaml \
-  --oaiSchema $ROOT/src/main/resources/oai_dc-schema.yaml \
+  --schema $ROOT/schemas/rdf-dc-schema.yaml \
+  --oaiSchema $ROOT/schemas/oai_dc-schema.yaml \
   --OAIPatterm "OAI_Harvest" \
   --output $OUTPUT_DIR/dc.csv \
   --record-address '//oai:record | //rdf:Description' \

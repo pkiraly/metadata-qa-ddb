@@ -33,7 +33,7 @@ public class DDBEdmTest {
     assertTrue(file.exists());
 
     try {
-      schema = ConfigurationReader.readSchemaYaml("src/main/resources/ddb-edm-schema.yaml").asSchema();
+      schema = ConfigurationReader.readSchemaYaml("schemas/ddb-edm-schema.yaml").asSchema();
       XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
       String xml = iterator.next();
       xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());

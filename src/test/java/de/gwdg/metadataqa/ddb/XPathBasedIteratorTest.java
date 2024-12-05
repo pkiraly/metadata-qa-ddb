@@ -24,6 +24,8 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +62,7 @@ public class XPathBasedIteratorTest {
 
   @Test
   public void testC() throws XPathExpressionException, IOException, ParserConfigurationException, SAXException {
-    String path = App.class.getClassLoader().getResource("dc-schema.yaml").getPath();
-    Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/dc-schema.yaml").asSchema();
 
     MeasurementConfiguration configuration = new MeasurementConfiguration()
       .disableCompletenessMeasurement()
@@ -135,8 +136,7 @@ public class XPathBasedIteratorTest {
 
   @Test
   public void testRdfDC() throws XPathExpressionException, IOException, ParserConfigurationException, SAXException {
-    String path = App.class.getClassLoader().getResource("rdf-dc-schema.yaml").getPath();
-    Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/rdf-dc-schema.yaml").asSchema();
 
     MeasurementConfiguration configuration = new MeasurementConfiguration()
       .disableCompletenessMeasurement()
@@ -172,7 +172,7 @@ public class XPathBasedIteratorTest {
   @Test
   public void testOr_dcat() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
     String xpath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
-    NodeList nodes = runXpath("rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-dcat.xml", xpath);
+    NodeList nodes = runXpath("schemas/rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-dcat.xml", xpath);
     assertEquals(1, nodes.getLength());
     List<String> identifiers = new ArrayList<>();
     for (int i = 0; i < nodes.getLength(); ++i) {
@@ -185,7 +185,7 @@ public class XPathBasedIteratorTest {
   @Test
   public void testOr_bf() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
     String xpath = "/rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:identifier | /rdf:RDF/rdf:Description/dc:identifier/bf:Identifier/rdf:value";
-    NodeList nodes = runXpath("rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-bf.xml", xpath);
+    NodeList nodes = runXpath("schemas/rdf-dc-schema.yaml", "/dc/rdf-ddb-dc-sample-bf.xml", xpath);
     assertEquals(1, nodes.getLength());
     List<String> identifiers = new ArrayList<>();
     for (int i = 0; i < nodes.getLength(); ++i) {
@@ -197,8 +197,7 @@ public class XPathBasedIteratorTest {
 
   private NodeList runXpath(String schemaFile, String xmlFile, String xpath)
       throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
-    String path = App.class.getClassLoader().getResource(schemaFile).getPath();
-    Schema schema = ConfigurationReader.readSchemaYaml(path).asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
 
     XPath xpathEngine = XpathEngineFactory.initializeEngine(schema.getNamespaces());
     URL url = this.getClass().getResource(xmlFile);

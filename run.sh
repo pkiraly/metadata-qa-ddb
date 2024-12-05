@@ -33,7 +33,7 @@ JAR=target/metadata-qa-ddb-1.0-SNAPSHOT-jar-with-dependencies.jar
 # index text
 # TODO: disable deletion
 java -cp $JAR de.gwdg.metadataqa.ddb.App \
-  --schema src/main/resources/dc-schema.yaml \
+  --schema schemas/dc-schema.yaml \
   --input $INPUT_DIR/DC-DDB-WuerzburgTXT/UB_W-rzburg_Texte.xml \
   --output results/texts.csv \
   --format csv \
@@ -51,7 +51,7 @@ if [[ -f ${DIR}/qa.sqlite ]]; then
 fi
 
 java -cp $JAR de.gwdg.metadataqa.ddb.App \
-  --schema src/main/resources/dc-schema.yaml \
+  --schema schemas/dc-schema.yaml \
   --input $INPUT_DIR/DC-DDB-WuerzburgTXT/UB_W-rzburg_Texte.xml \
   --output ${DIR}/raw.csv \
   --format csv \
@@ -82,7 +82,7 @@ fi
 
 # index text
 java -cp $JAR de.gwdg.metadataqa.ddb.App \
-  --schema src/main/resources/dc-schema.yaml \
+  --schema schemas/dc-schema.yaml \
   --input $INPUT_DIR/DC-DDB-WuerzburgIMG/UB_W-rzburg_Bilder.xml \
   --output ${DIR}/raw.csv \
   --format csv \
@@ -90,7 +90,7 @@ java -cp $JAR de.gwdg.metadataqa.ddb.App \
   --index
 
 java -cp $JAR de.gwdg.metadataqa.ddb.App \
-  --schema src/main/resources/dc-schema.yaml \
+  --schema schemas/dc-schema.yaml \
   --input $INPUT_DIR/DC-DDB-WuerzburgIMG/UB_W-rzburg_Bilder.xml \
   --output ${DIR}/raw.csv \
   --format csv \
@@ -108,7 +108,7 @@ sqlite3 ${DIR}/qa.sqlite << EOF
 EOF
 
 java -cp $JAR de.gwdg.metadataqa.ddb.App \
-  --schema src/main/resources/marc-schema.yaml \
+  --schema schemas/marc-schema.yaml \
   --directory /home/kiru/temp/source/MARC_BSB/oai_bsb_84 \
   --output /home/kiru/temp/raw.csv \
   --format csv \

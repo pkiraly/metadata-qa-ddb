@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 public class XpathTest {
   @Test
   public void name() throws FileNotFoundException {
-    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/marc-schema.yaml").asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/marc-schema.yaml").asSchema();
     assertNotNull(schema);
     assertNotNull(schema.getNamespaces());
     assertEquals(8, schema.getNamespaces().size());
@@ -43,7 +43,7 @@ public class XpathTest {
   // @Test
   public void lido() throws FileNotFoundException {
     String path = "//lido:lido";
-    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/lido-schema.yaml").asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/lido-schema.yaml").asSchema();
     URL url = this.getClass().getResource("/lido/20201020_sddm.xml");
     File file = new File(url.getFile());
 
@@ -77,7 +77,7 @@ public class XpathTest {
 
   @Test
   public void rdf_test_dcat() throws FileNotFoundException {
-    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/rdf-dc-schema.yaml").asSchema();
     assertNotNull(schema);
     assertNotNull(schema.getNamespaces());
     assertEquals(10, schema.getNamespaces().size());
@@ -96,7 +96,7 @@ public class XpathTest {
 
   @Test
   public void rdf_test_bf() throws FileNotFoundException {
-    Schema schema = ConfigurationReader.readSchemaYaml("src/main/resources/rdf-dc-schema.yaml").asSchema();
+    Schema schema = ConfigurationReader.readSchemaYaml("schemas/rdf-dc-schema.yaml").asSchema();
     assertNotNull(schema);
     assertNotNull(schema.getNamespaces());
     assertEquals(10, schema.getNamespaces().size());

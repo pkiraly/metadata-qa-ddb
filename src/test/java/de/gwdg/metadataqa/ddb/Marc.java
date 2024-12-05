@@ -33,7 +33,7 @@ public class Marc {
     assertTrue(file.exists());
 
     try {
-      schema = ConfigurationReader.readSchemaYaml("src/main/resources/marc-schema.yaml").asSchema();
+      schema = ConfigurationReader.readSchemaYaml("schemas/marc-schema.yaml").asSchema();
       XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
       String xml = iterator.next();
       Map<String, String> ns = schema.getNamespaces();

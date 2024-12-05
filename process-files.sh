@@ -13,7 +13,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-EDM \
-  --schema src/main/resources/ddb-edm-schema.yaml \
+  --schema schemas/ddb-edm-schema.yaml \
   --output $OUTPUT_DIR/edm-ddb.csv \
   --record-address '//rdf:RDF'
 
@@ -24,7 +24,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/MARC \
-  --schema src/main/resources/marc-schema.yaml \
+  --schema schemas/marc-schema.yaml \
   --output $OUTPUT_DIR/marc.csv \
   --record-address '//marc:record'
 
@@ -35,7 +35,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-DC \
-  --schema src/main/resources/dc-schema.yaml \
+  --schema schemas/dc-schema.yaml \
   --output $OUTPUT_DIR/dc.csv \
   --record-address '//oai:record'
 
@@ -46,7 +46,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/LIDO \
-  --schema src/main/resources/lido-schema.yaml \
+  --schema schemas/lido-schema.yaml \
   --output $OUTPUT_DIR/lido.csv \
   --record-address '//lido:lido'
 
@@ -57,7 +57,7 @@ java -Xmx4g -cp $JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/METS-MODS \
-  --schema src/main/resources/mets-mods-schema.yaml \
+  --schema schemas/mets-mods-schema.yaml \
   --output $OUTPUT_DIR/mets-mods.csv \
   --record-address '//mets:mets'
 

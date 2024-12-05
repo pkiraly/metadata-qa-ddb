@@ -21,7 +21,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --mysqlUser ${MQAF_DB_USER} --mysqlPassword ${MQAF_DB_PASSWORD} \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/METS-MODS \
-  --schema $ROOT/src/main/resources/mets-mods-schema.yaml \
+  --schema $ROOT/schemas/mets-mods-schema.yaml \
   --output $OUTPUT_DIR/mets-mods.csv \
   --sqlitePath $OUTPUT_DIR/ddb-record.sqlite \
   --record-address '//mets:mets' \

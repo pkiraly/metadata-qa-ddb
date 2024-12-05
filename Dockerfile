@@ -49,6 +49,9 @@ WORKDIR /opt/metadata-qa-ddb
 # copy JAR file
 COPY --chown=${RUN_USER}:${RUN_GROUP} target/metadata-qa-ddb-${MQA_VERSION}-jar-with-dependencies.jar target/metadata-qa-ddb.jar
 
+# copy schemas
+COPY --chown=${RUN_USER}:${RUN_GROUP} schemas schemas
+
 # scripts needed to run the
 COPY --chown=${RUN_USER}:${RUN_GROUP} scripts scripts
 COPY --chown=${RUN_USER}:${RUN_GROUP} run-all.sh .

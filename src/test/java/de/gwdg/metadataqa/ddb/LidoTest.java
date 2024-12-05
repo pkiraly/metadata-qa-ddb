@@ -35,7 +35,7 @@ public class LidoTest {
     assertTrue(file.exists());
 
     try {
-      schema = ConfigurationReader.readSchemaYaml("src/main/resources/lido-schema.yaml").asSchema();
+      schema = ConfigurationReader.readSchemaYaml("schemas/lido-schema.yaml").asSchema();
       XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
       String xml = iterator.next();
       xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());

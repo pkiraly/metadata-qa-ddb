@@ -12,7 +12,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/METS-MODS \
-  --schema $ROOT/src/main/resources/mets-mods-schema.yaml \
+  --schema $ROOT/schemas/mets-mods-schema.yaml \
   --output $OUTPUT_DIR/mets-mods.csv \
   --record-address '//mets:mets' \
   ${MQAF_VALIDATION_PARAMS}

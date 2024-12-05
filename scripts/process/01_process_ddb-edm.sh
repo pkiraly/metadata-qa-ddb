@@ -12,7 +12,7 @@ java -Xmx4g -cp $ROOT/$JAR de.gwdg.metadataqa.ddb.App \
   --sqlitePath $OUTPUT_DIR/ddb.sqlite \
   --rootDirectory $INPUT_DIR \
   --directory $INPUT_DIR/DDB-EDM \
-  --schema $ROOT/src/main/resources/ddb-edm-schema.yaml \
+  --schema $ROOT/schemas/ddb-edm-schema.yaml \
   --output $OUTPUT_DIR/edm-ddb.csv \
   --record-address '//rdf:RDF' \
   ${MQAF_VALIDATION_PARAMS}
