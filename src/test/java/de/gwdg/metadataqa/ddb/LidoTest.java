@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class LidoTest {
 
@@ -132,12 +133,15 @@ public class LidoTest {
   @Test
   public void Objekttyp_Quellenangabe() {
     DataElement p = schema.getPathByLabel("Objekttyp_Quellenangabe");
+    assertNull(p);
+    /* It was removed @2024-12-11
     assertEquals(
       "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID/@lido:source",
       p.getPath());
 
     List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(0, itemList.size());
+     */
     // assertEquals("Vintage Print", itemList.get(0).getValue());
   }
 
