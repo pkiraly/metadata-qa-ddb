@@ -73,5 +73,7 @@ COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/configuration.cnf.doc
 # 	chmod +x docker-entrypoint.sh && \
 # 	mv configuration.cnf.docker configuration.cnf
 
-ENTRYPOINT ["supervisord", "-c", "/opt/metadata-qa-ddb/supervisord.conf"]
+
+# ENTRYPOINT ["supervisord", "-c", "/opt/metadata-qa-ddb/supervisord.conf"]
+CMD ["./run-all.sh"]
 # EXPOSE 4200

@@ -13,7 +13,7 @@ services:
       MYSQL_DATABASE: ddb
       MYSQL_USER: ddb
       MYSQL_PASSWORD: ddb
-    container_name: ${DB_CONTAINER:-ddb-db}
+    container_name: ${DB_CONTAINER:-mqaf-ddb-db}
     networks:
       - ddb
 
@@ -36,7 +36,7 @@ services:
       timeout: 10s
       retries: 120
     restart: on-failure
-    container_name: ${SOLR_CONTAINER:-ddb-solr}
+    container_name: ${SOLR_CONTAINER:-mqaf-ddb-solr}
     networks:
       - ddb
 
@@ -72,7 +72,7 @@ services:
 
       # extra validation paramteres
       MQAF_VALIDATION_PARAMS: ${MQAF_VALIDATION_PARAMS:-}
-    container_name: ${CLI_CONTAINER:-ddb-cli}
+    container_name: ${CLI_CONTAINER:-mqaf-ddb-cli}
     depends_on:
       - database
       - solr
@@ -98,7 +98,7 @@ services:
       # Apache Solr settings
       MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-localhost}
       MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
-    container_name: ${REPORT_CONTAINER:-ddb-report}
+    container_name: ${REPORT_CONTAINER:-mqaf-ddb-report}
     depends_on:
       - database
       - solr
