@@ -10,15 +10,16 @@ fields:
     rules:
       - id: Q-1.1
         description: There must be an ID for the data record in the data record supplied.
-        debug: true
+        # debug: true
         and:
-        - minCount: 1
-        - minLength: 1
+          - minCount: 1
+          - minLength: 1
       - id: Q-1.2
         description: The ID for the data record must be unique.
         and:
-        - maxCount: 1
-        - unique: true
+          - dependencies: [ Q-1.1 ]
+          - maxCount: 1
+          - unique: true
       # - id: Q-1.3
       #   description: In data records that represent several hierarchical levels, the description units of the individual
       #     parts of an object must have a unique identifier within the data record.
@@ -27,8 +28,10 @@ fields:
       - id: Q-1.5
         description: The ID for the data record is easy to process by machine
         successScore: 3
-        not:
-        - pattern: ^.*?[^\p{Graph}].*?$
+        and:
+          - dependencies: [ Q-1.1 ]
+          - not:
+            - pattern: ^.*?[^\p{Graph}].*?$
 
   # Q-2 Identifikator für den Datengeber
   - name: providerid
@@ -45,21 +48,29 @@ fields:
       - id: Q-2.2
         description: The ID for the data provider must be unique worldwide.
         successScore: 1
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
+        and:
+          - dependencies: [ Q-2.1 ]
+          - pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description: Determination of the IDs for the data supplier in the old and newly delivered data sets. Compare if the IDs are the same as those in the new dataset.
       - id: Q-2.4
         description: Check whether the data supplier ID is an ISIL-ID or ISIL-URI using the rules in the table "Data supplier ID"
         successScore: 1
-        pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+)$
+        and:
+          - dependencies: [ Q-2.1 ]
+          - pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
         successScore: 2
-        pattern: ^http://ld.zdb-services.de/[\w+/-]+$
+        and:
+          - dependencies: [ Q-2.1 ]
+          - pattern: ^http://ld.zdb-services.de/[\w+/-]+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 1
-        pattern: ^http://d-nb.info/gnd/[\w-]+$
+        and:
+          - dependencies: [ Q-2.1 ]
+          - pattern: ^http://d-nb.info/gnd/[\w-]+$
 
   # Q-3	Vorschaubild
   - name: thumbnail
@@ -95,33 +106,47 @@ fields:
       - id: Q-3.2
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         successScore: 1
-        pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
+        and:
+          - dependencies: [ Q-3.0 ]
+          - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.3
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
-        dimension:
-          minShortside: 600
-          minLongside: 800
+        and:
+          - dependencies: [ Q-3.0 ]
+          - dimension:
+              minShortside: 600
+              minLongside: 800
       - id: Q-3.4
         description: The preview image should be referenced by a hyperlink.
         successScore: 1
-        pattern: ^https?://.*$
-      - id: Q-3.5
-        description:
-          Check whether there is a MIME type for a preferred image file in the Content-Type attribute in the response
-          header of the URL (see table "File types"). If the element contains a file name => check whether the file
-          extension refers to an image file format preferred by the DDB.
-        successScore: 2
-        or:
-        - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
-        - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+        and:
+          - dependencies: [ Q-3.0 ]
+          - pattern: ^https?://.*$
+#      - id: Q-3.5
+#        description:
+#          Check whether there is a MIME type for a preferred image file in the Content-Type attribute in the response
+#          header of the URL (see table "File types"). If the element contains a file name => check whether the file
+#          extension refers to an image file format preferred by the DDB.
+#        successScore: 2
+#        and:
+#          - dependencies: [ Q-3.0 ]
+#          - or:
+#            - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+#            - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
       - id: Q-3.6
-        description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
-          Check whether there is an element for the preview image in the data record (see table "Mapping the DDB elements").
-          If yes => check whether it contains a reference to an image file. To do this, either evaluate the MIME type in the Content-Type field in the HTTP response header and/or the file extension in the file name. PDF files also count as image files (see table "File types").
-          If yes => comparison with the table "File types" to see whether the image file format is supported by the DDB.
-        or:
-          - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
-          - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+        description: There must be a reference to an image file in the data record provided (either as
+          a link or as a file name). Check whether there is an element for the preview image in the data
+          record (see table "Mapping the DDB elements").
+          If yes => check whether it contains a reference to an image file. To do this, either evaluate
+          the MIME type in the Content-Type field in the HTTP response header and/or the file extension
+          in the file name. PDF files also count as image files (see table "File types").
+          If yes => comparison with the table "File types" to see whether the image file format is supported
+          by the DDB.
+        and:
+          - dependencies: [ Q-3.0 ]
+          - or:
+            - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+            - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Q-4
   # Mediendatei [media file] -- dc:identifier/@type="binary"
@@ -180,11 +205,13 @@ fields:
           - audio/x-mpeg
           - audio/mp4
       - id: Q-4.3
-        description: Check whether there are spaces or impermissible special characters in the URL or in the file name (in the case of a media file that is not referenced by a URL).
+        description: Check whether there are spaces or impermissible special characters in the URL or
+          in the file name (in the case of a media file that is not referenced by a URL).
         dependencies: [Q-3.x, Q-4.x]
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.4
-        description: Check whether the data record contains a media file (see table "Mapping the DDB elements"). If so => check whether these elements contain a value.
+        description: Check whether the data record contains a media file (see table "Mapping the DDB elements").
+          If so => check whether these elements contain a value.
         successScore: 3
         dependencies: [Q-3.0, Q-4.0]
 
@@ -223,43 +250,45 @@ fields:
       - id: Q-5.2
         description: Check whether an http-URI for a license or a rights notice from the DDB license basket is referenced in the element for the legal status (see table "DDB license basket")
         and:
-        - minCount: 1
-        - in:
-          - http://creativecommons.org/licenses/by/3.0/de/
-          - http://creativecommons.org/licenses/by/4.0/
-          - http://creativecommons.org/licenses/by-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-sa/4.0/
-          - http://creativecommons.org/licenses/by-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nd/4.0/
-          - http://creativecommons.org/licenses/by-nc/3.0/de/
-          - http://creativecommons.org/licenses/by-nc/4.0/
-          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-sa/4.0/
-          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/
-          - http://creativecommons.org/publicdomain/mark/1.0/
-          - http://creativecommons.org/publicdomain/zero/1.0/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/InC/1.0/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+          - dependencies: [Q-5.1]
+          - minCount: 1
+          - in:
+            - http://creativecommons.org/licenses/by/3.0/de/
+            - http://creativecommons.org/licenses/by/4.0/
+            - http://creativecommons.org/licenses/by-sa/3.0/de/
+            - http://creativecommons.org/licenses/by-sa/4.0/
+            - http://creativecommons.org/licenses/by-nd/3.0/de/
+            - http://creativecommons.org/licenses/by-nd/4.0/
+            - http://creativecommons.org/licenses/by-nc/3.0/de/
+            - http://creativecommons.org/licenses/by-nc/4.0/
+            - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+            - http://creativecommons.org/licenses/by-nc-sa/4.0/
+            - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+            - http://creativecommons.org/licenses/by-nc-nd/4.0/
+            - http://creativecommons.org/publicdomain/mark/1.0/
+            - http://creativecommons.org/publicdomain/zero/1.0/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+            - http://rightsstatements.org/vocab/InC/1.0/
+            - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+            - http://rightsstatements.org/vocab/CNE/1.0/
+            - http://rightsstatements.org/vocab/NoC-NC/1.0/
+            - http://rightsstatements.org/vocab/InC-EDU/1.0/
+            - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
       # - id: Q-5.3
       #   description: The legal status must be specified for each media file referenced in the data set.
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
         and:
-        - minCount: 1
-        - in:
-          - http://creativecommons.org/publicdomain/mark/1.0/
-          - http://creativecommons.org/publicdomain/zero/1.0/
+          - dependencies: [ Q-5.1 ]
+          - minCount: 1
+          - in:
+            - http://creativecommons.org/publicdomain/mark/1.0/
+            - http://creativecommons.org/publicdomain/zero/1.0/
       - id: Q-5.5
         description:
           Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
@@ -267,36 +296,39 @@ fields:
           (see table "DDB license basket")
         successScore: 1
         and:
-        - minCount: 1
-        - in:
-          - http://creativecommons.org/licenses/by/3.0/de/
-          - http://creativecommons.org/licenses/by/4.0/
-          - http://creativecommons.org/licenses/by-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-sa/4.0/
-          - http://creativecommons.org/licenses/by-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nd/4.0/
-          - http://creativecommons.org/licenses/by-nc/3.0/de/
-          - http://creativecommons.org/licenses/by-nc/4.0/
-          - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-sa/4.0/
-          - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
-          - http://creativecommons.org/licenses/by-nc-nd/4.0/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
-          - http://rightsstatements.org/vocab/NoC-NC/1.0/
-          - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+          - dependencies: [ Q-5.1 ]
+          - minCount: 1
+          - in:
+            - http://creativecommons.org/licenses/by/3.0/de/
+            - http://creativecommons.org/licenses/by/4.0/
+            - http://creativecommons.org/licenses/by-sa/3.0/de/
+            - http://creativecommons.org/licenses/by-sa/4.0/
+            - http://creativecommons.org/licenses/by-nd/3.0/de/
+            - http://creativecommons.org/licenses/by-nd/4.0/
+            - http://creativecommons.org/licenses/by-nc/3.0/de/
+            - http://creativecommons.org/licenses/by-nc/4.0/
+            - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+            - http://creativecommons.org/licenses/by-nc-sa/4.0/
+            - http://creativecommons.org/licenses/by-nc-nd/3.0/de/
+            - http://creativecommons.org/licenses/by-nc-nd/4.0/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
+            - http://rightsstatements.org/vocab/NoC-NC/1.0/
+            - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
       - id: Q-5.6
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
-        in:
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
-          - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
-          - http://rightsstatements.org/vocab/InC/1.0/
-          - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-          - http://rightsstatements.org/vocab/CNE/1.0/
-          - http://rightsstatements.org/vocab/InC-EDU/1.0/
-          - http://rightsstatements.org/vocab/NKC/1.0/
-          - http://rightsstatements.org/vocab/UND/1.0/
+        and:
+          - dependencies: [ Q-5.1 ]
+          - in:
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/unbekannt/
+            - http://www.deutsche-digitale-bibliothek.de/lizenzen/vw/
+            - http://rightsstatements.org/vocab/InC/1.0/
+            - http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+            - http://rightsstatements.org/vocab/CNE/1.0/
+            - http://rightsstatements.org/vocab/InC-EDU/1.0/
+            - http://rightsstatements.org/vocab/NKC/1.0/
+            - http://rightsstatements.org/vocab/UND/1.0/
 
   # Q-6 Objekttitel
   - name: dc:title
@@ -312,21 +344,29 @@ fields:
         - pattern: ^.+$
       - id: Q-6.2
         description: Check whether the same object title occurs more than once in a data set or in several data sets
-        unique: true
+        and:
+          - dependencies: [ Q-6.1 ]
+          - unique: true
       - id: Q-6.3
         description: Check whether there are fewer than three characters in the object title.
-        minLength: 3
+        and:
+          - dependencies: [ Q-6.1 ]
+          - minLength: 3
       - id: Q-6.4
         description: Comparison of the values in the object title element with a predefined list of undesired values. This list must first be created. If necessary, the output lists for 6.2 and 6.3.
-        not:
-          - in:
-            - "?"
-            - "ohne Title"
-            - "unbekannter Titel"
+        and:
+          - dependencies: [ Q-6.1 ]
+          - not:
+            - in:
+              - "?"
+              - "ohne Title"
+              - "unbekannter Titel"
       - id: Q-6.5
         description: Check whether the same string is contained in the element for the object title and the object type
-        not:
-        - equals: dc:type
+        and:
+          - dependencies: [ Q-6.1 ]
+          - not:
+            - equals: dc:type
 
   # Q-7 Objekttyp
   - name: dc:type
@@ -341,35 +381,43 @@ fields:
         - pattern: ^.+$
       - id: Q-7.4
         description: It is a specific object type designation and not an object description or object classification.
-        maxWords: 2
+        and:
+          - dependencies: [ Q-7.1 ]
+          - maxWords: 2
 
   # Q-7 Objekttyp (URI)
   - name: dc_type_source
     path: oai:record/dc:type/@resource
     rules:
-      - id: Q-7.5
-        description: If there is an http-URI for the object type => check whether the URI begins with the namespace "http://d-nb.info/gnd/" or "http://vocab.getty.edu/aat/". If there is no http-URI for the object type => check whether the attribute for the source of the object type term contains the value "AAT", "gnd", "GND", "gnd-music" or "gnd-content".
-        successScore: 1
-        or:
-        - and:
-          - pattern: ^http.*$
-          - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
-        - and:
-          - not:
-            - pattern: ^http.*$
-          - in: [AAT, gnd, GND, gnd-music, gnd-content]
       - id: Q-7.6
         description: Check whether the value in the element for the URI of the object type begins with http:// or https://. If yes => check whether the URI begins with a namespace for a LOD vocabulary accepted by the DDB (see Sect.
         successScore: 1
         pattern: ^https?://(vocab.getty.edu/aat/|vocab.getty.edu/ulan/|vocab.getty.edu/tgn/|viaf.org/viaf/|sws.geonames.org/|iconclass.org/|d-nb.info/gnd|www.imj.org.il/imagine/thesaurus/objects/|id.loc.gov/authorities/subjects/|data.europeana.eu/concept/loc|data.europeana.eu/concept/soundgenres/|udcdata.info/rdf/|vocabularies.unesco.org/thesaurus/|finto.fi/yso/en/|www.wikidata.org/entity/|thesaurus.europeanafashion.eu/thesaurus/|www.mimo-db.eu/).*$
+      - id: Q-7.5
+        description: If there is an http-URI for the object type => check whether the URI begins with the namespace "http://d-nb.info/gnd/" or "http://vocab.getty.edu/aat/". If there is no http-URI for the object type => check whether the attribute for the source of the object type term contains the value "AAT", "gnd", "GND", "gnd-music" or "gnd-content".
+        successScore: 1
+        and:
+          - dependencies: [ Q-7.6 ]
+          - or:
+            - and:
+              - pattern: ^http.*$
+              - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+            - and:
+              - not:
+                - pattern: ^http.*$
+              - in: [AAT, gnd, GND, gnd-music, gnd-content]
       - id: Q-7.7
         description: Check whether the URI starts with "http://d-nb.info/gnd/" or "http://vocab.getty.edu/aat/".
         successScore: 2
-        pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+        and:
+          - dependencies: [ Q-7.6 ]
+          - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
       - id: Q-7.8
         description: Check whether the URI starts with "http://vocab.getty.edu/aat/Q".
         successScore: 1
-        pattern: ^http://vocab.getty.edu/aat/Q.*$
+        and:
+          - dependencies: [ Q-7.6 ]
+          - pattern: ^http://vocab.getty.edu/aat/Q.*$
 
  # Objekttyp (Quellenangabe) -- it is not existing in DC
  #- name: dc_type_source
@@ -403,7 +451,9 @@ fields:
       - id: Q-9.3
         description: The http-URI refers to a term GND-subject categories.
         successScore: 1
-        pattern: ^https://d-nb.info/standards/vocab/gnd/gnd-sc#
+        and:
+          - dependencies: [ Q-9.2 ]
+          - pattern: ^https://d-nb.info/standards/vocab/gnd/gnd-sc#
 
 #  - name: Thematischer Bezug
 #    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about
@@ -438,12 +488,16 @@ fields:
       - id: Q-9.6
         description: The http-URI refers to a term in the GND or the AAT.
         successScore: 2
-        pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/)
+        and:
+          - dependencies: [ Q-9.5 ]
+          - pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/)
       # Q-9.6 and Q-9.7 can not be true at the same time
       - id: Q-9.7
         description: The http-URI refers to a term in Wikidata.
         successScore: 1
-        pattern: ^https?://https://www.wikidata.org/entity/Q
+        and:
+          - dependencies: [ Q-9.5 ]
+          - pattern: ^https?://https://www.wikidata.org/entity/Q
 
   # Objektbeschreibung
   - name: Objektbeschreibung
@@ -461,12 +515,16 @@ fields:
         # Does the object description consist of less than fifty characters?
         # Check whether there are fewer than fifty characters in the object description. For more than one object description, the longest counts.
         successScore: 2
-        maxLength: 50
+        and:
+          - dependencies: [ Q-9.8 ]
+          - maxLength: 50
       - id: Q-9.10
         description: The object description must be unique.
         # Is the value in the element for the object title identical to that for the object description?
         # Check whether the same string is contained in the element for the object title and the object description.
-        unique: true
+        and:
+          - dependencies: [ Q-9.8 ]
+          - unique: true
 
 namespaces:
   doc: http://www.lyncode.com/xoai
