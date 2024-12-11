@@ -4,6 +4,11 @@ log/
 .RData
 .Rhistory
 
+# directories for Docker
+mysql-data
+solr-data
+test-ddb/
+
 # Compiled class file
 *.class
 
