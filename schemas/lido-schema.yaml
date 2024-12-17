@@ -312,9 +312,25 @@ fields:
             - http://rightsstatements.org/vocab/NoC-NC/1.0/
             - http://rightsstatements.org/vocab/InC-EDU/1.0/
             - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-      # - id: Q-5.3
-      #   description: The legal status must be specified for each media file referenced in the data set.
-      #   failureScore: -3
+      - id: Q-5.3
+        description:
+          The legal status must be specified for each media file referenced in the data set.
+          Is there more than one media file referenced in the data record?
+          If yes => Has a legal status been given for each media file?
+          Determination of all media files that are referenced in the data record (see table "Mapping the DDB elements").
+          Check whether an element for the legal status is identified for each media file.
+          If so, check whether each of these elements contains a value.
+        # "Der Rechtsstatus muss für jede Mediendatei, die im Datensatz referenziert ist, angegeben sein.
+        # Ist im Datensatz mehr als eine Mediendatei referenziert?
+        # Wenn ja => Ist für jede Mediendatei ein Rechtsstatus angegeben?
+        # "Ermittlung aller Mediendateien, die im Datensatz referenziert sind (s. Tabelle ""Mapping der DDB-Elemente"").
+        # Prüfung, ob für jede Mediendatei ein Element für den Rechtsstatus ausgewiesen ist.
+        # Wenn ja, Prüfung ob jedes dieser Elemente einen Wert enthält.
+        # - - -
+      #  failureScore: -3
+        and:
+          - dependencies: [ Q-5.1 ]
+          - minCount: 1
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
