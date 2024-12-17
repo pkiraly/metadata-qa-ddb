@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: ddb
     container_name: ${DB_CONTAINER:-mqaf-ddb-db}
     networks:
-      - ddb
+      - mqaf-ddb
 
   solr:
     image: solr:9.6.1
@@ -38,12 +38,11 @@ services:
     restart: on-failure
     container_name: ${SOLR_CONTAINER:-mqaf-ddb-solr}
     networks:
-      - ddb
+      - mqaf-ddb
 
   cli:
     image: ${WS_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb:main} # the name of the image
     volumes:
-      - ./${DDB_CONFIG:-test-ddb/config}:/opt/metadata-qa-ddb/config
       - ./${DDB_INPUT:-test-ddb/input}:/opt/metadata-qa-ddb/input
       - ./${DDB_OUTPUT:-test-ddb/output}:/opt/metadata-qa-ddb/output
     # ports:
@@ -51,7 +50,6 @@ services:
     environment:
       REPORT_WEBHOST: ${REPORT_WEBHOST:-localhost}
       REPORT_WEBPORT: ${REPORT_WEBPORT:-90}
-      UPLOAD_FOLDER: /shared/uploads
       MQAF_DATA: ${MQAF_DATA:-}
 
       # FTP settings
@@ -77,7 +75,7 @@ services:
       - database
       - solr
     networks:
-      - ddb
+      - mqaf-ddb
 
   report:
     image: ${REPORT_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0}
@@ -90,23 +88,23 @@ services:
       - ${DDB_OUTPUT:-./test-ddb/output}:/opt/metadata-qa-ddb/output
     environment:
       # MySQL settings
-      MQAF_DB_HOST: ${MQAF_DB_HOST:-ddb-db}
+      MQAF_DB_HOST: ${MQAF_DB_HOST:-mqaf-ddb-db}
       MQAF_DB_PORT: ${MQAF_DB_PORT:-3306}
       MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
       MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
       # Apache Solr settings
-      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-localhost}
+      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-mqaf-ddb-solr}
       MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
     container_name: ${REPORT_CONTAINER:-mqaf-ddb-report}
     depends_on:
       - database
       - solr
     networks:
-      - ddb
+      - mqaf-ddb
 
 networks:
-  ddb:
+  mqaf-ddb:
 
 volumes:
   ddb-data:

@@ -50,7 +50,7 @@ fields:
         successScore: 1
         and:
           - dependencies: [ Q-2.1 ]
-          - pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|http://d-nb.info/gnd/[\w-]+)$
+          - pattern: ^(DE-\d+|DE-MUS-\d+|https?://ld.zdb-services.de/[\w+/-]+|\d{8}|oai\d{13}|https?://d-nb.info/gnd/[\w-]+)$
       # - id: Q-2.3
       #   description:
       #     Determination of the IDs for the data supplier in the old and newly delivered data sets. Compare if the IDs
@@ -61,19 +61,19 @@ fields:
         successScore: 1
         and:
           - dependencies: [ Q-2.1 ]
-          - pattern: ^(DE-\d+|DE-MUS-\d+|http://ld.zdb-services.de/[\w+/-]+)$
+          - pattern: ^(DE-\d+|DE-MUS-\d+|https?://ld.zdb-services.de/[\w+/-]+)$
       - id: Q-2.5
         description: The data provider should be identified by an http-URI from the ISIL registration.
         successScore: 2
         and:
           - dependencies: [ Q-2.1 ]
-          - pattern: ^http://ld.zdb-services.de/[\w+/-]+$
+          - pattern: ^https?://ld.zdb-services.de/[\w+/-]+$
       - id: Q-2.6
         description: The data supplier can be identified by an http-URI from the GND.
         successScore: 1
         and:
           - dependencies: [ Q-2.1 ]
-          - pattern: ^http://d-nb.info/gnd/[\w-]+$
+          - pattern: ^https?://d-nb.info/gnd/[\w-]+$
 
   - name: thumbnail_order
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/@lido:sortorder
@@ -488,7 +488,7 @@ fields:
           - or:
             - and:
               - pattern: ^http.*$
-              - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+              - pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
             - and:
               - not:
                 - pattern: ^http.*$
@@ -498,7 +498,7 @@ fields:
         successScore: 2
         and:
           - dependencies: [ Q-7.6 ]
-          - pattern: ^http://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+          - pattern: ^https://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
       - id: Q-7.8
         description: Check whether the URI starts with "http://vocab.getty.edu/aat/Q".
         successScore: 1
