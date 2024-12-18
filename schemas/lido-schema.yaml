@@ -575,7 +575,7 @@ fields:
         successScore: 1
         and:
           - dependencies: [ Q-8.2 ]
-          - pattern: ^https?://https://www.wikidata.org/entity/Q
+          - pattern: ^https?://www.wikidata.org/entity/Q
 
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten) | Sachkategorie (Bezeichnung) | Sachkategorie (URI)
   - name: Sachkategorie
