@@ -401,7 +401,7 @@ fields:
           - or:
             - and:
               - pattern: ^http.*$
-              - pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
+              - pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/|www.wikidata.org/entity/Q).*$
             - and:
               - not:
                 - pattern: ^http.*$

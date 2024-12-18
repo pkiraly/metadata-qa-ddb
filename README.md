@@ -116,7 +116,7 @@ MQAF_SOLR_HOST=localhost
 MQAF_DBSOLR_PORT=8983
 # the prefix of the Solr core, default is 'qa_ddb'
 # the cores will be names as [SOLR_CORE_PREFIX]_[METADATA_SCHEMA], e.g. qa_ddb_lido, qa_ddb_marc etc.
-MQAF_SOLR_CORE_PREFIX=qa_ddb
+MQAF_SOLR_CORE_PREFIX=ddb_qa
 
 # validation related settings
 MQAF_VALIDATION_PARAMS=

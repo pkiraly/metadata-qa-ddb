@@ -22,7 +22,7 @@ echo "MYSQL_CONFIG_FILE: $MYSQL_CONFIG_FILE"
 MYSQL_EXTRA_PARAMETERS=
 if [[ "$MYSQL_CONFIG_FILE" != "" ]]; then
   if [[ ! -f $MYSQL_CONFIG_FILE ]]; then
-    echo "[client]"                     > $MYSQL_CONFIG_FILE
+    echo "[client]"                          > $MYSQL_CONFIG_FILE
     echo "user = \"$MQAF_DB_USER\""         >> $MYSQL_CONFIG_FILE
     echo "password = \"$MQAF_DB_PASSWORD\"" >> $MYSQL_CONFIG_FILE
     echo "host = \"$MQAF_DB_HOST\""         >> $MYSQL_CONFIG_FILE
