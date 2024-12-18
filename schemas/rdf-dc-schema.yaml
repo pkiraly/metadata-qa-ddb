@@ -413,7 +413,7 @@ fields:
           - dependencies: [ Q-7.6 ]
           - pattern: ^https?://(d-nb.info/gnd/|vocab.getty.edu/aat/).*$
       - id: Q-7.8
-        description: Check whether the URI starts with "http://vocab.getty.edu/aat/Q".
+        description: Check whether the URI starts with "http://www.wikidata.org/entity/Q".
         successScore: 1
         and:
           - dependencies: [ Q-7.6 ]
