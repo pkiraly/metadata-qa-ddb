@@ -417,7 +417,7 @@ fields:
         successScore: 1
         and:
           - dependencies: [ Q-7.6 ]
-          - pattern: ^http://vocab.getty.edu/aat/Q.*$
+          - pattern: ^https?://www.wikidata.org/entity/Q.*$
 
  # Objekttyp (Quellenangabe) -- it is not existing in DC
  #- name: dc_type_source
