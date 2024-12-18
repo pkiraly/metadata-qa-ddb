@@ -545,8 +545,8 @@ fields:
 #        - pattern: ^(http://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/)|https://www.wikidata.org/wiki/Q).*$
 
   # Objektkategorie (Strukturelement) | Objektkategorie (Bezeichnung) | Objektkategorie (URI)
-  - name: Objektkategorie
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:conceptID
+  - name: Objektkategorie (term)
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:term
     # extractable: true
     rules:
       - id: Q-8.1
@@ -555,6 +555,11 @@ fields:
         and:
           - minCount: 1
           - pattern: ^.+$
+
+  - name: Objektkategorie (concept ID)
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:conceptID
+    # extractable: true
+    rules:
       - id: Q-8.2
         description: The object category is referenced by an http URI from a LOD vocabulary.
         successScore: 1
