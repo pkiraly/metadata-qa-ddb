@@ -34,7 +34,7 @@ fields:
           - not:
               - pattern: ^.*?[^\p{Graph}].*?$
 
-  # Q-2	Identifikator für den Datengeber
+  # Q-2 Identifikator für den Datengeber
   - name: providerid
     path: lido:lido/lido:administrativeMetadata/lido:recordWrap/lido:recordSource/lido:legalBodyID
     extractable: true
@@ -82,7 +82,7 @@ fields:
         hidden: true
         minCount: 1
 
-  # Q-3	Vorschaubild
+  # Q-3 Vorschaubild
   - name: thumbnail
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/lido:linkResource
     # path: lido:lido/lido:resourceWrap/lido:resourceSet/lido:ResourceRepresentation/[@type="http://terminology.lido-schema.org/resourceRepresentation_type/preview_image"]
@@ -171,7 +171,7 @@ fields:
 #    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:resourceRepresentation/@lido:type
 #    extractable: true
 
-  # Q-4	Link zum Digitalen Objekt
+  # Q-4 Link zum Digitalen Objekt
   # Objekt im Medienviewer
   # Objekt im Kontext
   - name: Mediendatei_Link_Resource
@@ -268,7 +268,7 @@ fields:
 #    path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:term
 #    extractable: true
 
-  # Q-5	Rechtsstatus für das Digitale Objekt
+  # Q-5 Rechtsstatus für das Digitale Objekt
   - name: rights
     path: lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet/lido:rightsResource/lido:rightsType/lido:conceptID
     rules:
@@ -489,9 +489,10 @@ fields:
       - id: Q-7.6
         description:
           Check whether the value in the element for the URI of the object type begins with http:// or https://.
-          If yes => check whether the URI begins with a namespace for a LOD vocabulary accepted by the DDB (see Sect.
+          If yes => check whether the URI begins with a namespace for a LOD vocabulary accepted by the DDB (see Sect.  Objekttyp-Vok)
         successScore: 1
-        pattern: ^https?://(vocab.getty.edu/aat/|vocab.getty.edu/ulan/|vocab.getty.edu/tgn/|viaf.org/viaf/|sws.geonames.org/|iconclass.org/|d-nb.info/gnd|www.imj.org.il/imagine/thesaurus/objects/|id.loc.gov/authorities/subjects/|data.europeana.eu/concept/loc|data.europeana.eu/concept/soundgenres/|udcdata.info/rdf/|vocabularies.unesco.org/thesaurus/|finto.fi/yso/en/|www.wikidata.org/entity/|thesaurus.europeanafashion.eu/thesaurus/|www.mimo-db.eu/).*$
+        pattern: ^https?://(vocab.getty.edu/aat/|vocab.getty.edu/ulan/|vocab.getty.edu/tgn/|viaf.org/viaf/|iconclass.org/|d-nb.info/gnd|www.wikidata.org/entity/Q).*$
+        # pattern: ^https?://(vocab.getty.edu/aat/|vocab.getty.edu/ulan/|vocab.getty.edu/tgn/|viaf.org/viaf/|sws.geonames.org/|iconclass.org/|d-nb.info/gnd|www.imj.org.il/imagine/thesaurus/objects/|id.loc.gov/authorities/subjects/|data.europeana.eu/concept/loc|data.europeana.eu/concept/soundgenres/|udcdata.info/rdf/|vocabularies.unesco.org/thesaurus/|finto.fi/yso/en/|www.wikidata.org/entity/|thesaurus.europeanafashion.eu/thesaurus/|www.mimo-db.eu/).*$
       - id: Q-7.5
         description:
           If there is an http-URI for the object type => check whether the URI begins with the
