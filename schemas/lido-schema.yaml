@@ -464,7 +464,7 @@ fields:
 #    extractable: true
 #    skip: true
 
-  # Q-7 Objekttyp
+  # Q-7 Objekttyp (Term)
   - name: Objekttyp
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term
     # | lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType
@@ -557,7 +557,7 @@ fields:
           - minCount: 1
           - pattern: ^.+$
 
-  - name: Objektkategorie (concept ID)
+  - name: Objektkategorie (URI)
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Object genre' or @lido:type='http://terminology.lido-schema.org/lido00853']/lido:conceptID
     # extractable: true
     rules:
@@ -578,9 +578,23 @@ fields:
           - dependencies: [ Q-8.2 ]
           - pattern: ^https?://www.wikidata.org/entity/Q
 
+  # Sachkategorie (term)
+  - name: Sachkategorie
+    # TODO: check it
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:term
+    #    extractable: true
+    rules:
+      - id: Q-9.1
+        description: There must be at least one preferred designation for the object type in the data record.
+        successScore: 1
+        and:
+          - minCount: 1
+          - pattern: ^.+$
+
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten) | Sachkategorie (Bezeichnung) | Sachkategorie (URI)
   - name: Sachkategorie
-    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:term | lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:conceptID
+    # TODO: check it
+    path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:conceptID
 #    extractable: true
     rules:
       - id: Q-9.1
@@ -625,7 +639,7 @@ fields:
 #    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
 #    extractable: true
 
-  # Inhaltliche Beschreibung
+  # Inhaltliche Beschreibung (term)
   - name: Inhaltliche Beschreibung
     path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
     # extractable: true
@@ -638,6 +652,7 @@ fields:
           - minCount: 1
           - pattern: ^.+$
 
+  # Inhaltliche Beschreibung (URI)
   - name: Inhaltliche Beschreibung (URI)
     path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID
     # extractable: true
@@ -661,7 +676,7 @@ fields:
           - dependencies: [ Q-9.5 ]
           - pattern: ^https?://https://www.wikidata.org/entity/Q
 
-  # Objektbeschreibung
+  # Objektbeschreibung (term)
   - name: Objektbeschreibung
     path: lido:lido/lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:objectDescriptionWrap/lido:objectDescriptionSet/lido:descriptiveNoteValue
     # extractable: true

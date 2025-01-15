@@ -368,7 +368,7 @@ fields:
           - not:
             - equals: dc:type
 
-  # Q-7 Objekttyp
+  # Q-7 Objekttyp (Term)
   - name: dc:type
     # path: oai:record/dc:type
     path: rdf:Description/dc:type | rdf:Description/dc:type/skos:Concept | rdf:Description/dc:type/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:type/skos:Concept/@rdf:about | oai:record/dc:type
@@ -436,7 +436,9 @@ fields:
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten)
   # Sachkategorie (Bezeichnung)
   - name: Sachkategorie
-    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel | oai:record/oai:metadata/oai_dc:dc/dc:subject
+    # TODO: separate term and URI
+    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel
+      # | oai:record/oai:metadata/oai_dc:dc/dc:subject
     # extractable: true
     rules:
       - id: Q-9.1
@@ -473,8 +475,8 @@ fields:
 
   # Werk als Thema (Strukturelement)
 
-  - name: Thematischer Bezug
-    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dc:subject/dcterms:Agent[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:spatial/dcterms:Location[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal | rdf:Description/dcterms:temporal/skos:Concept | rdf:Description/dcterms:temporal/skos:Concept/skos:prefLabel | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+  - name: Thematischer Bezug (Term)
+    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/dcterms:Agent[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:spatial |    rdf:Description/dcterms:spatial/dcterms:Location[@rdf:about]/skos:prefLabel | rdf:Description/dcterms:temporal | rdf:Description/dcterms:temporal/skos:Concept/skos:prefLabel
     rules:
       - id: Q-9.4
         description: There must be at least one preferred designation for a thematic relation in the data record.
@@ -482,6 +484,10 @@ fields:
         and:
           - minCount: 1
           - pattern: ^.+$
+
+  - name: Thematischer Bezug (URI)
+    path: rdf:Description/dc:subject/skos:concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+    rules:
       - id: Q-9.5
         description: The thematic relation must come from a controlled vocabulary.
         successScore: 1
