@@ -292,7 +292,7 @@ public class App {
                 }
 
                 CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
-                MetricCollector collector = appliedCalculator.measureWithoutFormat(xml);
+                MetricCollector collector = appliedCalculator.measureWithoutFormat(xml, String.valueOf(recordCount));
                 Map<String, List<MetricResult>> results = (Map<String, List<MetricResult>>) collector.getResults();
                 List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
                 String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
