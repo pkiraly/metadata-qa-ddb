@@ -280,8 +280,14 @@ fields:
             - http://rightsstatements.org/vocab/NoC-NC/1.0/
             - http://rightsstatements.org/vocab/InC-EDU/1.0/
             - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-      # - id: Q-5.3
-      #   description: The legal status must be specified for each media file referenced in the data set.
+
+      # TODO: check 'each'
+      - id: Q-5.3
+        description: The legal status must be specified for each media file referenced in the data set.
+        and:
+          - dependencies: [ Q-5.1 ]
+          - minCount: 1
+
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
@@ -291,6 +297,7 @@ fields:
           - in:
             - http://creativecommons.org/publicdomain/mark/1.0/
             - http://creativecommons.org/publicdomain/zero/1.0/
+
       - id: Q-5.5
         description:
           Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
@@ -316,6 +323,7 @@ fields:
             - http://www.deutsche-digitale-bibliothek.de/lizenzen/nug-kkn/
             - http://rightsstatements.org/vocab/NoC-NC/1.0/
             - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+
       - id: Q-5.6
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
         and:
@@ -437,28 +445,29 @@ fields:
   # Sachkategorie (einfache Modellierung)
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten)
   # Sachkategorie (Bezeichnung)
-  - name: Sachkategorie
-    # TODO: separate term and URI
-    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel
-      # | oai:record/oai:metadata/oai_dc:dc/dc:subject
-    # extractable: true
-    rules:
-      - id: Q-9.1
-        description: There must be at least one preferred designation for the object type in the data record.
-        successScore: 1
-        and:
-          - minCount: 1
-          - pattern: ^.+$
-      - id: Q-9.2
-        description: The subject category must come from a controlled vocabulary.
-        successScore: 1
-        pattern: ^http.*$
-      - id: Q-9.3
-        description: The http-URI refers to a term GND-subject categories.
-        successScore: 1
-        and:
-          - dependencies: [ Q-9.2 ]
-          - pattern: ^https?://d-nb.info/standards/vocab/gnd/gnd-sc#
+# Removed in 2025-01
+#  - name: Sachkategorie
+#    # TODO: separate term and URI
+#    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept/skos:prefLabel
+#      # | oai:record/oai:metadata/oai_dc:dc/dc:subject
+#    # extractable: true
+#    rules:
+#      - id: Q-9.1
+#        description: There must be at least one preferred designation for the object type in the data record.
+#        successScore: 1
+#        and:
+#          - minCount: 1
+#          - pattern: ^.+$
+#      - id: Q-9.2
+#        description: The subject category must come from a controlled vocabulary.
+#        successScore: 1
+#        pattern: ^http.*$
+#      - id: Q-9.3
+#        description: The http-URI refers to a term GND-subject categories.
+#        successScore: 1
+#        and:
+#          - dependencies: [ Q-9.2 ]
+#          - pattern: ^https?://d-nb.info/standards/vocab/gnd/gnd-sc#
 
 #  - name: Thematischer Bezug
 #    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about

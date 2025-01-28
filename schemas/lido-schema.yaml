@@ -313,6 +313,7 @@ fields:
             - http://rightsstatements.org/vocab/NoC-NC/1.0/
             - http://rightsstatements.org/vocab/InC-EDU/1.0/
             - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+
       - id: Q-5.3
         description:
           The legal status must be specified for each media file referenced in the data set.
@@ -332,6 +333,7 @@ fields:
         and:
           - dependencies: [ Q-5.1 ]
           - minCount: 1
+
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
@@ -341,6 +343,7 @@ fields:
           - in:
             - http://creativecommons.org/publicdomain/mark/1.0/
             - http://creativecommons.org/publicdomain/zero/1.0/
+
       - id: Q-5.5
         description:
           Check whether an http-URI is specified for a rights notice with restricted use (see table "DDB license basket").
@@ -642,7 +645,8 @@ fields:
 
   # Inhaltliche Beschreibung (term)
   - name: Inhaltliche Beschreibung
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term
+    # TODO: There is one special rule for date as thematic relation: lido:earliestDate and lido:latestDate are only valid if they appear together. The alternative displayDate is just one element
     # extractable: true
     rules:
       # term check!!!
@@ -655,7 +659,7 @@ fields:
 
   # Inhaltliche Beschreibung (URI)
   - name: Inhaltliche Beschreibung (URI)
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:actorID[@lido:type='http://terminology.lido-schema.org/lido00099' or @lido:type='URI' or @lido:type='uri'] | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:placeID | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID
     # extractable: true
     rules:
       # URI check!!! TODO: move it
