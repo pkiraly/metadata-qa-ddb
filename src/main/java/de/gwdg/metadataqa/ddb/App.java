@@ -30,425 +30,484 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
  */
 public class App {
-    // private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
-    private static Logger logger = Logger.getLogger(App.class.getName());
+  // private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
+  private static Logger logger = Logger.getLogger(App.class.getName());
 
-    static {
-        try {
-            InputStream stream = App.class.getClassLoader()
-                .getResourceAsStream("logging.properties");
-            LogManager.getLogManager().readConfiguration(stream);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+  static {
+    try {
+      InputStream stream = App.class.getClassLoader()
+        .getResourceAsStream("logging.properties");
+      LogManager.getLogManager().readConfiguration(stream);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
+
+  private Writer writer;
+
+  public enum FORMAT {CSV, JSON};
+  public enum DATA_SOURCE {FILE, DIRECTORY};
+  static Options options = new Options();
+  private CommandLine cmd;
+  private String inputFile;
+  private String outputFile;
+  private boolean indexing;
+  private boolean storing;
+  private FORMAT format;
+  private SqliteManager sqliteManager;
+  private MySqlManager mySqlManager;
+  private boolean doSqlite = false;
+  private boolean doMysql = false;
+  private String idPath;
+  private CalculatorFacade calculator;
+  private CalculatorFacade oaiCalculator;
+  private String directory;
+  private String fileMask;
+  private DATA_SOURCE dataSource = DATA_SOURCE.FILE;
+  private String fileNameInAnnotation;
+  private String schemaFile;
+  private String oaiSchemaFile;
+  private String sqlitePath;
+  private String recordAddress = "//oai:record";
+  private Map<String, String> namespaces;
+  private boolean recursive = false;
+  private String rootDirectory;
+  private String mysqlHost = "localhost";
+  private String mysqlPort = "3306";
+  private String solrPath;
+  private String solrHost = "localhost";
+  private String solrPort = "8983";
+  private boolean skipDimension = false;
+  private boolean skipContentType = false;
+  private String schemaName;
+  private int totalFiles = 0;
+  private int totalRecords = 0;
+  private int fileCount = 0;
+  private int recordCount = 0;
+  private String oaiPattern;
+  private boolean isOai = false;
+  private boolean isGeneratedIdentifierEnabled = true;
+  // private String schemaName;
+
+  static {
+    options.addOption(new Option("c", "config", true, "Measurement configuration file"));
+    options.addOption(new Option("s", "schema", true, "schema configuration file"));
+    options.addOption(new Option("i", "input", true, "input file"));
+    options.addOption(new Option("o", "output", true, "output file"));
+    options.addOption(new Option("f", "format", true, "output format"));
+    options.addOption(new Option("x", "indexing", false, "do indexing"));
+    options.addOption(new Option("t", "storing", false, "store XML into database"));
+    options.addOption(new Option("p", "path", true, "Solr path"));
+    options.addOption(new Option("q", "sqlitePath", true, "SQLite database file path"));
+    options.addOption(new Option("d", "directory", true, "input direcotry"));
+    options.addOption(new Option("m", "mask", true, "input file mask"));
+    options.addOption(new Option("l", "record-address", true, "XPath expression to fetch the records out of XML"));
+    options.addOption(new Option("r", "recursive", false, "recursive iteration of directories"));
+    options.addOption(new Option("b", "rootDirectory", true, "root direactory, make file path relative to this directory"));
+    options.addOption(new Option("D", "mysqlDatabase", true, "MySQL database"));
+    options.addOption(new Option("U", "mysqlUser", true, "MySQL user name"));
+    options.addOption(new Option("P", "mysqlPassword", true, "MySQL password"));
+    options.addOption(new Option("A", "mysqlHost", true, "MySQL host"));
+    options.addOption(new Option("B", "mysqlPort", true, "MySQL port"));
+    options.addOption(new Option("C", "solrHost", true, "Apache Solr host"));
+    options.addOption(new Option("D", "solrPort", true, "Apache Solr port"));
+    options.addOption(new Option("E", "skipDimension", false, "skip Dimension check"));
+    options.addOption(new Option("F", "skipContentType", false, "skip Content Type check"));
+    options.addOption(new Option("e", "OAIPatterm", true, "File path patter to detect OAI output"));
+    options.addOption(new Option("g", "oaiSchema", true, "File path patter to detect OAI output"));
+    options.addOption(new Option("h", "schemaName", true, "Name of metadata schema"));
+  }
+
+  public App(String[] args) throws ParseException, IOException {
+    readParameters(args);
+
+    calculator = initializeCalculator();
+    if (oaiSchemaFile != null)
+      oaiCalculator = initializeCalculator();
+    idPath = calculator.getSchema().getRecordId().getPath();
+    namespaces = calculator.getSchema().getNamespaces();
+    XPathWrapper.setXpathEngine(namespaces);
+    schemaName = directory.substring(directory.lastIndexOf('/') + 1);
+    totalFiles = mySqlManager.getFileCountBySchema(schemaName);
+    totalRecords = mySqlManager.getRecordCountBySchema(schemaName);
+    logger.info(String.format("schemaName: %s, total number of files: %d, total number of records: %d", schemaName, totalFiles, totalRecords));
+
+    try {
+      if (!indexing) {
+        writer = Files.newBufferedWriter(Paths.get(outputFile));
+        if (format.equals(FORMAT.CSV)) {
+          List<String> header = calculator.getHeader();
+          header.add(0, "metadata_schema");
+          header.add(1, "filename");
+          writer.write(StringUtils.join(header, ",") + "\n");
         }
+      }
+
+      if (dataSource.equals(DATA_SOURCE.FILE)) {
+        if (inputFile.endsWith(".zip"))
+          processZip(inputFile);
+        else
+          processFile(inputFile);
+      } else {
+        processDirectory(directory);
+      }
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Some I/O issue happened", e);
+    } finally {
+      if (writer != null) {
+        writer.flush();
+        writer.close();
+      }
     }
 
+    logger.info(String.format("number of processed files: %d, number of processed records: %d", fileCount, recordCount));
+    calculator.shutDown();
+  }
 
-    private Writer writer;
-
-    public enum FORMAT {CSV, JSON};
-    public enum DATA_SOURCE {FILE, DIRECTORY};
-    static Options options = new Options();
-    private CommandLine cmd;
-    private String inputFile;
-    private String outputFile;
-    private boolean indexing;
-    private boolean storing;
-    private FORMAT format;
-    private SqliteManager sqliteManager;
-    private MySqlManager mySqlManager;
-    private boolean doSqlite = false;
-    private boolean doMysql = false;
-    private String idPath;
-    private CalculatorFacade calculator;
-    private CalculatorFacade oaiCalculator;
-    private String directory;
-    private String fileMask;
-    private DATA_SOURCE dataSource = DATA_SOURCE.FILE;
-    private String fileNameInAnnotation;
-    private String schemaFile;
-    private String oaiSchemaFile;
-    private String sqlitePath;
-    private String recordAddress = "//oai:record";
-    private Map<String, String> namespaces;
-    private boolean recursive = false;
-    private String rootDirectory;
-    private String mysqlHost = "localhost";
-    private String mysqlPort = "3306";
-    private String solrPath;
-    private String solrHost = "localhost";
-    private String solrPort = "8983";
-    private boolean skipDimension = false;
-    private boolean skipContentType = false;
-    private String schemaName;
-    private int totalFiles = 0;
-    private int totalRecords = 0;
-    private int fileCount = 0;
-    private int recordCount = 0;
-    private String oaiPattern;
-    private boolean isOai = false;
-    private boolean isGeneratedIdentifierEnabled = true;
-    // private String schemaName;
-
-    static {
-        options.addOption(new Option("c", "config", true, "Measurement configuration file"));
-        options.addOption(new Option("s", "schema", true, "schema configuration file"));
-        options.addOption(new Option("i", "input", true, "input file"));
-        options.addOption(new Option("o", "output", true, "output file"));
-        options.addOption(new Option("f", "format", true, "output format"));
-        options.addOption(new Option("x", "indexing", false, "do indexing"));
-        options.addOption(new Option("t", "storing", false, "store XML into database"));
-        options.addOption(new Option("p", "path", true, "Solr path"));
-        options.addOption(new Option("q", "sqlitePath", true, "SQLite database file path"));
-        options.addOption(new Option("d", "directory", true, "input direcotry"));
-        options.addOption(new Option("m", "mask", true, "input file mask"));
-        options.addOption(new Option("l", "record-address", true, "XPath expression to fetch the records out of XML"));
-        options.addOption(new Option("r", "recursive", false, "recursive iteration of directories"));
-        options.addOption(new Option("b", "rootDirectory", true, "root direactory, make file path relative to this directory"));
-        options.addOption(new Option("D", "mysqlDatabase", true, "MySQL database"));
-        options.addOption(new Option("U", "mysqlUser", true, "MySQL user name"));
-        options.addOption(new Option("P", "mysqlPassword", true, "MySQL password"));
-        options.addOption(new Option("A", "mysqlHost", true, "MySQL host"));
-        options.addOption(new Option("B", "mysqlPort", true, "MySQL port"));
-        options.addOption(new Option("C", "solrHost", true, "Apache Solr host"));
-        options.addOption(new Option("D", "solrPort", true, "Apache Solr port"));
-        options.addOption(new Option("E", "skipDimension", false, "skip Dimension check"));
-        options.addOption(new Option("F", "skipContentType", false, "skip Content Type check"));
-        options.addOption(new Option("e", "OAIPatterm", true, "File path patter to detect OAI output"));
-        options.addOption(new Option("g", "oaiSchema", true, "File path patter to detect OAI output"));
-        options.addOption(new Option("h", "schemaName", true, "Name of metadata schema"));
-    }
-
-    public App(String[] args) throws ParseException, IOException {
-        readParameters(args);
-
-        calculator = initializeCalculator();
-        if (oaiSchemaFile != null)
-            oaiCalculator = initializeCalculator();
-        idPath = calculator.getSchema().getRecordId().getPath();
-        namespaces = calculator.getSchema().getNamespaces();
-        XPathWrapper.setXpathEngine(namespaces);
-        schemaName = directory.substring(directory.lastIndexOf('/') + 1);
-        totalFiles = mySqlManager.getFileCountBySchema(schemaName);
-        totalRecords = mySqlManager.getRecordCountBySchema(schemaName);
-        logger.info(String.format("schemaName: %s, total number of files: %d, total number of records: %d", schemaName, totalFiles, totalRecords));
-
-        try {
-            if (!indexing) {
-                writer = Files.newBufferedWriter(Paths.get(outputFile));
-                if (format.equals(FORMAT.CSV)) {
-                    List<String> header = calculator.getHeader();
-                    header.add(0, "metadata_schema");
-                    header.add(1, "filename");
-                    writer.write(StringUtils.join(header, ",") + "\n");
-                }
-            }
-
-            if (dataSource.equals(DATA_SOURCE.FILE))
-                processFile(inputFile);
+  private void processDirectory(String directory) throws IOException {
+    logger.info("processDirectory: " + directory);
+    File dir = new File(directory);
+    File[] directoryListing = dir.listFiles();
+    if (directoryListing != null) {
+      for (File file : directoryListing) {
+        if (file.isFile() && file.exists()) {
+          if (fileMask == null || file.getName().matches(fileMask)) {
+            if (file.getName().endsWith(".zip"))
+              processZip(file.getAbsolutePath());
             else
-                processDirectory(directory);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Some I/O issue happened", e);
-        } finally {
-            if (writer != null) {
-                writer.flush();
-                writer.close();
+              processFile(file.getAbsolutePath());
+          }
+        } else if (file.isDirectory() && recursive) {
+          processDirectory(file.getAbsolutePath());
+        }
+      }
+    } else {
+      logger.info("Empty directory");
+    }
+  }
+
+  private void processZip(String fileName) {
+    logger.info("processZip: " + fileName);
+    try (ZipFile zipFile = new ZipFile(fileName, StandardCharsets.ISO_8859_1)) { // Charset.forName("UTF-8")
+      Enumeration<? extends ZipEntry> entries = zipFile.entries();
+      while (entries.hasMoreElements()) {
+        ZipEntry entry = entries.nextElement();
+        if (!entry.isDirectory()) {
+          try (InputStream inputStream = zipFile.getInputStream(entry)) {
+            String name = entry.getName();
+            String name4 = DDBUtils.toHex(name);
+            /*
+            byte[] ptext = name.getBytes(StandardCharsets.ISO_8859_1);
+            String name8 = new String(ptext, StandardCharsets.UTF_8);
+            if (!name.equals(name4)) {
+              logger.info("## transform: " + name + " --> " + name4);
             }
+             */
+            processInputStream(fileName + "::" + name4, inputStream);
+          }
         }
+      }
+    } catch (ZipException e) {
+      logger.log(Level.SEVERE, "Zip exception", e);
+      // System.err.println("Error: " + fileName + " -- " + e.getMessage());
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Zip exception", e);
+      // throw new RuntimeException(e);
+    }
+  }
 
-        logger.info(String.format("number of processed files: %d, number of processed records: %d", fileCount, recordCount));
-        calculator.shutDown();
+  private void readParameters(String[] args) throws ParseException {
+    parseArguments(args);
+
+    if (cmd.hasOption("input")) {
+      inputFile = cmd.getOptionValue("input");
+      fileNameInAnnotation = inputFile.substring(inputFile.lastIndexOf("/") + 1);
+    }
+    outputFile = cmd.getOptionValue("output");
+    indexing = cmd.hasOption("indexing");
+    storing = cmd.hasOption("storing");
+    format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
+    recursive = cmd.hasOption("recursive");
+    logger.info("recursive: " + recursive);
+    if (cmd.hasOption("rootDirectory")) {
+      rootDirectory = cmd.getOptionValue("rootDirectory");
+      if (new File(rootDirectory).getAbsolutePath() != rootDirectory)
+        rootDirectory = new File(rootDirectory).getAbsolutePath();
+      if (!rootDirectory.endsWith("/"))
+        rootDirectory = rootDirectory + "/";
+    }
+    logger.info("rootDirectory: " + rootDirectory);
+
+    schemaFile = cmd.getOptionValue("schema");
+    sqlitePath = cmd.hasOption("sqlitePath") ? cmd.getOptionValue("sqlitePath") : null;
+    if (cmd.hasOption("directory")) {
+      directory = cmd.getOptionValue("directory");
+      dataSource = DATA_SOURCE.DIRECTORY;
+      if (cmd.hasOption("mask")) {
+        String rawMask = cmd.getOptionValue("mask");
+        if (rawMask.startsWith("*"))
+          rawMask = "." + rawMask;
+        fileMask = String.format("^%s$", rawMask);
+      }
     }
 
-    private void processDirectory(String directory) throws IOException {
-        logger.info("processDirectory: " + directory);
-        File dir = new File(directory);
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File file : directoryListing) {
-                if (file.isFile() && file.exists()) {
-                    if (fileMask == null || file.getName().matches(fileMask)) {
-                        processFile(file.getAbsolutePath());
-                    }
-                } else if (file.isDirectory() && recursive) {
-                    processDirectory(file.getAbsolutePath());
-                }
-            }
-        } else {
-            logger.info("Empty directory");
-        }
+    if (cmd.hasOption("record-address"))
+      recordAddress = cmd.getOptionValue("record-address");
+
+    sqliteManager = null;
+    if (sqlitePath != null) {
+      sqliteManager = new SqliteManager(sqlitePath);
+      doSqlite = true;
     }
 
-    private void readParameters(String[] args) throws ParseException {
-        parseArguments(args);
-
-        if (cmd.hasOption("input")) {
-            inputFile = cmd.getOptionValue("input");
-            fileNameInAnnotation = inputFile.substring(inputFile.lastIndexOf("/") + 1);
-        }
-        outputFile = cmd.getOptionValue("output");
-        indexing = cmd.hasOption("indexing");
-        storing = cmd.hasOption("storing");
-        format = cmd.getOptionValue("format").toLowerCase(Locale.ROOT).equals("csv") ? FORMAT.CSV : FORMAT.JSON;
-        recursive = cmd.hasOption("recursive");
-        logger.info("recursive: " + recursive);
-        if (cmd.hasOption("rootDirectory")) {
-            rootDirectory = cmd.getOptionValue("rootDirectory");
-            if (new File(rootDirectory).getAbsolutePath() != rootDirectory)
-                rootDirectory = new File(rootDirectory).getAbsolutePath();
-            if (!rootDirectory.endsWith("/"))
-                rootDirectory = rootDirectory + "/";
-        }
-        logger.info("rootDirectory: " + rootDirectory);
-
-        schemaFile = cmd.getOptionValue("schema");
-        sqlitePath = cmd.hasOption("sqlitePath") ? cmd.getOptionValue("sqlitePath") : null;
-        if (cmd.hasOption("directory")) {
-            directory = cmd.getOptionValue("directory");
-            dataSource = DATA_SOURCE.DIRECTORY;
-            if (cmd.hasOption("mask")) {
-                String rawMask = cmd.getOptionValue("mask");
-                if (rawMask.startsWith("*"))
-                    rawMask = "." + rawMask;
-                fileMask = String.format("^%s$", rawMask);
-            }
-        }
-
-        if (cmd.hasOption("record-address"))
-            recordAddress = cmd.getOptionValue("record-address");
-
-        sqliteManager = null;
-        if (sqlitePath != null) {
-            sqliteManager = new SqliteManager(sqlitePath);
-            doSqlite = true;
-        }
-
-        if (cmd.hasOption("mysqlDatabase")) {
-            String mysqlDatabase = cmd.getOptionValue("mysqlDatabase");
-            String mysqlUser = cmd.hasOption("mysqlUser") ? cmd.getOptionValue("mysqlUser") : null;
-            String mysqlPassword = cmd.hasOption("mysqlPassword") ? cmd.getOptionValue("mysqlPassword") : null;
-            if (cmd.hasOption("mysqlHost"))
-                mysqlHost = cmd.getOptionValue("mysqlHost");
-            if (cmd.hasOption("mysqlPort"))
-                mysqlPort = cmd.getOptionValue("mysqlPort");
-            if (StringUtils.isNotBlank(mysqlDatabase) && StringUtils.isNotBlank(mysqlUser) && StringUtils.isNotBlank(mysqlPassword)) {
-                mySqlManager = new MySqlManager(mysqlHost, mysqlPort, mysqlDatabase, mysqlUser, mysqlPassword);
-                doMysql = true;
-            }
-        }
-
-        solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
-        if (cmd.hasOption("solrHost"))
-            solrHost = cmd.getOptionValue("solrHost");
-        if (cmd.hasOption("solrPort"))
-            solrPort = cmd.getOptionValue("solrPort");
-        if (cmd.hasOption("skipDimension"))
-            skipDimension = true;
-        if (cmd.hasOption("skipContentType"))
-            skipContentType = true;
-        if (cmd.hasOption("OAIPatterm"))
-            oaiPattern = cmd.getOptionValue("OAIPatterm");
-        if (cmd.hasOption("oaiSchema"))
-            oaiSchemaFile = cmd.getOptionValue("oaiSchema");
+    if (cmd.hasOption("mysqlDatabase")) {
+      String mysqlDatabase = cmd.getOptionValue("mysqlDatabase");
+      String mysqlUser = cmd.hasOption("mysqlUser") ? cmd.getOptionValue("mysqlUser") : null;
+      String mysqlPassword = cmd.hasOption("mysqlPassword") ? cmd.getOptionValue("mysqlPassword") : null;
+      if (cmd.hasOption("mysqlHost"))
+        mysqlHost = cmd.getOptionValue("mysqlHost");
+      if (cmd.hasOption("mysqlPort"))
+        mysqlPort = cmd.getOptionValue("mysqlPort");
+      if (StringUtils.isNotBlank(mysqlDatabase) && StringUtils.isNotBlank(mysqlUser) && StringUtils.isNotBlank(mysqlPassword)) {
+        mySqlManager = new MySqlManager(mysqlHost, mysqlPort, mysqlDatabase, mysqlUser, mysqlPassword);
+        doMysql = true;
+      }
     }
 
-    private void processFile(String inputFile) throws IOException {
-        fileCount++;
-        boolean isOai = oaiPattern == null ? false : inputFile.contains(oaiPattern);
-        String relativePath = getRelativePath(inputFile);
-        logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
-        // logger.info("processFile: {} -> {}", inputFile, relativePath);
+    solrPath = cmd.hasOption("path") ? cmd.getOptionValue("path") : null;
+    if (cmd.hasOption("solrHost"))
+      solrHost = cmd.getOptionValue("solrHost");
+    if (cmd.hasOption("solrPort"))
+      solrPort = cmd.getOptionValue("solrPort");
+    if (cmd.hasOption("skipDimension"))
+      skipDimension = true;
+    if (cmd.hasOption("skipContentType"))
+      skipContentType = true;
+    if (cmd.hasOption("OAIPatterm"))
+      oaiPattern = cmd.getOptionValue("OAIPatterm");
+    if (cmd.hasOption("oaiSchema"))
+      oaiSchemaFile = cmd.getOptionValue("oaiSchema");
+  }
 
-        int before = recordCount;
-        // logger.info("BEFORE " + recordCount);
-        try {
-            XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
-            String line = null;
-            while (iterator.hasNext()) {
-                String xml = iterator.next();
-                if (++recordCount % 100 == 0) {
-                    if (totalRecords == 0)
-                        logger.info("  record #" + recordCount);
-                    else
-                        logger.info(String.format("  record #%d/%d", recordCount, totalRecords));
-                }
+  private void processFile(String inputFile) throws IOException {
+    try {
+      XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
+      processIterator(inputFile, iterator);
+    } catch (ParserConfigurationException e) {
+      throw new RuntimeException(e);
+    } catch (SAXException e) {
+      throw new RuntimeException(e);
+    } catch (XPathExpressionException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-                CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
-                MetricCollector collector = appliedCalculator.measureWithoutFormat(xml, String.valueOf(recordCount));
-                Map<String, List<MetricResult>> results = (Map<String, List<MetricResult>>) collector.getResults();
-                List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
-                String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
+  private void processInputStream(String inputFile, InputStream inputStream) throws IOException {
+    try {
+      XPathBasedIterator iterator = new XPathBasedIterator(inputStream, recordAddress, namespaces);
+      processIterator(inputFile, iterator);
+    } catch (ParserConfigurationException e) {
+      throw new RuntimeException(e);
+    } catch (SAXException e) {
+      throw new RuntimeException(e);
+    } catch (XPathExpressionException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-                if (storing && (doSqlite || doMysql)) {
-                    if (doSqlite)
-                      sqliteManager.insert(relativePath, recordId, xml);
-                    if (doMysql)
-                      mySqlManager.insertFileRecord(relativePath, recordId);
-                }
+  private void processIterator(String inputFile, XPathBasedIterator iterator) throws IOException {
+    fileCount++;
+    boolean isOai = oaiPattern == null ? false : inputFile.contains(oaiPattern);
+    String relativePath = getRelativePath(inputFile);
+    logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
+    // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
-                if (format.equals(FORMAT.CSV))
-                    line = schemaName + "," + relativePath + ","
-                         + collector.createOutput(OutputCollector.TYPE.STRING, appliedCalculator.getCompressionLevel());
-                else
-                    line = (String) collector.createOutput(OutputCollector.TYPE.JSON, appliedCalculator.getCompressionLevel());
-                // logger.info(line);
-                if (!indexing)
-                    writer.write(line + "\n");
-            }
-
-        } catch (ParserConfigurationException e) {
-            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
-            e.printStackTrace();
-        } catch (SAXException e) {
-            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
-            e.printStackTrace();
-        } catch (XPathExpressionException e) {
-            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
-            e.printStackTrace();
+    int before = recordCount;
+    // logger.info("BEFORE " + recordCount);
+    try {
+      // XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
+      String line = null;
+      while (iterator.hasNext()) {
+        String xml = iterator.next();
+        if (++recordCount % 100 == 0) {
+          if (totalRecords == 0)
+            logger.info("  record #" + recordCount);
+          else
+            logger.info(String.format("  record #%d/%d", recordCount, totalRecords));
         }
-        if (recordCount == before)
-            logger.severe("NOTHING HAPPENED");
+
+        CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
+        MetricCollector collector = appliedCalculator.measureWithoutFormat(xml, String.valueOf(recordCount));
+        Map<String, List<MetricResult>> results = (Map<String, List<MetricResult>>) collector.getResults();
+        List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
+        String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
+
+        if (storing && (doSqlite || doMysql)) {
+          if (doSqlite)
+            sqliteManager.insert(relativePath, recordId, xml);
+          if (doMysql)
+            mySqlManager.insertFileRecord(relativePath, recordId);
+        }
+
+        if (format.equals(FORMAT.CSV))
+          line = schemaName + "," + relativePath + ","
+            + collector.createOutput(OutputCollector.TYPE.STRING, appliedCalculator.getCompressionLevel());
+        else
+          line = (String) collector.createOutput(OutputCollector.TYPE.JSON, appliedCalculator.getCompressionLevel());
+        // logger.info(line);
+        if (!indexing)
+          writer.write(line + "\n");
+      }
+
+    } catch (IndexOutOfBoundsException e) {
+      logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
+      e.printStackTrace();
+    }
+    if (recordCount == before)
+      logger.severe("NOTHING HAPPENED");
+  }
+
+  private static String extractIds(List<EdmFieldInstance> idList) {
+    List<String> ids = new ArrayList<>();
+    for (EdmFieldInstance item : idList) {
+      if (StringUtils.isNotBlank(item.getValue()) && !ids.contains(item.getValue()))
+        ids.add(item.getValue());
+    }
+    if (ids.isEmpty() || StringUtils.isBlank(ids.get(0)))
+      ids.add(IdentifierGenerator.generate());
+    String id = StringUtils.join(ids, " --- ");
+    return id;
+  }
+
+  private String getRelativePath(String inputFile) {
+    return (rootDirectory != null)  ? inputFile.replaceAll(rootDirectory, "") : inputFile;
+  }
+
+  private CalculatorFacade initializeCalculator() throws FileNotFoundException {
+    return initializeCalculator(schemaFile);
+  }
+
+  private CalculatorFacade initializeCalculator(String schemaFile) throws FileNotFoundException {
+    Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
+    if (skipDimension || skipContentType) {
+      disableRules(schema);
     }
 
-    private static String extractIds(List<EdmFieldInstance> idList) {
-        List<String> ids = new ArrayList<>();
-        for (EdmFieldInstance item : idList) {
-            if (StringUtils.isNotBlank(item.getValue()) && !ids.contains(item.getValue()))
-                ids.add(item.getValue());
-        }
-        if (ids.isEmpty() || StringUtils.isBlank(ids.get(0)))
-            ids.add(IdentifierGenerator.generate());
-        String id = StringUtils.join(ids, " --- ");
-        return id;
+    MeasurementConfiguration configuration = null;
+    if (indexing) {
+      configuration = new MeasurementConfiguration()
+        .disableCompletenessMeasurement()
+        .disableFieldExistenceMeasurement()
+        .disableFieldCardinalityMeasurement()
+        .disableRuleCatalogMeasurement() // off
+        .disableUniquenessMeasurement()  // off
+        .enableFieldExtractor()         // on
+        .withSolrConfiguration(solrHost, solrPort, solrPath)
+        .enableIndexing()
+        .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
+      ;
+    } else {
+      configuration = new MeasurementConfiguration()
+        .disableCompletenessMeasurement()
+        .disableFieldExistenceMeasurement()
+        .disableFieldCardinalityMeasurement()
+        .enableRuleCatalogMeasurement()  // on
+        .enableFieldExtractor()          // on
+        .withSolrConfiguration(solrHost, solrPort, solrPath)
+        // .enableUniquenessMeasurement()
+        .withOnlyIdInHeader(true)
+        .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)
+        // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
+        .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
+      ;
     }
 
-    private String getRelativePath(String inputFile) {
-        return (rootDirectory != null)  ? inputFile.replaceAll(rootDirectory, "") : inputFile;
+    CalculatorFacade calculator = new CalculatorFacade(configuration)
+      .setSchema(schema);
+    calculator.configure();
+    return calculator;
+  }
+
+  private void disableRules(Schema schema) {
+    for (DataElement dataElement : schema.getPaths()) {
+      List<Rule> rules = dataElement.getRules();
+      if (rules == null)
+        continue;
+      for (Rule rule : rules) {
+        disableRule(dataElement, rule);
+      }
     }
+  }
 
-    private CalculatorFacade initializeCalculator() throws FileNotFoundException {
-        return initializeCalculator(schemaFile);
+  private void disableRule(DataElement dataElement, Rule rule) {
+    if (skipDimension && rule.getDimension() != null) {
+      rule.setSkip(true);
+      logger.info(String.format("skip %s [dimension check] for %s", rule.getId(), dataElement.getPath()));
     }
-
-    private CalculatorFacade initializeCalculator(String schemaFile) throws FileNotFoundException {
-        Schema schema = ConfigurationReader.readSchemaYaml(schemaFile).asSchema();
-        if (skipDimension || skipContentType) {
-            disableRules(schema);
-        }
-
-        MeasurementConfiguration configuration = null;
-        if (indexing) {
-            configuration = new MeasurementConfiguration()
-              .disableCompletenessMeasurement()
-              .disableFieldExistenceMeasurement()
-              .disableFieldCardinalityMeasurement()
-              .disableRuleCatalogMeasurement() // off
-              .disableUniquenessMeasurement()  // off
-              .enableFieldExtractor()         // on
-              .withSolrConfiguration(solrHost, solrPort, solrPath)
-              .enableIndexing()
-              .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
-            ;
-        } else {
-            configuration = new MeasurementConfiguration()
-              .disableCompletenessMeasurement()
-              .disableFieldExistenceMeasurement()
-              .disableFieldCardinalityMeasurement()
-              .enableRuleCatalogMeasurement()  // on
-              .enableFieldExtractor()          // on
-              .withSolrConfiguration(solrHost, solrPort, solrPath)
-              // .enableUniquenessMeasurement()
-              .withOnlyIdInHeader(true)
-              .withRuleCheckingOutputType(RuleCheckingOutputType.BOTH)
-              // .withAnnotationColumns(String.format("{\"file\":\"%s\"}", fileNameInAnnotation))
-              .enableGeneratedIdentifier(isGeneratedIdentifierEnabled)
-            ;
-        }
-
-        CalculatorFacade calculator = new CalculatorFacade(configuration)
-          .setSchema(schema);
-        calculator.configure();
-        return calculator;
+    if (skipContentType && rule.getContentType() != null) {
+      rule.setSkip(true);
+      logger.info(String.format("skip %s [content type] for %s", rule.getId(), dataElement.getPath()));
     }
-
-    private void disableRules(Schema schema) {
-        for (DataElement dataElement : schema.getPaths()) {
-            List<Rule> rules = dataElement.getRules();
-            if (rules == null)
-                continue;
-            for (Rule rule : rules) {
-                disableRule(dataElement, rule);
-            }
-        }
+    if (rule.getAnd() != null) {
+      for (Rule child : rule.getAnd())
+        disableRule(dataElement, child);
     }
-
-    private void disableRule(DataElement dataElement, Rule rule) {
-        if (skipDimension && rule.getDimension() != null) {
-            rule.setSkip(true);
-            logger.info(String.format("skip %s [dimension check] for %s", rule.getId(), dataElement.getPath()));
-        }
-        if (skipContentType && rule.getContentType() != null) {
-            rule.setSkip(true);
-            logger.info(String.format("skip %s [content type] for %s", rule.getId(), dataElement.getPath()));
-        }
-        if (rule.getAnd() != null) {
-            for (Rule child : rule.getAnd())
-                disableRule(dataElement, child);
-        }
-        if (rule.getOr() != null) {
-            for (Rule child : rule.getOr())
-                disableRule(dataElement, child);
-        }
-        if (rule.getNot() != null) {
-            for (Rule child : rule.getNot())
-                disableRule(dataElement, child);
-        }
+    if (rule.getOr() != null) {
+      for (Rule child : rule.getOr())
+        disableRule(dataElement, child);
     }
-
-    private static String formatOptions(Option[] options) {
-        List<String> items = new ArrayList<>();
-        for (Option option : options) {
-            if (option.hasArg())
-                items.add(String.format("%s: %s", option.getLongOpt(), option.getValue()));
-            else
-                items.add(String.format("%s", option.getLongOpt()));
-        }
-        return StringUtils.join(items, ", ");
+    if (rule.getNot() != null) {
+      for (Rule child : rule.getNot())
+        disableRule(dataElement, child);
     }
+  }
 
-    private void parseArguments(String[] args) throws ParseException {
-        CommandLineParser parser = new DefaultParser();
-        cmd = parser.parse(options, args);
-        logger.info("cmd: " + formatOptions(cmd.getOptions()));
+  private static String formatOptions(Option[] options) {
+    List<String> items = new ArrayList<>();
+    for (Option option : options) {
+      if (option.hasArg())
+        items.add(String.format("%s: %s", option.getLongOpt(), option.getValue()));
+      else
+        items.add(String.format("%s", option.getLongOpt()));
     }
+    return StringUtils.join(items, ", ");
+  }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        long start = System.currentTimeMillis();
-        App app = new App(args);
-        long durationMillis = System.currentTimeMillis() - start;
-        String duration = (new SimpleDateFormat("mm:ss.SSS")).format(new Date(durationMillis));
-        logger.info("DONE. It took " + duration);
-        System.exit(0);
-    }
+  private void parseArguments(String[] args) throws ParseException {
+    CommandLineParser parser = new DefaultParser();
+    cmd = parser.parse(options, args);
+    logger.info("cmd: " + formatOptions(cmd.getOptions()));
+  }
+
+  public static void main(String[] args) throws IOException, ParseException {
+    long start = System.currentTimeMillis();
+    App app = new App(args);
+    long durationMillis = System.currentTimeMillis() - start;
+    String duration = (new SimpleDateFormat("mm:ss.SSS")).format(new Date(durationMillis));
+    logger.info("DONE. It took " + duration);
+    System.exit(0);
+  }
 }

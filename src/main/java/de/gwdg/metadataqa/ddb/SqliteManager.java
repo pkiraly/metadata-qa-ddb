@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class SqliteManager {
+
+  private static Logger logger = Logger.getLogger(SqliteManager.class.getName());
 
   Connection connection = null;
   PreparedStatement insertStatement = null;

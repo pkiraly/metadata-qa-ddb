@@ -7,7 +7,10 @@ if [[ ! -d $OUTPUT_DIR ]]; then
   mkdir $OUTPUT_DIR
 fi
 version=2
+zipped=1
 
+# unzip -l Q1_small_DC_BAW.zip | grep xml | sed -re 's/^.* [0-9]{2}:[0-9]{2} *//'
+# export FILE=Q1_small_DC_BAW.zip && unzip -l $FILE | grep xml | sed -r "s/^.* [0-9]{2}:[0-9]{2} */$FILE,/"
 # create database
 echo "file,metadata_schema,provider_id,provider_name,set_id,set_name,datum,size" > $OUTPUT_DIR/files.csv
 find $INPUT_DIR/ \
@@ -38,7 +41,20 @@ find $INPUT_DIR/ \
           SET_NAME=$(echo $LEVEL3 | cut -d'_' -f2)
         fi
         if [[ $SCHEMA != "_ddb-output" ]]; then
-          echo "$path,$SCHEMA,$PROV_ID,$PROV_NAME,$SET_ID,$SET_NAME,$datum,$size" >> $OUTPUT_DIR/files.csv
+          if [[ "${zipped}" = "1" ]]; then
+            SUFFIX="$SCHEMA,$PROV_ID,$PROV_NAME,$SET_ID,$SET_NAME,$datum,$size"
+            unzip -l $filename \
+              | grep xml \
+              | sed -r "s/^.* [0-9]{2}:[0-9]{2} *//" \
+              | sed -r "s/Ф/ö/" \
+              | sed -r "s/Д/ä/" \
+              | sed -r "s/Б/ü/" \
+              | sed "s,^,$path::," \
+              | sed "s|$|,$SUFFIX|" \
+              >> $OUTPUT_DIR/files.csv
+          else
+            echo "$path,$SCHEMA,$PROV_ID,$PROV_NAME,$SET_ID,$SET_NAME,$datum,$size" >> $OUTPUT_DIR/files.csv
+          fi
         fi
       fi
     done

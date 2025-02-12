@@ -25,6 +25,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,7 +39,13 @@ public class XPathBasedIterator implements Iterator<String> {
                             String expression,
                             Map<String, String> namespaces)
         throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
-    FileInputStream fileIS = new FileInputStream(input);
+    this(new FileInputStream(input), expression, namespaces);
+  }
+
+  public XPathBasedIterator(InputStream fileIS,
+                            String expression,
+                            Map<String, String> namespaces)
+        throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
     builderFactory.setNamespaceAware(true);
     DocumentBuilder builder = builderFactory.newDocumentBuilder();
