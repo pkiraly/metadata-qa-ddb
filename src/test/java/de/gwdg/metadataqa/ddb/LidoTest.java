@@ -1,8 +1,15 @@
 package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
+import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
+import de.gwdg.metadataqa.api.model.selector.Selector;
+import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
+import de.gwdg.metadataqa.api.rule.RuleChecker;
+import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
+import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.api.rule.logical.LogicalChecker;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.junit.Before;
@@ -155,5 +162,48 @@ public class LidoTest {
     List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(p.getPath());
     assertEquals(1, itemList.size());
     assertEquals("http://d-nb.info/gnd/4242325-1", itemList.get(0).getValue());
+  }
+
+  @Test
+  public void q9_1() {
+    URL url = this.getClass().getResource("/lido/test-Q-9.1.xml");
+    File file = new File(url.getFile());
+    assertTrue(file.exists());
+
+    try {
+      XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
+      String xml = iterator.next();
+      xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());
+      // String xpath = "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category']/lido:term";
+      // or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:term");
+      String xpath = "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:term";
+      List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(xpath);
+      System.err.println(itemList);
+      Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+      FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+      for (RuleChecker checker : schema.getRuleCheckers()) {
+        if (checker.getId().equals("Q-9.1a")) {
+          checker.setDebug();
+          for (RuleChecker child : ((LogicalChecker) checker).getCheckers()) {
+            child.setDebug();
+          }
+          System.err.println(checker);
+          System.err.println(checker.getClass());
+          // System.err.println(checker.is);
+          checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+        }
+      }
+      System.err.println(fieldCounter);
+
+
+    } catch (XPathExpressionException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    } catch (ParserConfigurationException e) {
+      throw new RuntimeException(e);
+    } catch (SAXException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

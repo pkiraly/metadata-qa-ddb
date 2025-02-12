@@ -583,30 +583,33 @@ fields:
           - pattern: ^https?://www.wikidata.org/entity/Q
 
   # Sachkategorie (term)
-  - name: Sachkategorie
+  - name: Sachkategorie-term
     # TODO: check it
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:term
+    # path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:term
     #    extractable: true
     rules:
       - id: Q-9.1
         description: There must be at least one preferred designation for the object type in the data record.
         successScore: 1
+        # debug: true
         and:
           - minCount: 1
+          - minLength: 1
           - pattern: ^.+$
 
   # Sachkategorie (Strukturelement bzw. blinder typisierter Knoten) | Sachkategorie (Bezeichnung) | Sachkategorie (URI)
-  - name: Sachkategorie
+  - name: Sachkategorie-URI
     # TODO: check it
     path: lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification[@lido:type='Subject category' or @lido:type='http://terminology.lido-schema.org/lido00932']/lido:conceptID
 #    extractable: true
     rules:
-      - id: Q-9.1
-        description: There must be at least one preferred designation for the object type in the data record.
-        successScore: 1
-        and:
-          - minCount: 1
-          - pattern: ^.+$
+      # - id: Q-9.1
+      #  description: There must be at least one preferred designation for the object type in the data record.
+      #  successScore: 1
+      #  and:
+      #    - minCount: 1
+      #    - pattern: ^.+$
       - id: Q-9.2
         description: The subject category must come from a controlled vocabulary.
         successScore: 1

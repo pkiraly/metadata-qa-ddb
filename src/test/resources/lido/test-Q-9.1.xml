@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xalan="http://xml.apache.org/xalan">
+    <lido:lidoRecID lido:source="ISIL" lido:type="http://terminology.lido-schema.org/lido00100">DE-188/ZWAR/za016748882</lido:lidoRecID>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+                <lido:objectWorkType>
+                    <lido:conceptID lido:source="GND" lido:type="http://terminology.lido-schema.org/lido00099">http://d-nb.info/gnd/4027503-6</lido:conceptID>
+                    <lido:conceptID lido:source="AAT" lido:type="http://terminology.lido-schema.org/lido00099">http://vocab.getty.edu/aat/300026392</lido:conceptID>
+                    <lido:term lido:addedSearchTerm="no" xml:lang="de">Interview</lido:term>
+                </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+                <lido:classification lido:type="Subject category">
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">https://d-nb.info/standards/vocab/gnd/gnd-sc#13*</lido:conceptID>
+                </lido:classification>
+            </lido:classificationWrap>
+        </lido:objectClassificationWrap>
+        <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+                <lido:titleSet lido:type="Titel">
+                    <lido:appellationValue lido:pref="preferred" xml:lang="de">Nikolai T. vom
+                        13.08.2005</lido:appellationValue>
+                </lido:titleSet>
+            </lido:titleWrap>
+            <lido:repositoryWrap>
+                <lido:repositorySet>
+                    <lido:repositoryName>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Freie Universität Berlin,
+                                Universitätsbibliothek, Digitale
+                                Interview-Sammlungen</lido:appellationValue>
+                        </lido:legalBodyName>
+                    </lido:repositoryName>
+                    <lido:workID lido:type="Interview-ID">za012</lido:workID>
+                </lido:repositorySet>
+            </lido:repositoryWrap>
+        </lido:objectIdentificationWrap>
+    </lido:descriptiveMetadata>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:rightsWorkWrap>
+            <lido:rightsWorkSet>
+                <lido:creditLine lido:label="Förderung">Das Projekt ist eine Kooperation der
+                    Stiftung Erinnerung, Verantwortung und Zukunft mit der Freien Universität
+                    Berlin und dem Deutschen Historischen Museum.</lido:creditLine>
+                <lido:creditLine lido:label="Bemerkung">Es gelten die &lt;a
+                    href="http://www.zwangsarbeit-archiv.de/sammlung/nutzungsbedingungen/index.html"&gt;Nutzungsbedingungen
+                    des Interview-Archivs "Zwangsarbeit 1939-1945. Erinnerungen und
+                    Geschichte".&lt;/a&gt;</lido:creditLine>
+            </lido:rightsWorkSet>
+        </lido:rightsWorkWrap>
+        <lido:recordWrap>
+            <lido:recordID lido:type="Signatur">za012</lido:recordID>
+            <lido:recordType>
+                <lido:conceptID lido:source="LIDO" lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00141</lido:conceptID>
+                <lido:term lido:addedSearchTerm="no" xml:lang="de">Einzelobjekt</lido:term>
+            </lido:recordType>
+            <lido:recordSource>
+                <lido:legalBodyID lido:type="isil">DE-MUS-017216</lido:legalBodyID>
+                <lido:legalBodyName>
+                    <lido:appellationValue>FHXB Friedrichshain-Kreuzberg Museum</lido:appellationValue>
+                </lido:legalBodyName>
+            </lido:recordSource>
+            <lido:recordRights>
+                <lido:rightsType>
+                    <lido:conceptID lido:source="DDB" lido:type="http://terminology.lido-schema.org/lido00099">https://www.deutsche-digitale-bibliothek.de/content/lizenzen/rv-fz</lido:conceptID>
+                    <lido:term lido:addedSearchTerm="no">Rechte vorbehalten – Freier
+                        Zugang</lido:term>
+                </lido:rightsType>
+                <lido:creditLine lido:label="Förderung">Das Projekt ist eine Kooperation der
+                    Stiftung Erinnerung, Verantwortung und Zukunft mit der Freien Universität
+                    Berlin und dem Deutschen Historischen Museum.</lido:creditLine>
+            </lido:recordRights>
+            <lido:recordInfoSet>
+                <lido:recordInfoLink>https://archiv.zwangsarbeit-archiv.de/de/interviews/za012</lido:recordInfoLink>
+            </lido:recordInfoSet>
+        </lido:recordWrap>
+        <lido:resourceWrap>
+            <lido:resourceSet>
+                <lido:resourceRepresentation lido:type="preview_image">
+                    <lido:linkResource lido:formatResource="image/jpeg">https://medien.cedis.fu-berlin.de/zwar/stills/za012_still_original.JPG</lido:linkResource>
+                </lido:resourceRepresentation>
+                <lido:resourceType>
+                    <lido:conceptID lido:source="LCSH" lido:type="http://terminology.lido-schema.org/lido00099">http://id.loc.gov/vocabulary/mediaTypes/s</lido:conceptID>
+                    <lido:term lido:addedSearchTerm="no">audio</lido:term>
+                </lido:resourceType>
+                <lido:resourceDescription>Lebensgeschichtliches Audio-Interview mit Nikolai
+                    T.</lido:resourceDescription>
+                <lido:rightsResource>
+                    <lido:rightsType>
+                        <lido:conceptID lido:source="DDB" lido:type="http://terminology.lido-schema.org/lido00099">http://rightsstatements.org/vocab/InC/1.0/</lido:conceptID>
+                        <lido:term lido:addedSearchTerm="no" xml:lang="de">Urheberrechtsschutz
+                            (InC)</lido:term>
+                    </lido:rightsType>
+                    <lido:rightsHolder>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Interview-Archiv „Zwangsarbeit 1939-1945.
+                                Erinnerungen und Geschichte“</lido:appellationValue>
+                        </lido:legalBodyName>
+                    </lido:rightsHolder>
+                </lido:rightsResource>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>
