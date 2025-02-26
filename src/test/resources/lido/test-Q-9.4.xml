@@ -1,0 +1,28 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<lido:lidoWrap xmlns:lido="http://www.lido-schema.org" xmlns:xalan="http://xml.apache.org/xalan">
+    <lido:lido>
+        <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100" lido:source="ISIL"
+        >DE-188/ZWAR/za030</lido:lidoRecID>
+        <lido:descriptiveMetadata xml:lang="de">
+            <lido:objectRelationWrap>
+                <lido:subjectWrap>
+                    <lido:subjectSet lido:sortorder="29">
+                        <lido:subject>
+                            <lido:subjectDate lido:sortorder="1">
+                                <lido:displayDate>1928-2005</lido:displayDate>
+                                <lido:date>
+                                    <lido:earliestDate>1928</lido:earliestDate>
+                                    <lido:latestDate>2005</lido:latestDate>
+                                </lido:date>
+                                <lido:date>
+                                    <lido:earliestDate>1920</lido:earliestDate>
+                                    <lido:latestDate>2002</lido:latestDate>
+                                </lido:date>
+                            </lido:subjectDate>
+                        </lido:subject>
+                    </lido:subjectSet>
+                </lido:subjectWrap>
+            </lido:objectRelationWrap>
+        </lido:descriptiveMetadata>
+    </lido:lido>
+</lido:lidoWrap>

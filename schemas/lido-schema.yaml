@@ -643,9 +643,21 @@ fields:
 #    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote
 #    extractable: true
 
+  - name: Inhaltliche Beschreibung - date
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date
+    rules:
+      - id: Q-9.4date
+        description: There must be at least one preferred designation for a thematic relation in the data record.
+        successScore: 2
+        hidden: true
+        # debug: true
+        hasChildren:
+          - lido:earliestDate
+          - lido:latestDate
+
   # Inhaltliche Beschreibung (term)
   - name: Inhaltliche Beschreibung
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:earliestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date/lido:latestDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term
     # TODO: There is one special rule for date as thematic relation: lido:earliestDate and lido:latestDate are only valid if they appear together. The alternative displayDate is just one element
     # extractable: true
     rules:
@@ -653,9 +665,11 @@ fields:
       - id: Q-9.4
         description: There must be at least one preferred designation for a thematic relation in the data record.
         successScore: 2
-        and:
-          - minCount: 1
-          - pattern: ^.+$
+        or:
+          - dependencies: [ Q-9.4date ]
+          - and:
+            - minCount: 1
+            - pattern: ^.+$
 
   # Inhaltliche Beschreibung (URI)
   - name: Inhaltliche Beschreibung (URI)
