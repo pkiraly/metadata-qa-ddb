@@ -25,11 +25,16 @@ HTTP_CODE=$(curl -s -o /dev/null -I -w '%{http_code}' "$URL")
 #   ./run-all.sh
 # fi
 
+echo "HTTP_CODE: ${HTTP_CODE}"
 until [ "${HTTP_CODE}" = "200" ]; do
   echo "waiting for Apache Solr..."
   sleep 1
   HTTP_CODE=$(curl -s -o /dev/null -I -w '%{http_code}' "$URL")
+  echo "HTTP_CODE: ${HTTP_CODE}"
 done
+echo "#"
+echo "Apache Solr is read, starting application..."
+echo "#"
 ./run-all.sh
 # echo "Add Prefect deployment ..."
 # cd /tmp/metadata-qa-ddb && prefect deployment build prefect2_workflow.py:main_flow -a -n metadata-qa
