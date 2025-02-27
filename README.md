@@ -268,7 +268,7 @@ scripts/process/12_calculate_aggregations.mysql.sh
 # Dockerized version
 
 The tool can be run in a dockerized fashion. The most straightforward way to do that is using docker compose. It contains the following components:
-- 
+ 
 - mqaf-ddb-db: a MySQL server container (it uses mysql:latest from Dockerhub)
 - mqaf-ddb-solr: an Apache Solr server container (it uses solr:9.6.1 from Dockerhub)
 - mqaf-ddb-cli: the application backend that contains a command line interface (it uses metadata-qa-ddb:main from Github)
