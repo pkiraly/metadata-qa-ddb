@@ -21,6 +21,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
+// import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,9 +41,14 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
+// import java.util.logging.Level;
+// import java.util.logging.LogManager;
+// import java.util.logging.Logger;
+// import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -53,7 +59,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class App {
   // private static final Logger logger = LoggerFactory.getLogger(App.class.getCanonicalName());
-  private static Logger logger = Logger.getLogger(App.class.getName());
+  private static Logger logger = (Logger) LoggerFactory.getLogger(App.class.getName());
 
   static {
     try {
@@ -175,7 +181,7 @@ public class App {
         processDirectory(directory);
       }
     } catch (IOException e) {
-      logger.log(Level.SEVERE, "Some I/O issue happened", e);
+      logger.error("Some I/O issue happened: {}", e.getMessage());
     } finally {
       if (writer != null) {
         writer.flush();
@@ -231,10 +237,10 @@ public class App {
         }
       }
     } catch (ZipException e) {
-      logger.log(Level.SEVERE, "Zip exception", e);
+      logger.error("Zip exception {}", e.getMessage());
       // System.err.println("Error: " + fileName + " -- " + e.getMessage());
     } catch (IOException e) {
-      logger.log(Level.SEVERE, "Zip exception", e);
+      logger.error("I/O exception {}", e.getMessage());
       // throw new RuntimeException(e);
     }
   }
@@ -383,11 +389,11 @@ public class App {
       }
 
     } catch (IndexOutOfBoundsException e) {
-      logger.severe("Problem during processing " + inputFile + " (" + relativePath + "): " + e.getMessage());
+      logger.error("Problem during processing {} ({}): {}", inputFile, relativePath, e.getMessage());
       e.printStackTrace();
     }
     if (recordCount == before)
-      logger.severe("NOTHING HAPPENED");
+      logger.error("NOTHING HAPPENED");
   }
 
   private static String extractIds(List<EdmFieldInstance> idList) {
