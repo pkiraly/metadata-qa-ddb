@@ -33,7 +33,7 @@ until [ "${HTTP_CODE}" = "200" ]; do
   echo "HTTP_CODE: ${HTTP_CODE}"
 done
 echo "#"
-echo "Apache Solr is read, starting application..."
+echo "Apache Solr is ready, starting application..."
 echo "#"
 sleep 5
 ./run-all.sh
