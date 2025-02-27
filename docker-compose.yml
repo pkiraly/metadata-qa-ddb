@@ -2,7 +2,7 @@ services:
   database:
     image: mysql:latest
     ports:
-      - "3307:3306"
+      - "${MQAF_DB_PORT:-3307}:3306"
     # command: --init-file /data/application/init.sql
     volumes:
       - ./docker-configuration/mysql/init.sql:/data/application/init.sql
@@ -10,22 +10,22 @@ services:
     environment:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: ddb
-      MYSQL_DATABASE: ddb
-      MYSQL_USER: ddb
-      MYSQL_PASSWORD: ddb
-    container_name: ${DB_CONTAINER:-mqaf-ddb-db}
+      MYSQL_DATABASE: ${MQAF_DB_DATABASE:-ddb}
+      MYSQL_USER: ${MQAF_DB_USER:-ddb}
+      MYSQL_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
+    container_name: ${MQAF_DB_CONTAINER:-mqaf-ddb-db}
     networks:
       - mqaf-ddb
 
   solr:
     image: solr:9.6.1
     ports:
-      - "${SOLR_PORT:-8983}:8983"
+      - "${MQAF_SOLR_PORT:-8983}:8983"
     volumes:
       # Create directory up front with the right permissions, eg.:
       # mkdir ./solr-data && sudo chown -R 8983:8983 ./solr-data && sudo chmod -R 777 ./solr-data
-      - ${SOLR_DATA:-./solr-data}:/var/solr/data
-      - ${SOLR_ENTRY:-./docker-configuration/solr}:/docker-entrypoint-initdb.d
+      - ${MQAF_SOLR_DATA:-./solr-data}:/var/solr/data
+      - ${MQAF_SOLR_ENTRY:-./docker-configuration/solr}:/docker-entrypoint-initdb.d
     healthcheck:
       test:
         [
@@ -36,12 +36,12 @@ services:
       timeout: 10s
       retries: 120
     restart: on-failure
-    container_name: ${SOLR_CONTAINER:-mqaf-ddb-solr}
+    container_name: ${MQAF_SOLR_CONTAINER:-mqaf-ddb-solr}
     networks:
       - mqaf-ddb
 
   cli:
-    image: ${WS_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb:main} # the name of the image
+    image: ${MQAF_CLI_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb:main} # the name of the image
     volumes:
       - ./${DDB_INPUT:-test-ddb/input}:/opt/metadata-qa-ddb/input
       - ./${DDB_OUTPUT:-test-ddb/output}:/opt/metadata-qa-ddb/output
@@ -57,8 +57,8 @@ services:
       MQAF_FTP_PW: ${MQAF_FTP_PW:-}
 
       # MySQL setting
-      MQAF_DB_HOST: ${MQAF_DB_HOST:-ddb-db}
-      MQAF_DB_PORT: ${MQAF_DB_PORT:-3306}
+      MQAF_DB_HOST: ${MQAF_DB_HOST:-mqaf-ddb-db}
+      MQAF_DB_PORT: ${MQAF_DB_PORT:-3307}
       MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
       MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
@@ -70,7 +70,7 @@ services:
 
       # extra validation paramteres
       MQAF_VALIDATION_PARAMS: ${MQAF_VALIDATION_PARAMS:-}
-    container_name: ${CLI_CONTAINER:-mqaf-ddb-cli}
+    container_name: ${MQAF_CLI_CONTAINER:-mqaf-ddb-cli}
     depends_on:
       - database
       - solr
@@ -78,9 +78,9 @@ services:
       - mqaf-ddb
 
   report:
-    image: ${REPORT_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0}
+    image: ${MQAF_REPORT_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0}
     ports:
-      - ${REPORT_WEBPORT:-90}:80
+      - ${MQAF_REPORT_WEBPORT:-90}:80
       # - ${SOLRPORT:-8983}:8983
     volumes:
       - ${DDB_CONFIG:-./test-ddb/config}:/var/www/html/config
@@ -89,14 +89,15 @@ services:
     environment:
       # MySQL settings
       MQAF_DB_HOST: ${MQAF_DB_HOST:-mqaf-ddb-db}
-      MQAF_DB_PORT: ${MQAF_DB_PORT:-3306}
+      MQAF_DB_PORT: ${MQAF_DB_PORT:-3307}
       MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
       MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
+
       # Apache Solr settings
       MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-mqaf-ddb-solr}
       MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
-    container_name: ${REPORT_CONTAINER:-mqaf-ddb-report}
+    container_name: ${MQAF_REPORT_CONTAINER:-mqaf-ddb-report}
     depends_on:
       - database
       - solr

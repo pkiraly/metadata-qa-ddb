@@ -264,3 +264,47 @@ calculate aggregated results
 ```
 scripts/process/12_calculate_aggregations.mysql.sh
 ```
+
+# Dockerized version
+
+The tool can be run in a dockerized fashion. The most straightforward way to do that is using docker compose. It contains the following components:
+- 
+- mqaf-ddb-db: a MySQL server container (it uses mysql:latest from Dockerhub)
+- mqaf-ddb-solr: an Apache Solr server container (it uses solr:9.6.1 from Dockerhub)
+- mqaf-ddb-cli: the application backend that contains a command line interface (it uses metadata-qa-ddb:main from Github)
+- mqaf-ddb-report: the application web frontend (it uses metadata-qa-ddb-web:v2.0 from Github)
+
+## Variables
+
+### MySQL server container
+
+- MQAF_DB_CONTAINER: the name of the MySQL container (default: `mqaf-ddb-db`)
+- MQAF_DB_PORT: the MySQL port (default: 3307)
+- MQAF_DB_DATABASE: database name (default: `ddb`)
+- MQAF_DB_USER: database user (default: `ddb`)
+- MQAF_DB_PASSWORD: database user password (default: `ddb`)
+
+### Apache Solr server container
+
+- MQAF_SOLR_CONTAINER: the name of the Apache Solr container (default: `mqaf-ddb-solr`)
+- MQAF_SOLR_PORT: the Apache Solr port (default: 8983)
+- MQAF_SOLR_DATA: the Apache Solr data directory outside the container (default: `./solr-data`)
+- MQAF_SOLR_ENTRY: a directory outside the container containing scripts (e.g. copying config files, setting variables) that Apache Solr will run at setup (default: `./docker-configuration/solr`)
+- MQAF_SOLR_CONTAINER: (default: `mqaf-ddb-solr`)
+
+### application backend container
+
+- MQAF_CLI_CONTAINER: the name of the backend container (default: `mqaf-ddb-cli`)
+- MQAF_CLI_IMAGE: the name of the image used for the container (default: `ghcr.io/pkiraly/metadata-qa-ddb:main`)
+- DDB_INPUT: the input data directory that will be mounted to both backend and frontend (default: `test-ddb/input`)
+- DDB_OUTPUT: the output data directory that will be mounted to both backend and frontend (default: `test-ddb/output`)
+- MQAF_SOLR_CORE_PREFIX: the prefix for the Solr index names (default: `ddb-qa`)
+- MQAF_VALIDATION_PARAMS: validation parameters (default: not set)
+- MQAF_DATA: (default: not set)
+
+### application web frontend container
+
+- MQAF_REPORT_CONTAINER: the name of the web frontend container (default: `mqaf-ddb-report`)
+- MQAF_REPORT_IMAGE: the name of the image used for the container (default: `ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0`)
+- MQAF_REPORT_WEBPORT: the web port (default: `90`)
+- DDB_CONFIG: the configuration directory (default: `./test-ddb/config`)
