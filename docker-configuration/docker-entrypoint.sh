@@ -19,5 +19,10 @@ mkdir -p ${MQAF_DATA}/input ${MQAF_DATA}/output
 echo "Copy Metadata-qa-ddb to (writeable) temp directory ..."
 cp -R /opt/metadata-qa-ddb /tmp/metadata-qa-ddb
 
+URL=http://${MQAF_SOLR_HOST}:${MQAF_SOLR_PORT}/solr/admin/cores?action=STATUS
+HTTP_CODE=$(curl -s -o /dev/null -I -w '%{http_code}' "$URL")
+if [[ "${HTTP_CODE}" = "200" ]]; then
+  ./run-all.sh
+fi
 # echo "Add Prefect deployment ..."
 # cd /tmp/metadata-qa-ddb && prefect deployment build prefect2_workflow.py:main_flow -a -n metadata-qa

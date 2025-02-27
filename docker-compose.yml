@@ -64,7 +64,7 @@ services:
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
 
       # Solr settings
-      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-ddb-solr}
+      MQAF_SOLR_HOST: ${MQAF_SOLR_HOST:-mqaf-ddb-solr}
       MQAF_SOLR_PORT: ${MQAF_SOLR_PORT:-8983}
       MQAF_SOLR_CORE_PREFIX: ${MQAF_SOLR_CORE_PREFIX:-ddb-qa}
 
@@ -89,7 +89,7 @@ services:
     environment:
       # MySQL settings
       MQAF_DB_HOST: ${MQAF_DB_HOST:-mqaf-ddb-db}
-      MQAF_DB_PORT: ${MQAF_DB_PORT:-3307}
+      MQAF_DB_PORT: 3306
       MQAF_DB_DATABASE: ${MQAF_DB_DATABASE:-ddb}
       MQAF_DB_USER: ${MQAF_DB_USER:-ddb}
       MQAF_DB_PASSWORD: ${MQAF_DB_PASSWORD:-ddb}
