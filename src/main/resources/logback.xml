@@ -12,11 +12,11 @@
         </encoder>
     </appender>
     <!--
-    <logger name="de.gwdg.metadataqa.ddb.App" level="DEBUG">
-        <appender-ref ref="FILE" />
-    </logger>
     -->
+    <logger name="de.gwdg.metadataqa.ddb.App" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <root level="INFO">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
     </root>
 </configuration>

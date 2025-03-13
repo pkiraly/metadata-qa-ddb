@@ -127,6 +127,7 @@ fields:
           - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.3
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
+        # skip: true
         and:
           - dependencies: [ Q-3.0 ]
           - dimension:
@@ -151,6 +152,7 @@ fields:
 #              - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
       - id: Q-3.6
         description: There must be a reference to an image file in the data record provided (either as a link or as a file name). Check whether there is an element for the preview image in the data record (see table "Mapping the DDB elements"). If yes => check whether it contains a reference to an image file. To do this, either evaluate the MIME type in the Content-Type field in the HTTP response header and/or the file extension in the file name. PDF files also count as image files (see table "File types"). If yes => comparison with the table "File types" to see whether the image file format is supported by the DDB.
+        # skip: true
         and:
           - dependencies: [ Q-3.0 ]
           - or:
@@ -203,6 +205,7 @@ fields:
         - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
+        # skip: true
         and:
         - minCount: 1
         - minLength: 1
@@ -646,18 +649,42 @@ fields:
   - name: Inhaltliche Beschreibung - date
     path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:date
     rules:
-      - id: Q-9.4date
+      - id: Q-9.4a
         description: There must be at least one preferred designation for a thematic relation in the data record.
-        successScore: 2
-        hidden: true
+        # successScore: 2
+        # hidden: true
         # debug: true
         hasChildren:
           - lido:earliestDate
           - lido:latestDate
 
+  - name: Inhaltliche Beschreibung - displayDate
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate
+    rules:
+      - id: Q-9.4b
+        description: There must be at least one preferred designation for a thematic relation in the data record.
+        # successScore: 2
+        # hidden: true
+        # debug: true
+        and:
+          # - minCount: 1
+          - pattern: ^.+$
+
+  - name: Inhaltliche Beschreibung - subjectDate
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate
+    rules:
+      - id: Q-9.4c
+        description: date or displayDate
+        # successScore: 2
+        # hidden: true
+        # debug: true
+        or:
+          - dependencies: [ Q-9.4a ]
+          - dependencies: [ Q-9.4b ]
+
   # Inhaltliche Beschreibung (term)
   - name: Inhaltliche Beschreibung
-    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectDate/lido:displayDate | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term
+    path: lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:displayActor | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectActor/lido:actor/lido:nameActorSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:displayPlace | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectPlace/lido:place/lido:namePlaceSet/lido:appellationValue | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:displayObject | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectObject/lido:object/lido:objectNote | lido:lido/lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:term
     # TODO: There is one special rule for date as thematic relation: lido:earliestDate and lido:latestDate are only valid if they appear together. The alternative displayDate is just one element
     # extractable: true
     rules:
@@ -666,7 +693,7 @@ fields:
         description: There must be at least one preferred designation for a thematic relation in the data record.
         successScore: 2
         or:
-          - dependencies: [ Q-9.4date ]
+          - dependencies: [ Q-9.4d ]
           - and:
             - minCount: 1
             - pattern: ^.+$

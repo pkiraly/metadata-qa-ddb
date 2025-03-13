@@ -349,6 +349,7 @@ public class App {
     boolean isOai = oaiPattern == null ? false : inputFile.contains(oaiPattern);
     String relativePath = getRelativePath(inputFile);
     logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
+    System.err.println(String.format("# processing %d/%d: %s", fileCount, totalFiles, relativePath));
     // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
     int before = recordCount;
@@ -368,8 +369,11 @@ public class App {
         CalculatorFacade appliedCalculator = isOai ? oaiCalculator : calculator;
         MetricCollector collector = appliedCalculator.measureWithoutFormat(xml, String.valueOf(recordCount));
         Map<String, List<MetricResult>> results = (Map<String, List<MetricResult>>) collector.getResults();
+
         List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
         String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
+        System.err.println("## recordId: " + recordId);
+        System.err.println(results);
 
         if (storing && (doSqlite || doMysql)) {
           if (doSqlite)
@@ -383,7 +387,7 @@ public class App {
             + collector.createOutput(OutputCollector.TYPE.STRING, appliedCalculator.getCompressionLevel());
         else
           line = (String) collector.createOutput(OutputCollector.TYPE.JSON, appliedCalculator.getCompressionLevel());
-        // logger.info(line);
+
         if (!indexing)
           writer.write(line + "\n");
       }

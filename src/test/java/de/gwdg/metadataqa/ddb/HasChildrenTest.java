@@ -78,14 +78,14 @@ public class HasChildrenTest {
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
     for (RuleChecker checker : schema.getRuleCheckers()) {
-      if (checker.getId().equals("Q-9.4date")) {
+      if (checker.getId().equals("Q-9.4a")) {
         HasChildrenChecker checker1 = (HasChildrenChecker) checker;
         checker1.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
     assertEquals(
       RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Inhaltliche Beschreibung - date:hasValue:Q-9.4date").getStatus()
+      fieldCounter.get("Q-9.4a").getStatus()
     );
   }
 }

@@ -84,7 +84,6 @@ public class XPathBasedIteratorTest {
     while (iterator.hasNext()) {
       String json = calculator.measureAsJson(iterator.next());
       assertTrue(json.length() > 0);
-      // System.err.println(json);
     }
   }
 
