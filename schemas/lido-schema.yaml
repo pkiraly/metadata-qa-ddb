@@ -102,6 +102,15 @@ fields:
           - minLength: 1
           - not:
             - pattern: ^[a-zA-Z_0-9:\-]+$
+      - id: Q-3.6
+        description: There must be a reference to an image file in the data record provided (either as a link or as a file name). Check whether there is an element for the preview image in the data record (see table "Mapping the DDB elements"). If yes => check whether it contains a reference to an image file. To do this, either evaluate the MIME type in the Content-Type field in the HTTP response header and/or the file extension in the file name. PDF files also count as image files (see table "File types"). If yes => comparison with the table "File types" to see whether the image file format is supported by the DDB.
+        # skip: true
+        mandatory: true
+        and:
+          - dependencies: [ Q-3.0 ]
+          - or:
+              - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+              - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
       # no longer carry out the test for criterion Q-3.1-old
       #- id: Q-3.1-old
       #  description: There must be a reference to an image file in the data record provided (either as a link or as a file name).
@@ -122,8 +131,9 @@ fields:
       - id: Q-3.2
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         successScore: 1
+        alwaysCheckDependencies: true
         and:
-          - dependencies: [ Q-3.0 ]
+          - dependencies: [ Q-3.6 ]
           - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.3
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
@@ -150,14 +160,6 @@ fields:
 #          - or:
 #              - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
 #              - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
-      - id: Q-3.6
-        description: There must be a reference to an image file in the data record provided (either as a link or as a file name). Check whether there is an element for the preview image in the data record (see table "Mapping the DDB elements"). If yes => check whether it contains a reference to an image file. To do this, either evaluate the MIME type in the Content-Type field in the HTTP response header and/or the file extension in the file name. PDF files also count as image files (see table "File types"). If yes => comparison with the table "File types" to see whether the image file format is supported by the DDB.
-        # skip: true
-        and:
-          - dependencies: [ Q-3.0 ]
-          - or:
-              - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
-              - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
 
   # Mediendatei - Link Resource
 #  - name: mediendatei-link_resource

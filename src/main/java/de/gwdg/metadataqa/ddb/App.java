@@ -372,8 +372,8 @@ public class App {
 
         List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
         String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
-        System.err.println("## recordId: " + recordId);
-        System.err.println(results);
+        // System.err.println("## recordId: " + recordId);
+        // System.err.println(results);
 
         if (storing && (doSqlite || doMysql)) {
           if (doSqlite)

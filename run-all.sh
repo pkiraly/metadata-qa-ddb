@@ -37,3 +37,6 @@ if [[ "${PROCESS_LIDO}" == "1" ]]; then
 fi
 
 scripts/process/12_calculate_aggregations.mysql.sh
+
+sec=$SECONDS
+echo "DONE in $(printf '%02d:%02d:%02d\n' $((sec/3600)) $((sec%3600/60)) $((sec%60)))"
