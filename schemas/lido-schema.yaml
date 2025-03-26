@@ -139,15 +139,16 @@ fields:
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
         # skip: true
         and:
-          - dependencies: [ Q-3.0 ]
+          - dependencies: [ Q-3.6 ]
           - dimension:
               minShortside: 600
               minLongside: 800
       - id: Q-3.4
         description: The preview image should be referenced by a hyperlink.
         successScore: 1
+        # alwaysCheckDependencies: true
         and:
-          - dependencies: [ Q-3.0 ]
+          - dependencies: [ Q-3.6 ]
           - pattern: ^https?://.*$
 #      - id: Q-3.5
 #        description:
@@ -722,7 +723,7 @@ fields:
         successScore: 1
         and:
           - dependencies: [ Q-9.5 ]
-          - pattern: ^https?://https://www.wikidata.org/entity/Q
+          - pattern: ^https?://www.wikidata.org/entity/Q
 
   # Objektbeschreibung (term)
   - name: Objektbeschreibung
@@ -743,7 +744,7 @@ fields:
         successScore: 2
         and:
           - dependencies: [ Q-9.8 ]
-          - maxLength: 50
+          - minLength: 50
       - id: Q-9.10
         description: The object description must be unique.
         # Is the value in the element for the object title identical to that for the object description?
