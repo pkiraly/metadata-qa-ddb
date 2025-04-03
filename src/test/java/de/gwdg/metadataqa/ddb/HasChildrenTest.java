@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
+import de.gwdg.metadataqa.api.configuration.schema.ApplicationScope;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
+import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
@@ -11,6 +13,7 @@ import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.rule.logical.LogicalChecker;
 import de.gwdg.metadataqa.api.rule.singlefieldchecker.HasChildrenChecker;
+import de.gwdg.metadataqa.api.rule.singlefieldchecker.MinLengthChecker;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.junit.Before;
@@ -87,5 +90,36 @@ public class HasChildrenTest {
       RuleCheckingOutputStatus.PASSED,
       fieldCounter.get("Q-9.4a").getStatus()
     );
+  }
+
+  @Test
+  public void minlengthScope() throws Exception {
+    URL url = this.getClass().getResource("/lido/minlength-scope.xml");
+    File file = new File(url.getFile());
+    assertTrue(file.exists());
+
+    try {
+      schema = ConfigurationReader.readSchemaYaml("schemas/lido-schema.yaml").asSchema();
+      XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
+      xml = iterator.next();
+      System.err.println(xml);
+      xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());
+
+      Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+      String path = "lido:lido/lido:objectDescriptionSet/lido:descriptiveNoteValue";
+      DataElement dataElement = new DataElement(path);
+
+      MinLengthChecker checker = new MinLengthChecker(dataElement, 50);
+      checker.setScope(ApplicationScope.anyOf);
+      checker.setId("Q-9.8");
+
+      FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+      checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+
+      System.err.println(fieldCounter.get("Q-9.8").getStatus());
+
+    } catch (XPathExpressionException | IOException | ParserConfigurationException | SAXException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

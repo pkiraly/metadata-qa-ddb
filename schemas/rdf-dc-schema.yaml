@@ -12,6 +12,7 @@ fields:
       - id: Q-1.1
         description: There must be an ID for the data record in the data record supplied.
         # debug: true
+        mandatory: true
         and:
           - minCount: 1
           - minLength: 1
@@ -44,6 +45,7 @@ fields:
     rules:
       - id: Q-2.1
         description: There must be an ID for the data supplier in the data record supplied.
+        mandatory: true
         and:
         - minCount: 1
         - minLength: 1
@@ -82,6 +84,7 @@ fields:
     rules:
       - id: Q-3.0
         hidden: true
+        mandatory: true
         and:
         - minCount: 1
         - minLength: 1

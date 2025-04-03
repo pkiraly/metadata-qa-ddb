@@ -1,0 +1,10 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<lido:lido xmlns:lido="http://www.lido-schema.org">
+    <lido:objectDescriptionSet lido:type="Beschreibung">
+        <lido:descriptiveNoteValue xml:lang="de">Lebensgeschichtliches Audio-Interview in russischer Sprache mit Transkription, deutscher Übersetzung, Erschließung, Kurzbiografie und Fotografien.
+            Lebensgeschichtliches Audio-Interview in russischer Sprache mit Transkription, deutscher Übersetzung, Erschließung, Kurzbiografie und Fotografien.</lido:descriptiveNoteValue>
+    </lido:objectDescriptionSet>
+    <lido:objectDescriptionSet lido:type="Interviewprojekt">
+        <lido:descriptiveNoteValue xml:lang="de">Die Interviews.</lido:descriptiveNoteValue>
+    </lido:objectDescriptionSet>
+</lido:lido>
