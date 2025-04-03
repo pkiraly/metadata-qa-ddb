@@ -782,6 +782,7 @@ fields:
         and:
           - dependencies: [ Q-9.8 ]
           - unique: true
+          - disjoint: dc:title
 
 namespaces:
   doc: http://www.lyncode.com/xoai
