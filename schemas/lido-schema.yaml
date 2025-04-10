@@ -206,6 +206,7 @@ fields:
           or the object in the context (see table "Mapping the DDB elements"). If yes => check whether the corresponding
           element contains a value. If it is an object in the media viewer or an object in the context => check whether
           the value begins with http:// or https://.
+        mandatory: true
         and:
         - minCount: 1
         - minLength: 1
@@ -725,8 +726,10 @@ fields:
       - id: Q-9.4
         description: There must be at least one preferred designation for a thematic relation in the data record.
         successScore: 2
+        debug: true
+        alwaysCheckDependencies: true
         or:
-          - dependencies: [ Q-9.4d ]
+          - dependencies: [ Q-9.4c ]
           - and:
             - minCount: 1
             - pattern: ^.+$
