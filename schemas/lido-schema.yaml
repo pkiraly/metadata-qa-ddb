@@ -632,6 +632,7 @@ fields:
       - id: Q-8.1
         description: There must be at least one preferred designation for the object category in the data record.
         successScore: 2
+        mandatory: true
         and:
           - minCount: 1
           - pattern: ^.+$
