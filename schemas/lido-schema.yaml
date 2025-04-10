@@ -549,6 +549,7 @@ fields:
     rules:
       - id: Q-7.1
         description: There must be at least one preferred designation for the object type in the data record.
+        mandatory: true
         and:
         - minCount: 1
         - pattern: ^.+$
