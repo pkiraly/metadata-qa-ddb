@@ -98,7 +98,7 @@ fields:
         - minLength: 1
       - id: Q-3.x
         hidden: true
-        debug: true
+        # debug: true
         or:
         - maxCount: 0
         - and:
@@ -195,7 +195,7 @@ fields:
         - minLength: 1
       - id: Q-4.x
         hidden: true
-        debug: true
+        # debug: true
         or:
         - maxCount: 0
         - and:
@@ -246,7 +246,7 @@ fields:
         description:
           Check whether there are spaces or impermissible special characters in the URL or in the file name (in the case
           of a media file that is not referenced by a URL).
-        debug: true
+        # debug: true
         dependencies: [Q-3.x, Q-4.x]
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.4
@@ -290,9 +290,12 @@ fields:
           Check whether an element for the legal status is available in the data record (see table "Mapping the DDB elements").
           If yes => check whether the element contains a value
         mandatory: true
+        scope: allOf
         and:
         - minCount: 1
+          scope: allOf
         - minLength: 1
+          scope: allOf
       - id: Q-5.2
         description:
           Check whether an http-URI for a license or a rights notice from the DDB license basket is referenced in the
@@ -372,6 +375,7 @@ fields:
         # Wenn ja, Prüfung ob jedes dieser Elemente einen Wert enthält.
         # - - -
       #  failureScore: -3
+        scope: allOf
         and:
           - dependencies: [ Q-5.1 ]
           - minCount: 1
@@ -734,7 +738,7 @@ fields:
       - id: Q-9.4
         description: There must be at least one preferred designation for a thematic relation in the data record.
         successScore: 2
-        debug: true
+        # debug: true
         alwaysCheckDependencies: true
         or:
           - dependencies: [ Q-9.4c ]
