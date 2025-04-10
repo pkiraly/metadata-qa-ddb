@@ -1,0 +1,24 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+    <lido:lidoRecID lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">
+        record_naniweb_46131543542
+    </lido:lidoRecID>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:resourceWrap>
+            <lido:resourceSet lido:sortorder="1">
+                <lido:resourceID
+                   lido:source="naniweb"
+                   lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">
+                    record_naniweb_463542_media/record_naniweb_463542_28431.jpg
+                </lido:resourceID>
+                <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00464">
+                    <lido:linkResource/>
+                </lido:resourceRepresentation>
+                <lido:resourceType>
+                    <lido:term>image</lido:term>
+                </lido:resourceType>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>

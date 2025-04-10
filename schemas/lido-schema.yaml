@@ -98,6 +98,7 @@ fields:
         - minLength: 1
       - id: Q-3.x
         hidden: true
+        debug: true
         or:
         - maxCount: 0
         - and:
@@ -194,6 +195,7 @@ fields:
         - minLength: 1
       - id: Q-4.x
         hidden: true
+        debug: true
         or:
         - maxCount: 0
         - and:
@@ -244,6 +246,7 @@ fields:
         description:
           Check whether there are spaces or impermissible special characters in the URL or in the file name (in the case
           of a media file that is not referenced by a URL).
+        debug: true
         dependencies: [Q-3.x, Q-4.x]
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
       - id: Q-4.4
@@ -286,6 +289,7 @@ fields:
         description:
           Check whether an element for the legal status is available in the data record (see table "Mapping the DDB elements").
           If yes => check whether the element contains a value
+        mandatory: true
         and:
         - minCount: 1
         - minLength: 1
