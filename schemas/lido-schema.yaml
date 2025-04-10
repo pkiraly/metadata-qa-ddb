@@ -473,6 +473,7 @@ fields:
         description:
           Check whether an element for the object title is available in the data record (see table "Mapping the DDB elements").
           If yes => check whether the element contains a value.
+        mandatory: true
         and:
         - minCount: 1
         - pattern: ^.+$
