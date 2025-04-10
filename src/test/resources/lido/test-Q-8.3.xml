@@ -1,0 +1,18 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org"
+           xmlns:gml="http://www.opengis.net/gml"
+           xmlns:xalan="http://xml.apache.org/xalan"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd">
+    <lido:lidoRecID lido:source="ISIL" lido:type="http://terminology.lido-schema.org/lido00100">
+        DE-188/ZWAR/za027
+    </lido:lidoRecID>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:objectClassificationWrap>
+            <lido:classificationWrap>
+                <lido:classification lido:type="http://terminology.lido-schema.org/lido00853">
+                    <lido:term xml:lang="deu"/>
+                </lido:classification>
+            </lido:classificationWrap>
+        </lido:objectClassificationWrap>
+    </lido:descriptiveMetadata>
+</lido:lido>

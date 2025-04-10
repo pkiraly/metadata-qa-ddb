@@ -644,7 +644,6 @@ fields:
       - id: Q-8.2
         description: The object category is referenced by an http URI from a LOD vocabulary.
         successScore: 1
-        debug: true
         pattern: ^https?://(d-nb.info/gnd/|uri.gbv.de/terminology/aadgenres/|partage.vocnet.org/|vocab.getty.edu/aat/|www.wikidata.org/entity/Q|sws.geonames.org/)
       - id: Q-8.3
         description: The http-URI refers to a term in the GND or the AAT.
