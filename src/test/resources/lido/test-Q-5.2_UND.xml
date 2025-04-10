@@ -1,0 +1,20 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org"
+           xmlns:gml="http://www.opengis.net/gml"
+           xmlns:xalan="http://xml.apache.org/xalan"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd">
+    <lido:lidoRecID lido:source="https://hessen.museum-digital.de/institution/9" lido:type="local">DE-MUS-340318/5321580</lido:lidoRecID>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:resourceWrap>
+            <lido:resourceSet lido:sortorder="1">
+                <lido:resourceID lido:source="image" lido:type="local">10439</lido:resourceID>
+                <lido:rightsResource>
+                    <lido:rightsType>
+                        <lido:conceptID lido:type="uri">http://rightsstatements.org/vocab/UND/1.0/</lido:conceptID>
+                        <lido:term>UND 1.0</lido:term>
+                    </lido:rightsType>
+                </lido:rightsResource>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>

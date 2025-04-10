@@ -326,6 +326,8 @@ fields:
             - http://rightsstatements.org/vocab/NoC-NC/1.0/
             - http://rightsstatements.org/vocab/InC-EDU/1.0/
             - http://rightsstatements.org/vocab/NoC-OKLR/1.0/
+            - http://rightsstatements.org/vocab/NKC/1.0/
+            - http://rightsstatements.org/vocab/UND/1.0/
             - https://creativecommons.org/licenses/by/3.0/de/
             - https://creativecommons.org/licenses/by/4.0/
             - https://creativecommons.org/licenses/by-sa/3.0/de/
@@ -351,6 +353,8 @@ fields:
             - https://rightsstatements.org/vocab/NoC-NC/1.0/
             - https://rightsstatements.org/vocab/InC-EDU/1.0/
             - https://rightsstatements.org/vocab/NoC-OKLR/1.0/
+            - https://rightsstatements.org/vocab/NKC/1.0/
+            - https://rightsstatements.org/vocab/UND/1.0/
 
       - id: Q-5.3
         description:
