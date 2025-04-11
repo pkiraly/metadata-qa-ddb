@@ -1,0 +1,36 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xalan="http://xml.apache.org/xalan">
+    <lido:lidoRecID lido:source="ISIL" lido:type="http://terminology.lido-schema.org/lido00100">DE-188/ZWAR/za022222756643</lido:lidoRecID>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:eventWrap>
+            <lido:eventSet>
+                <lido:displayEvent xml:lang="de">Interview-Aufnahme</lido:displayEvent>
+                <lido:event>
+                    <lido:eventType>
+                        <lido:conceptID lido:source="LIDO" lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+                        <lido:term lido:addedSearchTerm="no" xml:lang="de">Herstellung</lido:term>
+                    </lido:eventType>
+                    <lido:eventDate>
+                        <lido:displayDate>22.11.2005</lido:displayDate>
+                        <lido:date>
+                            <lido:earliestDate>2005-11-22</lido:earliestDate>
+                            <lido:latestDate>2005-11-22</lido:latestDate>
+                        </lido:date>
+                    </lido:eventDate>
+                </lido:event>
+            </lido:eventSet>
+        </lido:eventWrap>
+        <lido:objectRelationWrap>
+            <lido:subjectWrap>
+                <lido:subjectSet lido:sortorder="14">
+                    <lido:subject>
+                        <lido:subjectPlace lido:sortorder="1">
+                            <lido:place>
+                                <lido:displayPlace>Lagerkomplex Jasenovac</lido:displayPlace>
+                            </lido:place>
+                        </lido:subjectPlace>
+                    </lido:subject>
+                </lido:subjectSet>
+            </lido:subjectWrap>
+        </lido:objectRelationWrap>
+    </lido:descriptiveMetadata>
+</lido:lido>
