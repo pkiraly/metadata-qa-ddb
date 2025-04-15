@@ -98,7 +98,6 @@ fields:
         - minLength: 1
       - id: Q-3.x
         hidden: true
-        # debug: true
         or:
         - maxCount: 0
         - and:
@@ -195,7 +194,6 @@ fields:
         - minLength: 1
       - id: Q-4.x
         hidden: true
-        # debug: true
         or:
         - maxCount: 0
         - and:
@@ -215,7 +213,6 @@ fields:
         - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
-        # skip: true
         and:
         - minCount: 1
         - minLength: 1
@@ -494,16 +491,16 @@ fields:
         and:
           - dependencies: [ Q-6.1 ]
           - not:
-              - in:
-                  - "?"
-                  - "ohne Title"
-                  - "unbekannter Titel"
+            - in:
+              - "?"
+              - "ohne Title"
+              - "unbekannter Titel"
       - id: Q-6.5
         description: Check whether the same string is contained in the element for the object title and the object type
         and:
           - dependencies: [ Q-6.1 ]
           - not:
-              - equals: Objekttyp
+            - equals: Objekttyp
 
   # Objekttyp - Object/Work Type
 #  - name: objekttyp-object_work_type
