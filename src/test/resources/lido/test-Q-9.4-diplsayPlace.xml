@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xalan="http://xml.apache.org/xalan">
     <lido:lidoRecID lido:source="ISIL" lido:type="http://terminology.lido-schema.org/lido00100">DE-188/ZWAR/za022222756643</lido:lidoRecID>
     <lido:descriptiveMetadata xml:lang="de">

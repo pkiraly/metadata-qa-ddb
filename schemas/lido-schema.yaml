@@ -194,9 +194,10 @@ fields:
         - minLength: 1
       - id: Q-4.x
         hidden: true
-        or:
-        - maxCount: 0
-        - and:
+        # or:
+        # - maxCount: 0
+        # - and:
+        and:
           - minCount: 1
           - minLength: 1
           - pattern: ^[a-zA-Z_0-9:/\.\-]+$

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
+import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
 import de.gwdg.metadataqa.api.rule.RuleChecker;
@@ -13,9 +14,15 @@ import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +40,7 @@ public class q43Test {
 
   @Before
   public void setUp() throws Exception {
-    URL url = this.getClass().getResource("/lido/test-Q-9.4.xml");
+    URL url = this.getClass().getResource("/lido/test-Q-4.3.xml");
     File file = new File(url.getFile());
     assertTrue(file.exists());
 
@@ -53,17 +60,13 @@ public class q43Test {
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
     List<String> ids = List.of("Q-3.x", "Q-4.x", "Q-4.3");
     for (RuleChecker checker : schema.getRuleCheckers()) {
-      if (ids.contains(checker.getId()))
+      if (ids.contains(checker.getId())) {
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
     }
-    System.err.println(fieldCounter);
-    /*
     assertEquals(
-      RuleCheckingOutputStatus.PASSED,
+      RuleCheckingOutputStatus.FAILED,
       fieldCounter.get("Q-4.3").getStatus()
     );
-
-     */
-
   }
 }
