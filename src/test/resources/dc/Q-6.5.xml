@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 rdf:about="umbruch_11">
+    <dc:title xml:lang="de">Forschungsbericht</dc:title>
+    <dc:type>
+        <skos:Concept rdf:about="https://d-nb.info/gnd/4155043-2">
+            <skos:prefLabel xml:lang="de">Forschungsbericht</skos:prefLabel>
+        </skos:Concept>
+    </dc:type>
+</rdf:Description>

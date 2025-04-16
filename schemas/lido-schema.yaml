@@ -494,8 +494,10 @@ fields:
           - not:
             - in:
               - "?"
-              - "ohne Title"
+              - "ohne Titel"
+              - "Ohne Titel"
               - "unbekannter Titel"
+              - "Unbekannter Titel"
       - id: Q-6.5
         description: Check whether the same string is contained in the element for the object title and the object type
         and:
