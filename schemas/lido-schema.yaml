@@ -554,7 +554,7 @@ fields:
         description: It is a specific object type designation and not an object description or object classification.
         and:
           - dependencies: [ Q-7.1 ]
-          - maxWords: 2
+          - maxWords: 1
 
   # TODO: 7.2
 
@@ -806,6 +806,7 @@ fields:
       - id: Q-9.8
         description: There must be at least one object description in the data record.
         successScore: 1
+        mandatory: true
         and:
           - minCount: 1
           - pattern: ^.+$
