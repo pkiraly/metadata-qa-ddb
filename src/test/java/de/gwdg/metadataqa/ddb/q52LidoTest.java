@@ -8,7 +8,6 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
-import de.gwdg.metadataqa.api.rule.logical.AndChecker;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
 import org.junit.Test;
@@ -24,7 +23,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class q53Test {
+public class q52LidoTest {
   private Schema schema;
   private String recordAddress = "//lido:lido";
   private XPathWrapper xPathWrapper;
@@ -47,27 +46,36 @@ public class q53Test {
   }
 
   @Test
-  public void test_empty() {
-    prepare("/lido/test-Q-5.3.xml");
+  public void test_UND() {
+    prepare("/lido/test-Q-5.2_UND.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-5.1", "Q-5.3");
+    List<String> ids = List.of("Q-5.1", "Q-5.2");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
-        checker.setDebug();
-        if (checker instanceof AndChecker) {
-          AndChecker achecker = (AndChecker) checker;
-          for (RuleChecker child : achecker.getCheckers()) {
-            child.setDebug();
-          }
-        }
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
-    System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-5.3").getStatus()
+      RuleCheckingOutputStatus.PASSED,
+      fieldCounter.get("Q-5.2").getStatus()
+    );
+  }
+
+  @Test
+  public void test_NKC() {
+    prepare("/lido/test-Q-5.2_NKC.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-5.1", "Q-5.2");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    assertEquals(
+      RuleCheckingOutputStatus.PASSED,
+      fieldCounter.get("Q-5.2").getStatus()
     );
   }
 }

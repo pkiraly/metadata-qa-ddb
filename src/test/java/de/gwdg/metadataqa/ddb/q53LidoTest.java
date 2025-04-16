@@ -2,50 +2,42 @@ package de.gwdg.metadataqa.ddb;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
-import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
 import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
-import de.gwdg.metadataqa.api.rule.singlefieldchecker.HasChildrenChecker;
+import de.gwdg.metadataqa.api.rule.logical.AndChecker;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
-import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-public class q43Test {
+public class q53LidoTest {
   private Schema schema;
   private String recordAddress = "//lido:lido";
   private XPathWrapper xPathWrapper;
   private String xml;
 
-  @Before
-  public void setUp() throws Exception {
-    URL url = this.getClass().getResource("/lido/test-Q-4.3.xml");
+  private void prepare(String xmlFile) {
+    URL url = this.getClass().getResource(xmlFile); // "/lido/test-Q-5.2_UND.xml");
     File file = new File(url.getFile());
     assertTrue(file.exists());
 
     try {
       schema = ConfigurationReader.readSchemaYaml("schemas/lido-schema.yaml").asSchema();
+      // schema.getPathByLabel("rights")
       XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
       xml = iterator.next();
       xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());
@@ -55,18 +47,27 @@ public class q43Test {
   }
 
   @Test
-  public void name() {
+  public void test_empty() {
+    prepare("/lido/test-Q-5.3.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-3.x", "Q-4.x", "Q-4.3");
+    List<String> ids = List.of("Q-5.1", "Q-5.3");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        if (checker instanceof AndChecker) {
+          AndChecker achecker = (AndChecker) checker;
+          for (RuleChecker child : achecker.getCheckers()) {
+            child.setDebug();
+          }
+        }
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-4.3").getStatus()
+      fieldCounter.get("Q-5.3").getStatus()
     );
   }
 }

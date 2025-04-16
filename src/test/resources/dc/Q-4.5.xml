@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcat="http://www.w3.org/ns/dcat#"
+                 xmlns:dcterms="http://purl.org/dc/terms/"
+                 xmlns:doc="http://www.lyncode.com/xoai"
+                 xmlns:edm="http://www.europeana.eu/schemas/edm/"
+                 xmlns:europeana="http://www.europeana.eu/schemas/ese/"
+                 xmlns:ex="http://www.example.org/"
+                 xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+                 xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+                 xmlns:rdfs="http://www.w3schools.com/RDF/rdf-schema.xml"
+                 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema" rdf:about="umbruch_11">
+    <edm:isShownAt>
+    </edm:isShownAt>
+</rdf:Description>

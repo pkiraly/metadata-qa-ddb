@@ -24,7 +24,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class q83Test {
+public class q83LidoTest {
   private Schema schema;
   private String recordAddress = "//lido:lido";
   private XPathWrapper xPathWrapper;
