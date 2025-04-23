@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:edm="http://www.europeana.eu/schemas/edm/"
+                 rdf:about="umbruch_4">
+  <edm:hasView>
+    <edm:WebResource
+      rdf:about="https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_127113/record_kuniweb_127113_836329.jpg/full/full/0/default.jpg">
+    </edm:WebResource>
+  </edm:hasView>
+</rdf:Description>

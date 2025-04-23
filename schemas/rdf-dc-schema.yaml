@@ -216,11 +216,30 @@ fields:
           in the file name (in the case of a media file that is not referenced by a URL).
         dependencies: [Q-3.x, Q-4.x]
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
+
+  - name: media_url20
+    path: rdf:Description/edm:isShownBy/edm:WebResource | rdf:Description/edm:isShownBy | rdf:Description/edm:hasView/edm:WebResource | rdf:Description/edm:hasView | oai:record/oai:metadata/oai_dc:dc/edm:isShownBy | oai:record/oai:metadata/oai_dc:dc/edm:hasView
+    rules:
+      - id: Q-4.4.0
+        description: Check whether the data record contains a media file (see table "Mapping the DDB elements").
+          If so => check whether these elements contain a value.
+        hidden: true
+        allowEmptyInstances: true
+        minCount: 0
+
+  - name: media_url2
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/oai:metadata/oai_dc:dc/edm:isShownBy | oai:record/oai:metadata/oai_dc:dc/edm:hasView
+    rules:
       - id: Q-4.4
         description: Check whether the data record contains a media file (see table "Mapping the DDB elements").
           If so => check whether these elements contain a value.
         successScore: 3
-        dependencies: [Q-3.0, Q-4.0]
+        alwaysCheckDependencies: true
+        scope: anyOf
+        and:
+          - dependencies: [ Q-4.4.0 ]
+          - minCount: 1
+          - minLength: 1
 
   # Objekt im Kontext [Object in context]
   - name: Objekt im Kontext
@@ -468,7 +487,8 @@ fields:
 
   # Q-7 Objekttyp (URI)
   - name: dc_type_source
-    path: oai:record/dc:type/@resource
+    # path: oai:record/dc:type/@resource
+    path: rdf:Description/dc:type/skos:Concept/@rdf:about
     rules:
       - id: Q-7.6
         description: Check whether the value in the element for the URI of the object type begins with http:// or https://. If yes => check whether the URI begins with a namespace for a LOD vocabulary accepted by the DDB (see Sect. Objekttyp-Vok)

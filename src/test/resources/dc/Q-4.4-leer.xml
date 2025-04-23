@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                  xmlns:edm="http://www.europeana.eu/schemas/edm/"
-                 rdf:about="umbruch_11">
-    <edm:isShownAt>
-    </edm:isShownAt>
+                 rdf:about="umbruch_4">
+  <edm:hasView/>
 </rdf:Description>
