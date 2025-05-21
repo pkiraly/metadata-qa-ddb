@@ -117,6 +117,7 @@ fields:
           - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
       - id: Q-3.3
         description: The image must be at least 800 pixels wide and at least 600 pixels high.
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-3.0 ]
           - dimension:
@@ -125,6 +126,7 @@ fields:
       - id: Q-3.4
         description: The preview image should be referenced by a hyperlink.
         successScore: 1
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-3.0 ]
           - pattern: ^https?://.*$
@@ -148,6 +150,7 @@ fields:
           in the file name. PDF files also count as image files (see table "File types").
           If yes => comparison with the table "File types" to see whether the image file format is supported
           by the DDB.
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-3.0 ]
           - or:
