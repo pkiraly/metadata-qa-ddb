@@ -188,6 +188,7 @@ fields:
         - pattern: ^https?://.*$
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
+        scope: allOf
         and:
         - minCount: 1
         - minLength: 1
@@ -282,6 +283,7 @@ fields:
           scope: allOf
       - id: Q-5.2
         description: Check whether an http-URI for a license or a rights notice from the DDB license basket is referenced in the element for the legal status (see table "DDB license basket")
+        alwaysCheckDependencies: true
         and:
           - dependencies: [Q-5.1]
           - minCount: 1
