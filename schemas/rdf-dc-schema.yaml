@@ -592,6 +592,7 @@ fields:
       - id: Q-9.4
         description: There must be at least one preferred designation for a thematic relation in the data record.
         successScore: 2
+        mandatory: true
         and:
           - minCount: 1
           - pattern: ^.+$
