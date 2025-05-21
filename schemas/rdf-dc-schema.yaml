@@ -497,7 +497,7 @@ fields:
   # Q-7 Objekttyp (URI)
   - name: dc_type_source
     # path: oai:record/dc:type/@resource
-    path: rdf:Description/dc:type/skos:Concept/@rdf:about
+    path: rdf:Description/dc:type/skos:Concept/@rdf:about | rdf:Description/dc:type/skos:Concept/skos:prefLabel| rdf:Description/dc:type | oai:record/oai:metadata/oai_dc:dc/dc:type
     rules:
       - id: Q-7.6
         description: Check whether the value in the element for the URI of the object type begins with http:// or https://. If yes => check whether the URI begins with a namespace for a LOD vocabulary accepted by the DDB (see Sect. Objekttyp-Vok)
