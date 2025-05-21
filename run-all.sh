@@ -5,7 +5,7 @@ source $ROOT/configuration.cnf
 echo "OUTPUT_DIR: $OUTPUT_DIR"
 
 PROCESS_DC=1
-PROCESS_LIDO=1
+PROCESS_LIDO=${PROCESS_LIDO:-1}
 
 rm $OUTPUT_DIR/*
 

@@ -347,6 +347,7 @@ fields:
       - id: Q-5.3
         description: The legal status must be specified for each media file referenced in the data set.
         scope: allOf
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-5.1 ]
           - minCount: 1
@@ -354,6 +355,7 @@ fields:
       - id: Q-5.4
         description: Check whether an http-URI is specified for an open license or for an open license with name (see table "DDB license basket")
         successScore: 6
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-5.1 ]
           - minCount: 1
@@ -369,6 +371,7 @@ fields:
           Check whether an http-URI is specified for a rights notice with the possibility of use on request
           (see table "DDB license basket")
         successScore: 1
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-5.1 ]
           - minCount: 1
@@ -406,6 +409,7 @@ fields:
 
       - id: Q-5.6
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
+        alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-5.1 ]
           - in:
