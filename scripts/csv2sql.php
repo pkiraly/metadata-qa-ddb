@@ -30,7 +30,9 @@ function processCsv($csvFile, $table, $out) {
         $columns = $values;
       } else {
         if (count($columns) != count($values)) {
-          error_log(sprintf('error in %s line #%d: columns: %d vs values: %d', $csvFile, $lineNumber, count($columns), count($values)));
+          error_log(sprintf('error in %s line #%d: expected nr-of-columns: %d vs actual values: %d',
+          $csvFile, $lineNumber, count($columns), count($values)));
+          error_log(sprintf('file: %s, id: %s', $values[1], $values[2]));
         } else {
           $sql = sprintf("INSERT INTO %s (`%s`) VALUES (%s);\n", $table, join('`,`', $columns), str_putcsv2($values, ',', '"', $columns));
           file_put_contents($out, $sql, FILE_APPEND);

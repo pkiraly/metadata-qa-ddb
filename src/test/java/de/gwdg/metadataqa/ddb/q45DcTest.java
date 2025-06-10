@@ -50,7 +50,7 @@ public class q45DcTest {
   public void name() {
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.5");
+    List<String> ids = List.of("Q-4.5a", "Q-4.5b", "Q-4.5c", "Q-4.5d", "Q-4.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -58,8 +58,7 @@ public class q45DcTest {
       }
     }
     assertEquals(
-      RuleCheckingOutputStatus.NA,
-      fieldCounter.get("Q-4.5").getStatus()
-    );
+        RuleCheckingOutputStatus.FAILED,
+        fieldCounter.get("Q-4.5").getStatus());
   }
 }

@@ -258,6 +258,61 @@ fields:
           - minCount: 1
           - minLength: 1
 
+  - name: Objekt im Kontext - a
+    path: rdf:Description/edm:isShownAt
+    rules:
+      - id: Q-4.5a
+        # debug: true
+        allowEmptyInstances: true
+        hidden: true
+        and:
+          - minCount: 1
+            debug: true
+            allowEmptyInstances: false
+          - or:
+            - hasChildren: ["edm:WebResource"]
+              debug: true
+            - hasChildren: ["@rdf:about"]
+              debug: true
+
+  - name: Objekt im Kontext - b
+    path: rdf:Description/edm:isShownAt/edm:WebResource
+    rules:
+      - id: Q-4.5b
+        # debug: true
+        allowEmptyInstances: true
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [ Q-4.5a ]
+          - minCount: 1
+            debug: true
+            allowEmptyInstances: false
+          - hasChildren: ["@rdf:about"]
+            debug: true
+
+  - name: Objekt im Kontext - c
+    path: rdf:Description/edm:isShownAt
+    rules:
+      - id: Q-4.5c
+        # debug: true
+        allowEmptyInstances: true
+        hidden: true
+        and:
+          - minCount: 1
+            debug: true
+          - hasChildren: ["@rdf:resource"]
+            debug: true
+
+  - name: Objekt im Kontext - d
+    path: oai:record/oai:metadata/oai_dc:dc/edm:isShownAt
+    rules:
+      - id: Q-4.5d
+        # debug: true
+        hidden: true
+        allowEmptyInstances: true
+        minCount: 1
+
   # Objekt im Kontext [Object in context]
   - name: Objekt im Kontext
     path: rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource | oai:record/oai:metadata/oai_dc:dc/edm:isShownAt
@@ -265,9 +320,24 @@ fields:
       - id: Q-4.5
         description: Check whether the data record contains an object in context (see table "Mapping the DDB elements"). If so => check whether this element contain a value.
         successScore: 3
+        alwaysCheckDependencies: true
+        debug: true
         and:
+          - or:
+              - dependencies: [Q-4.5b]
+                # debug: true
+              - dependencies: [Q-4.5c]
+                # debug: true
+              - dependencies: [Q-4.5d]
+                # debug: true
+            alwaysCheckDependencies: true
+            id: Q-4.5or
+            # debug: true
+            hidden: true
           - minCount: 1
+            # debug: true
           - minLength: 1
+            # debug: true
 
   # Objekt im Medienviewer (object in the media viewer)
   - name: Objekt im Medienviewer

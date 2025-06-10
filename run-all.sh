@@ -9,6 +9,9 @@ PROCESS_LIDO=${PROCESS_LIDO:-1}
 
 rm $OUTPUT_DIR/*
 
+# remove php log
+rm logs/php.log
+
 # create empty tables
 scripts/create_database.mysql.sh
 # creates files.csv
