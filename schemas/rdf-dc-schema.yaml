@@ -267,13 +267,13 @@ fields:
         hidden: true
         and:
           - minCount: 1
-            debug: true
+            debug: false
             allowEmptyInstances: false
           - or:
             - hasChildren: ["edm:WebResource"]
-              debug: true
+              debug: false
             - hasChildren: ["@rdf:about"]
-              debug: true
+              debug: false
 
   - name: Objekt im Kontext - b
     path: rdf:Description/edm:isShownAt/edm:WebResource
@@ -286,10 +286,10 @@ fields:
         and:
           - dependencies: [ Q-4.5a ]
           - minCount: 1
-            debug: true
+            debug: false
             allowEmptyInstances: false
           - hasChildren: ["@rdf:about"]
-            debug: true
+            debug: false
 
   - name: Objekt im Kontext - c
     path: rdf:Description/edm:isShownAt
@@ -300,9 +300,9 @@ fields:
         hidden: true
         and:
           - minCount: 1
-            debug: true
+            debug: false
           - hasChildren: ["@rdf:resource"]
-            debug: true
+            debug: false
 
   - name: Objekt im Kontext - d
     path: oai:record/oai:metadata/oai_dc:dc/edm:isShownAt
@@ -321,7 +321,7 @@ fields:
         description: Check whether the data record contains an object in context (see table "Mapping the DDB elements"). If so => check whether this element contain a value.
         successScore: 3
         alwaysCheckDependencies: true
-        debug: true
+        debug: false
         and:
           - or:
               - dependencies: [Q-4.5b]
