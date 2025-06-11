@@ -728,7 +728,7 @@ fields:
       - id: Q-9.4a
         description: There must be at least one preferred designation for a thematic relation in the data record.
         # successScore: 2
-        # hidden: true
+        hidden: true
         # debug: true
         hasChildren:
           - lido:earliestDate
@@ -740,7 +740,7 @@ fields:
       - id: Q-9.4b
         description: There must be at least one preferred designation for a thematic relation in the data record.
         # successScore: 2
-        # hidden: true
+        hidden: true
         # debug: true
         and:
           # - minCount: 1
@@ -752,7 +752,7 @@ fields:
       - id: Q-9.4c
         description: date or displayDate
         # successScore: 2
-        # hidden: true
+        hidden: true
         # debug: true
         or:
           - dependencies: [ Q-9.4a ]

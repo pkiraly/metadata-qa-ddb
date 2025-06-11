@@ -11,14 +11,12 @@ fields:
     rules:
       - id: Q-1.1
         description: There must be an ID for the data record in the data record supplied.
-        # debug: true
         mandatory: true
         and:
           - minCount: 1
           - minLength: 1
       - id: Q-1.2
         description: The ID for the data record must be unique.
-        # debug: true
         and:
           - dependencies: [Q-1.1]
           # - maxCount: 1
@@ -266,7 +264,6 @@ fields:
     path: rdf:Description/edm:isShownAt
     rules:
       - id: Q-4.5a
-        # debug: true
         allowEmptyInstances: true
         hidden: true
         and:
@@ -283,7 +280,6 @@ fields:
     path: rdf:Description/edm:isShownAt/edm:WebResource
     rules:
       - id: Q-4.5b
-        # debug: true
         allowEmptyInstances: true
         hidden: true
         alwaysCheckDependencies: true
@@ -299,7 +295,6 @@ fields:
     path: rdf:Description/edm:isShownAt
     rules:
       - id: Q-4.5c
-        # debug: true
         allowEmptyInstances: true
         hidden: true
         and:
@@ -312,7 +307,6 @@ fields:
     path: oai:record/oai:metadata/oai_dc:dc/edm:isShownAt
     rules:
       - id: Q-4.5d
-        # debug: true
         hidden: true
         allowEmptyInstances: true
         minCount: 1
@@ -329,19 +323,13 @@ fields:
         and:
           - or:
               - dependencies: [Q-4.5b]
-                # debug: true
               - dependencies: [Q-4.5c]
-                # debug: true
               - dependencies: [Q-4.5d]
-                # debug: true
             alwaysCheckDependencies: true
             id: Q-4.5or
-            # debug: true
             hidden: true
           - minCount: 1
-            # debug: true
           - minLength: 1
-            # debug: true
 
   # Objekt im Medienviewer (object in the media viewer)
   - name: Objekt im Medienviewer
