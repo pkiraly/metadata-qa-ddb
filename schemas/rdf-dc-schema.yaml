@@ -84,12 +84,13 @@ fields:
     rules:
       - id: Q-3.0
         hidden: true
-        mandatory: true
+        mandatory: false
         and:
           - minCount: 1
           - minLength: 1
       - id: Q-3.x
         hidden: true
+        debug: true
         or:
           - maxCount: 0
           - and:
@@ -183,6 +184,7 @@ fields:
           - minLength: 1
       - id: Q-4.x
         hidden: true
+        debug: true
         or:
           - maxCount: 0
           - and:
@@ -230,6 +232,7 @@ fields:
           Check whether there are spaces or impermissible special characters in the URL or
           in the file name (in the case of a media file that is not referenced by a URL).
         dependencies: [Q-3.x, Q-4.x]
+        debug: true
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
 
   - name: media_url20
@@ -688,6 +691,7 @@ fields:
         # successScore: 1
         hidden: true
         scope: allOf
+        debug: false
         and:
           - minCount: 1
             scope: allOf
