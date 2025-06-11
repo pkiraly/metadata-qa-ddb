@@ -85,6 +85,7 @@ fields:
       - id: Q-3.0
         hidden: true
         mandatory: false
+        allowEmptyInstances: true
         and:
           - minCount: 1
           - minLength: 1

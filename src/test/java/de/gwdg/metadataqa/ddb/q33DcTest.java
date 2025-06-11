@@ -58,7 +58,7 @@ public class q33DcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
+      RuleCheckingOutputStatus.NA,
       fieldCounter.get("Q-3.3").getStatus()
     );
   }
@@ -77,7 +77,7 @@ public class q33DcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
+      RuleCheckingOutputStatus.NA,
       fieldCounter.get("Q-3.3").getStatus()
     );
   }
