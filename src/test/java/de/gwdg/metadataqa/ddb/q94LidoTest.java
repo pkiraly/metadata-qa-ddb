@@ -70,7 +70,7 @@ public class q94LidoTest {
     }
     // System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
+      RuleCheckingOutputStatus.NA,
       fieldCounter.get("Q-9.4").getStatus()
     );
   }

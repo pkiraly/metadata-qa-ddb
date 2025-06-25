@@ -74,6 +74,75 @@ fields:
           - dependencies: [Q-2.1]
           - pattern: ^https?://d-nb.info/gnd/[\w-]+$
 
+  # Q-3 Vorschaubild - preparation
+  - name: thumbnail - WebResource
+    path: rdf:Description/edm:object/edm:WebResource
+    rules:
+      - id: Q-3.wa
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: thumbnail - WebResource-about
+    path: rdf:Description/edm:object/edm:WebResource/@rdf:about
+    rules:
+      - id: Q-3.w
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-3.wa]
+          - minCount: 1
+
+  - name: thumbnail - object
+    path: rdf:Description/edm:object
+    rules:
+      - id: Q-3.oa
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: thumbnail - object-resource
+    path: rdf:Description/edm:object/@rdf:resource
+    rules:
+      - id: Q-3.o
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-3.oa]
+          - minCount: 1
+
+  - name: thumbnail - identifier
+    path: oai:record/dc:identifier
+    rules:
+      - id: Q-3.ia
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: thumbnail - identifier-binary
+    path: oai:record/dc:identifier[@type='binary']
+    rules:
+      - id: Q-3.i
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-3.ia]
+          - minCount: 1
+
+  - name: thumbnail - precheck
+    path: rdf:Description/edm:object/edm:WebResource | rdf:Description/edm:object | oai:record/dc:identifier[@type='binary']
+    rules:
+      - id: Q-3.pre
+        hidden: true
+        alwaysCheckDependencies: true
+        or:
+          - dependencies: [Q-3.w]
+          - dependencies: [Q-3.o]
+          - dependencies: [Q-3.i]
+
   # Q-3 Vorschaubild
   - name: thumbnail
     # path: oai:record/dc:identifier[@type='binary']
@@ -84,7 +153,9 @@ fields:
         hidden: true
         mandatory: false
         allowEmptyInstances: true
+        alwaysCheckDependencies: true
         and:
+          - dependencies: [Q-3.pre]
           - minCount: 1
           - minLength: 1
       - id: Q-3.x
@@ -167,18 +238,125 @@ fields:
                     application/pdf,
                   ]
 
+  - name: media_url isShownBy-WebResource
+    path: rdf:Description/edm:isShownBy/edm:WebResource
+    rules:
+      - id: Q-4.0a
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url isShownBy-WebResource-about
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about
+    rules:
+      - id: Q-4.0ax
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.a]
+          - minCount: 1
+
+  - name: media_url isShownBy
+    path: rdf:Description/edm:isShownBy
+    rules:
+      - id: Q-4.0b
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url isShownBy-resource
+    path: rdf:Description/edm:isShownBy/@rdf:resource
+    rules:
+      - id: Q-4.0bx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0b]
+          - minCount: 1
+
+  - name: media_url hasView-WebResource
+    path: rdf:Description/edm:hasView/edm:WebResource
+    rules:
+      - id: Q-4.0c
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url hasView-WebResource-about
+    path: rdf:Description/edm:hasView/edm:WebResource/@rdf:about
+    rules:
+      - id: Q-4.0cx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0c]
+          - minCount: 1
+
+  - name: media_url hasView
+    path: rdf:Description/edm:hasView
+    rules:
+      - id: Q-4.0d
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url hasView-resource
+    path: rdf:Description/edm:hasView/@rdf:resource
+    rules:
+      - id: Q-4.0dx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0d]
+          - minCount: 1
+
+  - name: media_url identifier
+    path: oai:record/dc:identifier
+    rules:
+      - id: Q-4.0e
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url identifier-type
+    path: oai:record/dc:identifier[@type='URL']
+    rules:
+      - id: Q-4.0ex
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0e]
+          - minCount: 1
+
+  - name: media_url - precheck
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/dc:identifier[@type='URL']
+    rules:
+      - id: Q-4.pre
+        hidden: true
+        alwaysCheckDependencies: true
+        or:
+          - dependencies: [Q-4.ax]
+          - dependencies: [Q-4.bx]
+          - dependencies: [Q-4.cx]
+          - dependencies: [Q-4.dx]
+          - dependencies: [Q-4.ex]
+
   # Q-4
   # Mediendatei [media file] -- dc:identifier/@type="binary"
   # Objekt im Medienviewer [Object in media viewer] -- dc:identifier/@type="URL"
   # Objekt im Kontext [Object in context] -- dc:identifier/@type="URL"
   - name: media_url
-    # path: oai:record/dc:identifier[@type='URL']
-    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource | oai:record/dc:identifier[@type='URL']
-    # extractable: true
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/dc:identifier[@type='URL']
     rules:
       - id: Q-4.0
         hidden: true
         and:
+          - dependencies: [Q-4.pre]
           - minCount: 1
           - minLength: 1
       - id: Q-4.x
