@@ -520,6 +520,135 @@ fields:
           - minCount: 1
           - minLength: 1
 
+  - name: rights - object-WebResource-license
+    path: rdf:Description/edm:object/edm:WebResource/dcterms:license
+    rules:
+      - id: Q-5.0a
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - object-WebResource-license-resource
+    path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0ax
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0a]
+          - minCount: 1
+
+  - name: rights - isShownBy-WebResource-license
+    path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license
+    rules:
+      - id: Q-5.0b
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - isShownBy-WebResource-license-resource
+    path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0bx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0b]
+          - minCount: 1
+
+  - name: rights - hasView-WebResource-license
+    path: rdf:Description/edm:hasView/edm:WebResource/dcterms:license
+    rules:
+      - id: Q-5.0c
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - hasView-WebResource-license-resource
+    path: rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0cx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0c]
+          - minCount: 1
+
+  - name: rights - isShownAt-WebResource-license
+    path: rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license
+    rules:
+      - id: Q-5.0d
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - isShownAt-WebResource-license-resource
+    path: rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0dx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0d]
+          - minCount: 1
+
+  - name: rights - license
+    path: rdf:Description/dcterms:license
+    rules:
+      - id: Q-5.0e
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - license-resource
+    path: rdf:Description/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0ex
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0e]
+          - minCount: 1
+
+  - name: rights - rights
+    path: oai:record/dc:rights
+    rules:
+      - id: Q-5.0f
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: rights - rights-type
+    path: oai:record/dc:rights[@type='binary']
+    rules:
+      - id: Q-5.0fx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-5.0f]
+          - minCount: 1
+
+  - name: rights - precheck
+    path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/dcterms:license/@rdf:resource | oai:record/dc:rights[@type='binary']
+    rules:
+      - id: Q-5.pre
+        hidden: true
+        debug: true
+        alwaysCheckDependencies: true
+        or:
+          - dependencies: [Q-5.ax]
+          - dependencies: [Q-5.bx]
+          - dependencies: [Q-5.cx]
+          - dependencies: [Q-5.dx]
+          - dependencies: [Q-5.ex]
+          - dependencies: [Q-5.fx]
+
   # Q-5 Rechtsstatus für das Digitale Objekt
   - name: rights
     path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource | rdf:Description/dcterms:license/@rdf:resource | oai:record/dc:rights[@type='binary']
@@ -530,6 +659,7 @@ fields:
         mandatory: true
         scope: allOf
         and:
+          - dependencies: [Q-5.pre]
           - minCount: 1
             scope: allOf
           - minLength: 1
