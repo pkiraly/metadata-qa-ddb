@@ -83,7 +83,7 @@ public class q5xDcTest {
       "Q-5.0d", "Q-5.0dx", // edm:isShownAt
       "Q-5.0e", "Q-5.0ex", // dcterms:license
       "Q-5.0f", "Q-5.0fx", // dc:rights
-      "Q-5.pre", "Q-5.1"
+      "Q-5.pre", "Q-5.1", "Q-5.2"
     );
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
@@ -93,8 +93,12 @@ public class q5xDcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.NA,
+      RuleCheckingOutputStatus.FAILED,
       fieldCounter.get("Q-5.1").getStatus()
+    );
+    assertEquals(
+      RuleCheckingOutputStatus.NA,
+      fieldCounter.get("Q-5.2").getStatus()
     );
   }
 }
