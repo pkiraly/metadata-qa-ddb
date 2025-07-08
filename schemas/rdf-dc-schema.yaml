@@ -673,7 +673,7 @@ fields:
         description: Check whether an http-URI for a license or a rights notice from the DDB license basket is referenced in the element for the legal status (see table "DDB license basket")
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.1]
+          - dependencies: [Q-5.pre]
           - minCount: 1
           - in:
               - http://creativecommons.org/licenses/by/3.0/de/
@@ -737,7 +737,7 @@ fields:
         scope: allOf
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.1]
+          - dependencies: [Q-5.pre]
           - minCount: 1
 
       - id: Q-5.4
@@ -745,7 +745,7 @@ fields:
         successScore: 6
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.1]
+          - dependencies: [Q-5.pre]
           - minCount: 1
           - in:
               - http://creativecommons.org/publicdomain/mark/1.0/
@@ -761,7 +761,7 @@ fields:
         successScore: 1
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.1]
+          - dependencies: [Q-5.pre]
           - minCount: 1
           - in:
               - http://creativecommons.org/licenses/by/3.0/de/
@@ -799,7 +799,7 @@ fields:
         description: A standardized notice of rights is used. The digital object may be used with restrictions.
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.1]
+          - dependencies: [Q-5.pre]
           - in:
               - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/
               - http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-ez/
