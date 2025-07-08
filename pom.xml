@@ -46,6 +46,7 @@
     <url>http://github.com/pkiraly/metadata-qa-ddb</url>
   </scm>
 
+  <!--
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -56,6 +57,7 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
+  -->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -91,13 +93,24 @@
       <releases><enabled>false</enabled></releases>
       <snapshots><enabled>true</enabled></snapshots>
     </repository>
+    <repository>
+      <name>Central Portal Snapshots</name>
+      <id>central-portal-snapshots</id>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
   </repositories>
 
   <dependencies>
     <dependency>
       <groupId>de.gwdg.metadataqa</groupId>
       <artifactId>metadata-qa-api</artifactId>
-      <version>0.9.8</version>
+      <version>0.9.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
