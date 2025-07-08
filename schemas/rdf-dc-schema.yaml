@@ -660,8 +660,9 @@ fields:
     rules:
       - id: Q-5.1
         description: Check whether an element for the legal status is available in the data record (see table "Mapping the DDB elements"). If yes => check whether the element contains a value
-        mandatory: true
+        # mandatory: true
         scope: allOf
+        alwaysCheckDependencies: true
         and:
           - dependencies: [Q-5.pre]
           - minCount: 1
