@@ -528,6 +528,7 @@ fields:
         allowEmptyInstances: true
         and:
           - minCount: 1
+            allowEmptyInstances: true
 
   - name: rights - object-WebResource-license-resource
     path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource
@@ -547,6 +548,7 @@ fields:
         allowEmptyInstances: true
         and:
           - minCount: 1
+            allowEmptyInstances: true
 
   - name: rights - isShownBy-WebResource-license-resource
     path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource
@@ -566,6 +568,7 @@ fields:
         allowEmptyInstances: true
         and:
           - minCount: 1
+            allowEmptyInstances: true
 
   - name: rights - hasView-WebResource-license-resource
     path: rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource
@@ -585,6 +588,7 @@ fields:
         allowEmptyInstances: true
         and:
           - minCount: 1
+            allowEmptyInstances: true
 
   - name: rights - isShownAt-WebResource-license-resource
     path: rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource
@@ -604,6 +608,7 @@ fields:
         allowEmptyInstances: true
         and:
           - minCount: 1
+            allowEmptyInstances: true
 
   - name: rights - license-resource
     path: rdf:Description/dcterms:license/@rdf:resource
@@ -639,15 +644,14 @@ fields:
     rules:
       - id: Q-5.pre
         hidden: true
-        debug: true
         alwaysCheckDependencies: true
         or:
-          - dependencies: [Q-5.ax]
-          - dependencies: [Q-5.bx]
-          - dependencies: [Q-5.cx]
-          - dependencies: [Q-5.dx]
-          - dependencies: [Q-5.ex]
-          - dependencies: [Q-5.fx]
+          - dependencies: [Q-5.0ax]
+          - dependencies: [Q-5.0bx]
+          - dependencies: [Q-5.0cx]
+          - dependencies: [Q-5.0dx]
+          - dependencies: [Q-5.0ex]
+          - dependencies: [Q-5.0fx]
 
   # Q-5 Rechtsstatus für das Digitale Objekt
   - name: rights

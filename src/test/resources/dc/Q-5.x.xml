@@ -1,0 +1,22 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcterms="http://purl.org/dc/terms/"
+                 xmlns:edm="http://www.europeana.eu/schemas/edm/"
+                 xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <edm:isShownAt>
+        <edm:WebResource rdf:about="https://izw-medienarchiv.baw.de/detail/75165">
+            <dc:format>text/html</dc:format>
+        </edm:WebResource>
+    </edm:isShownAt>
+    <edm:isShownBy>
+        <edm:WebResource rdf:about="https://izw-medienarchiv.baw.de/api/v1/objects/uuid/5b3a20b8-7530-4f1a-a9a6-0e8750d75e3a/file/id/50114/file_version/name/original/disposition/inline">
+            <dc:format>image/jpeg</dc:format>
+            <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+            <dc:creator>
+                <dcterms:Agent>
+                    <skos:prefLabel xml:lang="de">unbekannt; Bundesanstalt für Wasserbau Karlsruhe</skos:prefLabel>
+                </dcterms:Agent>
+            </dc:creator>
+        </edm:WebResource>
+    </edm:isShownBy>
+</rdf:Description>
