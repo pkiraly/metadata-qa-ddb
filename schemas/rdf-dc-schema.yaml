@@ -314,8 +314,8 @@ fields:
           - dependencies: [Q-4.0d]
           - minCount: 1
 
-  - name: media_url identifier
-    path: oai:record/dc:identifier
+  - name: media_url isShownAt-WebResource
+    path: rdf:Description/edm:isShownAt/edm:WebResource
     rules:
       - id: Q-4.0e
         hidden: true
@@ -323,8 +323,8 @@ fields:
         and:
           - minCount: 1
 
-  - name: media_url identifier-type
-    path: oai:record/dc:identifier[@type='URL']
+  - name: media_url isShownAt-WebResource-about
+    path: rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about
     rules:
       - id: Q-4.0ex
         hidden: true
@@ -333,25 +333,65 @@ fields:
           - dependencies: [Q-4.0e]
           - minCount: 1
 
+  - name: media_url isShownAt
+    path: rdf:Description/edm:isShownAt
+    rules:
+      - id: Q-4.0f
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url isShownAt-resource
+    path: rdf:Description/edm:isShownAt/@rdf:resource
+    rules:
+      - id: Q-4.0fx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0f]
+          - minCount: 1
+
+  - name: media_url identifier
+    path: oai:record/dc:identifier
+    rules:
+      - id: Q-4.0g
+        hidden: true
+        allowEmptyInstances: true
+        and:
+          - minCount: 1
+
+  - name: media_url identifier-type
+    path: oai:record/dc:identifier[@type='URL']
+    rules:
+      - id: Q-4.0gx
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [Q-4.0g]
+          - minCount: 1
+
   - name: media_url - precheck
-    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/dc:identifier[@type='URL']
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource | oai:record/dc:identifier[@type='URL']
     rules:
       - id: Q-4.pre
         hidden: true
         alwaysCheckDependencies: true
         or:
-          - dependencies: [Q-4.ax]
-          - dependencies: [Q-4.bx]
-          - dependencies: [Q-4.cx]
-          - dependencies: [Q-4.dx]
-          - dependencies: [Q-4.ex]
+          - dependencies: [Q-4.0ax]
+          - dependencies: [Q-4.0bx]
+          - dependencies: [Q-4.0cx]
+          - dependencies: [Q-4.0dx]
+          - dependencies: [Q-4.0ex]
+          - dependencies: [Q-4.0fx]
+          - dependencies: [Q-4.0gx]
 
   # Q-4
   # Mediendatei [media file] -- dc:identifier/@type="binary"
   # Objekt im Medienviewer [Object in media viewer] -- dc:identifier/@type="URL"
   # Objekt im Kontext [Object in context] -- dc:identifier/@type="URL"
   - name: media_url
-    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/dc:identifier[@type='URL']
+    path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource |oai:record/dc:identifier[@type='URL']
     rules:
       - id: Q-4.0
         hidden: true
@@ -375,6 +415,7 @@ fields:
           - minCount: 1
           - minLength: 1
           - pattern: ^https?://.*$
+
       - id: Q-4.2
         description: Media files must be delivered in a format supported by the DDB.
         scope: allOf
@@ -404,6 +445,7 @@ fields:
               - video/mpeg
               - audio/x-mpeg
               - audio/mp4
+
       - id: Q-4.3
         description:
           Check whether there are spaces or impermissible special characters in the URL or
