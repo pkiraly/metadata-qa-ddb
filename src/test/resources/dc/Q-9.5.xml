@@ -1,0 +1,12 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="oai:econstor.eu:10419/124550">
+    <dc:subject>
+        <skos:Concept>
+            <skos:prefLabel>spatial panel</skos:prefLabel>
+        </skos:Concept>
+    </dc:subject>
+    <dcterms:temporal>
+        <skos:Concept>
+            <skos:prefLabel xml:lang="ger">Frühmittelalter</skos:prefLabel>
+        </skos:Concept>
+    </dcterms:temporal>
+</rdf:Description>

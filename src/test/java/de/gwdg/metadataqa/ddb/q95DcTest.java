@@ -10,7 +10,6 @@ import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
-import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -24,15 +23,14 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-public class q45DcTest {
+public class q95DcTest {
   private Schema schema;
   private String recordAddress = "//oai:record | //rdf:Description";
   private XPathWrapper xPathWrapper;
   private String xml;
 
-  @Before
-  public void setUp() throws Exception {
-    URL url = this.getClass().getResource("/dc/Q-4.5.xml");
+  public void setup(String fileName) throws Exception {
+    URL url = this.getClass().getResource("/dc/" + fileName);
     File file = new File(url.getFile());
     assertTrue(file.exists());
 
@@ -47,18 +45,22 @@ public class q45DcTest {
   }
 
   @Test
-  public void name() {
+  public void empty() throws Exception {
+    setup("Q-9.5.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.5a", "Q-4.5b", "Q-4.5c", "Q-4.5d", "Q-4.5or", "Q-4.5");
+    List<String> ids = List.of("Q-9.5a",
+      "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    System.err.println(fieldCounter);
     assertEquals(
-        RuleCheckingOutputStatus.FAILED,
-        fieldCounter.get("Q-4.5").getStatus());
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-9.5").getStatus()
+    );
   }
 }

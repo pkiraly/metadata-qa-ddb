@@ -160,7 +160,7 @@ fields:
           - minLength: 1
       - id: Q-3.x
         hidden: true
-        debug: true
+        # debug: true
         or:
           - maxCount: 0
           - and:
@@ -237,6 +237,7 @@ fields:
                     image/svg+xml,
                     application/pdf,
                   ]
+                skippableUrl: ^https?://www.ssoar.info/
 
   - name: media_url isShownBy-WebResource
     path: rdf:Description/edm:isShownBy/edm:WebResource
@@ -255,7 +256,7 @@ fields:
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-4.a]
+          - dependencies: [Q-4.0a]
           - minCount: 1
 
   - name: media_url isShownBy
@@ -396,7 +397,7 @@ fields:
   - name: media_url - precheck2
     path: rdf:Description/edm:isShownBy/edm:WebResource | rdf:Description/edm:isShownBy | rdf:Description/edm:hasView/edm:WebResource | rdf:Description/edm:hasView | rdf:Description/edm:isShownAt/edm:WebResource | rdf:Description/edm:isShownAt | oai:record/dc:identifier[@type='URL']
     rules:
-      - id: Q-4.pre2
+      - id: Q-4.has_element
         hidden: true
         alwaysCheckDependencies: true
         or:
@@ -423,7 +424,7 @@ fields:
           - minLength: 1
       - id: Q-4.x
         hidden: true
-        debug: true
+        # debug: true
         or:
           - maxCount: 0
           - and:
@@ -467,48 +468,41 @@ fields:
               - video/mpeg
               - audio/x-mpeg
               - audio/mp4
+            skippableUrl: ^https?://www.ssoar.info/
 
-      - id: Q-4.3c2
-        debug: true
+      - id: Q-4.3.is_empty
         alwaysCheckDependencies: true
         hidden: true
         and:
-         - dependencies: [Q-4.pre2]
-         - mandatory: true
-         - minCount: 1
-         - allowEmptyInstances: false
+          - dependencies: [ Q-4.has_element ]
+        #   - mandatory: true
+          - minCount: 1
+        allowEmptyInstances: false
 
-      - id: Q-4.3c3
-        debug: true
+      - id: Q-4.3.is_missing
         alwaysCheckDependencies: true
         hidden: true
         and:
          - not:
-           - dependencies: [ Q-4.pre2 ]
+           - dependencies: [ Q-4.has_element ]
          - dependencies: [ Q-3.x, Q-4.pre ]
-
-      - id: Q-4.3d
-        debug: true
-        alwaysCheckDependencies: true
-        hidden: true
-        or:
-          - dependencies: [ Q-4.3c2 ]
-          - dependencies: [ Q-4.3c3 ]
+           allowEmptyInstances: false
 
       - id: Q-4.3
         description:
           Check whether there are spaces or impermissible special characters in the URL or
           in the file name (in the case of a media file that is not referenced by a URL).
         # dependencies: [Q-3.x, Q-4.x]
-        # dependencies: [Q-3.x, Q-4.pre, Q-4.pre2]
+        # dependencies: [Q-3.x, Q-4.pre, Q-4.has_element]
         # debug: true
         alwaysCheckDependencies: true
         # allowEmptyInstances: true
         or:
-          - dependencies: [ Q-4.3c2 ]
-          - dependencies: [ Q-4.3c3 ]
+          - dependencies: [ Q-4.3.is_empty ]
+          - dependencies: [ Q-4.3.is_missing ]
+          - pattern: ^[a-zA-Z_0-9:/\.\-]+$
         #  - and:
-        #    - dependencies: [Q-4.pre2]
+        #    - dependencies: [Q-4.has_element]
         #      mandatory: true
         #  - minCount: 1
         # mandatory: true
@@ -595,19 +589,20 @@ fields:
   - name: Objekt im Kontext
     path: rdf:Description/edm:isShownAt/edm:WebResource/@rdf:about | rdf:Description/edm:isShownAt/@rdf:resource | oai:record/oai:metadata/oai_dc:dc/edm:isShownAt
     rules:
+      - id: Q-4.5or
+        alwaysCheckDependencies: true
+        hidden: true
+        or:
+          - dependencies: [ Q-4.5b ]
+          - dependencies: [ Q-4.5c ]
+          - dependencies: [ Q-4.5d ]
+
       - id: Q-4.5
         description: Check whether the data record contains an object in context (see table "Mapping the DDB elements"). If so => check whether this element contain a value.
         successScore: 3
         alwaysCheckDependencies: true
-        debug: false
         and:
-          - or:
-              - dependencies: [Q-4.5b]
-              - dependencies: [Q-4.5c]
-              - dependencies: [Q-4.5d]
-            alwaysCheckDependencies: true
-            id: Q-4.5or
-            hidden: true
+          - dependencies: [ Q-4.5or ]
           - minCount: 1
           - minLength: 1
 
@@ -1060,7 +1055,7 @@ fields:
   #          - pattern: ^https?://d-nb.info/standards/vocab/gnd/gnd-sc#
 
   #  - name: Thematischer Bezug
-  #    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:concept/@rdf:about
+  #    path: rdf:Description/dc:subject | rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/skos:Concept[@rdf:about]/skos:prefLabel | rdf:Description/dc:subject/skos:Concept/@rdf:about
 
   # Akteur als Thema (Srukturelement bzw. blinder typisierter Knoten)
   #  - name: dcterms:Agent
@@ -1088,7 +1083,7 @@ fields:
           - pattern: ^.+$
 
   - name: Thematischer Bezug (concept)
-    path: rdf:Description/dc:subject/skos:concept | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
+    path: rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
     rules:
       - id: Q-9.5a
         description: The thematic relation must come from a controlled vocabulary.
@@ -1104,7 +1099,7 @@ fields:
           - hasChildren: ["@rdf:about"]
 
   - name: Thematischer Bezug (URI)
-    path: rdf:Description/dc:subject/skos:concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+    path: rdf:Description/dc:subject/skos:Concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
     rules:
       - id: Q-9.5
         description: The thematic relation must come from a controlled vocabulary.
