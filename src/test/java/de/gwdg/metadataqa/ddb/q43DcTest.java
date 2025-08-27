@@ -79,7 +79,7 @@ public class q43DcTest {
     setup("Q-4.3-empty.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.0d");
+    List<String> ids = List.of("Q-4.0.hasView");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -89,7 +89,7 @@ public class q43DcTest {
     System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Q-4.0d").getStatus()
+      fieldCounter.get("Q-4.0.hasView").getStatus()
     );
   }
 
