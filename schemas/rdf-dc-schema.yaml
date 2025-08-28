@@ -540,12 +540,41 @@ fields:
         # mandatory: true
         # pattern: ^[a-zA-Z_0-9:/\.\-]+$
 
-  - name: media_url - format
+  - name: media_url - format - dc:format
+    path: rdf:Description/edm:isShownBy/edm:WebResource/dc:format | rdf:Description/edm:hasView/edm:WebResource/dc:format
+    rules:
+      - id: Q-4.2.format
+        hidden: true
+        in:
+          - image/jpeg
+          - image/png
+          - image/tiff
+          - image/tiff-fx
+          - image/gif
+          - image/svg+xml
+          - application/pdf
+          - audio/mpeg
+          - video/mp4
+          - video/webm
+          - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          - text/plain
+          - text/richtext
+          - text/rtf
+          - video/x-msvideo
+          - video/x-flv
+          - video/quicktime
+          - video/x-ms-wmv
+          - video/mpeg
+          - audio/x-mpeg
+          - audio/mp4
+
+  - name: media_url - format - contentType
     path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource | oai:record/dc:identifier[@type='URL']
     rules:
-      - id: Q-4.2
+      - id: Q-4.2.contentType
         description: Media files must be delivered in a format supported by the DDB.
         scope: allOf
+        hidden: true
         and:
           - minCount: 1
           - minLength: 1
@@ -573,6 +602,17 @@ fields:
               - audio/x-mpeg
               - audio/mp4
             skippableUrl: ^https?://www.ssoar.info/
+
+  - name: media_url - format - both
+    path: rdf:Description/edm:isShownBy | rdf:Description/edm:hasView
+    rules:
+      - id: Q-4.2
+        alwaysCheckDependencies: true
+        priorityOnFail: true
+        # debug: true
+        and:
+          - dependencies: [Q-4.2.format]
+          - dependencies: [Q-4.2.contentType]
 
   - name: media_url20
     path: rdf:Description/edm:isShownBy/edm:WebResource | rdf:Description/edm:isShownBy | rdf:Description/edm:hasView/edm:WebResource | rdf:Description/edm:hasView | oai:record/oai:metadata/oai_dc:dc/edm:isShownBy | oai:record/oai:metadata/oai_dc:dc/edm:hasView
