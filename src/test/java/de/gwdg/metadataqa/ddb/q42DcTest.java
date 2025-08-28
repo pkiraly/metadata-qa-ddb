@@ -49,7 +49,7 @@ public class q42DcTest {
     setup("Q-4.2-broken_link.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.2");
+    List<String> ids = List.of("Q-4.2.format", "Q-4.2.contentType", "Q-4.2");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
