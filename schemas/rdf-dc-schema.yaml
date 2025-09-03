@@ -1205,14 +1205,14 @@ fields:
         description: The thematic relation must come from a controlled vocabulary.
         # successScore: 1
         hidden: true
-        scope: allOf
-        debug: false
+        scope: anyOf
         and:
           - minCount: 1
             scope: allOf
           - minLength: 1
             scope: allOf
           - hasChildren: ["@rdf:about"]
+            scope: anyOf
 
   - name: Thematischer Bezug (URI)
     path: rdf:Description/dc:subject/skos:Concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about

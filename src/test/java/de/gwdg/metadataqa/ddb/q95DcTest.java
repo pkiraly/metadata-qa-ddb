@@ -63,4 +63,61 @@ public class q95DcTest {
       fieldCounter.get("Q-9.5").getStatus()
     );
   }
+
+  @Test
+  public void empty2() throws Exception {
+    setup("Q-9.5-dctermsTemporal_Term.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-9.5a", "Q-9.5");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-9.5").getStatus()
+    );
+  }
+
+  @Test
+  public void empty3() throws Exception {
+    setup("Q-9.5-dctermsAgent_nur_Term.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-9.5a", "Q-9.5");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-9.5").getStatus()
+    );
+  }
+
+  @Test
+  public void empty4() throws Exception {
+    setup("Q-9.5-dctermsTemporal_URI.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-9.5a", "Q-9.5");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.PASSED,
+      fieldCounter.get("Q-9.5").getStatus()
+    );
+  }
 }
