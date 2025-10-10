@@ -24,30 +24,10 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-public class q43LidoTest {
-  private Schema schema;
-  private String recordAddress = "//lido:lido";
-  private XPathWrapper xPathWrapper;
-  private String xml;
-
-  @Before
-  public void setUp() throws Exception {
-    URL url = this.getClass().getResource("/lido/test-Q-4.3.xml");
-    File file = new File(url.getFile());
-    assertTrue(file.exists());
-
-    try {
-      schema = ConfigurationReader.readSchemaYaml("schemas/lido-schema.yaml").asSchema();
-      XPathBasedIterator iterator = new XPathBasedIterator(file, recordAddress, schema.getNamespaces());
-      xml = iterator.next();
-      xPathWrapper = new XPathWrapper(xml, schema.getNamespaces());
-    } catch (XPathExpressionException | IOException | ParserConfigurationException | SAXException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
+public class q43LidoTest extends LidoTest {
   @Test
-  public void name() {
+  public void name() throws Exception {
+    setup("test-Q-4.3.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
     List<String> ids = List.of("Q-3.x", "Q-4.x", "Q-4.3");

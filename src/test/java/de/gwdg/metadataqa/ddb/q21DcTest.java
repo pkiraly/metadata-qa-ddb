@@ -13,21 +13,26 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class q45DcTest extends DcTest {
+public class q21DcTest extends DcTest {
+  private String targetId = "Q-2.1";
+
   @Test
-  public void name() throws Exception {
-    setup("Q-4.5.xml");
+  public void dcatCatalogRecord_dcCreator_Element_fehlt() throws Exception {
+    setup("Q-2.1-dcatCatalogRecord_dcCreator_Element_fehlt.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.5a", "Q-4.5b", "Q-4.5c", "Q-4.5d", "Q-4.5or", "Q-4.5");
+    List<String> ids = List.of(
+      targetId);
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    System.err.println(fieldCounter);
     assertEquals(
-        RuleCheckingOutputStatus.FAILED,
-        fieldCounter.get("Q-4.5").getStatus());
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get(targetId).getStatus());
   }
+
 }

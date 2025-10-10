@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+    <rdf:Description rdf:about="oai:baw:02cfa316-b98b-4bc9-85f7-3cfc12c79c76">
+        <dcterms:isReferencedBy>
+            <dcat:CatalogRecord>
+                <dc:identifier>ProjektInfo_0119768_internetx.pdf</dc:identifier>
+                <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+            </dcat:CatalogRecord>
+        </dcterms:isReferencedBy>
+    </rdf:Description>
+</rdf:RDF>

@@ -78,4 +78,5 @@ public class q52LidoTest {
       fieldCounter.get("Q-5.2").getStatus()
     );
   }
+
 }

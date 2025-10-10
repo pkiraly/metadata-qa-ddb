@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:oai="http://www.openarchives.org/OAI/2.0/">
+    <rdf:Description rdf:about="oai:econstor.eu:10419/186586">
+        <dc:subject>
+            <dcterms:Agent rdf:about="https://www.wikidata.org/entity/Q5879">
+            </dcterms:Agent>
+        </dc:subject>
+    </rdf:Description>
+</rdf:RDF>

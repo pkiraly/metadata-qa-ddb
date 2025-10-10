@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <rdf:Description rdf:about="oai:localhost:11153/350-005-001">
+        <dcterms:isReferencedBy>
+            <dcat:CatalogRecord>
+                <dc:identifier>oai:localhost:111511199-022-002</dc:identifier>
+                <dc:creator>00006280</dc:creator>
+                <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+            </dcat:CatalogRecord>
+        </dcterms:isReferencedBy>
+        <dc:title xml:lang="ger">Neugestaltung des Hardenbergplatzes? - Modell des Projektes</dc:title>
+        <dcterms:medium>
+            <skos:Concept>
+                <skos:prefLabel xml:lang="ger">Holz, Metall auf Holz</skos:prefLabel>
+            </skos:Concept>
+        </dcterms:medium>
+        <dcterms:extent>15 x 65 x 50 cm</dcterms:extent>
+        <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+
+        <edm:isShownBy>
+            <edm:WebResource rdf:about="http://archiv.dam-online.de/bitstream/11153/350-005-001/2/bitstream">
+                <dc:creator>
+                    <dcterms:Agent>
+                        <skos:prefLabel>DAM</skos:prefLabel>
+                    </dcterms:Agent>
+                </dc:creator>
+                <dc:format>image/jpeg</dc:format>
+                <dcterms:license/>
+            </edm:WebResource>
+        </edm:isShownBy>
+        <dc:type>
+            <skos:Concept rdf:about="https://d-nb.info/gnd/4128638-8">
+                <skos:prefLabel xml:lang="ger">Architekturmodell</skos:prefLabel>
+            </skos:Concept>
+        </dc:type>
+        <dcterms:spatial>
+            <dcterms:Location rdf:about="https://d-nb.info/gnd/4005728-8">
+                <skos:prefLabel>Berlin, Deutschland</skos:prefLabel>
+            </dcterms:Location>
+        </dcterms:spatial>
+        <dc:creator>
+            <dcterms:Agent rdf:about="https://d-nb.info/gnd/14094043X">
+                <skos:prefLabel>Riemann, Peter C.</skos:prefLabel>
+            </dcterms:Agent>
+        </dc:creator>
+        <dc:publisher>
+            <dcterms:Agent rdf:about="https://d-nb.info/gnd/2064444-9">
+                <skos:prefLabel>Deutsches Architekturmuseum</skos:prefLabel>
+            </dcterms:Agent>
+        </dc:publisher>
+        <dcterms:rightsHolder>
+            <dcterms:Agent>
+                <skos:prefLabel>© DAM und Peter C. Riemann</skos:prefLabel>
+            </dcterms:Agent>
+        </dcterms:rightsHolder>
+        <dc:date>
+            <dcterms:PeriodOfTime>
+                <edm:begin>1979</edm:begin>
+                <edm:end>1980</edm:end>
+            </dcterms:PeriodOfTime>
+        </dc:date>
+        <dcterms:isPartOf xml:lang="ger">Modellsammlung/Architekturmodelle</dcterms:isPartOf>
+    </rdf:Description>
+</rdf:RDF>
