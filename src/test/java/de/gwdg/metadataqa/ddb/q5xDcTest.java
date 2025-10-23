@@ -66,7 +66,7 @@ public class q5xDcTest extends DcTest {
       fieldCounter.get("Q-5.1").getStatus()
     );
     assertEquals(
-      RuleCheckingOutputStatus.NA,
+      RuleCheckingOutputStatus.FAILED,
       fieldCounter.get("Q-5.2").getStatus()
     );
   }

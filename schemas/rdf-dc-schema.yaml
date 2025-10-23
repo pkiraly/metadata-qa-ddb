@@ -514,6 +514,8 @@ fields:
       - id: Q-4.3.is_missing
         alwaysCheckDependencies: true
         hidden: true
+        priorityOnFail: true
+        allowEmptyInstances: false
         and:
          - not:
            - dependencies: [ Q-4.has_element1 ]
@@ -601,7 +603,8 @@ fields:
               - video/mpeg
               - audio/x-mpeg
               - audio/mp4
-            skippableUrl: ^https?://www.ssoar.info/
+            # skippableUrl: ^https?://(www.ssoar.info|archiv.dam-online.de)/
+            debug: true
 
   - name: media_url - format - both
     path: rdf:Description/edm:isShownBy | rdf:Description/edm:hasView
@@ -772,6 +775,8 @@ fields:
       - id: Q-5.0bx
         hidden: true
         alwaysCheckDependencies: true
+        priorityOnFail: false
+        mandatory: true
         and:
           - dependencies: [Q-5.0b]
           - minCount: 1
@@ -861,6 +866,10 @@ fields:
       - id: Q-5.pre
         hidden: true
         alwaysCheckDependencies: true
+        priorityOnFail: true
+        # debug: true
+        scope: anyOf
+        # mandatory: true
         or:
           - dependencies: [Q-5.0ax]
           - dependencies: [Q-5.0bx]
@@ -868,6 +877,7 @@ fields:
           - dependencies: [Q-5.0dx]
           - dependencies: [Q-5.0ex]
           - dependencies: [Q-5.0fx]
+
 
   # Q-5 Rechtsstatus für das Digitale Objekt
   - name: rights

@@ -15,8 +15,18 @@ import static junit.framework.TestCase.assertEquals;
 public class q52DcTest extends DcTest {
 
   @Test
+  /**
+   * Check whether an http-URI for a license or a rights notice from the
+   * DDB license basket is referenced in the element for the legal status
+   * rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource
+   * rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource
+   * rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource
+   * rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license
+   * rdf:Description/dcterms:license/@rdf:resource
+   */
   public void dctermslicensce_leere_Lizenz_fails() throws Exception {
     setup("Q-5.x-dctermslicensce_leere_Lizenz.xml");
+    // has dcterms:license, but it is empty: Q-5.0b=1, Q-5.0bx=0
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
     List<String> ids = List.of(
@@ -30,8 +40,12 @@ public class q52DcTest extends DcTest {
       }
     }
     System.err.println(fieldCounter);
+
+    assertEquals("Q-5.0bx should fail",
+      RuleCheckingOutputStatus.FAILED, // TODO: should be FAILED
+      fieldCounter.get("Q-5.0bx").getStatus());
     assertEquals(
-        RuleCheckingOutputStatus.NA, // TODO: should be FAILED
+        RuleCheckingOutputStatus.FAILED, // TODO: should be FAILED
         fieldCounter.get("Q-5.2").getStatus());
   }
 }
