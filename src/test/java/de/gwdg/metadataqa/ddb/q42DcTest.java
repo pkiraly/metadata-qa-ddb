@@ -105,7 +105,7 @@ public class q42DcTest extends DcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.PASSED, // TODO: FAILED
+      RuleCheckingOutputStatus.FAILED,
       fieldCounter.get("Q-4.2").getStatus()
     );
   }

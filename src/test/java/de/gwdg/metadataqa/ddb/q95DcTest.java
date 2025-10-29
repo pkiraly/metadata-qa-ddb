@@ -92,6 +92,24 @@ public class q95DcTest extends DcTest {
   }
 
   @Test
+  /**
+   * rdf:Description/dc:subject/skos:Concept/@rdf:about
+   * rdf:Description/dc:subject/dcterms:Agent/@rdf:about
+   * rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about
+   * rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+   * Q-9.5a:
+   *   and:
+   *   - minCount: 1
+   *     scope: allOf
+   *   - minLength: 1
+   *     scope: allOf
+   *   - hasChildren: ["@rdf:about"]
+   *     scope: anyOf
+   * Q-9.5:
+   *   and:
+   *   - dependencies: [Q-9.5a]
+   *   - pattern: ^http.*$
+   */
   public void dctermsSpatial_simple_should_be_NA() throws Exception {
     setup("Q-9.5-dctermsSpatial_simple.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
@@ -103,6 +121,7 @@ public class q95DcTest extends DcTest {
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    // fieldMap={Q-9.5a=0, Q-9.5=0}
     System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.FAILED, // TODO should be NA
