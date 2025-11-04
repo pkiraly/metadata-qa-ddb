@@ -666,9 +666,9 @@ fields:
         allowEmptyInstances: true
         hidden: true
         and:
-          - minCount: 1
-            debug: false
-            allowEmptyInstances: false
+          #- minCount: 1
+          #  debug: false
+          #  allowEmptyInstances: false
           - or:
             - hasChildren: ["edm:WebResource"]
               debug: false
@@ -684,9 +684,9 @@ fields:
         alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-4.5a ]
-          - minCount: 1
-            debug: false
-            allowEmptyInstances: false
+          #- minCount: 1
+          #  debug: false
+          #  allowEmptyInstances: false
           - hasChildren: ["@rdf:about"]
             debug: false
 
@@ -697,8 +697,8 @@ fields:
         allowEmptyInstances: true
         hidden: true
         and:
-          - minCount: 1
-            debug: false
+          #- minCount: 1
+          #  debug: false
           - hasChildren: ["@rdf:resource"]
             debug: false
 

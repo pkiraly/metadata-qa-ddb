@@ -1,0 +1,4 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:edm="http://www.europeana.eu/schemas/edm/" rdf:about="umbruch_7">
+    <edm:isShownAt rdf:resource="http://www.umbruch-bildarchiv.de/bildarchiv/foto1/bildgalerie_rauchhaus/pages/1301g.htm">
+    </edm:isShownAt>
+</rdf:Description>
