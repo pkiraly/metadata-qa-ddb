@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.ddb;
 
-import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.model.selector.SelectorFactory;
@@ -8,21 +7,11 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
-import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.xml.XPathWrapper;
-import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class q43LidoTest extends LidoTest {
   @Test
