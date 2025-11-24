@@ -1,0 +1,61 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+    <lido:lidoRecID lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">record_naniweb_436335384</lido:lidoRecID>
+    <lido:objectPublishedID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://sammlungen.uni-goettingen.de/objekt/record_naniweb_463584</lido:objectPublishedID>
+    <lido:objectPublishedID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://hdl.handle.net/21.11107/0dd2bf5b-ddb9-41a5-afc2-fcd5b0f2c840</lido:objectPublishedID>
+    <lido:category>
+        <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://www.cidoc-crm.org/crm-concepts/#E20</lido:conceptID>
+        <lido:term xml:lang="en">Biological Object</lido:term>
+    </lido:category>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+                <lido:objectWorkType>
+                    <lido:conceptID lido:type="URI">http://portal.wissenschaftliche-sammlungen.de/ObjectGenre/271</lido:conceptID>
+                    <lido:term>Fossil</lido:term>
+                </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+        </lido:objectClassificationWrap>
+        <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+                <lido:titleSet lido:sortorder="1">
+                    <lido:appellationValue xml:lang="de">Heuschrecke (Orthoptera)</lido:appellationValue>
+                </lido:titleSet>
+                <lido:titleSet lido:type="Alternativer Titel">
+                    <lido:appellationValue lido:pref="alternate">Orthoptera</lido:appellationValue>
+                </lido:titleSet>
+            </lido:titleWrap>
+            <lido:repositoryWrap>
+                <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                    <lido:repositoryName>
+                        <lido:legalBodyID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://ld.zdb-services.de/resource/organisations/DE-MUS-055916</lido:legalBodyID>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Geowissenschaftliches Museum der Georg-August-Universität Göttingen</lido:appellationValue>
+                        </lido:legalBodyName>
+                        <lido:legalBodyWeblink>http://www.geomuseum.uni-goettingen.de/</lido:legalBodyWeblink>
+                    </lido:repositoryName>
+                    <lido:workID lido:type="Inventarnummer">GZG.W.2053</lido:workID>
+                </lido:repositorySet>
+            </lido:repositoryWrap>
+        </lido:objectIdentificationWrap>
+    </lido:descriptiveMetadata>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:recordWrap>
+            <lido:recordID lido:source="naniweb" lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">463584</lido:recordID>
+            <lido:recordType>
+                <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://terminology.lido-schema.org/recordType/item-level_record</lido:conceptID>
+                <lido:term>Einzelobjekt</lido:term>
+                <lido:term xml:lang="en">item</lido:term>
+            </lido:recordType>
+            <lido:recordSource>
+                <lido:legalBodyName>
+                    <lido:appellationValue>naniweb</lido:appellationValue>
+                </lido:legalBodyName>
+                <lido:legalBodyWeblink>https://naniweb.gbv.de</lido:legalBodyWeblink>
+            </lido:recordSource>
+            <lido:recordInfoSet lido:type="http://terminology.lido-schema.org/lido00471">
+                <lido:recordMetadataDate lido:type="http://terminology.lido-schema.org/recordMetadataDate_type/created">2021-07-08T09:53:04+02</lido:recordMetadataDate>
+                <lido:recordMetadataDate lido:type="http://terminology.lido-schema.org/recordMetadataDate_type/modified">2022-12-05T09:59:20+01</lido:recordMetadataDate>
+            </lido:recordInfoSet>
+        </lido:recordWrap>
+    </lido:administrativeMetadata>
+</lido:lido>

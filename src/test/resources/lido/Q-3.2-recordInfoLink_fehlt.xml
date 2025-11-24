@@ -1,0 +1,23 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+    <lido:lidoRecID lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">record_naniweb_4635ttt75757</lido:lidoRecID>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:recordWrap>
+            <lido:recordID lido:source="naniweb" lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">463555</lido:recordID>
+        </lido:recordWrap>
+        <lido:resourceWrap>
+            <lido:resourceSet lido:sortorder="1">
+                <lido:resourceID lido:source="naniweb" lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">record_naniweb_463555_media/record_naniweb_463555_28567.jpg</lido:resourceID>
+                <lido:resourceType>
+                    <lido:term>image</lido:term>
+                </lido:resourceType>
+                <lido:rightsResource>
+                    <lido:rightsType>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://www.deutsche-digitale-bibliothek.de/content/lizenzen/rv-fz</lido:conceptID>
+                        <lido:term>Rechte vorbehalten – Freier Zugang</lido:term>
+                        <lido:term xml:lang="en">Free access – no reuse</lido:term>
+                    </lido:rightsType>
+                </lido:rightsResource>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>

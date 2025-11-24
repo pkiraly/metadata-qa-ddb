@@ -135,7 +135,7 @@ fields:
       - id: Q-3.2
         description: "Check whether there are spaces or one of the following special characters in the URL or file name: [a-zA-Z_0-9:-]"
         successScore: 1
-        alwaysCheckDependencies: true
+        # alwaysCheckDependencies: true
         and:
           - dependencies: [ Q-3.6 ]
           - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$

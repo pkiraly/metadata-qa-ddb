@@ -1,0 +1,103 @@
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+    <lido:lidoRecID lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">record_naniweb_4635ttt75757</lido:lidoRecID>
+    <lido:objectPublishedID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://sammlungen.uni-goettingen.de/objekt/record_naniweb_463555</lido:objectPublishedID>
+    <lido:objectPublishedID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://hdl.handle.net/21.11107/88bfea45-4bd8-4f49-8e27-44a62fd07bdc</lido:objectPublishedID>
+    <lido:category>
+        <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://www.cidoc-crm.org/crm-concepts/#E20</lido:conceptID>
+        <lido:term xml:lang="en">Biological Object</lido:term>
+    </lido:category>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+                <lido:objectWorkType>
+                    <lido:conceptID lido:type="URI">http://portal.wissenschaftliche-sammlungen.de/ObjectGenre/271</lido:conceptID>
+                    <lido:term>Fossil</lido:term>
+                </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+                <lido:classification lido:type="Taxonomie">
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://terminologies.gfbio.org/ITIS/Taxa_102160</lido:conceptID>
+                    <lido:term>Orthoptera</lido:term>
+                </lido:classification>
+                <lido:classification lido:type="Entwicklungsstadium">
+                    <lido:term>adult</lido:term>
+                </lido:classification>
+                <lido:classification lido:type="Sammlung">
+                    <lido:term>Sammlung Willershausen</lido:term>
+                </lido:classification>
+            </lido:classificationWrap>
+        </lido:objectClassificationWrap>
+        <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+                <lido:titleSet lido:sortorder="1">
+                    <lido:appellationValue xml:lang="de">Heuschrecke (Orthoptera)</lido:appellationValue>
+                </lido:titleSet>
+                <lido:titleSet lido:type="Alternativer Titel">
+                    <lido:appellationValue lido:pref="alternate">Orthoptera</lido:appellationValue>
+                </lido:titleSet>
+            </lido:titleWrap>
+            <lido:repositoryWrap>
+                <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                    <lido:repositoryName>
+                        <lido:legalBodyID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://ld.zdb-services.de/resource/organisations/DE-MUS-055916</lido:legalBodyID>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Geowissenschaftliches Museum der Georg-August-Universität Göttingen</lido:appellationValue>
+                        </lido:legalBodyName>
+                        <lido:legalBodyWeblink>http://www.geomuseum.uni-goettingen.de/</lido:legalBodyWeblink>
+                    </lido:repositoryName>
+                    <lido:workID lido:type="Inventarnummer">GZG.W.2069a+b</lido:workID>
+                </lido:repositorySet>
+            </lido:repositoryWrap>
+        </lido:objectIdentificationWrap>
+    </lido:descriptiveMetadata>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:recordWrap>
+            <lido:recordID lido:source="naniweb" lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">463555</lido:recordID>
+            <lido:recordType>
+                <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://terminology.lido-schema.org/recordType/item-level_record</lido:conceptID>
+                <lido:term>Einzelobjekt</lido:term>
+                <lido:term xml:lang="en">item</lido:term>
+            </lido:recordType>
+            <lido:recordSource>
+                <lido:legalBodyName>
+                    <lido:appellationValue>naniweb</lido:appellationValue>
+                </lido:legalBodyName>
+                <lido:legalBodyWeblink>https://naniweb.gbv.de</lido:legalBodyWeblink>
+            </lido:recordSource>
+            <lido:recordRights>
+                <lido:rightsType>
+                    <lido:term>Verwertungsrecht</lido:term>
+                </lido:rightsType>
+                <lido:rightsHolder>
+                    <lido:legalBodyID lido:type="http://terminology.lido-schema.org/identifier_type/uri">http://ld.zdb-services.de/resource/organisations/DE-MUS-055916</lido:legalBodyID>
+                    <lido:legalBodyName>
+                        <lido:appellationValue>Georg-August-Universität Göttingen, Geowissenschaftliches Museum</lido:appellationValue>
+                    </lido:legalBodyName>
+                    <lido:legalBodyWeblink>http://www.geomuseum.uni-goettingen.de/</lido:legalBodyWeblink>
+                </lido:rightsHolder>
+            </lido:recordRights>
+            <lido:recordRights>
+                <lido:rightsType>
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+                    <lido:term>CC0 1.0 Universell (CC0 1.0)</lido:term>
+                    <lido:term xml:lang="en">CC0 1.0 Universal (CC0 1.0)</lido:term>
+                </lido:rightsType>
+            </lido:recordRights>
+        </lido:recordWrap>
+        <lido:resourceWrap>
+            <lido:resourceSet lido:sortorder="1">
+                <lido:resourceID lido:source="naniweb" lido:type="http://terminology.lido-schema.org/identifier_type/local_identifier">record_naniweb_463555_media/record_naniweb_463555_28567.jpg</lido:resourceID>
+                <lido:resourceType>
+                    <lido:term>image</lido:term>
+                </lido:resourceType>
+                <lido:rightsResource>
+                    <lido:rightsType>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/identifier_type/uri">https://www.deutsche-digitale-bibliothek.de/content/lizenzen/rv-fz</lido:conceptID>
+                        <lido:term>Rechte vorbehalten – Freier Zugang</lido:term>
+                        <lido:term xml:lang="en">Free access – no reuse</lido:term>
+                    </lido:rightsType>
+                </lido:rightsResource>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>
