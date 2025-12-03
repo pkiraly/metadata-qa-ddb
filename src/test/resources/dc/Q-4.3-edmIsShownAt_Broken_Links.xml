@@ -1,68 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" >
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:edm="http://www.europeana.eu/schemas/edm/">
     <rdf:Description rdf:about="umbruch_11">
-        <dcterms:isReferencedBy>
-            <dcat:CatalogRecord>
-                <dc:identifier>umbruch_312239</dc:identifier>
-                <dc:creator>oid1607002032668</dc:creator>
-                <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
-            </dcat:CatalogRecord>
-        </dcterms:isReferencedBy>
-        <dc:title xml:lang="de">Im besetzten 222Georg-von-Rauch-Haus</dc:title>
-        <dc:type>
-            <skos:Concept rdf:about="https://d-nb.info/gnd/4045895-7">
-                <skos:prefLabel xml:lang="de">Fotografie</skos:prefLabel>
-            </skos:Concept>
-        </dc:type>
-        <dc:contributor>
-            <dcterms:Agent rdf:about="https://d-nb.info/gnd/1155952995">
-                <skos:prefLabel>Umbruch Bildarchiv e.V.</skos:prefLabel>
-            </dcterms:Agent>
-        </dc:contributor>
-        <dcterms:created>
-            <dcterms:PeriodOfTime>
-                <edm:begin>1971</edm:begin>
-                <edm:end>1975</edm:end>
-            </dcterms:PeriodOfTime>
-        </dcterms:created>
-        <dc:description xml:lang="de">Im besetzten Georg-von-Rauch-Haus</dc:description>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Georg-von-Rauch-Haus</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Besetzung</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Bethanien</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dcterms:spatial>
-            <dcterms:Location rdf:about="https://d-nb.info/gnd/4005728-8">
-                <skos:prefLabel xml:lang="de">Berlin</skos:prefLabel>
-            </dcterms:Location>
-        </dcterms:spatial>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Westberlin</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Berlin-Kreuzberg</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dc:subject>
-            <skos:Concept>
-                <skos:prefLabel xml:lang="de">Mariannenplatz</skos:prefLabel>
-            </skos:Concept>
-        </dc:subject>
-        <dc:relation>Georg von Rauchhaus in Berlin – 1971-2007</dc:relation>
-        <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
         <edm:isShownAt>
             <edm:WebResource rdf:about="http://www.u mbruch-bildarchiv.de/bil darchiv/foto1/bildgaler ie_rauchhaus/pages/1301l.htm">
             </edm:WebResource>

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb;
+package de.gwdg.metadataqa.ddb.lido;
 
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.ddb.LidoTest;
 import org.junit.Test;
 
 import java.util.List;

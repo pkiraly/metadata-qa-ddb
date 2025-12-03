@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb;
+package de.gwdg.metadataqa.ddb.dc;
 
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
@@ -7,38 +7,54 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.ddb.DcTest;
 import org.junit.Test;
-
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class q44DcTest extends DcTest {
+public class q5xDcTest extends DcTest {
   @Test
-  public void passed() throws Exception {
-    setup("Q-4.4.xml");
+  public void success() throws Exception {
+    setup("Q-5.x.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.4.0", "Q-4.4");
+    List<String> ids = List.of(
+      "Q-5.0a", "Q-5.0ax", // edm:object
+      "Q-5.0b", "Q-5.0bx", // edm:isShownBy
+      "Q-5.0c", "Q-5.0cx", // edm:hasView
+      "Q-5.0d", "Q-5.0dx", // edm:isShownAt
+      "Q-5.0e", "Q-5.0ex", // dcterms:license
+      "Q-5.0f", "Q-5.0fx", // dc:rights
+      "Q-5.pre", "Q-5.1"
+    );
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
-    // System.err.println(fieldCounter);
+    System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Q-4.4").getStatus()
+      fieldCounter.get("Q-5.1").getStatus()
     );
   }
 
   @Test
-  public void emptyTag() throws Exception {
-    setup("Q-4.4-leer.xml");
+  public void isNa() throws Exception {
+    setup("Q-5.x.failed.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.4.0", "Q-4.4");
+    List<String> ids = List.of(
+      "Q-5.0a", "Q-5.0ax", // edm:object
+      "Q-5.0b", "Q-5.0bx", // edm:isShownBy
+      "Q-5.0c", "Q-5.0cx", // edm:hasView
+      "Q-5.0d", "Q-5.0dx", // edm:isShownAt
+      "Q-5.0e", "Q-5.0ex", // dcterms:license
+      "Q-5.0f", "Q-5.0fx", // dc:rights
+      "Q-5.pre", "Q-5.1", "Q-5.2"
+    );
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -48,26 +64,11 @@ public class q44DcTest extends DcTest {
     System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-4.4").getStatus()
+      fieldCounter.get("Q-5.1").getStatus()
     );
-  }
-
-  @Test
-  public void missingTag() throws Exception {
-    setup("Q-4.4-missing.xml");
-    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
-    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-4.4.0", "Q-4.4");
-    for (RuleChecker checker : schema.getRuleCheckers()) {
-      if (ids.contains(checker.getId())) {
-        checker.setDebug();
-        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
-      }
-    }
-    System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.NA,
-      fieldCounter.get("Q-4.4").getStatus()
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-5.2").getStatus()
     );
   }
 }

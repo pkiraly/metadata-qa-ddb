@@ -441,6 +441,22 @@ fields:
           - dependencies: [Q-4.0.isShownAt]
           - dependencies: [Q-4.0.identifier]
 
+  - name: media_url - has_parent
+    path: rdf:Description/edm:isShownBy | rdf:Description/edm:hasView | rdf:Description/edm:isShownAt | oai:record/dc:identifier
+    rules:
+      - id: Q-4.has_parent
+        hidden: true
+        alwaysCheckDependencies: true
+        minCount: 1
+        or:
+          - dependencies: [Q-4.0.isShownBy-WebResource]
+          - dependencies: [Q-4.0.isShownBy]
+          - dependencies: [Q-4.0.hasView-WebResource]
+          - dependencies: [Q-4.0.hasView]
+          - dependencies: [Q-4.0.isShownAt-WebResource]
+          - dependencies: [Q-4.0.isShownAt]
+          - dependencies: [Q-4.0.identifier]
+
   - name: media_url - precheck 4.2 - has_element
     path: rdf:Description/edm:isShownBy/edm:WebResource | rdf:Description/edm:isShownBy | rdf:Description/edm:hasView/edm:WebResource | rdf:Description/edm:hasView | oai:record/dc:identifier[@type='URL']
     rules:
@@ -510,25 +526,34 @@ fields:
           - minLength: 1
           - pattern: ^https?://.*$
 
-      - id: Q-4.3.is_empty
+      - id: Q-4.3.is_not_empty
         alwaysCheckDependencies: true
         hidden: true
         and:
           - dependencies: [ Q-4.has_element1 ]
+          - dependencies: [ Q-4.pre ]
         #   - mandatory: true
           - minCount: 1
+          # - hasChildren: ['@rdf:*']
         allowEmptyInstances: false
 
       - id: Q-4.3.is_missing
-        alwaysCheckDependencies: true
+        # alwaysCheckDependencies: true
         hidden: true
-        priorityOnFail: true
-        allowEmptyInstances: false
+        # priorityOnFail: true
+        # allowEmptyInstances: false
         and:
          - not:
            - dependencies: [ Q-4.has_element1 ]
-         - dependencies: [ Q-3.x, Q-4.pre ]
+         - dependencies: [ Q-4.pre ] # Q-3.x, Q-4.pre
            allowEmptyInstances: false
+
+      - id: Q-4.3.value_fits
+        hidden: true
+        alwaysCheckDependencies: true
+        and:
+          - dependencies: [ Q-4.3.is_not_empty ]
+          - pattern: ^[a-zA-Z_0-9:/\.\-]+$
 
       - id: Q-4.3
         description:
@@ -536,15 +561,13 @@ fields:
           in the file name (in the case of a media file that is not referenced by a URL).
         # dependencies: [Q-3.x, Q-4.x]
         # dependencies: [Q-3.x, Q-4.pre, Q-4.has_element]
-        debug: true
+        # debug: true
         alwaysCheckDependencies: true
-        # allowEmptyInstances: true
+        allowEmptyInstances: true
         priorityOnFail: true
         or:
-          - dependencies: [ Q-4.3.is_empty ]
           - dependencies: [ Q-4.3.is_missing ]
-          - pattern: ^[a-zA-Z_0-9:/\.\-]+$
-            debug: true
+          - dependencies: [ Q-4.3.value_fits ]
         #  - and:
         #    - dependencies: [Q-4.has_element]
         #      mandatory: true
@@ -617,13 +640,16 @@ fields:
               - audio/x-mpeg
               - audio/mp4
             # skippableUrl: ^https?://(www.ssoar.info|archiv.dam-online.de)/
-            debug: true
+            # debug: true
 
   - name: media_url - format - both
     path: rdf:Description/edm:isShownBy | rdf:Description/edm:hasView
     rules:
       - id: Q-4.2
-        alwaysCheckDependencies: true
+        description:
+          Im Datensatz sind Links auf Mediendateien enthalten, die in einem von der DDB unterstütztem Format geliefert werden müssen.
+          The data record contains references to media files, which must be delivered in a format supported by the DDB.
+        # alwaysCheckDependencies: true
         priorityOnFail: true
         # debug: true
         and:
@@ -1232,7 +1258,7 @@ fields:
         # successScore: 1
         hidden: true
         scope: anyOf
-        debug: true
+        # debug: true
         and:
           - minCount: 1
             scope: allOf

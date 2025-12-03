@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb;
+package de.gwdg.metadataqa.ddb.dc;
 
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
@@ -7,12 +7,26 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.ddb.DcTest;
 import org.junit.Test;
 
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
+/**
+ * Q-4.2.format
+ * Q-4.2.contentType
+ * Q-4.2
+ * path: rdf:Description/edm:isShownBy | rdf:Description/edm:hasView
+ * priorityOnFail: true
+ * and:
+ *   - or:
+ *     - hasChildren: ['edm:WebResource']
+ *     - hasChildren: ['@rdf:resource']
+ *   - dependencies: [Q-4.2.format]
+ *   - dependencies: [Q-4.2.contentType]
+ */
 public class q42DcTest extends DcTest {
   @Test
   public void brokenLink() throws Exception {
@@ -106,6 +120,26 @@ public class q42DcTest extends DcTest {
     System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-4.2").getStatus()
+    );
+  }
+
+  @Test
+  public void edmHasView_isShownAt_isShownBy_fehlt() throws Exception {
+    setup("Q-4.2-edmHasView_isShownAt_isShownBy_fehlt.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-4.2.format", "Q-4.2.contentType", "Q-4.2");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    // FieldCounter{fieldMap={Q-4.2.format=NA, Q-4.2.contentType=NA, Q-4.2=0}}
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.NA,
       fieldCounter.get("Q-4.2").getStatus()
     );
   }

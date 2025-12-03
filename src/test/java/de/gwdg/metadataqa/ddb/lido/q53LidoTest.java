@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb;
+package de.gwdg.metadataqa.ddb.lido;
 
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
@@ -8,8 +8,10 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.api.rule.logical.AndChecker;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.xml.XPathWrapper;
+import de.gwdg.metadataqa.ddb.XPathBasedIterator;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -23,7 +25,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class q52LidoTest {
+public class q53LidoTest {
   private Schema schema;
   private String recordAddress = "//lido:lido";
   private XPathWrapper xPathWrapper;
@@ -46,37 +48,27 @@ public class q52LidoTest {
   }
 
   @Test
-  public void test_UND() {
-    prepare("/lido/test-Q-5.2_UND.xml");
+  public void test_empty() {
+    prepare("/lido/test-Q-5.3.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-5.1", "Q-5.2");
+    List<String> ids = List.of("Q-5.1", "Q-5.3");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        if (checker instanceof AndChecker) {
+          AndChecker achecker = (AndChecker) checker;
+          for (RuleChecker child : achecker.getCheckers()) {
+            child.setDebug();
+          }
+        }
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Q-5.2").getStatus()
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-5.3").getStatus()
     );
   }
-
-  @Test
-  public void test_NKC() {
-    prepare("/lido/test-Q-5.2_NKC.xml");
-    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
-    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-5.1", "Q-5.2");
-    for (RuleChecker checker : schema.getRuleCheckers()) {
-      if (ids.contains(checker.getId())) {
-        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
-      }
-    }
-    assertEquals(
-      RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Q-5.2").getStatus()
-    );
-  }
-
 }

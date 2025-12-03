@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb;
+package de.gwdg.metadataqa.ddb.lido;
 
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
@@ -7,67 +7,70 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.ddb.LidoTest;
 import org.junit.Test;
+
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class q5xDcTest extends DcTest {
+/**
+ * lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet
+ *   /lido:resourceRepresentation/lido:linkResource
+ *
+ * Q-3.0
+ * and:
+ * - minCount: 1
+ * - minLength: 1
+ *
+ * Q-3.6
+ * mandatory: true
+ * and:
+ * - dependencies: [ Q-3.0 ]
+ * - or:
+ *   - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
+ *   - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
+ *
+ * Q-3.2
+ * alwaysCheckDependencies: true
+ * and:
+ * - dependencies: [ Q-3.6 ]
+ * - pattern: ^[a-zA-Z_0-9&%\?\./:\-]+$
+ */
+public class q32LidoTest extends LidoTest {
   @Test
-  public void success() throws Exception {
-    setup("Q-5.x.xml");
+  public void recordInfoLink_fehlt() throws Exception {
+    setup("Q-3.2-recordInfoLink_fehlt.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of(
-      "Q-5.0a", "Q-5.0ax", // edm:object
-      "Q-5.0b", "Q-5.0bx", // edm:isShownBy
-      "Q-5.0c", "Q-5.0cx", // edm:hasView
-      "Q-5.0d", "Q-5.0dx", // edm:isShownAt
-      "Q-5.0e", "Q-5.0ex", // dcterms:license
-      "Q-5.0f", "Q-5.0fx", // dc:rights
-      "Q-5.pre", "Q-5.1"
-    );
+    List<String> ids = List.of("Q-3.0", "Q-3.6", "Q-3.2");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
-        checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.PASSED,
-      fieldCounter.get("Q-5.1").getStatus()
+      RuleCheckingOutputStatus.NA,
+      fieldCounter.get("Q-3.2").getStatus()
     );
   }
 
   @Test
-  public void isNa() throws Exception {
-    setup("Q-5.x.failed.xml");
+  public void recordInfoLink_leer() throws Exception {
+    setup("Q-3.2-recordInfoLink_leer.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of(
-      "Q-5.0a", "Q-5.0ax", // edm:object
-      "Q-5.0b", "Q-5.0bx", // edm:isShownBy
-      "Q-5.0c", "Q-5.0cx", // edm:hasView
-      "Q-5.0d", "Q-5.0dx", // edm:isShownAt
-      "Q-5.0e", "Q-5.0ex", // dcterms:license
-      "Q-5.0f", "Q-5.0fx", // dc:rights
-      "Q-5.pre", "Q-5.1", "Q-5.2"
-    );
+    List<String> ids = List.of("Q-3.0", "Q-3.6", "Q-3.2");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
-        checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-5.1").getStatus()
-    );
-    assertEquals(
-      RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-5.2").getStatus()
+      RuleCheckingOutputStatus.NA,
+      fieldCounter.get("Q-3.2").getStatus()
     );
   }
 }
