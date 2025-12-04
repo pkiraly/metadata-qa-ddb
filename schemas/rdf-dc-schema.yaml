@@ -529,13 +529,13 @@ fields:
       - id: Q-4.3.is_not_empty
         alwaysCheckDependencies: true
         hidden: true
+        allowEmptyInstances: false
         and:
           - dependencies: [ Q-4.has_element1 ]
           - dependencies: [ Q-4.pre ]
         #   - mandatory: true
           - minCount: 1
           # - hasChildren: ['@rdf:*']
-        allowEmptyInstances: false
 
       - id: Q-4.3.is_missing
         # alwaysCheckDependencies: true
@@ -743,6 +743,7 @@ fields:
       - id: Q-4.5or
         alwaysCheckDependencies: true
         hidden: true
+        priorityOnFail: true
         or:
           - dependencies: [ Q-4.5b ]
           - dependencies: [ Q-4.5c ]

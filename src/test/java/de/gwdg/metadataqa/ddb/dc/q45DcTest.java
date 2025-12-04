@@ -46,8 +46,9 @@ public class q45DcTest extends DcTest {
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
+    System.err.println(fieldCounter);
     assertEquals(
-        RuleCheckingOutputStatus.NA, // TODO: FAILED
+        RuleCheckingOutputStatus.FAILED, // TODO: FAILED
         fieldCounter.get("Q-4.5").getStatus());
   }
 
@@ -104,4 +105,23 @@ public class q45DcTest extends DcTest {
       RuleCheckingOutputStatus.NA,
       fieldCounter.get("Q-4.5").getStatus());
   }
+
+  @Test
+  public void edmIsShownAt_leer() throws Exception {
+    setup("Q-4.5-edmIsShownAt_leer.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-4.5a", "Q-4.5b", "Q-4.5c", "Q-4.5d", "Q-4.5or", "Q-4.5");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-4.5").getStatus());
+  }
+
 }
