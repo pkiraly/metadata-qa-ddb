@@ -1,0 +1,6 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" rdf:about="umbruch_4">
+    <dc:title xml:lang="de">Ton, Steine, Scherben an der TU Berlin</dc:title>
+    <dcterms:created>08.12.71</dcterms:created>
+    <dc:relation>Georg von Rauchhaus in Berlin – 1971-2007</dc:relation>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+</rdf:Description>

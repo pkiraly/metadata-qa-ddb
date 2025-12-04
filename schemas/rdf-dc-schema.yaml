@@ -734,7 +734,7 @@ fields:
       - id: Q-4.5d
         hidden: true
         allowEmptyInstances: true
-        minCount: 1
+        minLength: 1
 
   # Objekt im Kontext [Object in context]
   - name: Objekt im Kontext
