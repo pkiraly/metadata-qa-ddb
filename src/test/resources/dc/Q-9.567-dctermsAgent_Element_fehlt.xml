@@ -1,0 +1,13 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcterms="http://purl.org/dc/terms/"
+                 xmlns:edm="http://www.europeana.eu/schemas/edm/"
+                 xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+                 rdf:about="oai:econstor.eu:10419/180667">
+    <edm:isShownAt>
+        <edm:WebResource rdf:about="http://hdl.handle.net/10419/180667">
+            <dc:format>text/html</dc:format>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+        </edm:WebResource>
+    </edm:isShownAt>
+</rdf:Description>

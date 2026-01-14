@@ -1,0 +1,10 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:doc="http://www.lyncode.com/xoai" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:ex="http://www.example.org/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/" xmlns:rdfs="http://www.w3schools.com/RDF/rdf-schema.xml" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xs="http://www.w3.org/2001/XMLSchema" rdf:about="oai:econstor.eu:10419/104428">
+    <dc:title xml:lang="eng">Optimal Opacity on Financial Markets</dc:title>
+    <edm:isShownAt>
+        <edm:WebResource rdf:about="http://hdl.handle.net/10419/104428">
+            <dc:format>text/html</dc:format>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+        </edm:WebResource>
+    </edm:isShownAt>
+    <dcterms:temporal xml:lang="ger">Frühmittelalter</dcterms:temporal>
+</rdf:Description>

@@ -1,0 +1,12 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="oai:localhost:11153/350-005-001">
+     <edm:isShownBy>
+        <edm:WebResource rdf:about="http://archiv.dam-online.de/bitstream/11153/350-005-001/2/bitstream">
+            <dc:creator>
+                <dcterms:Agent>
+                    <skos:prefLabel>DAM</skos:prefLabel>
+                </dcterms:Agent>
+            </dc:creator>
+            <dc:format>image/jpeg</dc:format>
+        </edm:WebResource>
+    </edm:isShownBy>
+</rdf:Description>

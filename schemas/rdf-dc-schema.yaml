@@ -906,18 +906,24 @@ fields:
       - id: Q-5.pre
         hidden: true
         alwaysCheckDependencies: true
-        priorityOnFail: true
+        #priorityOnFail: true
         # debug: true
         scope: anyOf
         # mandatory: true
+        naIfNoParent: true
         or:
           - dependencies: [Q-5.0ax]
+            parentCheck: true
           - dependencies: [Q-5.0bx]
+            parentCheck: true
           - dependencies: [Q-5.0cx]
+            parentCheck: true
           - dependencies: [Q-5.0dx]
+            parentCheck: true
           - dependencies: [Q-5.0ex]
+            parentCheck: true
           - dependencies: [Q-5.0fx]
-
+            parentCheck: true
 
   # Q-5 Rechtsstatus für das Digitale Objekt
   - name: rights
@@ -940,6 +946,7 @@ fields:
         alwaysCheckDependencies: true
         and:
           - dependencies: [Q-5.pre]
+            parentCheck: true
           - minCount: 1
           - in:
               - http://creativecommons.org/licenses/by/3.0/de/
@@ -1251,6 +1258,21 @@ fields:
           - minCount: 1
           - pattern: ^.+$
 
+  - name: Thematischer Bezug (concept) - parent
+    path: rdf:Description/dc:subject | rdf:Description/dcterms:spatial | rdf:Description/dcterms:temporal
+    rules:
+      - id: Q-9.5.has-parent
+        hidden: true
+        minCount: 1
+        scope: allOf
+
+      - id: Q-9.5.has-no-parent
+        hidden: true
+        alwaysCheckDependencies: true
+        priorityOnFail: true
+        not:
+          - dependencies: [Q-9.5.has-parent]
+
   - name: Thematischer Bezug (concept)
     path: rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
     rules:
@@ -1260,13 +1282,28 @@ fields:
         hidden: true
         scope: anyOf
         # debug: true
+        priorityOnFail: true
+        alwaysCheckDependencies: true
+        mandatory: true
         and:
+          # - dependencies: [Q-9.5.has-element]
           - minCount: 1
             scope: allOf
           - minLength: 1
             scope: allOf
           - hasChildren: ["@rdf:about"]
             scope: anyOf
+
+      - id: Q-9.5b
+        hidden: true
+        alwaysCheckDependencies: true
+        priorityOnFail: true
+        debug: true
+        naIfNoParent: true
+        or:
+          - dependencies: [Q-9.5.has-parent]
+            parentCheck: true
+          - dependencies: [Q-9.5a]
 
   - name: Thematischer Bezug (URI)
     path: rdf:Description/dc:subject/skos:Concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
@@ -1276,8 +1313,9 @@ fields:
         successScore: 1
         scope: allOf
         alwaysCheckDependencies: true
+        debug: true
         and:
-          - dependencies: [Q-9.5a]
+          - dependencies: [Q-9.5b]
           - pattern: ^http.*$
 
       - id: Q-9.6
