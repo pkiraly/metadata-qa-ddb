@@ -138,6 +138,8 @@ fields:
       - id: Q-3.pre
         hidden: true
         alwaysCheckDependencies: true
+        mandatory: true
+        priorityOnFail: true
         or:
           - dependencies: [Q-3.w]
           - dependencies: [Q-3.o]
@@ -906,7 +908,7 @@ fields:
       - id: Q-5.pre
         hidden: true
         alwaysCheckDependencies: true
-        #priorityOnFail: true
+        # priorityOnFail: true
         # debug: true
         scope: anyOf
         # mandatory: true

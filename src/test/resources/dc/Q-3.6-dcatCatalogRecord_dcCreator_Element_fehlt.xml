@@ -1,0 +1,37 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="oai:baw:02cfa316-b98b-4bc9-85f7-3cfc12c79c76">
+    <dcterms:isReferencedBy>
+        <dcat:CatalogRecord>
+            <dc:identifier>ProjektInfo_0119768_internetx.pdf</dc:identifier>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+        </dcat:CatalogRecord>
+    </dcterms:isReferencedBy>
+    <dc:title xml:lang="de">Sperrtor Sedelsberg/Küstenkanal</dc:title>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:type>
+        <skos:Concept>
+            <skos:prefLabel xml:lang="de">Fotografie</skos:prefLabel>
+        </skos:Concept>
+    </dc:type>
+    <dc:identifier>
+        <bf:Identifier>
+            <rdf:value>HB10925</rdf:value>
+        </bf:Identifier>
+    </dc:identifier>
+    <dc:description xml:lang="de">Blick von Osten auf die 1934 erbaute Sicherheitstoranlage Sedelsberg</dc:description>
+    <edm:isShownAt>
+        <edm:WebResource rdf:about="https://izw-medienarchiv.baw.de/detail/10118">
+            <dc:format>text/html</dc:format>
+        </edm:WebResource>
+    </edm:isShownAt>
+    <edm:isShownBy>
+        <edm:WebResource rdf:about="https://izw-medienarchiv.baw.de/api/v1/objects/uuid/02cfa316-b98b-4bc9-85f7-3cfc12c79c76/file/id/4610/file_version/name/original/disposition/inline">
+            <dc:format>image/jpeg</dc:format>
+            <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+            <dc:creator>
+                <dcterms:Agent>
+                    <skos:prefLabel xml:lang="de">Unbekannt</skos:prefLabel>
+                </dcterms:Agent>
+            </dc:creator>
+        </edm:WebResource>
+    </edm:isShownBy>
+</rdf:Description>
