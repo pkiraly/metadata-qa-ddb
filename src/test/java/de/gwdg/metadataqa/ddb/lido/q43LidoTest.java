@@ -17,7 +17,7 @@ import static junit.framework.TestCase.assertEquals;
 public class q43LidoTest extends LidoTest {
   @Test
   public void name() throws Exception {
-    setup("test-Q-4.3.xml");
+    setup("Q-4.3.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
     List<String> ids = List.of("Q-3.x", "Q-4.x", "Q-4.3");

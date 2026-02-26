@@ -150,7 +150,7 @@ public class VariousLidoTest extends LidoTest {
 
   @Test
   public void q9_1() throws Exception {
-    setup("test-Q-9.1.xml");
+    setup("Q-9.1.xml");
 
       String xpath = "lido:lido/lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:term";
       List<EdmFieldInstance> itemList = xPathWrapper.extractFieldInstanceList(xpath);

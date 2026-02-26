@@ -39,7 +39,7 @@ public class HasChildrenTest {
 
   @Before
   public void setUp() throws Exception {
-    URL url = this.getClass().getResource("/lido/test-Q-9.4.xml");
+    URL url = this.getClass().getResource("/lido/Q-9.4.xml");
     File file = new File(url.getFile());
     assertTrue(file.exists());
 
