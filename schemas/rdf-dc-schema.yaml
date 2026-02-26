@@ -138,12 +138,15 @@ fields:
       - id: Q-3.pre
         hidden: true
         alwaysCheckDependencies: true
-        mandatory: true
+        # mandatory: true
         priorityOnFail: true
         or:
           - dependencies: [Q-3.w]
+            parentCheck: true
           - dependencies: [Q-3.o]
+            parentCheck: true
           - dependencies: [Q-3.i]
+            parentCheck: true
 
   # Q-3 Vorschaubild
   - name: thumbnail
@@ -397,12 +400,19 @@ fields:
         priorityOnFail: true
         or:
           - dependencies: [Q-4.0.isShownBy-WebResource-about]
+            parentCheck: true
           - dependencies: [Q-4.0.isShownBy-resource]
+            parentCheck: true
           - dependencies: [Q-4.0.hasView-WebResource-about]
+            parentCheck: true
           - dependencies: [Q-4.0.hasView-resource]
+            parentCheck: true
           - dependencies: [Q-4.0.isShownAt-WebResource-about]
+            parentCheck: true
           - dependencies: [Q-4.0.isShownAt-resource]
+            parentCheck: true
           - dependencies: [Q-4.0.identifier-type]
+            parentCheck: true
 
   - name: media_url - precheck 4.2
     path: rdf:Description/edm:isShownBy/edm:WebResource/@rdf:about | rdf:Description/edm:isShownBy/@rdf:resource | rdf:Description/edm:hasView/edm:WebResource/@rdf:about | rdf:Description/edm:hasView/@rdf:resource |  oai:record/dc:identifier[@type='URL']
@@ -569,6 +579,7 @@ fields:
         priorityOnFail: true
         or:
           - dependencies: [ Q-4.3.is_missing ]
+            parentCheck: true
           - dependencies: [ Q-4.3.value_fits ]
         #  - and:
         #    - dependencies: [Q-4.has_element]
@@ -748,8 +759,11 @@ fields:
         priorityOnFail: true
         or:
           - dependencies: [ Q-4.5b ]
+            parentCheck: true
           - dependencies: [ Q-4.5c ]
+            parentCheck: true
           - dependencies: [ Q-4.5d ]
+            parentCheck: true
 
       - id: Q-4.5
         description: Check whether the data record contains an object in context (see table "Mapping the DDB elements"). If so => check whether this element contain a value.
@@ -784,7 +798,7 @@ fields:
   - name: rights - object-WebResource-license
     path: rdf:Description/edm:object/edm:WebResource/dcterms:license
     rules:
-      - id: Q-5.0a
+      - id: Q-5.0a-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -794,17 +808,17 @@ fields:
   - name: rights - object-WebResource-license-resource
     path: rdf:Description/edm:object/edm:WebResource/dcterms:license/@rdf:resource
     rules:
-      - id: Q-5.0ax
+      - id: Q-5.0a-attribute
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.0a]
+          - dependencies: [Q-5.0a-element]
           - minCount: 1
 
   - name: rights - isShownBy-WebResource-license
     path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license
     rules:
-      - id: Q-5.0b
+      - id: Q-5.0b-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -814,19 +828,33 @@ fields:
   - name: rights - isShownBy-WebResource-license-resource
     path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource
     rules:
-      - id: Q-5.0bx
+      - id: Q-5.0b-attribute
         hidden: true
         alwaysCheckDependencies: true
         priorityOnFail: false
         mandatory: true
         and:
-          - dependencies: [Q-5.0b]
+          - dependencies: [Q-5.0b-element]
+            parentCheck: true
           - minCount: 1
+
+  - name: rights - isShownBy-WebResource-license-resource2
+    path: rdf:Description/edm:isShownBy/edm:WebResource/dcterms:license/@rdf:resource
+    rules:
+      - id: Q-5.0b-pre
+        hidden: true
+        alwaysCheckDependencies: true
+        priorityOnFail: false
+        mandatory: true
+        and:
+         - dependencies: [Q-5.0b-element]
+           parentCheck: true
+         - minCount: 1
 
   - name: rights - hasView-WebResource-license
     path: rdf:Description/edm:hasView/edm:WebResource/dcterms:license
     rules:
-      - id: Q-5.0c
+      - id: Q-5.0c-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -836,17 +864,17 @@ fields:
   - name: rights - hasView-WebResource-license-resource
     path: rdf:Description/edm:hasView/edm:WebResource/dcterms:license/@rdf:resource
     rules:
-      - id: Q-5.0cx
+      - id: Q-5.0c-attribute
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.0c]
+          - dependencies: [Q-5.0c-element]
           - minCount: 1
 
   - name: rights - isShownAt-WebResource-license
     path: rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license
     rules:
-      - id: Q-5.0d
+      - id: Q-5.0d-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -856,17 +884,17 @@ fields:
   - name: rights - isShownAt-WebResource-license-resource
     path: rdf:Description/edm:isShownAt/edm:WebResource/dcterms:license/@rdf:resource
     rules:
-      - id: Q-5.0dx
+      - id: Q-5.0d-attribute
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.0d]
+          - dependencies: [Q-5.0d-element]
           - minCount: 1
 
   - name: rights - license
     path: rdf:Description/dcterms:license
     rules:
-      - id: Q-5.0e
+      - id: Q-5.0e-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -876,17 +904,17 @@ fields:
   - name: rights - license-resource
     path: rdf:Description/dcterms:license/@rdf:resource
     rules:
-      - id: Q-5.0ex
+      - id: Q-5.0e-attribute
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.0e]
+          - dependencies: [Q-5.0e-element]
           - minCount: 1
 
   - name: rights - rights
     path: oai:record/dc:rights
     rules:
-      - id: Q-5.0f
+      - id: Q-5.0f-element
         hidden: true
         allowEmptyInstances: true
         and:
@@ -895,11 +923,11 @@ fields:
   - name: rights - rights-type
     path: oai:record/dc:rights[@type='binary']
     rules:
-      - id: Q-5.0fx
+      - id: Q-5.0f-attribute
         hidden: true
         alwaysCheckDependencies: true
         and:
-          - dependencies: [Q-5.0f]
+          - dependencies: [Q-5.0f-element]
           - minCount: 1
 
   - name: rights - precheck
@@ -908,23 +936,24 @@ fields:
       - id: Q-5.pre
         hidden: true
         alwaysCheckDependencies: true
-        # priorityOnFail: true
+        priorityOnFail: true
         # debug: true
         scope: anyOf
         # mandatory: true
-        naIfNoParent: true
+        # naIfNoParent: true
         or:
-          - dependencies: [Q-5.0ax]
+          - dependencies: [Q-5.0a-element, Q-5.0a-attribute]
             parentCheck: true
-          - dependencies: [Q-5.0bx]
+          - dependencies: [Q-5.0b-element, Q-5.0b-attribute]
             parentCheck: true
-          - dependencies: [Q-5.0cx]
+            # scope: allOf
+          - dependencies: [Q-5.0c-attribute]
             parentCheck: true
-          - dependencies: [Q-5.0dx]
+          - dependencies: [Q-5.0d-attribute]
             parentCheck: true
-          - dependencies: [Q-5.0ex]
+          - dependencies: [Q-5.0e-attribute]
             parentCheck: true
-          - dependencies: [Q-5.0fx]
+          - dependencies: [Q-5.0f-attribute]
             parentCheck: true
 
   # Q-5 Rechtsstatus für das Digitale Objekt
@@ -1260,13 +1289,34 @@ fields:
           - minCount: 1
           - pattern: ^.+$
 
-  - name: Thematischer Bezug (concept) - parent
+  - name: Thematischer Bezug (concept) - grand parent
+    # path: rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dc:subject/skos:Concept | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
     path: rdf:Description/dc:subject | rdf:Description/dcterms:spatial | rdf:Description/dcterms:temporal
     rules:
-      - id: Q-9.5.has-parent
+      - id: Q-9.5.has-grand-parent
         hidden: true
         minCount: 1
         scope: allOf
+
+      - id: Q-9.5.has-no-grand-parent
+        hidden: true
+        alwaysCheckDependencies: true
+        priorityOnFail: true
+        not:
+          - dependencies: [Q-9.5.has-grand-parent]
+
+  - name: Thematischer Bezug (concept) - parent
+    path: rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
+    rules:
+      - id: Q-9.5.has-parent
+        hidden: true
+        scope: allOf
+        naIfNoParent: false
+        mandatory: true
+        and:
+          - dependencies: [Q-9.5.has-grand-parent]
+            parentCheck: true
+          - minCount: 1
 
       - id: Q-9.5.has-no-parent
         hidden: true
@@ -1278,7 +1328,7 @@ fields:
   - name: Thematischer Bezug (concept)
     path: rdf:Description/dc:subject/skos:Concept | rdf:Description/dc:subject/dcterms:Agent | rdf:Description/dcterms:spatial/dcterms:Location | rdf:Description/dcterms:temporal/skos:Concept
     rules:
-      - id: Q-9.5a
+      - id: Q-9.5-attribute
         description: The thematic relation must come from a controlled vocabulary.
         # successScore: 1
         hidden: true
@@ -1303,9 +1353,12 @@ fields:
         debug: true
         naIfNoParent: true
         or:
-          - dependencies: [Q-9.5.has-parent]
-            parentCheck: true
-          - dependencies: [Q-9.5a]
+          - not:
+            - dependencies: [Q-9.5.has-parent]
+              parentCheck: true
+          - dependencies: [Q-9.5-attribute]
+            # mandatory: true
+            # parentCheck: true
 
   - name: Thematischer Bezug (URI)
     path: rdf:Description/dc:subject/skos:Concept/@rdf:about | rdf:Description/dc:subject/dcterms:Agent/@rdf:about | rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about | rdf:Description/dcterms:temporal/skos:Concept/@rdf:about

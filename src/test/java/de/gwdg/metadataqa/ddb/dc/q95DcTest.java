@@ -15,6 +15,23 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 /**
+ * rdf:Description/dc:subject/skos:Concept/@rdf:about
+ * rdf:Description/dc:subject/dcterms:Agent/@rdf:about
+ * rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about
+ * rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
+ * Q-9.5-attribute:
+ *   and:
+ *   - minCount: 1
+ *     scope: allOf
+ *   - minLength: 1
+ *     scope: allOf
+ *   - hasChildren: ["@rdf:about"]
+ *     scope: anyOf
+ * Q-9.5:
+ *   and:
+ *   - dependencies: [Q-9.5-attribute]
+ *   - pattern: ^http.*$
+ *
  *   x   dctermsAgent_Element_fehlt.xml failed. expected: NA, actual: 1 -- parent is missing
  *     # dctermsAgent_GND_URI.xml passed
  *       dctermsAgent_leeres_Element.xml failed. expected: 0, actual: 1
@@ -38,7 +55,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -57,7 +74,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5-dctermsTemporal_Term.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -76,7 +93,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5-dctermsAgent_nur_Term.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -95,7 +112,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5-dctermsTemporal_URI.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -110,41 +127,21 @@ public class q95DcTest extends DcTest {
   }
 
   @Test
-  /**
-   * rdf:Description/dc:subject/skos:Concept/@rdf:about
-   * rdf:Description/dc:subject/dcterms:Agent/@rdf:about
-   * rdf:Description/dcterms:spatial/dcterms:Location/@rdf:about
-   * rdf:Description/dcterms:temporal/skos:Concept/@rdf:about
-   * Q-9.5a:
-   *   and:
-   *   - minCount: 1
-   *     scope: allOf
-   *   - minLength: 1
-   *     scope: allOf
-   *   - hasChildren: ["@rdf:about"]
-   *     scope: anyOf
-   * Q-9.5:
-   *   and:
-   *   - dependencies: [Q-9.5a]
-   *   - pattern: ^http.*$
-   *
-   * The problem here: there is no URL
-   */
   public void dctermsSpatial_simple_should_be_NA() throws Exception {
     setup("Q-9.5-dctermsSpatial_simple.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
-    // fieldMap={Q-9.5a=0, Q-9.5=0}
+    // fieldMap={Q-9.5-attribute=0, Q-9.5=0}
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED, // TODO should be FAILED
+      RuleCheckingOutputStatus.NA, // TODO should be FAILED
       fieldCounter.get("Q-9.5").getStatus()
     );
   }
@@ -154,7 +151,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5-dctermsAgent_Wikidata_URI_nur_URI.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -173,7 +170,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.567-dctermsTemporal_simple.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -182,7 +179,7 @@ public class q95DcTest extends DcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED, // TODO should be FAILED
+      RuleCheckingOutputStatus.NA, // TODO should be FAILED
       fieldCounter.get("Q-9.5").getStatus()
     );
   }
@@ -196,7 +193,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.567-dctermsAgent_Element_fehlt.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -213,11 +210,14 @@ public class q95DcTest extends DcTest {
   }
 
   @Test
+  /**
+   * has element, has no attribute, the value is a string
+   */
   public void dctermsLocation_nur_Term() throws Exception {
     setup("Q-9.5-dctermsLocation_nur_Term.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();
@@ -225,8 +225,8 @@ public class q95DcTest extends DcTest {
       }
     }
     System.err.println(fieldCounter);
-    // assertEquals(RuleCheckingOutputStatus.FAILED, fieldCounter.get("Q-9.5.has-parent").getStatus());
-    // assertEquals(RuleCheckingOutputStatus.PASSED, fieldCounter.get("Q-9.5.has-no-parent").getStatus());
+    assertEquals("should have parent", RuleCheckingOutputStatus.PASSED, fieldCounter.get("Q-9.5.has-parent").getStatus());
+    assertEquals("should not have attribute", RuleCheckingOutputStatus.FAILED, fieldCounter.get("Q-9.5-attribute").getStatus());
     assertEquals(
       RuleCheckingOutputStatus.FAILED, // TODO should be FAILED
       fieldCounter.get("Q-9.5").getStatus()
@@ -238,7 +238,7 @@ public class q95DcTest extends DcTest {
     setup("Q-9.5-dctermsTemporal_Term_leer.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5a", "Q-9.5b", "Q-9.5c", "Q-9.5");
+    List<String> ids = List.of("Q-9.5.has-grand-parent", "Q-9.5.has-no-grand-parent", "Q-9.5.has-parent", "Q-9.5.has-no-parent", "Q-9.5-attribute", "Q-9.5b", "Q-9.5c", "Q-9.5");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
         checker.setDebug();

@@ -1,60 +1,7 @@
-<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="oai:econstor.eu:10419/186586">
-    <dcterms:isReferencedBy>
-        <dcat:CatalogRecord>
-            <dc:identifier>oai:econstor.eu:1041219/6165859</dc:identifier>
-            <dc:creator>00014280</dc:creator>
-            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
-        </dcat:CatalogRecord>
-    </dcterms:isReferencedBy>
-    <dc:title xml:lang="eng">The contribution of speculators markets</dc:title>
-    <edm:isShownAt>
-        <edm:WebResource rdf:about="http://hdl.handle.net/10419/186586">
-            <dc:format>text/html</dc:format>
-            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
-        </edm:WebResource>
-    </edm:isShownAt>
-    <dc:creator>
-        <dcterms:Agent>
-            <skos:prefLabel>Garcia, Marcio Gomes Pinto</skos:prefLabel>
-        </dcterms:Agent>
-    </dc:creator>
-    <dc:creator>
-        <dcterms:Agent>
-            <skos:prefLabel>Bekaert, Geert</skos:prefLabel>
-        </dcterms:Agent>
-    </dc:creator>
-    <dc:creator>
-        <dcterms:Agent>
-            <skos:prefLabel>Harvey, Campbell R.</skos:prefLabel>
-        </dcterms:Agent>
-    </dc:creator>
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="oai:econstor.eu:10419/186586">
     <dc:subject>
         <dcterms:Agent>
             <skos:prefLabel>Johann Wolfgang von Goethe</skos:prefLabel>
         </dcterms:Agent>
     </dc:subject>
-    <dcterms:issued>1995</dcterms:issued>
-    <dc:type>
-        <skos:Concept>
-            <skos:prefLabel>doc-type:workingPaper</skos:prefLabel>
-        </skos:Concept>
-    </dc:type>
-    <rdf:type rdf:resource="http://ddb.vocnet.org/medientyp/mt007"/>
-    <dc:identifier>
-        <bf:Hdl>
-            <rdf:value>http://hdl.handle.net/1041922/186586</rdf:value>
-        </bf:Hdl>
-    </dc:identifier>
-    <dc:language>eng</dc:language>
-    <dc:source>Series: Texto para discussão ; No. 341</dc:source>
-    <dc:publisher>
-        <dcterms:Agent>
-            <skos:prefLabel>Pontifícia Universidade Católica do Rio de Janeiro (PUC-Rio), Departamento de Economia</skos:prefLabel>
-        </dcterms:Agent>
-    </dc:publisher>
-    <marcrel:pup>
-        <dcterms:Location>
-            <skos:prefLabel>Rio de Janeiro</skos:prefLabel>
-        </dcterms:Location>
-    </marcrel:pup>
 </rdf:Description>

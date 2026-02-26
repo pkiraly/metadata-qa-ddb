@@ -1,0 +1,8 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" rdf:about="umbruch_7">
+    <edm:isShownAt>
+        <edm:WebResource rdf:about="http://www.umbruch-bildarchiv.de/bildarchiv/foto1/bildgalerie_rauchhaus/pages/1301g.htm">
+            <dc:format>text/html</dc:format>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+        </edm:WebResource>
+    </edm:isShownAt>
+</rdf:Description>
