@@ -669,6 +669,8 @@ fields:
         description: There must be at least one preferred designation for the object type in the data record.
         successScore: 1
         # debug: true
+        priorityOnFail: true
+        mandatory: true
         and:
           - minCount: 1
           - minLength: 1
@@ -770,6 +772,8 @@ fields:
         successScore: 2
         # debug: true
         alwaysCheckDependencies: true
+        priorityOnFail: true
+        mandatory: true
         or:
           - dependencies: [ Q-9.4c ]
           - and:

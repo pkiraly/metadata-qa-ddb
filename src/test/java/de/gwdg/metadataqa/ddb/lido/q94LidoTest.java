@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class q94LidoTest extends LidoTest {
 
   @Test
-  public void test() throws Exception {
+  public void displayPlace() throws Exception {
     setup("Q-9.4-displayPlace.xml");
     Rule rule94 = SchemaUtils.getRuleById(schema, "Q-9.4");
     assertEquals(
@@ -42,6 +42,64 @@ public class q94LidoTest extends LidoTest {
     // System.err.println(fieldCounter);
     assertEquals(
       RuleCheckingOutputStatus.NA,
+      fieldCounter.get("Q-9.4").getStatus()
+    );
+  }
+
+  @Test
+  public void subjectActor_fehlt() throws Exception {
+    setup("Q-9.4-subjectActor_fehlt.xml");
+    Rule rule94 = SchemaUtils.getRuleById(schema, "Q-9.4");
+    assertEquals(
+      List.of("Q-9.4a", "Q-9.4b", "Q-9.4c"),
+      SchemaUtils.getAllDependencies(schema, rule94)
+        .stream()
+        .sorted()
+        .collect(Collectors.toList())
+    );
+
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-9.4a", "Q-9.4b", "Q-9.4c", "Q-9.4");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    // Q-9.4a=NA, Q-9.4b=NA, Q-9.4c=NA, Q-9.4=NA
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-9.4").getStatus()
+    );
+  }
+
+  @Test
+  public void subjectDate_display() throws Exception {
+    setup("Q-9.4-subjectDate_display.xml");
+    Rule rule94 = SchemaUtils.getRuleById(schema, "Q-9.4");
+    assertEquals(
+      List.of("Q-9.4a", "Q-9.4b", "Q-9.4c"),
+      SchemaUtils.getAllDependencies(schema, rule94)
+        .stream()
+        .sorted()
+        .collect(Collectors.toList())
+    );
+
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-9.4a", "Q-9.4b", "Q-9.4c", "Q-9.4");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.setDebug();
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    // Q-9.4a=NA, Q-9.4b=1, Q-9.4c=1, Q-9.4=0
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.PASSED,
       fieldCounter.get("Q-9.4").getStatus()
     );
   }
