@@ -138,7 +138,7 @@ fields:
       - id: Q-3.pre
         hidden: true
         alwaysCheckDependencies: true
-        # mandatory: true
+        mandatory: true
         priorityOnFail: true
         or:
           - dependencies: [Q-3.w]

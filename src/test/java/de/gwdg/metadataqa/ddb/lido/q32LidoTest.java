@@ -69,8 +69,25 @@ public class q32LidoTest extends LidoTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.NA,
+      RuleCheckingOutputStatus.FAILED,
       fieldCounter.get("Q-3.2").getStatus()
     );
   }
-}
+
+  @Test
+  public void recordInfoLink_mit_Leerzeichen() throws Exception {
+    setup("Q-3.2-recordInfoLink_mit_Leerzeichen.xml");
+    Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
+    FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
+    List<String> ids = List.of("Q-3.0", "Q-3.6", "Q-3.2");
+    for (RuleChecker checker : schema.getRuleCheckers()) {
+      if (ids.contains(checker.getId())) {
+        checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
+      }
+    }
+    System.err.println(fieldCounter);
+    assertEquals(
+      RuleCheckingOutputStatus.FAILED,
+      fieldCounter.get("Q-3.2").getStatus()
+    );
+  }}

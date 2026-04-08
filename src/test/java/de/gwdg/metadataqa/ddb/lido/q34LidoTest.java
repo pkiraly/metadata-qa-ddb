@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.ddb.dc;
+package de.gwdg.metadataqa.ddb.lido;
 
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.model.selector.Selector;
@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.api.rule.RuleChecker;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
-import de.gwdg.metadataqa.ddb.DcTest;
+import de.gwdg.metadataqa.ddb.LidoTest;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,61 +15,62 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Q-3.6
- *     dcatCatalogRecord_dcCreator_Element_fehlt.xml failed. expected: 0, actual: NA
- *     edmObject - fehlt.xml failed. expected: 0, actual: NA
- *   # edmObject - leer.xml passed
- *   # edmObject.xml passed
- *   # edmObject_broken_Links.xml passed
- *   # edmObject_ohne_rdfabout.xml passed
+ * lido:lido/lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet
+ *   /lido:resourceRepresentation/lido:linkResource
  *
- * rdf:Description/edm:object/edm:WebResource/@rdf:about |
- * rdf:Description/edm:object/@rdf:resource |
- * oai:record/dc:identifier[@type='binary']
- *
+ * Q-3.0
  * and:
- * - dependencies: [Q-3.0]
+ * - minCount: 1
+ * - minLength: 1
+ *
+ * Q-3.6
+ * mandatory: true
+ * and:
+ * - dependencies: [ Q-3.0 ]
  * - or:
  *   - pattern: ^.*\.(jpg|jpeg|jpe|jfif|png|tiff|tif|gif|svg|svgz|pdf)$
  *   - contentType: [image/jpeg, image/png, image/tiff, image/tiff-fx, image/gif, image/svg+xml, application/pdf]
- *  skippableUrl: ^https?://www.ssoar.info/
+ *
+ * Q-3.4
+ * # alwaysCheckDependencies: true
+ * and:
+ * - dependencies: [ Q-3.6 ]
+ * - pattern: ^https?://.*$
  */
-public class q36DcTest extends DcTest {
+public class q34LidoTest extends LidoTest {
   @Test
-  public void dcatCatalogRecord_dcCreator_Element_fehlt() throws Exception {
-    setup("Q-3.6-dcatCatalogRecord_dcCreator_Element_fehlt.xml");
+  public void recordInfoLink_leer() throws Exception {
+    setup("Q-3.4-recordInfoLink_leer.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-3.wa", "Q-3.w", "Q-3.oa", "Q-3.o", "Q-3.ia", "Q-3.i", "Q-3.pre", "Q-3.0", "Q-3.6");
+    List<String> ids = List.of("Q-3.0", "Q-3.6", "Q-3.4");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
-        checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-3.6").getStatus()
+      RuleCheckingOutputStatus.FAILED, // TODO: FAILED
+      fieldCounter.get("Q-3.4").getStatus()
     );
   }
 
   @Test
-  public void edmObject_fehlt() throws Exception {
-    setup("Q-3.6-edmObject-fehlt.xml");
+  public void recordInfoLink_mit_Leerzeichen() throws Exception {
+    setup("Q-3.4-recordInfoLink_mit_Leerzeichen.xml");
     Selector cache = SelectorFactory.getInstance(schema.getFormat(), xml);
     FieldCounter<RuleCheckerOutput> fieldCounter = new FieldCounter<>();
-    List<String> ids = List.of("Q-3.wa", "Q-3.w", "Q-3.oa", "Q-3.o", "Q-3.ia", "Q-3.i", "Q-3.pre", "Q-3.0", "Q-3.6");
+    List<String> ids = List.of("Q-3.0", "Q-3.6", "Q-3.4");
     for (RuleChecker checker : schema.getRuleCheckers()) {
       if (ids.contains(checker.getId())) {
-        checker.setDebug();
         checker.update(cache, fieldCounter, RuleCheckingOutputType.STATUS);
       }
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.FAILED,
-      fieldCounter.get("Q-3.6").getStatus()
+      RuleCheckingOutputStatus.PASSED, // TODO: PASSED
+      fieldCounter.get("Q-3.4").getStatus()
     );
   }
 }
