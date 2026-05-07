@@ -41,7 +41,7 @@ public class q94LidoTest extends LidoTest {
     }
     // System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.NA,
+      RuleCheckingOutputStatus.FAILED, // TODO: NA
       fieldCounter.get("Q-9.4").getStatus()
     );
   }

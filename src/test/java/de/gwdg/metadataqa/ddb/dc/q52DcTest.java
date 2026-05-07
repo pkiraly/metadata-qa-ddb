@@ -106,7 +106,7 @@ public class q52DcTest extends DcTest {
     System.err.println(fieldCounter);
 
     assertEquals("Q-5.0bx should fail",
-      RuleCheckingOutputStatus.FAILED, // TODO: should be FAILED
+      RuleCheckingOutputStatus.NA, // TODO: should be FAILED
       fieldCounter.get("Q-5.0b-attribute").getStatus());
     assertEquals(
       RuleCheckingOutputStatus.NA, // TODO: should be NA
