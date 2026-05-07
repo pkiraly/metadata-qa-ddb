@@ -1,4 +1,13 @@
-FROM ubuntu:jammy
+FROM ubuntu:24.04
+
+LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
+
+LABEL description="A metadata quality assessment tool for Deutsche Digitale Bibliothek."
+# the Github repo labels
+LABEL org.opencontainers.image.description="Metadata quality assessment of Deutsche Digitale Bibliothek metadata."
+LABEL org.opencontainers.image.source=https://github.com/pkiraly/metadata-qa-ddb
+LABEL org.opencontainers.image.licenses="GNU General Public License v3.0"
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Berlin
 ENV RUN_USER=nobody
@@ -19,7 +28,7 @@ RUN sed -i 's|http://|http://de.|g' /etc/apt/sources.list && \
 		nano \
 		openjdk-17-jdk \
 		php \
-		php-http-request2 \
+		php-http \
 		php-mysql \
 		php-sqlite3 \
 		pip \
@@ -28,16 +37,13 @@ RUN sed -i 's|http://|http://de.|g' /etc/apt/sources.list && \
 		wget
 
 # Install R
-RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-     | gpg --dearmor -o /usr/share/keyrings/r-project.gpg && \
-	echo "deb [signed-by=/usr/share/keyrings/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
-     | tee -a /etc/apt/sources.list.d/r-project.list && \
+RUN echo "echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list" && \
 	apt-get update && \
 	apt-get install -y \
-                r-base \
-                r-cran-gridextra \
-                r-cran-stringr \
-                r-cran-tidyverse
+              r-base \
+              r-cran-gridextra \
+              r-cran-stringr \
+              r-cran-tidyverse
 
 # Installing Prefect
 # RUN pip install -U "prefect==2.8.4" "prefect-shell==0.1.5"
@@ -74,5 +80,5 @@ COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/configuration.cnf.doc
 # 	mv configuration.cnf.docker configuration.cnf
 
 # ENTRYPOINT ["supervisord", "-c", "/opt/metadata-qa-ddb/supervisord.conf"]
-CMD ["./run-all.sh"]
+# CMD ["./run-all.sh"]
 CMD ["./docker-entrypoint.sh"]
