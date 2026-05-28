@@ -81,6 +81,6 @@ COPY --chown=${RUN_USER}:${RUN_GROUP} docker-configuration/configuration.cnf.doc
 # 	mv configuration.cnf.docker configuration.cnf
 
 # ENTRYPOINT ["supervisord", "-c", "/opt/metadata-qa-ddb/supervisord.conf"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/opt/metadata-qa-ddb/supervisord.conf"]
 # CMD ["./run-all.sh"]
 # CMD ["./docker-entrypoint.sh"]
