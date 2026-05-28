@@ -31,6 +31,7 @@ RUN sed -i 's|http://|http://de.|g' /etc/apt/sources.list && \
 		php-http \
 		php-mysql \
 		php-sqlite3 \
+        php-raphf \
 		pip \
 		sqlite3 \
 		supervisor \
