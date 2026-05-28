@@ -16,7 +16,7 @@ echo "\$MQAF_VALIDATION_PARAMS=$MQAF_VALIDATION_PARAMS";
 echo "Create folder ${MQAF_DATA}/input and ${MQAF_DATA}/output ...";
 mkdir -p ${MQAF_DATA}/input ${MQAF_DATA}/output
 
-echo "Copy Metadata-qa-ddb to (writeable) temp directory ..."
+echo "Copy metadata-qa-ddb to (writeable) temp directory ..."
 cp -R /opt/metadata-qa-ddb /tmp/metadata-qa-ddb
 
 URL=http://${MQAF_SOLR_HOST}:${MQAF_SOLR_PORT}/solr/admin/cores?action=STATUS
@@ -36,6 +36,6 @@ echo "#"
 echo "Apache Solr is ready, starting application..."
 echo "#"
 sleep 5
-./run-all.sh
+# ./run-all.sh
 # echo "Add Prefect deployment ..."
 # cd /tmp/metadata-qa-ddb && prefect deployment build prefect2_workflow.py:main_flow -a -n metadata-qa
