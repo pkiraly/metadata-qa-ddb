@@ -226,6 +226,9 @@ public class App {
             String name = entry.getName();
             String name4 = DDBUtils.toHex(name);
             processInputStream(fileName + "::" + name4, inputStream);
+          } catch(RuntimeException e) {
+            System.err.println("ERROR: " + getRelativePath(fileName) + "::" + entry.getName() + " " + e.getMessage());
+            logger.error(fileName + "::" + entry.getName() + " -- " + e.getMessage());
           }
         }
       }
@@ -345,12 +348,9 @@ public class App {
     String relativePath = getRelativePath(inputFile);
     logger.info(String.format("processing %d/%d: %s", fileCount, totalFiles, relativePath));
     System.err.println(String.format("# processing %d/%d: %s", fileCount, totalFiles, relativePath));
-    // logger.info("processFile: {} -> {}", inputFile, relativePath);
 
     int before = recordCount;
-    // logger.info("BEFORE " + recordCount);
     try {
-      // XPathBasedIterator iterator = new XPathBasedIterator(new File(inputFile), recordAddress, namespaces);
       String line = null;
       while (iterator.hasNext()) {
         String xml = iterator.next();
@@ -367,8 +367,6 @@ public class App {
 
         List<MetricResult> fieldExtractorResult = results.get("fieldExtractor");
         String recordId = (String) fieldExtractorResult.get(0).getResultMap().get("recordId");
-        // System.err.println("## recordId: " + recordId);
-        // System.err.println(results);
 
         if (storing && (doSqlite || doMysql)) {
           if (doSqlite)
