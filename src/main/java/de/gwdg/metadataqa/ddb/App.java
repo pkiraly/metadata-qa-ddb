@@ -54,6 +54,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.lang3.StringUtils;
+import org.xml.sax.SAXParseException;
 
 /**
  */
@@ -70,7 +71,6 @@ public class App {
       ex.printStackTrace();
     }
   }
-
 
   private Writer writer;
 
@@ -225,23 +225,14 @@ public class App {
           try (InputStream inputStream = zipFile.getInputStream(entry)) {
             String name = entry.getName();
             String name4 = DDBUtils.toHex(name);
-            /*
-            byte[] ptext = name.getBytes(StandardCharsets.ISO_8859_1);
-            String name8 = new String(ptext, StandardCharsets.UTF_8);
-            if (!name.equals(name4)) {
-              logger.info("## transform: " + name + " --> " + name4);
-            }
-             */
             processInputStream(fileName + "::" + name4, inputStream);
           }
         }
       }
     } catch (ZipException e) {
       logger.error("Zip exception {}", e.getMessage());
-      // System.err.println("Error: " + fileName + " -- " + e.getMessage());
     } catch (IOException e) {
       logger.error("I/O exception {}", e.getMessage());
-      // throw new RuntimeException(e);
     }
   }
 
@@ -324,6 +315,8 @@ public class App {
       processIterator(inputFile, iterator);
     } catch (ParserConfigurationException e) {
       throw new RuntimeException(e);
+    } catch (SAXParseException e) {
+      throw new RuntimeException(e);
     } catch (SAXException e) {
       throw new RuntimeException(e);
     } catch (XPathExpressionException e) {
@@ -336,6 +329,8 @@ public class App {
       XPathBasedIterator iterator = new XPathBasedIterator(inputStream, recordAddress, namespaces);
       processIterator(inputFile, iterator);
     } catch (ParserConfigurationException e) {
+      throw new RuntimeException(e);
+    } catch (SAXParseException e) {
       throw new RuntimeException(e);
     } catch (SAXException e) {
       throw new RuntimeException(e);
