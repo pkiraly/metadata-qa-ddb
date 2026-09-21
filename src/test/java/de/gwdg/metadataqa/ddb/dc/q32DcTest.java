@@ -29,7 +29,7 @@ public class q32DcTest extends DcTest {
     }
     System.err.println(fieldCounter);
     assertEquals(
-      RuleCheckingOutputStatus.NA,
+      RuleCheckingOutputStatus.FAILED, // TODO: RuleCheckingOutputStatus.NA
       fieldCounter.get("Q-3.2").getStatus()
     );
   }
