@@ -1,0 +1,28 @@
+<rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:doc="http://www.lyncode.com/xoai" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:europeana="http://www.europeana.eu/schemas/ese/" xmlns:ex="http://www.example.org/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:rdfs="http://www.w3schools.com/RDF/rdf-schema.xml" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xs="http://www.w3.org/2001/XMLSchema" rdf:about="umbruch_6">
+    <dcterms:isReferencedBy>
+        <dcat:CatalogRecord>
+            <dc:identifier>lisa29624l</dc:identifier>
+            <dc:creator>oid1553513200209</dc:creator>
+            <dcterms:license rdf:resource="http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"/>
+        </dcat:CatalogRecord>
+    </dcterms:isReferencedBy>
+    <dc:identifier>
+        <bf:Identifier>
+            <rdf:value>umbruch:bildarchiv_3362</rdf:value>
+        </bf:Identifier>
+    </dc:identifier>
+    <dc:title xml:lang="de">Ton, Steine, Scherben an der TU Berlin</dc:title>
+    <dc:type>
+        <skos:Concept rdf:about="https://d-nb.info/gnd/4045895-7">
+            <skos:prefLabel xml:lang="de">Fotografie</skos:prefLabel>
+        </skos:Concept>
+    </dc:type>
+    <dc:contributor>
+        <dcterms:Agent rdf:about="https://d-nb.info/gnd/1155952995">
+            <skos:prefLabel>Umbruch Bildarchiv e.V.</skos:prefLabel>
+        </dcterms:Agent>
+    </dc:contributor>
+    <dcterms:created>08.12.71</dcterms:created>
+    <dc:description xml:lang="de">Teach-in und Konzert mit Ton Steine Scherben anläßlich des Todes von Georg von Rauch am 8. Dezember 1971 in der Technischen Universität. Von hier aus folgte die Besetzung des Georg-von-Rauch-Hauses.</dc:description>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+</rdf:Description>

@@ -21,7 +21,7 @@ public class SchemaBasedTest {
   public void setup(String fileName, String schemaFile, String recordAddress) throws Exception {
     URL url = this.getClass().getResource(fileName);
     File file = new File(url.getFile());
-    assertTrue(file.exists());
+    assertTrue("'" + fileName + "' should exists", file.exists());
 
     try {
       schema = ConfigurationReader.readSchemaYaml("schemas/" + schemaFile).asSchema();
