@@ -80,7 +80,7 @@ services:
   report:
     image: ${MQAF_REPORT_IMAGE:-ghcr.io/pkiraly/metadata-qa-ddb-web:v2.0}
     ports:
-      - ${MQAF_REPORT_WEBPORT:-90}:80
+      - ${MQAF_REPORT_WEBPORT:-90}:8080
       # - ${SOLRPORT:-8983}:8983
     volumes:
       - ${DDB_CONFIG:-./test-ddb/config}:/var/www/html/config
