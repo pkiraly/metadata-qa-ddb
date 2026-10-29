@@ -1,4 +1,4 @@
-# Metadata quality assessment of Deutsche Digitale Bibliothek metadata
+# Quality assessment of Deutsche Digitale Bibliothek metadata
 
 A metadata quality assessment tool customized for Deutsche Digitale Bibliothek's requirements against the incomming metadata records. This is an extension of [Metadata Quality Assessment Framework](https://github.com/pkiraly/metadata-qa-api).
 
