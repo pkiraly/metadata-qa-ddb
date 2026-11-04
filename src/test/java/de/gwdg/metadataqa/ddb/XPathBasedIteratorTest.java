@@ -72,6 +72,7 @@ public class XPathBasedIteratorTest {
       .enableFieldExtractor()
       .withSolrConfiguration("localhost", "8983", "dummy");
 
+    configuration.withSolrClient(new JdkSolrClient(configuration.getSolrConfiguration()));
     CalculatorFacade calculator = new CalculatorFacade(configuration)
       .setSchema(schema);
     calculator.configure();
@@ -145,6 +146,7 @@ public class XPathBasedIteratorTest {
       .enableFieldExtractor()
       .withSolrConfiguration("localhost", "8983", "dummy");
 
+    configuration.withSolrClient(new JdkSolrClient(configuration.getSolrConfiguration()));
     CalculatorFacade calculator = new CalculatorFacade(configuration)
       .setSchema(schema);
     calculator.configure();

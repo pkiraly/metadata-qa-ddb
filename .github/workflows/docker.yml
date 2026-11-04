@@ -1,10 +1,13 @@
 #
 name: Create and publish a Docker image
 
-# Configures this workflow to run every time a change is pushed to the branch called `release`.
+# CVEs don't wait for git pushes. Daily at 03:23 UTC.
 on:
   push:
     branches: ['main']
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry
 # domain, and a name for the Docker image that this workflow builds.
@@ -23,14 +26,17 @@ jobs:
       packages: write
       #
     steps:
+      # Follow maintained majors; patch fixes ride along.
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'temurin'
+          # No stale JDKs hiding in the runner cache.
+          check-latest: true
 
       # build the project
       - name: Build with Maven
@@ -40,7 +46,7 @@ jobs:
       # and password that will publish the packages. Once published, the packages are scoped to the
       # account defined here.
       - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -52,9 +58,13 @@ jobs:
       # the base name for the tags and labels.
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Feed the tag consumers actually pull, including on cron runs.
+          tags: |
+            type=schedule,pattern=main
+            type=ref,event=branch
 
       # This step uses the `docker/build-push-action` action to build the image, based on your repository's
       # `Dockerfile`.
@@ -66,10 +76,13 @@ jobs:
       # It uses the `tags` and `labels` parameters to tag and label the image with the output from the
       # "meta" step.
       - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
+          # No fossilized base images or cached apt layers.
+          pull: true
+          no-cache: true
           # tags: user/app:latest
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

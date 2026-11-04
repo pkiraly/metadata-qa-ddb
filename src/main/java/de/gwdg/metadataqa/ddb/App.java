@@ -448,6 +448,9 @@ public class App {
       ;
     }
 
+    // Both modes must inject before configure(), or the API creates its Jetty-backed default.
+    // Same schema/index contract, JDK transport underneath.
+    configuration.withSolrClient(new JdkSolrClient(configuration.getSolrConfiguration()));
     CalculatorFacade calculator = new CalculatorFacade(configuration)
       .setSchema(schema);
     calculator.configure();

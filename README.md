@@ -8,7 +8,7 @@ The software depends on the following technologies:
 
 * MySQL
 * SQLite3
-* Java 11
+* Java 17
 * R
 * Apache Solr
 + PHP
@@ -37,7 +37,7 @@ sudo apt install sqlite3
 ## Java
 
 ```
-sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-17-jre-headless
 ```
 
 ## R
