@@ -14,9 +14,9 @@ ENV RUN_USER=nobody
 ENV RUN_GROUP=0
 ENV MQA_VERSION=1.0.0
 
-# Install requirements
-RUN sed -i 's|http://|http://de.|g' /etc/apt/sources.list && \
-	apt-get update && \
+# Patch Tuesday, every build. Keep Ubuntu's native sources.
+RUN apt-get update && \
+	apt-get upgrade -y --with-new-pkgs && \
 	apt-get install -y \
 		curl \
 		gnupg \
@@ -35,16 +35,17 @@ RUN sed -i 's|http://|http://de.|g' /etc/apt/sources.list && \
 		pip \
 		sqlite3 \
 		supervisor \
-		wget
+		wget && \
+	rm -rf /var/lib/apt/lists/*
 
-# Install R
-RUN echo "echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list" && \
-	apt-get update && \
+# Same distro, same patch train. R rides Ubuntu's repositories.
+RUN apt-get update && \
 	apt-get install -y \
               r-base \
               r-cran-gridextra \
               r-cran-stringr \
-              r-cran-tidyverse
+              r-cran-tidyverse && \
+	rm -rf /var/lib/apt/lists/*
 
 # Installing Prefect
 # RUN pip install -U "prefect==2.8.4" "prefect-shell==0.1.5"
